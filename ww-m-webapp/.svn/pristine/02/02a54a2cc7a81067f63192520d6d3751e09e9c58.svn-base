@@ -1,0 +1,72 @@
+<#import "/spring.ftl" as spring /> <#import "/layouts/common.xhtml" as
+layout> <@layout.title>BiBi娱乐社区</@layout.title>
+<@layout.metaKeywordsDescription> </@layout.metaKeywordsDescription>
+<@layout.cssLink> </@layout.cssLink> <@layout.pageHeader> BiBi娱乐社区
+</@layout.pageHeader> <@layout.mainContent>
+
+<!--content-->
+<div class="content">
+	<div class="container">
+	<div style="height: 20px;"></div>
+			<h3 style="text-align: center;">${name!}</h3>
+			<div style="height: 20px;"></div>
+			<div class="about-top">
+				<div class="col-md-12 group" style="text-align: center;">
+					<#if !type??>
+					<img src="${url!}" style="width: 70%;height: auto;margin:0 auto;" class="img-responsive" alt=""/>
+					<#else>
+						<#if type == 1>
+							<video controls="controls" src="${url!}" style="width: 70%;height: auto;margin:0 auto;" class="img-responsive" alt=""/>
+						<#else>
+							<img src="${url!}" style="width: 70%;height: auto;margin:0 auto;" class="img-responsive" alt=""/>
+						</#if>
+					</#if>
+				</div>
+				<div class="col-md-8 book">
+				
+				<#if otherPics??>
+				<#list otherPics as pic>
+					<img src="${pic!}"  class="img-responsive" alt="">
+				</#list>
+				</#if>
+				</div>
+				<div class="clearfix"></div>
+			</div>
+			
+			<div style="height: 30px;"></div>
+			
+			<div style="margin-bottom: 100px;text-align: center;">
+				<img src="/images/sharelong.png" style="width: 80%;height: auto;">
+				<div style="height: 12px;width: 100%;"></div>
+				<img src="/images/gongzhonghao.png" style="width: 100%;height: auto;">
+			</div>
+				
+			<DIV style="text-align: center;batext-align: center;width: 100%;height: 50px;margin-right: auto;margin-left: auto;overflow: hidden;margin: auto;text-align: center;position:fixed;bottom:0px;right:0px;">
+				<ul  class="fancyNav" style="width: 100%;height: 100%;">
+					<a href="http://m.zhuangdianbi.com/downloads/app.xhtml"  >
+						<li style="width: 50%;height: 50px;text-align: center;line-height: 50px;">
+							下载BiBi娱乐社区
+						</li>
+					</a>
+					
+					<li id="" style="width: 50%;height: 50px;text-align: center;line-height: 50px;" onclick="show();">
+					关注BiBi娱乐微信
+					</li>
+				</ul>
+			</DIV>
+			<div id="follow" class="follow" style="display: none;">
+			    <span class="close" onclick="hide()"><span style="color: white;">×</span></span>
+			    <img src="/images/qrcode_for_gh_534835f97de1_860.jpg">
+			</div>
+</@layout.mainContent> <@layout.script>
+<script type="text/javascript">
+    function show(){
+        document.getElementById("follow").style.display = "block";
+    }
+    function hide(){
+        document.getElementById("follow").style.display = "none";
+    }
+</script>
+
+ </@layout.script>
+

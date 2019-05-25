@@ -1,0 +1,132 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="css/mui.min.css" rel="stylesheet" />
+		<link rel="stylesheet" type="text/css" href="css/style.css"/>
+		<style type="text/css">
+			.mui-content{
+				position: absolute;
+				width: 100% !important;
+			}
+			.mui-table-view-cell{
+				padding: 11px 20px;
+			}
+			.mui-table-view-cell.mui-active{  
+			      /*background:none !important;*/  
+			}   
+			.mui-table-view:before{
+				display: none;
+			}
+			.mui-table-view-cell:after{
+				left: 5%;
+				width: 90%;
+			}
+			.mui-pull-right{
+				position:absolute;
+				top: 50%;
+				right: 5%;
+				-webkit-transform: translateY(-50%);
+    transform: translateY(-50%);
+			}
+		</style>
+	</head>
+
+	<body>
+		<header class="mui-bar mui-bar-nav noborder">
+		    <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+		    <h1 class="mui-title">등록시간 내역</h1>
+		</header>
+		<div class="mui-content mui-scroll-wrapper">
+			<div class="mui-scroll loginrecordlist ">
+			    <ul class="mui-table-view">
+			        <li class="mui-table-view-cell" v-for="item in hisrecords">
+		                <div class="mui-pull-left">
+		                		{{item.loginType}}
+		                		<p>{{item.updateTime}}</p>
+		                </div>
+		                <div class="mui-pull-right">
+		                    {{item.ip}}
+		                </div>
+			        </li>
+			    </ul>
+			</div>
+		    
+		</div>
+<script src="js/mui.min.js"></script>
+<script src="js/app.js" type="text/javascript" charset="utf-8"></script>
+<script src="js/vue.min.js" type="text/javascript"></script>
+<script type="text/javascript">
+		mui.init({});
+		mui.plusReady(function(){
+			mui(".mui-scroll-wrapper").scroll().refresh();
+		})
+	(function($,doc){
+
+		$.plusReady(function(){
+		})
+		
+		function viewRecoredData(){
+			return {
+				hisrecords:[]
+			}
+		}
+		
+		var loginRecordData =new Vue({
+			el:'.mui-content',
+			data:viewRecoredData
+		})
+		initLoginRecordData();
+		function initLoginRecordData(){
+			var list=[];
+			mui.getJSON(app.serverApi(app.apiConstant.getAccountLoginRecord),{},function(res){
+				app.respondingTo(res.code,function(code){
+					if(0!=code){
+						plus.nativeUI.toast(res.msg);
+					}else{
+						var data = res.data.hisrecords;
+						if(data&&data.length>0){
+							for(var i=0;i<data.length;i++){
+								var x = data[i];
+								var json ={};
+								json.ip ="";
+								if(x.ip){
+									json.ip =x.ip;
+								}
+								json.updateTime =app.longFymdhms(x.updateTime);
+								if(1==x.loginType){
+									json.loginType="WEB";
+								}else if(2==x.loginType){
+									json.loginType="QQ";
+								}else if(3==x.loginType){
+									json.loginType="WeiXin";
+								}else if(4==x.loginType){
+									json.loginType="Weibo";
+								}else if(5==x.loginType){
+									json.loginType="GUEST";
+								}else if(6==x.loginType){
+									json.loginType="APP";
+								}
+								if(x.status){
+									json.status="성공";
+								}else{
+									json.status="실패";
+								}
+								
+								list.push(json);
+							}
+						}
+					}
+					loginRecordData.hisrecords=list;
+				})
+			})
+		}
+			
+	}(mui,document))
+</script>
+	</body>
+
+</html>

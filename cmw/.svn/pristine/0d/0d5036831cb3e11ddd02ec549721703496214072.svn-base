@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>미션 - CandyClub 캔디클럽 | 수익을 창출하는 플랫폼</title>
+		<meta name="description" content="CandyClub가입하고 에어드랍 받기, 미션 완성하고 블록체인 프로젝트 에어드랍 받기, 친구 초대하고 리워드 받기."/>
+		<meta name="keywords" content="Token에어드랍，ICO에어드랍，Airdrop, 에어드랍, 캔디에어드랍, 블록체인ICO, 토큰 무료수령, 블록체인 프로젝트 이벤트." />
+		<meta property="og:title" content="미션 - CandyClub 캔디클럽 | 수익을 창출하는 플랫폼"/>
+		<meta property="og:description" content="CandyClub가입하고 에어드랍 받기, 미션 완성하고 블록체인 프로젝트 에어드랍 받기, 친구 초대하고 리워드 받기."/>
+		<meta property="og:url" content="https://www.candy.club/task"/>
+		
+		<#include "/common/head.xhtml"/>
+	</head>
+	<body>
+		
+		<#include "/common/header.xhtml"/>
+		<section class="bannerpage">
+			<div class="container"><img src="/active/assets/image/banner-task.jpg" width="1200"/></div>
+		</section>
+		<section class="taglist">
+			<div class="container">
+				<div class="tagcon">
+					<span>Task Type:</span>
+					<a href="/task.xhtml" <#if type??> <#else>class="active"</#if>>All</a>
+					<#list types as it>
+						<a href="/task.xhtml?type=${it.code}" <#if type??&&type==it.code>class="active"</#if>>${it.title}</a>
+					</#list>
+				</div>
+			</div>
+		</section>
+		<section class="taskpage">
+			<div class="container">
+				<div class="tasklist">
+						<ul>
+							<#list tasks as task>    
+							<li <#if taskId==0>  <#if task_index==0 > class="active"</#if><#else> <#if taskId==task.task._id>class="active"</#if></#if>>
+								<h2>${task.task.title!}</h2>
+								<div class="coinlist">
+									<#list task.task.rewards? keys as key>
+									<div class="coin-view">
+										<#if coinPics??&&coinPics?size gt 0>
+									   <img src="${imgDomain!}${coinPics[key]}" width="20" alt="无"/>
+
+									   </#if>
+									    <#-- <img src="/active/image/coin-logo-01.png" width="20"/>  -->
+									   <span>${task.task.rewards[key]}</span>
+									   									   
+									   ${key}
+								    </div>
+									</#list>
+								</div>
+								<div class="tasks-tate">
+									<#if task.status??&& (4==task.status||1==task.status) >
+									<img src="/active/assets/image/task-receive.png" width="60" height="60"/>
+									<#elseif task.status??&& (3==task.status)>
+									<img src="/active/assets/image/task-shenhe.png" width="60" height="60"/>
+									<#elseif task.status??&& (6==task.status)>
+									<img src="/active/assets/image/task-finish.png" width="60" height="60"/>
+									<#else>
+									<img src="/active/assets/image/task-unfinish.png" width="60" height="60"/>
+									</#if>
+
+								</div>
+							</li>
+							</#list>
+						</ul>
+					</div>
+					<div class="pagebody taskcon">
+					<#list tasks as task>
+						<div class="view <#if taskId==0><#if task_index==0 >active</#if><#else> <#if taskId==task.task._id>active</#if></#if>">
+							<div class="title-info">
+								<h2>${task.task.title!}</h2>
+							</div>
+							<div class="view-num-list">
+								
+								<div class="view-num">
+									<span>완성한 미션:</span>
+									<p>${(task.task.finish)!'0'}</p>
+								</div>
+								<div class="view-num">
+									<span>총미션:</span>
+									<p class="nbcolor">${(task.task.total)!}</p>
+								</div>
+								<div class="doitbtn">
+									<div id="t${task.task._id}">
+										<#if task.status==2>
+											 <a href="/my/upload?id=${task.id}" >이미지 제출</a>
+										<#elseif task.status==3>
+										    <a href="/my/upload?id=${task.id}" >심사중</a>
+										<#elseif task.status==4||1==task.status>
+										   <a href="javascript:;" class="receive" onclick="reward(${(task.id)!})">수령</a>
+										<#elseif task.status==6>
+										    <a href="javascript:;" class="finish btn_grey">완성</a>
+										<#elseif task.status==-1>
+										    <a href="javascript:;" class="finish" onclick="doTask(${(task.task._id)!})">미션</a>
+										    &nbsp;미션 실패
+										<#else>
+											<a href="javascript:;" onclick="doTask(${(task.task._id)!})">미션</a>
+										</#if>
+									</div>
+								</div>	
+							</div>
+							<div class="coininro">
+								<dl>
+									<dt><img src="${imgDomain}${(task.task.pic)!}" width="70"/>
+										<p>${(task.task.symbol)!}</p></dt>
+									<dd>
+										<p>
+											<#if task.task.summary??>
+												${task.task.summary!}
+											<#else>暂无
+											</#if>							
+										</p>
+									</dd>
+								</dl>
+							</div>
+							<div class="view-con" <#if task.task._id==taskId>style="display: block;"</#if>>
+								
+								<div class="intro">
+									<p>${(task.task.detail)!}</p>
+								</div>
+								
+							</div>
+						</div>
+
+					 </#list>
+
+				</div>
+			</div>
+		</section>
+        <#include "/common/footer.xhtml"/>
+		<script type="text/javascript">
+			$('.tasklist ul li').click(function() {
+				var jjj = $(this).index();
+				console.log(jjj);
+				$('.tasklist ul li').removeClass('active')
+				$(this).addClass("active")
+				$(".taskcon .view").removeClass('active')
+				$(".taskcon .view").eq(jjj).addClass('active')
+			});
+
+			 function doTask(id){
+			 	$.post("/my/doTask",{"taskId":id},function(ret) {
+			 		console.log(ret);
+					if (0 != ret.code) {
+						if(ret.code == 11000){
+							window.location.href="/login.xhtml?url=/task.xhtml";
+							return ;
+						}
+						alert(ret.msg);
+					} else {
+						var data=ret.data;
+						if(data.type==1){//Telegram
+							if(data.urlType=="_self"){
+								window.open(data.url);
+							}else{
+								window.location.href=data.url;
+							}
+						}else if(data.type==2){//upload
+							　$("#t"+id).html('<a href="/my/upload?id='+ret.data.obj._id+'" >이미지 제출</a>');
+							 location.reload(true);
+							
+						}else if(data.type==3){//twitter
+							alert("오픈 되지 않은 미션입니다！");
+							
+						}else if(data.type==4){//kakao
+							alert("오픈 되지 않은 미션입니다！");
+						}else if(data.type==5){
+							window.location.href=data.url+"";
+						}
+					}
+					
+				});
+			 }
+			 
+			
+			 function reward(id){
+			 	$.post("/my/taskRewards",{"utid":id},function(ret) {
+			 		console.log(ret);
+					if (0 != ret.code) {
+						alert(ret.msg);
+					} else {
+						$("#t"+ret.data.taskId).html('<a href="javascript:;" class="finish">완성</a>');
+					}
+				});
+			 }
+		</script>
+	</body>
+</html>

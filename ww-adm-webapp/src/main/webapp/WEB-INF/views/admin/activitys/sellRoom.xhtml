@@ -1,0 +1,135 @@
+<#import "/spring.ftl" as spring />
+<#import "/admin/layouts/common.xhtml" as layout>
+<@layout.title>房间信息</@layout.title> <@layout.metaKeywordsDescription>
+
+</@layout.metaKeywordsDescription> <@layout.cssLink>
+<link rel="stylesheet" type="text/css"
+	href="/webuploader/webuploader.css"></@layout.cssLink>
+	<@layout.pageHeader> 房间信息 </@layout.pageHeader> <@layout.mainContent>
+<input type="hidden" id="nav_id" value="sellRoom" />
+<div class="row">
+	<div class="col-lg-8">
+		<form role="form" id="form">
+			<input type="hidden" id="roomId" name="roomId" value="${(obj._id)!}" />
+
+			<div class="form-group form-inline">
+				<label>房间ID:</label> <span>${(obj._id)!}</span>
+			</div>
+
+			<div class="form-group form-inline">
+				<b style="color: red"><label>房主ID:</label> </b> <input
+					class="form-control" id="buyUid" name="buyUid" placeholder="房主ID"
+					value="${(obj.buyUid)!}"><span id="nickname"></span>
+			</div>
+			<div class="form-group form-inline">
+				<b style="color: red"><label>使用状态:</label> </b> 
+				<input type="radio" id="useStatus" name="useStatus" value="2"
+				<#if obj.useStatus?? && obj.useStatus==2>checked="true" </#if> />可用 
+				<input type="radio" id="useStatus" name="useStatus" value="1"
+				<#if obj.useStatus?? && obj.useStatus==1>checked="true" </#if> />不可用
+			</div>
+
+			<div class="form-group form-inline">
+				<b style="color: red"><label>售卖状态:</label> </b>
+				 <input type="radio" id="sellStatus" name="sellStatus" value="1"
+				<#if obj.sellStatus?? && obj.sellStatus==1>checked="true" </#if> />不可售 
+				<input type="radio" id="sellStatus" name="sellStatus"value="2"
+				<#if obj.sellStatus?? && obj.sellStatus==2>checked="true" </#if>/>可售
+				<input type="radio" id="sellStatus" name="sellStatus" value="3"
+				<#if obj.sellStatus?? && obj.sellStatus==3>checked="true" </#if>/>已售
+				<input type="radio" id="sellStatus" name="sellStatus" value="4"
+				<#if obj.sellStatus?? && obj.sellStatus==4>checked="true" </#if>/>待付款
+			</div>
+
+			<div class="form-group form-inline">
+				<b style="color: red"><label>系统房间:</label> </b> <input type="radio"
+					id="sys" name="sys" value="true"
+				<#if obj.sys?? && obj.sys>checked="true" </#if>
+				/>系统房间 <input type="radio" id="sys" name="sys" value="false"
+				<#if obj.sys?? && !obj.sys>checked="true" </#if>
+				/>非系统房间
+			</div>
+
+			<div class="form-group form-inline">
+				<b style="color: red"><label>有效期:</label> </b> <input
+					class="form-control" id="expiry"
+					value="<#if (obj.expiry)?? && obj.expiry gt 1 >${obj.expiry?number?number_to_datetime}</#if>"
+					onClick="WdatePicker({skin:'whyGreen',dateFmt:'yyyy-MM-dd HH:mm:ss'})" />
+			</div>
+
+			<div class="form-group form-inline">
+				<label>房间类型:</label> <span>${(obj.type)!}</span>
+			</div>
+
+			<div class="form-group form-inline">
+				<label>活动状态:</label>
+				<#if obj.status?? && obj.status==1> 准备 <#elseif
+					obj.status?? && obj.status==2> 活动 <#else></#if>
+			</div>
+
+			<div class="form-group form-inline">
+				<label>是否公开:</label> <span>${(obj.pub)!}</span>
+			</div>
+
+			<div class="form-group form-inline">
+				<label>房间总人数:</label> <span>${(obj.count)!}</span>
+			</div>
+
+			<div class="form-group form-inline">
+				<label>房间机器人数:</label> <span>${(obj.robitCount)!}</span>
+			</div>
+
+			<div class="form-group form-inline">
+				<label>创建时间:</label> <span>${(obj.createDate)?number?number_to_datetime}</span>
+			</div>
+<!-- 
+			<div class="form-group form-inline">
+				<label>活动时间:</label> <span>
+				<#if (obj.activityDate)?? && obj.activityDate gt 1 >
+				${(obj.activityDate)?number?number_to_datetime}
+				</#if></span>
+			</div>
+ -->
+			<div class="form-group form-inline">
+				<label>更新时间:</label> <span>${(obj.updateTime)?number?number_to_datetime}</span>
+			</div>
+
+			<button id="submit" class="btn btn-default">提交</button>
+		</form>
+	</div>
+</div>
+
+</@layout.mainContent><@layout.script> <script>
+	$(function() {
+		$("#buyUid").blur(function(e){
+			e.preventDefault();
+			var cuid = $("#buyUid").val();
+			$.get("/admin/user/info.xhtml?uid="+cuid,  function(ret) {
+				if (0 != ret.code) {
+					$$("#nickname").html("<b><font color=\"red\">用户不存在！！！</font></b>");
+				} else {
+					$("#nickname").html(ret.data.nickname+"["+cuid+"]");
+				}
+			});
+		});
+		
+		$("#submit").click(function(e) {
+			e.preventDefault();
+			var jsonData = {
+				"roomId":$("#roomId").val(),
+				"buyUid":$("#buyUid").val(),
+				"useStatus":$("input[name*='useStatus']:checked").val(),
+				"sellStatus":$("input[name*='sellStatus']:checked").val(),
+				"sys":$("input[name*='sys']:checked").val(),
+				"expiry":$("#expiry").val()
+			};
+			$.post("/admin/active/sellRoom.xhtml", jsonData, function(ret) {
+				if (0 != ret.code) {
+					alert(ret.Msg);
+				} else {
+					alert("Success");
+				}
+			});
+		});
+	});
+</script> </@layout.script> 

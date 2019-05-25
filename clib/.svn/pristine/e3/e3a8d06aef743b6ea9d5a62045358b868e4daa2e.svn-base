@@ -1,0 +1,123 @@
+package com.we.service;
+
+import java.util.List;
+import java.util.Random;
+import java.util.concurrent.ThreadLocalRandom;
+
+import javax.servlet.http.HttpServletRequest;
+
+import org.apache.commons.lang.StringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.mongodb.BasicDBObject;
+import com.mongodb.DBObject;
+import com.mongodb.WriteConcern;
+import com.we.common.Constant.Const;
+import com.we.common.Constant.ReCode;
+import com.we.common.crypto.MDUtil;
+import com.we.common.mongo.DboUtil;
+import com.we.common.utils.MailUtil;
+import com.we.common.utils.RandomUtil;
+import com.we.common.utils.RegexUtil;
+import com.we.core.web.ReMsg;
+import com.we.models.DocName;
+import com.we.models.MailLog;
+import com.we.models.division.DivisionTask.DivisionTaskType;
+
+@Service
+public class MailLogService extends BaseService {
+
+	static final Logger log = LoggerFactory.getLogger(MailLogService.class);
+
+	@Autowired
+	UserService userService;
+	
+	@Autowired
+	UserDivisionService userDivisionService;
+
+	public ReMsg saveMailLog(String mailNo, String code, Long uid, String ip) {
+		long id = super.getNextId(DocName.MAIL_LOG);
+		MailLog mailLog = new MailLog(id, mailNo, code, uid, ip);
+		super.getMongoTemplate().save(mailLog);
+		return new ReMsg(ReCode.OK);
+	}
+
+	public DBObject findByCode(String code) {
+		return getC(DocName.MAIL_LOG).findOne(new BasicDBObject("code", code));
+	}
+
+	public DBObject findByUidTime(Long uid) {
+		List<DBObject> list = getC(DocName.MAIL_LOG).find(new BasicDBObject("uid", uid))
+				.sort(new BasicDBObject("updateTime", -1)).toArray();
+		if (list != null && list.size() > 0) {
+			return list.get(0);
+		}
+		return null;
+	}
+
+	public ReMsg validEmail(String code) {
+		DBObject mldbo = this.findByCode(code);
+		if (mldbo != null) {
+			MailLog ml = DboUtil.toBean(mldbo, MailLog.class);
+			if (ml.getStatus() == Const.STATUS_DEF && System.currentTimeMillis() - ml.getUpdateTime() < Const.DAY) {
+				userService.updateMailPass(ml.getUid(), ml.getMailNo());
+				super.getC(DocName.MAIL_LOG).update(new BasicDBObject("_id", ml.get_id()),
+						new BasicDBObject("$set", new BasicDBObject("status", Const.STATUS_OK)));
+				userDivisionService.doDivisionTask(ml.getUid(), DivisionTaskType.EMAIL, 1);
+				return new ReMsg(ReCode.OK);
+			}
+		}
+		return new ReMsg(ReCode.FAIL);
+	}
+
+	public ReMsg updateMailStatus(String code, Integer status, Integer sendStatus) {
+		DBObject u = new BasicDBObject("updateTime", System.currentTimeMillis());
+		if (status != null) {
+			u.put("status", status);
+		}
+		if (sendStatus != null) {
+			u.put("sendStatus", sendStatus);
+		}
+		if (getC(DocName.MAIL_LOG).update(new BasicDBObject("code", code), new BasicDBObject("$set", u), false, false,
+				WriteConcern.ACKNOWLEDGED).getN() > 0) {
+			return new ReMsg(ReCode.OK);
+		}
+		return new ReMsg(ReCode.FAIL);
+	}
+
+	public ReMsg sendMailToUser(HttpServletRequest req, String mailNo, Long uid) {
+		if (!RegexUtil.isEmail(mailNo)) {
+			return new ReMsg(ReCode.EMAIL_PATTERN_ERR);
+		}
+		if (userService.findByEmail(mailNo) != null) {
+			return new ReMsg(ReCode.Mail_REGED_ERR);
+		}
+		// 发送
+		String codeMd5 = MDUtil.getMD5(mailNo + uid + RandomUtil.random(6));
+		String urlPath = "https://candy.club/validEmail/" + codeMd5;
+
+		String body = "<a href=\"" + urlPath + "\">点击认证您绑定的邮箱" + mailNo + "。</a>，有效期24小时";
+		String subject = "认证您的邮箱";
+
+		boolean b = MailUtil.sendMailByJava(mailNo, subject, body);
+		log.info("---发送本人要认证邮箱：---" + body);
+		saveMailLog(mailNo, codeMd5, uid, super.getIp(req));
+		if (b)
+			return new ReMsg(ReCode.OK);
+		return new ReMsg(ReCode.FAIL);
+	}
+
+	public static String getUrlPath(HttpServletRequest req) {
+		String urlPath = "";
+		int port = req.getServerPort();
+		if (port > 0)
+			urlPath = ":" + port;
+		if (StringUtils.isNotEmpty(req.getContextPath()))
+			urlPath += "/" + req.getContextPath();
+		return "https://" + req.getServerName() + urlPath;
+	}
+
+}

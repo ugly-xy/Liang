@@ -1,0 +1,113 @@
+<#import "/spring.ftl" as spring /> 
+<#import "/admin/layouts/common.xhtml" as layout>
+<@layout.title>发布猜猜</@layout.title> <@layout.metaKeywordsDescription>
+
+</@layout.metaKeywordsDescription> 
+<@layout.cssLink> 
+<link rel="stylesheet" type="text/css" href="/webuploader/webuploader.css">
+</@layout.cssLink>
+<@layout.pageHeader> 发布猜猜 </@layout.pageHeader> 
+<@layout.mainContent>
+<input type="hidden" id="nav_id" value="guesses" />
+<div class="row">
+	<div class="col-lg-8">
+		<form role="form" id="form" >
+		    <div class="form-group form-inline">
+				<label>猜猜类型</label> <select class="form-control" id="type" name="type">
+					<option value="2" selected>上海快三</option>
+				<!--  	<option value="1">北京快三</option>-->
+					<option value="3">普通猜猜</option>
+					</select>
+			</div>
+		     <div class="form-group form-inline" >
+				 ❤ ✨  💡  🏮  💘  🎀  💝   🌸🌼🌻🌞🌝🌺💐🌷🍄🍁🍂🍃🌈⛄️☃️❄️💦💧☂️☔️🌊🥐🍘🍣🍤🔥
+			</div>
+			<div class="form-group form-inline">
+				<label>猜猜标题</label> 
+				<TEXTAREA class="form-control" id="title" name="title"  cols="65" rows="1">🍁上海快三 ✨ 期✨ 猜和值 🔥</TEXTAREA>
+			</div>
+			
+			<div class="form-group form-inline">
+				<label>发布用户</label> <input class="form-control" id="uid" name="uid" placeholder="用户ID" >
+				<span id="nickname"></span>
+			</div>
+			
+            <div class="form-group form-inline" id="issueDiv">
+				<label>快三期号</label>
+				<input class="form-control" id="issue" name="issue" placeholder="上海快三期号 1-82 ">
+			</div>
+			
+			<div class=" form-group form-inline" id="etDiv" style="display:none;">
+		 	<label>下注时间</label> 
+				 <input class="form-control" id="endDrawTime" name="endDrawTime"
+				value="<#if (obj.publishTime)?? && obj.publishTime gt 1 >${obj.publishTime?number?number_to_datetime}</#if>"
+				onClick="WdatePicker({skin:'whyGreen',dateFmt:'yyyy-MM-dd-HH-mm'})"
+				placeholder="下注截止时间"/>
+			</div>
+			
+			<div class="form-group form-inline" id="itemsDiv" style="display:none;">
+				<label>下注选项</label>
+				<TEXTAREA class="form-control" id="items" name="items" cols="30" rows="4" placeholder="(中文分号分隔)选项1内容;选项2内容;选项3内容;选项4内容;选项5内容"></TEXTAREA>
+			</div>
+			
+			<button id="submit" class="btn btn-default" disabled="true">发布 </button>
+			<button id="reset" class="btn btn-default">重置</button>
+		</form>
+	</div>
+</div>
+</@layout.mainContent><@layout.script>
+<script>
+	$(function() {
+		$("#type").bind("change",function () {  
+	    	var type=$("#type").val();
+	    	if(type==2){//上海快三
+	    		$("#issueDiv").css("display","block");
+	    		$("#etDiv").css("display","none");
+	    		$("#itemsDiv").css("display","none");
+	    		$("#title").html("🍁上海快三 ✨ 期✨ 猜和值 🔥");
+	    	}else if(type==1){//北京快三
+	    		$("#issueDiv").css("display","block");
+	    		$("#etDiv").css("display","none");
+	    		$("#itemsDiv").css("display","none");
+	    		$("#title").html("🌼北京快三🌼  期🍁");
+	    	}else{//普通猜猜
+	    		$("#issueDiv").css("display","none");
+	    		$("#etDiv").css("display","block");
+	    		$("#itemsDiv").css("display","block");
+	    		$("#title").html("");
+	    	}
+	    })
+	    
+		$("#uid").blur(function(e){
+			e.preventDefault();
+			var cuid = $("#uid").val();
+			$.get("/admin/user/info.xhtml?uid="+cuid,  function(ret) {
+				if (0 != ret.code) {
+					$("#nickname").html("<b><font color=\"red\">用户不存在！！！</font></b>");
+					$("#submit").attr("disabled", true); 
+					$("#reduce").attr("disabled", true); 
+				} else {
+					$("#nickname").html(ret.data.nickname+"["+cuid+"]");
+					$("#submit").attr("disabled", false); 
+					$("#reduce").attr("disabled", false); 
+				}
+			});
+		});
+		
+		$("#submit").click(function(e) {
+			e.preventDefault();
+			var t = this;
+			var jsonData = $("#form").serializeArray();
+			$.post("/admin/guess.xhtml", jsonData, function(ret) {
+				if (0 != ret.code) {
+					alert(ret.msg);
+				} else {
+					alert("success");
+					window.location.href="/admin/guess?id="+ret.data._id;
+				}
+			});
+		});
+		
+	});
+</script>
+ </@layout.script>

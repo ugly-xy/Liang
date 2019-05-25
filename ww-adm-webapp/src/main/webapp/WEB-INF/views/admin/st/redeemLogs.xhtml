@@ -1,0 +1,135 @@
+<#import "/spring.ftl" as spring /> <#import "/admin/layouts/common.xhtml" as layout>
+<@layout.title>鲜花兑换活动</@layout.title> <@layout.metaKeywordsDescription>
+
+</@layout.metaKeywordsDescription> <@layout.cssLink> </@layout.cssLink>
+<@layout.pageHeader> 鲜花兑换活动记录 </@layout.pageHeader> <@layout.mainContent>
+	<input type="hidden" id="nav_id" value="redeem" />
+<div class="well well-sm">
+	<div class="row">
+		<FORM action="/admin/redeemLogs.xhtml">
+		<div class="col-sm-1">
+				<label>用户ID</label>
+		</div>
+		<div class="col-sm-2">
+				<input class="form-control" type="text" id="uid" name="uid" value="${uid!}" />
+		</div>
+		<div class="col-sm-1">
+			<label>奖品类型</label>
+		</div>
+		<div class="col-sm-2">
+			<select class="form-control" id="type" name="type">
+				<option value="0">全部</option>
+				<option value="1" <#if type?? && type==1>selected</#if> >1.iPhone7 Plus (128GB)</option>
+				<option value="2" <#if type?? && type==2>selected</#if> >2.卡西欧CASIO EX-TR750</option>
+				<option value="3" <#if type?? && type==3>selected</#if> >3.iPad Pro (9.7英寸)</option>
+				<option value="4" <#if type?? && type==4>selected</#if> >4.Meitu 美图T8(4GB+128GB)</option>
+				<option value="5" <#if type?? && type==5>selected</#if> >5.OPPO R9s Plus (4G+64G)</option>
+				<option value="6" <#if type?? && type==6>selected</#if> >6.Apple Watch Series2 (38毫米)</option>
+				<option value="7" <#if type?? && type==7>selected</#if> >7.小米5s (3G+64G)</option>
+				<option value="8" <#if type?? && type==8>selected</#if> >8.小米 红米Note4 (4G+64G)</option>
+				<option value="9" <#if type?? && type==9>selected</#if> >9.富士INSTAX MINI90</option>
+				<option value="10" <#if type?? && type==10>selected</#if> >10.富士INSTAX MINI25 (Kitty白)</option>
+				<option value="20001" <#if type?? && type==20001>selected</#if> >鲜花兑换金币</option>
+			</select>
+			</div>
+		<div class="col-sm-1">
+		兑换码:
+		</div>
+		<div class="col-sm-2">
+		 <input class="form-control" id="key" name="key" value="${key!}" />
+		</div>
+		<div class="col-sm-3">
+			<button type="submit" class="btn btn-default">查询</button>
+		</div>
+		</FORM>
+	</div>
+</div>
+<div class="row">
+	<div class="col-lg-12">
+
+		<div class="dataTable_wrapper">
+			<table class="table table-striped table-bordered table-hover"
+				id="dataTables-example">
+				<thead>
+					<tr>
+					    <th>奖品名称</th>
+						<th>用户ID</th>
+						<th>用户昵称</th>
+						<th>用户头像</th>
+						<th>扣除花量</th>
+						<th>key(兑换码)</th>
+						<th>兑换key时间</th>
+					    <th>兑换奖品时间</th>
+						<th>操作</th>
+					</tr>
+				</thead>
+				<tbody>
+			
+	
+					<#list page.list as it>
+					<tr class="gradeA">
+						<td>
+                             <#if it.type?? && it.type==1 >1.iPhone7 Plus (128GB)
+						     <#elseif it.type?? && it.type==2 >2.卡西欧CASIO EX-TR750
+						     <#elseif it.type?? && it.type==3 >3.iPad Pro (9.7英寸)
+						     <#elseif it.type?? && it.type==4 >4.Meitu 美图T8(4GB+128GB)
+						     <#elseif it.type?? && it.type==5 >5.OPPO R9s Plus (4G+64G)
+						     <#elseif it.type?? && it.type==6 >6.Apple Watch Series2 (38毫米)
+						     <#elseif it.type?? && it.type==7 >7.小米5s (3G+64G)
+						     <#elseif it.type?? && it.type==8 >8.小米 红米Note4 (4G+64G)
+						     <#elseif it.type?? && it.type==9 >9.富士INSTAX MINI90
+						     <#elseif it.type?? && it.type==10 >10.富士INSTAX MINI25 (Kitty白)
+						     <#elseif it.type?? && it.type==20001 >鲜花兑换金币
+						</#if>
+                        </td>
+						<td><a href="/admin/users.xhtml?userId=${(it.uid)!}" target="_black">${(it.uid)!}</a></td>
+						<td>${(it.nickname)!}</td>
+						<td><img
+							src="<#if it.avatar??><@layout.img path=it.avatar></@layout.img></#if>"
+							width="120px" />
+							</td>
+						<td>${it.count} </td>
+						<td>${it.key} </td>
+						<td>${it.createTime?number?number_to_datetime} </td>
+						<td><#if it.updateTime?? && it.updateTime==0>未兑奖 
+						     <#else>${it.updateTime?number?number_to_datetime}
+						     </#if>
+						</td>
+						<td><#if it.status?? && it.status==1><a href="javascript:redeem();">输入兑奖码后兑奖</a>
+						     <#else>  已兑奖
+						     </#if>
+						</td>
+					</#list>
+				</tbody>
+			</table>
+		</div>
+		<div class="row">
+			<div class="col-sm-4">
+				<div class="dataTables_info" id="dataTables-example_info"
+					role="status" aria-live="polite">当前 ${page.curPage}/${page.totalPage}页， 共${page.total}条 </div>
+			</div>
+			<div class="col-sm-8">
+			<@vpage cur=page.curPage total=page.totalPage url=page.url > ${vpage}</@vpage>
+			</div>
+		</div>
+	</div>
+
+	<!-- /.col-lg-12 -->
+</div>
+
+</@layout.mainContent> 
+<@layout.script> <script type="text/javascript">
+	function redeem() {
+		var jsonData = {
+			"key":$("#key").val()
+		};
+		$.post("/admin/redeemKey", jsonData, function(ret) {
+			if (0 != ret.code) {
+				alert("兑换码无效,请检查后再兑换");
+			} else {
+				alert("兑换码通过,商品兑换成功");
+				location.reload();
+			}
+		});
+	}
+</script> </@layout.script> 

@@ -1,0 +1,117 @@
+package com.we.common.Constant;
+
+public enum ReCode {
+	OK(0, "OK"),
+
+	FAIL(1, "FAILED"),
+
+	SYS_ERR(2, "ERR,系统错误"),
+
+	USERNAME_ERR(10001, "输入的用户有误，用户名必须为2-16位中文，字母，数字"),
+
+	PASSWORD_ERR(10002, "输入密码有误，密码必须为6-20位"),
+
+	USERNAME_EXISTS(10003, "用户名已经存在"),
+	
+	PHONE_EXISTS(10004, "手机号已经注册"),
+
+	PHONE_NUMBER_FORMAT_ERROR(50011, "手机号格式错误"),
+
+	USER_NOT_EXISTS(50013, "用户不存在"),
+
+	LOGIN_FAILED_ERR_USERNAME(10004, "登录失败，用户名不存在"),
+
+	LOGIN_FAILED_ERR_PASSWORD(10005, "登录失败，用户名或密码错误"),
+
+	LOGIN_FAILED_ERR_TOO_OFTEN(10006, "多次登录失败，5分钟后再登录"),
+
+	AUTHCODE_ERR(10007, "验证码错误，重新获取验证码！"),
+
+	NICKNAME_EXISTS(10008, "昵称已经存在"),
+
+	PASSWORD_VER_ERR(10009, "密码验证失败"),
+
+	HAVE_BEEN_SIGNED(10010, "已经签到"),
+
+	THIRD_LOGIN_FAILED_ERR(10011, "第三方登陆失败"),
+
+	THIRD_LOGIN_FAILED_ERR_NO_INFO(10012, "第三方登陆失败，无返回用户信息"),
+
+	LOGIN_FAILED_ERR_THIRD(10013, "第三方登录失败"),
+
+	COIN_BALANCE_LOW(10014, "余额不足！"),
+
+	NO_RESIGN(10018, "无需补签"),
+
+	PARAMETER_ERR(10100, "参数错误"),
+
+	SIGN_ERR(10101, " 签名错误"),
+
+	NOT_AUTHORIZED(11000, "没有登录或登录已失效，请重新登录"),
+
+	LOGIN_NOT_ALLOWED(11002, "账户已禁用"),
+
+	REG_TOO_OFTEN(11003, "注册太频繁"),
+
+	BANNED(11004, "恶意访问，ip，设备被禁"),
+
+	USER_ID_ERR(11005, "用户Id错误"),
+
+	USER_LOCKED(11006, "账户已禁用"),
+
+	SMS_IP_TOO_OFTEN(11101, "当前IP超过短信验证码此数"),
+
+	SMS_PHONE_TOO_OFTEN(11102, "当前手机号超过短信验证码次数"),
+
+	SMS_PHONE_TOO_OFTEN_60(11103, "当前手机号调用太频繁，1分钟后再尝试"),
+
+	SMS_SEND_ERR(11104, "验证码发送失败，稍后重试"),
+
+	SMS_SEND_OUTTIME_ERR(11105, "发送超时！"),
+
+	SMS_DRAW_ERR(11106, "当前手机号调用太频繁，1分钟后再尝试"),
+
+	ROOL_NO(12000, "没有权限"),
+
+	TOOL_USE_IP_MAX_ERR(14003, "该IP使用太频繁"),
+
+	SECURITY_SIGN_ERR(20001, "签名错误！"),
+
+	FEEDBACK_ERR(22001, "您的反馈我们已经收到，休息一会儿吧！"),
+
+	ACCESS_TOKEN_ERR(30000, "访问失败,AccessToken无效"),
+	ACCESS_TOKEN_NON_EXISTENT(30001 ,"没有登陆"),
+	//
+	NICKNAME_EMP_ERR(40001,"昵称不能为空!"),
+	NICKNAME_PATTAN_ERR(40002,"昵称最多可输入10个字符"),
+	EMAIL_PATTERN_ERR(40003, "您邮箱格式不正确！"),
+	KYC_UPLOAD_ERR(40004, "请重新选择上传的图片！"),
+	PASSWORD_LENGTH_ERR(40005, "您密码长度不够！"),
+	PASSWORD_LOWERCASE_ERR(40006, "您密码不能全为数字！"),
+	Mail_TO_TIME_LIMIT(40007, "请到你邮箱点击认证，5分钟后再尝试更改"),
+	Mail_CLICK_OVERTIME(40008, "链接已失效，请重新去邮箱认证"),
+	Mail_REGED_ERR(40008, "邮箱已被注册，请选其它邮箱！"),
+	SHARE_CODE_SENDING(40009, "您认证邮箱正在发送中..！"),
+	SHARE_CODE_FAIL(40009, "邮箱发送失败！请稍后重试.."),
+	;
+
+	private int recode = 0;
+	private String msg;
+
+	private ReCode(int recode) {
+		this.recode = recode;
+	}
+
+	private ReCode(int recode, String msg) {
+		this.recode = recode;
+		this.msg = msg;
+	}
+
+	public int reCode() {
+		return recode;
+	}
+
+	public String getMsg() {
+		return msg;
+	}
+}

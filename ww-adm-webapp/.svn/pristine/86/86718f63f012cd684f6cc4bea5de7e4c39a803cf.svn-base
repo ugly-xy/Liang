@@ -1,0 +1,196 @@
+<#import "/spring.ftl" as spring />
+<#import "/admin/layouts/common.xhtml" as layout>
+<@layout.title>谁是卧底用户描述</@layout.title> <@layout.metaKeywordsDescription>
+
+</@layout.metaKeywordsDescription> <@layout.cssLink> </@layout.cssLink>
+<@layout.pageHeader> 谁是卧底用户描述</@layout.pageHeader> <@layout.mainContent>
+<input type="hidden" id="nav_id" value="ucSpeakLog" />
+<div class="well well-sm">
+	<div class="row">
+		<FORM action="/admin/undercover/speakLogs.xhtml">
+		<div class="col-sm-1">
+		关键词:
+		</div>
+		<div class="col-sm-2">
+		<input class="form-control"  id="word" name="word"  value="${word!}"/>
+		</div>
+		<div class="col-sm-1">
+			状态:
+			</div>
+			<div class="col-sm-2">
+			<select class="form-control"  id="status" name="status">
+			<option value="0">全部</option>
+			<option <#if status?? && status==3>selected</#if> value="3" >通过</option>
+			<option <#if status?? && status==1>selected</#if> value="1" >未审核</option>
+			<option <#if status?? && status==-1>selected</#if> value="-1" >未通过</option>
+			</select>
+			</div>
+		<div class="col-sm-2">
+			<button type="submit" class="btn btn-default">查询</button>
+			 <a class="btn btn-default" href="/admin/undercover/speakLog.xhtml">添加</a>
+		</div>
+		
+			<button type="button" class="btn btn-default" id="boxNo">不通过</button>
+			<button type="button" class="btn btn-default" id="boxYes">通过</button>
+			<button type="button" class="btn btn-default" id="boxDel">删除</button>
+		</FORM>
+	
+	</div>
+</div>
+<div class="row">
+	<div class="col-lg-12">
+
+		<div class="dataTable_wrapper">
+			<table class="table table-striped table-bordered table-hover"
+				id="dataTables-example">
+				<thead>
+					<tr>
+						<th><input type="checkbox"name="ids" id="selectAll"/>ID</th>
+						<th>关键词</th>
+						<th>描述词</th>
+						<th>状态</th>
+						<th>操作</th>
+					</tr>
+				</thead>
+				<tbody>
+					<#list page.list as it>
+					<tr class="gradeA">
+						<td><input type="checkbox" name="select" value="${it._id}" >${it._id} </td>
+						<td><a href="/admin/undercover/speakLog.xhtml?word=${(it.word)!}">${(it.word)!}</a></td>
+						<td>${(it.speak)!}</td>
+						<td><#if it.status??&&it.status==3>已通过<#elseif it.status??&&it.status==-1>未通过<#else>未审核</#if></td>
+						<td> <a
+							href="javascript:del('${it._id}')">删除</a>
+						 <#if it.status?? && it.status==3 >        
+						            <a href="javascript:validto1('${it._id}')">不通过</a> 
+						 <#elseif it.status?? && it.status==-1 >
+						            <a href="javascript:validto3('${it._id}')">通过</a>
+						  <#else>
+						          <a href="javascript:validto3('${it._id}')">通过</a>
+						         <a href="javascript:validto1('${it._id}')">不通过</a>
+						  </#if>
+						</td>
+							 
+					</tr>
+					</#list>
+				</tbody>
+			</table>
+		</div>
+		<div class="row">
+			<div class="col-sm-6">
+				<div class="dataTables_info" id="dataTables-example_info"
+					role="status" aria-live="polite">当前
+					${page.curPage}/${page.totalPage}页， 共${page.total}条</div>
+			</div>
+			<div class="col-sm-8"><@vpage cur=page.curPage
+				total=page.totalPage url=page.url > ${vpage}</@vpage></div>
+		</div>
+	</div>
+	<!-- /.col-lg-12 -->
+</div>
+
+</@layout.mainContent> <@layout.script> <script type="text/javascript">
+function validto1(id) {
+	var jsonData = {
+		"id" : id,
+		"status":-1
+	};
+	$.post("/admin/undercover/speakLog/valid", jsonData, function(ret) {
+		//alert("a2");
+		if (0 != ret.code) {
+			alert(ret.msg);
+		} else {
+			location.reload();
+			alert("Success");
+		}
+	});
+}
+function validto3(id) {
+	var jsonData = {
+		"id" : id,
+		"status":3
+	};
+	$.post("/admin/undercover/speakLog/valid", jsonData, function(ret) {
+		//alert("a2");
+		if (0 != ret.code) {
+			alert(ret.msg);
+		} else {
+			location.reload();
+			alert("Success");
+		}
+	});
+}
+
+	function del(id) {
+		var jsonData = {
+			"id" : id
+		};
+		$.post("/admin/undercover/speakLog/del", jsonData, function(ret) {
+			//alert("a2");
+			if (0 != ret.code) {
+				alert(ret.msg);
+			} else {
+				location.reload();
+				alert("Success");
+			}
+		});
+	}
+	$("#selectAll").click(function(){
+		$('input[name="select"]').prop("checked",this.checked); 
+	});
+	$("#boxNo").click(function(){
+			var ids = "";
+			var spl = ","
+				$("input[name='select']:checked").each(function() {
+					ids += $(this).val() + spl;
+				});
+			$.post("/admin/undercover/speakLog/checkbox", {
+				ids : ids,
+				status : -1
+			}, function(ret) {
+				if (ret.code != 0) {
+					alert(ret.msg);
+				} else {
+					alert("Success");
+					history.go(0);
+				}
+			})
+	});
+	$("#boxYes").click(function(){
+			var ids = "";
+			var spl = ","
+				$("input[name='select']:checked").each(function() {
+					ids += $(this).val() + spl;
+				});
+			$.post("/admin/undercover/speakLog/checkbox", {
+				ids : ids,
+				status : 3
+			}, function(ret) {
+				if (ret.code != 0) {
+					alert(ret.msg);
+				} else {
+					alert("Success");
+					history.go(0);
+				}
+			})
+	});
+	$("#boxDel").click(function(){
+			var ids = "";
+			var spl = ","
+				$("input[name='select']:checked").each(function() {
+					ids += $(this).val() + spl;
+				});
+			$.post("/admin/undercover/speakLog/checkbox", {
+				ids : ids,
+				status : 0
+			}, function(ret) {
+				if (ret.code != 0) {
+					alert(ret.msg);
+				} else {
+					alert("Success");
+					history.go(0);
+				}
+			})
+	});
+	
+</script> </@layout.script> 

@@ -1,0 +1,113 @@
+<#import "/spring.ftl" as spring /> 
+<#import "/admin/layouts/common.xhtml" as layout>
+<@layout.title>用户添加</@layout.title> <@layout.metaKeywordsDescription>
+<style type="text/css">
+	#form label{width:80px;}
+</style>>
+</@layout.metaKeywordsDescription> 
+<@layout.cssLink> 
+<link rel="stylesheet" type="text/css" href="/webuploader/webuploader.css">
+</@layout.cssLink>
+<@layout.pageHeader> 用户添加 </@layout.pageHeader> 
+<@layout.mainContent>
+<input type="hidden" id="nav_id" value="user" />
+<div class="row">
+	<div class="col-lg-8">
+		<form role="form" id="form">
+		<div class="form-group col-lg-9">
+			<div class="form-group form-inline">
+				<label >手机区号:</label>
+				<select style="min-width:100px" class="form-control" id="encode" name="encode">
+					<option value="82" >韩国</option>
+					<option value="86" >中国</option>
+				</select>
+			</div>
+
+			<div class="form-group form-inline">
+
+				<label>手机：</label>  <input id="phone" name="phone" value="${(obj.phone)!}" />
+			</div>
+			
+			<div class="form-group">
+				<label >密码:</label>
+				<input type="text" id="password" name="password" value="" /> <br/>
+				<label>确认密码:</label>
+				<input type="text" id="rePwd" name="rePwd" value="" /> <br/>
+			</div>			
+			
+			<div class="form-group form-inline">
+				<label>邀请码：</label> <input type="text" id="shareCode" name="shareCode" value="" /> 
+			</div>
+			
+			<BUTTON id="submitAll">提交</BUTTON>
+			<BUTTON id="reset">重置</BUTTON>
+		</div>
+		</form>
+	</div>
+
+</div>
+<!-- /.row (nested) -->
+
+</@layout.mainContent>
+ <@layout.script> 
+<script type="text/javascript" src="/webuploader/webuploader.js"></script>
+<script>
+$(function() {
+	$("#submitAll").click(function(e) {
+		e.preventDefault();
+		var t = this;
+		var phone=$("#phone").val();
+		var pwd = $("#password").val()+"";
+		var rePwd = $("#rePwd").val()+"";
+		if(!testPhone(phone)){
+			alert("手机号格式错误..");
+			return;
+		}
+		if(!pwd||pwd.length<1){
+			alert("请输入密码");
+			return;
+		}
+		if(pwd&&pwd!=rePwd){
+			alert("密码不一致！");
+			return;
+		}
+		var shareCode = $("#shareCode").val()+"";
+		var jsonData = {
+				"phone" : phone,
+				"password" : pwd,
+				"shareCode" : shareCode,
+				"encode":$("#encode").val(),
+			};
+		$.post("/admin/user/addDefineUser", jsonData, function(ret) {
+			if (0 != ret.code) {
+				alert(ret.msg);
+			} else {
+				 alert("Success");
+				window.location.href="/admin/users.xhtml";
+				
+			}
+		});
+	});
+	    
+	$("#reset").click(function(e) {
+		$("#reset").reset();
+	});
+
+	function testPhone(phone){
+		phone+="";
+		if(phone&&phone.length>1){
+			var reg_zh =/1[3|4|5|7|8]\d{9}/;
+			var reg_ko =/^01\d{9}$/;
+			var reg_ko2=/^10\d{8}$/;
+			var reg_ko3=/^\d{8}$/;
+			if(!reg_zh.test(phone)&&!(reg_ko.test(phone)||reg_ko2.test(phone)||reg_ko3.test(phone))){
+				return false;
+			}else{
+				return true;
+			}
+		}
+		return false;
+	} 
+});
+</script>
+</@layout.script>

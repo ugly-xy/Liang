@@ -1,0 +1,218 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:jee="http://www.springframework.org/schema/jee"
+	xmlns:tx="http://www.springframework.org/schema/tx" xmlns:util="http://www.springframework.org/schema/util"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:mongo="http://www.springframework.org/schema/data/mongo" xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+http://www.springframework.org/schema/beans/spring-beans-4.1.xsd
+http://www.springframework.org/schema/tx
+http://www.springframework.org/schema/tx/spring-tx-4.1.xsd
+http://www.springframework.org/schema/jee
+http://www.springframework.org/schema/jee/spring-jee-4.1.xsd
+http://www.springframework.org/schema/context
+http://www.springframework.org/schema/context/spring-context-4.1.xsd
+http://www.springframework.org/schema/schema/util
+http://www.springframework.org/schema/schema/util/spring-util-4.1.xsd
+http://www.springframework.org/schema/data/mongo
+http://www.springframework.org/schema/data/mongo/spring-mongo-1.5.xsd 
+http://www.springframework.org/schema/aop
+http://www.springframework.org/schema/aop/spring-aop-4.1.xsd">
+
+	<bean id="contextHolder" class="com.zb.core.spring.SpringContextHolder"
+		lazy-init="false" />
+
+	<bean id="multipartResolver"
+		class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+		<!-- maxUploadSize:文件上传的最大值以byte为单位 -->
+		<property name="maxUploadSize" value="1024000"></property>
+	</bean>
+
+	<aop:aspectj-autoproxy />
+	<aop:aspectj-autoproxy proxy-target-class="true" />
+
+	<context:property-placeholder location="classpath:spring/app.conf" />
+
+	<context:annotation-config />
+
+	<context:component-scan base-package="com.zb.service" />
+
+	<!-- mongo config -->
+
+	<bean id="mongoTemplate" class="org.springframework.data.mongodb.core.MongoTemplate">
+		<constructor-arg name="mongo" ref="mongo" />
+		<constructor-arg name="databaseName" value="${mongo.dbname}" />
+	</bean>
+
+	<bean id="bakMongoTemplate" class="org.springframework.data.mongodb.core.MongoTemplate">
+		<constructor-arg name="mongo" ref="mongo" />
+		<constructor-arg name="databaseName" value="${mongo.bak.dbname}" />
+	</bean>
+
+	<!-- 这里需要指定一个Mongo URI来连接数据库，需要的信息可以从阿里云控制台上获取，连接是帐号密码要跟帐号所在的数据库对应起来，否则无法通过认证，默认创建的root帐号是admin数据库下的 -->
+	<bean class="com.mongodb.MongoURI" id="mongoURI">
+		<constructor-arg value="${mongo.uri}" />
+	</bean>
+
+	<bean class="com.mongodb.Mongo" id="mongo">
+		<constructor-arg ref="mongoURI" />
+	</bean>
+
+
+	<!-- redis config -->
+
+	<bean id="mainJedisPoolConfig" class="redis.clients.jedis.JedisPoolConfig"
+		p:maxTotal="${redis.maxActive}" p:maxIdle="${redis.maxIdle}"
+		p:maxWaitMillis="${redis.maxWait}" p:testOnBorrow="${redis.testOnBorrow}"
+		p:testOnReturn="${redis.testOnReturn}" />
+
+	<bean id="jedisConnFactory"
+		class="org.springframework.data.redis.connection.jedis.JedisConnectionFactory"
+		p:use-pool="true" p:host-name="${redis.host}" p:port="${redis.port}" />
+
+	<!-- redis template definition -->
+	<!-- <bean id="redisTemplate" class="org.springframework.data.redis.core.RedisTemplate" -->
+	<bean id="redisTemplate" class="org.springframework.data.redis.core.StringRedisTemplate"
+		p:connection-factory-ref="jedisConnFactory">
+		<!-- <property name="keySerializer"> <bean class="org.springframework.data.redis.serializer.StringRedisSerializer" 
+			/> </property> <property name="valueSerializer"> <bean class="org.springframework.data.redis.serializer.StringRedisSerializer" 
+			/> </property> <property name="hashKeySerializer"> <bean class="org.springframework.data.redis.serializer.StringRedisSerializer" 
+			/> </property> <property name="hashValueSerializer"> <bean class="org.springframework.data.redis.serializer.StringRedisSerializer" 
+			/> </property> -->
+	</bean>
+
+
+	<bean class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
+		<property name="triggers">
+			<list>
+				<ref bean="articleTrigger" />
+				<ref bean="versionCheckTrigger" />
+				<ref bean="lotteryTrigger" />
+				<ref bean="cleanTitleTrigger" />
+				<ref bean="cleanExpireRoomTrigger" />
+			</list>
+		</property>
+		<property name="autoStartup" value="true" />
+	</bean>
+
+	<bean id="cleanExpireRoomTrigger"
+		class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
+		<property name="jobDetail" ref="cleanExpireRoom" />
+		<property name="cronExpression" value="0 0/1 * * * ?" /><!-- 每1分钟触发一次 -->
+	</bean>
+	<bean id="cleanExpireRoom"
+		class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+		<property name="targetObject" ref="cleanExpireRoomJob" />
+		<property name="targetMethod" value="execute" />
+		<property name="concurrent" value="false" />
+	</bean>
+	<bean id="cleanExpireRoomJob" class="com.zb.service.jobs.CleanExpireRoomJob" />
+
+
+	<bean id="cleanTitleTrigger"
+		class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
+		<property name="jobDetail" ref="cleanTitleJobDetail" />
+		<property name="cronExpression" value="0 30 4 * * ?" /><!-- 每天4：30触发一次 -->
+	</bean>
+
+	<bean id="cleanTitleJobDetail"
+		class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+		<property name="targetObject" ref="cleanTitleJob" />
+		<property name="targetMethod" value="execute" />
+		<property name="concurrent" value="false" />
+	</bean>
+	<bean id="cleanTitleJob" class="com.zb.service.jobs.CleanTitleJob" />
+
+
+	<bean id="lotteryTrigger"
+		class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
+		<property name="jobDetail" ref="lotteryRank" />
+		<property name="cronExpression" value="0 0/1 * * * ?" /><!-- 每隔1min触发一次 -->
+	</bean>
+	<bean id="lotteryRank"
+		class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+		<property name="targetObject" ref="lotteryJob" />
+		<property name="targetMethod" value="execute" />
+		<property name="concurrent" value="false" />
+	</bean>
+	<bean id="lotteryJob" class="com.zb.service.jobs.SpiderLotteryJob" />
+
+	<bean id="articleTrigger"
+		class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
+		<property name="jobDetail" ref="articleRobitJobDetail" />
+		<property name="cronExpression" value="12 */5 * * * ?" /><!-- 
+			每隔1秒钟触发一次 -->
+	</bean>
+
+	<bean id="articleRobitJobDetail"
+		class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+		<property name="targetObject" ref="articleRobitJob" />
+		<property name="targetMethod" value="execute" />
+		<property name="concurrent" value="false" />
+		<!-- 是否允许任务并发执行。当值为false时，表示必须等到前一个线程处理完毕后才再启一个新的线程 -->
+	</bean>
+
+	<bean id="articleRobitJob" class="com.zb.service.jobs.ArticleRobitJob" />
+
+
+	<bean id="versionCheckTrigger"
+		class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
+		<property name="jobDetail" ref="versionCheckJobDetail" />
+		<property name="cronExpression" value="38 */2 * * * ?" /><!-- 
+			每隔1秒钟触发一次 -->
+	</bean>
+
+	<bean id="versionCheckJobDetail"
+		class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+		<property name="targetObject" ref="versionCheckJob" />
+		<property name="targetMethod" value="execute" />
+		<property name="concurrent" value="false" />
+		<!-- 是否允许任务并发执行。当值为false时，表示必须等到前一个线程处理完毕后才再启一个新的线程 -->
+	</bean>
+
+	<bean id="versionCheckJob" class="com.zb.service.jobs.VersionCheckJob" />
+
+	<bean id="chatMongoTemplate" class="org.springframework.data.mongodb.core.MongoTemplate">
+		<constructor-arg name="mongo" ref="mongo" />
+		<constructor-arg name="databaseName" value="${mongo.chat.dbname}" />
+	</bean>
+
+	<bean id="jedisPoolConfig" class="redis.clients.jedis.JedisPoolConfig"
+		p:maxTotal="${redis.maxActive}" p:maxIdle="${redis.maxIdle}"
+		p:maxWaitMillis="${redis.maxWait}" p:testOnBorrow="${redis.testOnBorrow}"
+		p:testOnReturn="${redis.testOnReturn}" />
+
+
+	<!-- redis template definition -->
+	<!-- <bean id="redisTemplate" class="org.springframework.data.redis.core.RedisTemplate" -->
+
+
+	<bean id="chatJedisConnFactory"
+		class="org.springframework.data.redis.connection.jedis.JedisConnectionFactory"
+		p:use-pool="true" p:host-name="${redis.chat.host}" p:port="${redis.chat.port}"
+		p:pool-config-ref="jedisPoolConfig" />
+
+	<bean id="chatRedisTemplate" class="org.springframework.data.redis.core.StringRedisTemplate"
+		p:connection-factory-ref="chatJedisConnFactory">
+	</bean>
+
+	<!--接收聊天消息监听器 -->
+	<!-- <bean id="serialization" class="org.springframework.data.redis.serializer.JdkSerializationRedisSerializer" 
+		/> <bean id="redisRecvListener" class="com.zb.core.redis.RedisRecvListener" 
+		/> <bean id="redisRecvServiceListenerAdapter" class="org.springframework.data.redis.listener.adapter.MessageListenerAdapter"> 
+		<property name="delegate" ref="redisRecvListener" /> <property name="serializer" 
+		ref="serialization" /> </bean> -->
+
+	<!-- 配置redis订阅 -->
+	<bean id="redisContainer"
+		class="org.springframework.data.redis.listener.RedisMessageListenerContainer">
+		<property name="connectionFactory" ref="chatJedisConnFactory" />
+		<!-- <property name="messageListeners"> <map> <entry key-ref="redisRecvServiceListenerAdapter"> 
+			<list> <bean class="org.springframework.data.redis.listener.ChannelTopic"> 
+			<constructor-arg value="${server_channel_topic}" /> </bean> </list> </entry> 
+			</map> </property> -->
+	</bean>
+	<!-- <import resource="mongo.xml" /> -->
+
+</beans>

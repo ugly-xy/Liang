@@ -1,0 +1,329 @@
+2019-05-16 17:39:26.670 [main] ERROR o.s.web.context.ContextLoader - Context initialization failed
+org.springframework.beans.factory.parsing.BeanDefinitionParsingException: Configuration problem: Unexpected failure during bean definition parsing
+Offending resource: class path resource [spring/applicationContext.xml]
+Bean ''; nested exception is org.springframework.beans.factory.parsing.BeanDefinitionParsingException: Configuration problem: <property> element for property 'triggers' must specify a ref or value
+Offending resource: class path resource [spring/applicationContext.xml]
+Bean ''
+	-> Property 'triggers'
+	at org.springframework.beans.factory.parsing.FailFastProblemReporter.error(FailFastProblemReporter.java:70) ~[spring-beans-4.1.9.RELEASE.jar:4.1.9.RELEASE]
+	at org.springframework.beans.factory.parsing.ReaderContext.error(ReaderContext.java:85) ~[spring-beans-4.1.9.RELEASE.jar:4.1.9.RELEASE]
+	at org.springframework.beans.factory.xml.BeanDefinitionParserDelegate.error(BeanDefinitionParserDelegate.java:323) ~[spring-beans-4.1.9.RELEASE.jar:4.1.9.RELEASE]
+	at org.springframework.beans.factory.xml.BeanDefinitionParserDelegate.parseBeanDefinitionElement(BeanDefinitionParserDelegate.java:576) ~[spring-beans-4.1.9.RELEASE.jar:4.1.9.RELEASE]
+	at org.springframework.beans.factory.xml.BeanDefinitionParserDelegate.parseBeanDefinitionElement(BeanDefinitionParserDelegate.java:474) ~[spring-beans-4.1.9.RELEASE.jar:4.1.9.RELEASE]
+	at org.springframework.beans.factory.xml.BeanDefinitionParserDelegate.parseBeanDefinitionElement(BeanDefinitionParserDelegate.java:443) ~[spring-beans-4.1.9.RELEASE.jar:4.1.9.RELEASE]
+	at org.springframework.beans.factory.xml.DefaultBeanDefinitionDocumentReader.processBeanDefinition(DefaultBeanDefinitionDocumentReader.java:301) ~[spring-beans-4.1.9.RELEASE.jar:4.1.9.RELEASE]
+	at org.springframework.beans.factory.xml.DefaultBeanDefinitionDocumentReader.parseDefaultElement(DefaultBeanDefinitionDocumentReader.java:192) ~[spring-beans-4.1.9.RELEASE.jar:4.1.9.RELEASE]
+	at org.springframework.beans.factory.xml.DefaultBeanDefinitionDocumentReader.parseBeanDefinitions(DefaultBeanDefinitionDocumentReader.java:171) ~[spring-beans-4.1.9.RELEASE.jar:4.1.9.RELEASE]
+	at org.springframework.beans.factory.xml.DefaultBeanDefinitionDocumentReader.doRegisterBeanDefinitions(DefaultBeanDefinitionDocumentReader.java:144) ~[spring-beans-4.1.9.RELEASE.jar:4.1.9.RELEASE]
+	at org.springframework.beans.factory.xml.DefaultBeanDefinitionDocumentReader.registerBeanDefinitions(DefaultBeanDefinitionDocumentReader.java:100) ~[spring-beans-4.1.9.RELEASE.jar:4.1.9.RELEASE]
+	at org.springframework.beans.factory.xml.XmlBeanDefinitionReader.registerBeanDefinitions(XmlBeanDefinitionReader.java:510) ~[spring-beans-4.1.9.RELEASE.jar:4.1.9.RELEASE]
+	at org.springframework.beans.factory.xml.XmlBeanDefinitionReader.doLoadBeanDefinitions(XmlBeanDefinitionReader.java:392) ~[spring-beans-4.1.9.RELEASE.jar:4.1.9.RELEASE]
+	at org.springframework.beans.factory.xml.XmlBeanDefinitionReader.loadBeanDefinitions(XmlBeanDefinitionReader.java:336) ~[spring-beans-4.1.9.RELEASE.jar:4.1.9.RELEASE]
+	at org.springframework.beans.factory.xml.XmlBeanDefinitionReader.loadBeanDefinitions(XmlBeanDefinitionReader.java:304) ~[spring-beans-4.1.9.RELEASE.jar:4.1.9.RELEASE]
+	at org.springframework.beans.factory.support.AbstractBeanDefinitionReader.loadBeanDefinitions(AbstractBeanDefinitionReader.java:181) ~[spring-beans-4.1.9.RELEASE.jar:4.1.9.RELEASE]
+	at org.springframework.beans.factory.support.AbstractBeanDefinitionReader.loadBeanDefinitions(AbstractBeanDefinitionReader.java:217) ~[spring-beans-4.1.9.RELEASE.jar:4.1.9.RELEASE]
+	at org.springframework.beans.factory.support.AbstractBeanDefinitionReader.loadBeanDefinitions(AbstractBeanDefinitionReader.java:188) ~[spring-beans-4.1.9.RELEASE.jar:4.1.9.RELEASE]
+	at org.springframework.web.context.support.XmlWebApplicationContext.loadBeanDefinitions(XmlWebApplicationContext.java:125) ~[spring-web-4.1.7.RELEASE.jar:4.1.7.RELEASE]
+	at org.springframework.web.context.support.XmlWebApplicationContext.loadBeanDefinitions(XmlWebApplicationContext.java:94) ~[spring-web-4.1.7.RELEASE.jar:4.1.7.RELEASE]
+	at org.springframework.context.support.AbstractRefreshableApplicationContext.refreshBeanFactory(AbstractRefreshableApplicationContext.java:129) ~[spring-context-4.1.9.RELEASE.jar:4.1.9.RELEASE]
+	at org.springframework.context.support.AbstractApplicationContext.obtainFreshBeanFactory(AbstractApplicationContext.java:541) ~[spring-context-4.1.9.RELEASE.jar:4.1.9.RELEASE]
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:452) ~[spring-context-4.1.9.RELEASE.jar:4.1.9.RELEASE]
+	at org.springframework.web.context.ContextLoader.configureAndRefreshWebApplicationContext(ContextLoader.java:434) ~[spring-web-4.1.7.RELEASE.jar:4.1.7.RELEASE]
+	at org.springframework.web.context.ContextLoader.initWebApplicationContext(ContextLoader.java:306) ~[spring-web-4.1.7.RELEASE.jar:4.1.7.RELEASE]
+	at org.springframework.web.context.ContextLoaderListener.contextInitialized(ContextLoaderListener.java:106) [spring-web-4.1.7.RELEASE.jar:4.1.7.RELEASE]
+	at org.eclipse.jetty.server.handler.ContextHandler.callContextInitialized(ContextHandler.java:835) [jetty-server-9.3.7.v20160115.jar:9.3.7.v20160115]
+	at org.eclipse.jetty.servlet.ServletContextHandler.callContextInitialized(ServletContextHandler.java:534) [jetty-servlet-9.3.7.v20160115.jar:9.3.7.v20160115]
+	at org.eclipse.jetty.server.handler.ContextHandler.startContext(ContextHandler.java:808) [jetty-server-9.3.7.v20160115.jar:9.3.7.v20160115]
+	at org.eclipse.jetty.servlet.ServletContextHandler.startContext(ServletContextHandler.java:346) [jetty-servlet-9.3.7.v20160115.jar:9.3.7.v20160115]
+	at org.eclipse.jetty.webapp.WebAppContext.startWebapp(WebAppContext.java:1379) [jetty-webapp-9.3.7.v20160115.jar:9.3.7.v20160115]
+	at org.eclipse.jetty.maven.plugin.JettyWebAppContext.startWebapp(JettyWebAppContext.java:323) [jetty-maven-plugin-9.3.7.v20160115.jar:9.3.7.v20160115]
+	at org.eclipse.jetty.webapp.WebAppContext.startContext(WebAppContext.java:1341) [jetty-webapp-9.3.7.v20160115.jar:9.3.7.v20160115]
+	at org.eclipse.jetty.server.handler.ContextHandler.doStart(ContextHandler.java:772) [jetty-server-9.3.7.v20160115.jar:9.3.7.v20160115]
+	at org.eclipse.jetty.servlet.ServletContextHandler.doStart(ServletContextHandler.java:263) [jetty-servlet-9.3.7.v20160115.jar:9.3.7.v20160115]
+	at org.eclipse.jetty.webapp.WebAppContext.doStart(WebAppContext.java:517) [jetty-webapp-9.3.7.v20160115.jar:9.3.7.v20160115]
+	at org.eclipse.jetty.maven.plugin.JettyWebAppContext.doStart(JettyWebAppContext.java:398) [jetty-maven-plugin-9.3.7.v20160115.jar:9.3.7.v20160115]
+	at org.eclipse.jetty.util.component.AbstractLifeCycle.start(AbstractLifeCycle.java:68) [jetty-util-9.3.7.v20160115.jar:9.3.7.v20160115]
+	at org.eclipse.jetty.util.component.ContainerLifeCycle.start(ContainerLifeCycle.java:132) [jetty-util-9.3.7.v20160115.jar:9.3.7.v20160115]
+	at org.eclipse.jetty.util.component.ContainerLifeCycle.doStart(ContainerLifeCycle.java:114) [jetty-util-9.3.7.v20160115.jar:9.3.7.v20160115]
+	at org.eclipse.jetty.server.handler.AbstractHandler.doStart(AbstractHandler.java:61) [jetty-server-9.3.7.v20160115.jar:9.3.7.v20160115]
+	at org.eclipse.jetty.server.handler.ContextHandlerCollection.doStart(ContextHandlerCollection.java:161) [jetty-server-9.3.7.v20160115.jar:9.3.7.v20160115]
+	at org.eclipse.jetty.util.component.AbstractLifeCycle.start(AbstractLifeCycle.java:68) [jetty-util-9.3.7.v20160115.jar:9.3.7.v20160115]
+	at org.eclipse.jetty.util.component.ContainerLifeCycle.start(ContainerLifeCycle.java:132) [jetty-util-9.3.7.v20160115.jar:9.3.7.v20160115]
+	at org.eclipse.jetty.util.component.ContainerLifeCycle.doStart(ContainerLifeCycle.java:114) [jetty-util-9.3.7.v20160115.jar:9.3.7.v20160115]
+	at org.eclipse.jetty.server.handler.AbstractHandler.doStart(AbstractHandler.java:61) [jetty-server-9.3.7.v20160115.jar:9.3.7.v20160115]
+	at org.eclipse.jetty.util.component.AbstractLifeCycle.start(AbstractLifeCycle.java:68) [jetty-util-9.3.7.v20160115.jar:9.3.7.v20160115]
+	at org.eclipse.jetty.util.component.ContainerLifeCycle.start(ContainerLifeCycle.java:132) [jetty-util-9.3.7.v20160115.jar:9.3.7.v20160115]
+	at org.eclipse.jetty.server.Server.start(Server.java:405) [jetty-server-9.3.7.v20160115.jar:9.3.7.v20160115]
+	at org.eclipse.jetty.util.component.ContainerLifeCycle.doStart(ContainerLifeCycle.java:106) [jetty-util-9.3.7.v20160115.jar:9.3.7.v20160115]
+	at org.eclipse.jetty.server.handler.AbstractHandler.doStart(AbstractHandler.java:61) [jetty-server-9.3.7.v20160115.jar:9.3.7.v20160115]
+	at org.eclipse.jetty.server.Server.doStart(Server.java:372) [jetty-server-9.3.7.v20160115.jar:9.3.7.v20160115]
+	at org.eclipse.jetty.util.component.AbstractLifeCycle.start(AbstractLifeCycle.java:68) [jetty-util-9.3.7.v20160115.jar:9.3.7.v20160115]
+	at org.eclipse.jetty.maven.plugin.AbstractJettyMojo.startJetty(AbstractJettyMojo.java:460) [jetty-maven-plugin-9.3.7.v20160115.jar:9.3.7.v20160115]
+	at org.eclipse.jetty.maven.plugin.AbstractJettyMojo.execute(AbstractJettyMojo.java:328) [jetty-maven-plugin-9.3.7.v20160115.jar:9.3.7.v20160115]
+	at org.eclipse.jetty.maven.plugin.JettyRunMojo.execute(JettyRunMojo.java:170) [jetty-maven-plugin-9.3.7.v20160115.jar:9.3.7.v20160115]
+	at org.apache.maven.plugin.DefaultBuildPluginManager.executeMojo(DefaultBuildPluginManager.java:137) [maven-core-3.5.3.jar:3.5.3]
+	at org.apache.maven.lifecycle.internal.MojoExecutor.execute(MojoExecutor.java:208) [maven-core-3.5.3.jar:3.5.3]
+	at org.apache.maven.lifecycle.internal.MojoExecutor.execute(MojoExecutor.java:154) [maven-core-3.5.3.jar:3.5.3]
+	at org.apache.maven.lifecycle.internal.MojoExecutor.execute(MojoExecutor.java:146) [maven-core-3.5.3.jar:3.5.3]
+	at org.apache.maven.lifecycle.internal.LifecycleModuleBuilder.buildProject(LifecycleModuleBuilder.java:117) [maven-core-3.5.3.jar:3.5.3]
+	at org.apache.maven.lifecycle.internal.LifecycleModuleBuilder.buildProject(LifecycleModuleBuilder.java:81) [maven-core-3.5.3.jar:3.5.3]
+	at org.apache.maven.lifecycle.internal.builder.singlethreaded.SingleThreadedBuilder.build(SingleThreadedBuilder.java:56) [maven-core-3.5.3.jar:3.5.3]
+	at org.apache.maven.lifecycle.internal.LifecycleStarter.execute(LifecycleStarter.java:128) [maven-core-3.5.3.jar:3.5.3]
+	at org.apache.maven.DefaultMaven.doExecute(DefaultMaven.java:305) [maven-core-3.5.3.jar:3.5.3]
+	at org.apache.maven.DefaultMaven.doExecute(DefaultMaven.java:192) [maven-core-3.5.3.jar:3.5.3]
+	at org.apache.maven.DefaultMaven.execute(DefaultMaven.java:105) [maven-core-3.5.3.jar:3.5.3]
+	at org.apache.maven.cli.MavenCli.execute(MavenCli.java:956) [maven-embedder-3.5.3.jar:3.5.3]
+	at org.apache.maven.cli.MavenCli.doMain(MavenCli.java:290) [maven-embedder-3.5.3.jar:3.5.3]
+	at org.apache.maven.cli.MavenCli.main(MavenCli.java:194) [maven-embedder-3.5.3.jar:3.5.3]
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method) ~[na:1.8.0_171]
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62) ~[na:1.8.0_171]
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43) ~[na:1.8.0_171]
+	at java.lang.reflect.Method.invoke(Method.java:498) ~[na:1.8.0_171]
+	at org.codehaus.plexus.classworlds.launcher.Launcher.launchEnhanced(Launcher.java:289) [plexus-classworlds-2.5.2.jar:na]
+	at org.codehaus.plexus.classworlds.launcher.Launcher.launch(Launcher.java:229) [plexus-classworlds-2.5.2.jar:na]
+	at org.codehaus.plexus.classworlds.launcher.Launcher.mainWithExitCode(Launcher.java:415) [plexus-classworlds-2.5.2.jar:na]
+	at org.codehaus.plexus.classworlds.launcher.Launcher.main(Launcher.java:356) [plexus-classworlds-2.5.2.jar:na]
+Caused by: org.springframework.beans.factory.parsing.BeanDefinitionParsingException: Configuration problem: <property> element for property 'triggers' must specify a ref or value
+Offending resource: class path resource [spring/applicationContext.xml]
+Bean ''
+	-> Property 'triggers'
+	at org.springframework.beans.factory.parsing.FailFastProblemReporter.error(FailFastProblemReporter.java:70) ~[spring-beans-4.1.9.RELEASE.jar:4.1.9.RELEASE]
+	at org.springframework.beans.factory.parsing.ReaderContext.error(ReaderContext.java:85) ~[spring-beans-4.1.9.RELEASE.jar:4.1.9.RELEASE]
+	at org.springframework.beans.factory.parsing.ReaderContext.error(ReaderContext.java:80) ~[spring-beans-4.1.9.RELEASE.jar:4.1.9.RELEASE]
+	at org.springframework.beans.factory.xml.BeanDefinitionParserDelegate.error(BeanDefinitionParserDelegate.java:316) ~[spring-beans-4.1.9.RELEASE.jar:4.1.9.RELEASE]
+	at org.springframework.beans.factory.xml.BeanDefinitionParserDelegate.parsePropertyValue(BeanDefinitionParserDelegate.java:1016) ~[spring-beans-4.1.9.RELEASE.jar:4.1.9.RELEASE]
+	at org.springframework.beans.factory.xml.BeanDefinitionParserDelegate.parsePropertyElement(BeanDefinitionParserDelegate.java:910) ~[spring-beans-4.1.9.RELEASE.jar:4.1.9.RELEASE]
+	at org.springframework.beans.factory.xml.BeanDefinitionParserDelegate.parsePropertyElements(BeanDefinitionParserDelegate.java:771) ~[spring-beans-4.1.9.RELEASE.jar:4.1.9.RELEASE]
+	at org.springframework.beans.factory.xml.BeanDefinitionParserDelegate.parseBeanDefinitionElement(BeanDefinitionParserDelegate.java:561) ~[spring-beans-4.1.9.RELEASE.jar:4.1.9.RELEASE]
+	... 74 common frames omitted
+2019-05-17 11:17:46.975 [main] ERROR o.s.web.context.ContextLoader - Context initialization failed
+org.springframework.beans.factory.parsing.BeanDefinitionParsingException: Configuration problem: Unexpected failure during bean definition parsing
+Offending resource: class path resource [spring/applicationContext.xml]
+Bean ''; nested exception is org.springframework.beans.factory.parsing.BeanDefinitionParsingException: Configuration problem: <property> element for property 'triggers' must specify a ref or value
+Offending resource: class path resource [spring/applicationContext.xml]
+Bean ''
+	-> Property 'triggers'
+	at org.springframework.beans.factory.parsing.FailFastProblemReporter.error(FailFastProblemReporter.java:70) ~[spring-beans-4.1.9.RELEASE.jar:4.1.9.RELEASE]
+	at org.springframework.beans.factory.parsing.ReaderContext.error(ReaderContext.java:85) ~[spring-beans-4.1.9.RELEASE.jar:4.1.9.RELEASE]
+	at org.springframework.beans.factory.xml.BeanDefinitionParserDelegate.error(BeanDefinitionParserDelegate.java:323) ~[spring-beans-4.1.9.RELEASE.jar:4.1.9.RELEASE]
+	at org.springframework.beans.factory.xml.BeanDefinitionParserDelegate.parseBeanDefinitionElement(BeanDefinitionParserDelegate.java:576) ~[spring-beans-4.1.9.RELEASE.jar:4.1.9.RELEASE]
+	at org.springframework.beans.factory.xml.BeanDefinitionParserDelegate.parseBeanDefinitionElement(BeanDefinitionParserDelegate.java:474) ~[spring-beans-4.1.9.RELEASE.jar:4.1.9.RELEASE]
+	at org.springframework.beans.factory.xml.BeanDefinitionParserDelegate.parseBeanDefinitionElement(BeanDefinitionParserDelegate.java:443) ~[spring-beans-4.1.9.RELEASE.jar:4.1.9.RELEASE]
+	at org.springframework.beans.factory.xml.DefaultBeanDefinitionDocumentReader.processBeanDefinition(DefaultBeanDefinitionDocumentReader.java:301) ~[spring-beans-4.1.9.RELEASE.jar:4.1.9.RELEASE]
+	at org.springframework.beans.factory.xml.DefaultBeanDefinitionDocumentReader.parseDefaultElement(DefaultBeanDefinitionDocumentReader.java:192) ~[spring-beans-4.1.9.RELEASE.jar:4.1.9.RELEASE]
+	at org.springframework.beans.factory.xml.DefaultBeanDefinitionDocumentReader.parseBeanDefinitions(DefaultBeanDefinitionDocumentReader.java:171) ~[spring-beans-4.1.9.RELEASE.jar:4.1.9.RELEASE]
+	at org.springframework.beans.factory.xml.DefaultBeanDefinitionDocumentReader.doRegisterBeanDefinitions(DefaultBeanDefinitionDocumentReader.java:144) ~[spring-beans-4.1.9.RELEASE.jar:4.1.9.RELEASE]
+	at org.springframework.beans.factory.xml.DefaultBeanDefinitionDocumentReader.registerBeanDefinitions(DefaultBeanDefinitionDocumentReader.java:100) ~[spring-beans-4.1.9.RELEASE.jar:4.1.9.RELEASE]
+	at org.springframework.beans.factory.xml.XmlBeanDefinitionReader.registerBeanDefinitions(XmlBeanDefinitionReader.java:510) ~[spring-beans-4.1.9.RELEASE.jar:4.1.9.RELEASE]
+	at org.springframework.beans.factory.xml.XmlBeanDefinitionReader.doLoadBeanDefinitions(XmlBeanDefinitionReader.java:392) ~[spring-beans-4.1.9.RELEASE.jar:4.1.9.RELEASE]
+	at org.springframework.beans.factory.xml.XmlBeanDefinitionReader.loadBeanDefinitions(XmlBeanDefinitionReader.java:336) ~[spring-beans-4.1.9.RELEASE.jar:4.1.9.RELEASE]
+	at org.springframework.beans.factory.xml.XmlBeanDefinitionReader.loadBeanDefinitions(XmlBeanDefinitionReader.java:304) ~[spring-beans-4.1.9.RELEASE.jar:4.1.9.RELEASE]
+	at org.springframework.beans.factory.support.AbstractBeanDefinitionReader.loadBeanDefinitions(AbstractBeanDefinitionReader.java:181) ~[spring-beans-4.1.9.RELEASE.jar:4.1.9.RELEASE]
+	at org.springframework.beans.factory.support.AbstractBeanDefinitionReader.loadBeanDefinitions(AbstractBeanDefinitionReader.java:217) ~[spring-beans-4.1.9.RELEASE.jar:4.1.9.RELEASE]
+	at org.springframework.beans.factory.support.AbstractBeanDefinitionReader.loadBeanDefinitions(AbstractBeanDefinitionReader.java:188) ~[spring-beans-4.1.9.RELEASE.jar:4.1.9.RELEASE]
+	at org.springframework.web.context.support.XmlWebApplicationContext.loadBeanDefinitions(XmlWebApplicationContext.java:125) ~[spring-web-4.1.7.RELEASE.jar:4.1.7.RELEASE]
+	at org.springframework.web.context.support.XmlWebApplicationContext.loadBeanDefinitions(XmlWebApplicationContext.java:94) ~[spring-web-4.1.7.RELEASE.jar:4.1.7.RELEASE]
+	at org.springframework.context.support.AbstractRefreshableApplicationContext.refreshBeanFactory(AbstractRefreshableApplicationContext.java:129) ~[spring-context-4.1.9.RELEASE.jar:4.1.9.RELEASE]
+	at org.springframework.context.support.AbstractApplicationContext.obtainFreshBeanFactory(AbstractApplicationContext.java:541) ~[spring-context-4.1.9.RELEASE.jar:4.1.9.RELEASE]
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:452) ~[spring-context-4.1.9.RELEASE.jar:4.1.9.RELEASE]
+	at org.springframework.web.context.ContextLoader.configureAndRefreshWebApplicationContext(ContextLoader.java:434) ~[spring-web-4.1.7.RELEASE.jar:4.1.7.RELEASE]
+	at org.springframework.web.context.ContextLoader.initWebApplicationContext(ContextLoader.java:306) ~[spring-web-4.1.7.RELEASE.jar:4.1.7.RELEASE]
+	at org.springframework.web.context.ContextLoaderListener.contextInitialized(ContextLoaderListener.java:106) [spring-web-4.1.7.RELEASE.jar:4.1.7.RELEASE]
+	at org.eclipse.jetty.server.handler.ContextHandler.callContextInitialized(ContextHandler.java:835) [jetty-server-9.3.7.v20160115.jar:9.3.7.v20160115]
+	at org.eclipse.jetty.servlet.ServletContextHandler.callContextInitialized(ServletContextHandler.java:534) [jetty-servlet-9.3.7.v20160115.jar:9.3.7.v20160115]
+	at org.eclipse.jetty.server.handler.ContextHandler.startContext(ContextHandler.java:808) [jetty-server-9.3.7.v20160115.jar:9.3.7.v20160115]
+	at org.eclipse.jetty.servlet.ServletContextHandler.startContext(ServletContextHandler.java:346) [jetty-servlet-9.3.7.v20160115.jar:9.3.7.v20160115]
+	at org.eclipse.jetty.webapp.WebAppContext.startWebapp(WebAppContext.java:1379) [jetty-webapp-9.3.7.v20160115.jar:9.3.7.v20160115]
+	at org.eclipse.jetty.maven.plugin.JettyWebAppContext.startWebapp(JettyWebAppContext.java:323) [jetty-maven-plugin-9.3.7.v20160115.jar:9.3.7.v20160115]
+	at org.eclipse.jetty.webapp.WebAppContext.startContext(WebAppContext.java:1341) [jetty-webapp-9.3.7.v20160115.jar:9.3.7.v20160115]
+	at org.eclipse.jetty.server.handler.ContextHandler.doStart(ContextHandler.java:772) [jetty-server-9.3.7.v20160115.jar:9.3.7.v20160115]
+	at org.eclipse.jetty.servlet.ServletContextHandler.doStart(ServletContextHandler.java:263) [jetty-servlet-9.3.7.v20160115.jar:9.3.7.v20160115]
+	at org.eclipse.jetty.webapp.WebAppContext.doStart(WebAppContext.java:517) [jetty-webapp-9.3.7.v20160115.jar:9.3.7.v20160115]
+	at org.eclipse.jetty.maven.plugin.JettyWebAppContext.doStart(JettyWebAppContext.java:398) [jetty-maven-plugin-9.3.7.v20160115.jar:9.3.7.v20160115]
+	at org.eclipse.jetty.util.component.AbstractLifeCycle.start(AbstractLifeCycle.java:68) [jetty-util-9.3.7.v20160115.jar:9.3.7.v20160115]
+	at org.eclipse.jetty.util.component.ContainerLifeCycle.start(ContainerLifeCycle.java:132) [jetty-util-9.3.7.v20160115.jar:9.3.7.v20160115]
+	at org.eclipse.jetty.util.component.ContainerLifeCycle.doStart(ContainerLifeCycle.java:114) [jetty-util-9.3.7.v20160115.jar:9.3.7.v20160115]
+	at org.eclipse.jetty.server.handler.AbstractHandler.doStart(AbstractHandler.java:61) [jetty-server-9.3.7.v20160115.jar:9.3.7.v20160115]
+	at org.eclipse.jetty.server.handler.ContextHandlerCollection.doStart(ContextHandlerCollection.java:161) [jetty-server-9.3.7.v20160115.jar:9.3.7.v20160115]
+	at org.eclipse.jetty.util.component.AbstractLifeCycle.start(AbstractLifeCycle.java:68) [jetty-util-9.3.7.v20160115.jar:9.3.7.v20160115]
+	at org.eclipse.jetty.util.component.ContainerLifeCycle.start(ContainerLifeCycle.java:132) [jetty-util-9.3.7.v20160115.jar:9.3.7.v20160115]
+	at org.eclipse.jetty.util.component.ContainerLifeCycle.doStart(ContainerLifeCycle.java:114) [jetty-util-9.3.7.v20160115.jar:9.3.7.v20160115]
+	at org.eclipse.jetty.server.handler.AbstractHandler.doStart(AbstractHandler.java:61) [jetty-server-9.3.7.v20160115.jar:9.3.7.v20160115]
+	at org.eclipse.jetty.util.component.AbstractLifeCycle.start(AbstractLifeCycle.java:68) [jetty-util-9.3.7.v20160115.jar:9.3.7.v20160115]
+	at org.eclipse.jetty.util.component.ContainerLifeCycle.start(ContainerLifeCycle.java:132) [jetty-util-9.3.7.v20160115.jar:9.3.7.v20160115]
+	at org.eclipse.jetty.server.Server.start(Server.java:405) [jetty-server-9.3.7.v20160115.jar:9.3.7.v20160115]
+	at org.eclipse.jetty.util.component.ContainerLifeCycle.doStart(ContainerLifeCycle.java:106) [jetty-util-9.3.7.v20160115.jar:9.3.7.v20160115]
+	at org.eclipse.jetty.server.handler.AbstractHandler.doStart(AbstractHandler.java:61) [jetty-server-9.3.7.v20160115.jar:9.3.7.v20160115]
+	at org.eclipse.jetty.server.Server.doStart(Server.java:372) [jetty-server-9.3.7.v20160115.jar:9.3.7.v20160115]
+	at org.eclipse.jetty.util.component.AbstractLifeCycle.start(AbstractLifeCycle.java:68) [jetty-util-9.3.7.v20160115.jar:9.3.7.v20160115]
+	at org.eclipse.jetty.maven.plugin.AbstractJettyMojo.startJetty(AbstractJettyMojo.java:460) [jetty-maven-plugin-9.3.7.v20160115.jar:9.3.7.v20160115]
+	at org.eclipse.jetty.maven.plugin.AbstractJettyMojo.execute(AbstractJettyMojo.java:328) [jetty-maven-plugin-9.3.7.v20160115.jar:9.3.7.v20160115]
+	at org.eclipse.jetty.maven.plugin.JettyRunMojo.execute(JettyRunMojo.java:170) [jetty-maven-plugin-9.3.7.v20160115.jar:9.3.7.v20160115]
+	at org.apache.maven.plugin.DefaultBuildPluginManager.executeMojo(DefaultBuildPluginManager.java:137) [maven-core-3.5.3.jar:3.5.3]
+	at org.apache.maven.lifecycle.internal.MojoExecutor.execute(MojoExecutor.java:208) [maven-core-3.5.3.jar:3.5.3]
+	at org.apache.maven.lifecycle.internal.MojoExecutor.execute(MojoExecutor.java:154) [maven-core-3.5.3.jar:3.5.3]
+	at org.apache.maven.lifecycle.internal.MojoExecutor.execute(MojoExecutor.java:146) [maven-core-3.5.3.jar:3.5.3]
+	at org.apache.maven.lifecycle.internal.LifecycleModuleBuilder.buildProject(LifecycleModuleBuilder.java:117) [maven-core-3.5.3.jar:3.5.3]
+	at org.apache.maven.lifecycle.internal.LifecycleModuleBuilder.buildProject(LifecycleModuleBuilder.java:81) [maven-core-3.5.3.jar:3.5.3]
+	at org.apache.maven.lifecycle.internal.builder.singlethreaded.SingleThreadedBuilder.build(SingleThreadedBuilder.java:56) [maven-core-3.5.3.jar:3.5.3]
+	at org.apache.maven.lifecycle.internal.LifecycleStarter.execute(LifecycleStarter.java:128) [maven-core-3.5.3.jar:3.5.3]
+	at org.apache.maven.DefaultMaven.doExecute(DefaultMaven.java:305) [maven-core-3.5.3.jar:3.5.3]
+	at org.apache.maven.DefaultMaven.doExecute(DefaultMaven.java:192) [maven-core-3.5.3.jar:3.5.3]
+	at org.apache.maven.DefaultMaven.execute(DefaultMaven.java:105) [maven-core-3.5.3.jar:3.5.3]
+	at org.apache.maven.cli.MavenCli.execute(MavenCli.java:956) [maven-embedder-3.5.3.jar:3.5.3]
+	at org.apache.maven.cli.MavenCli.doMain(MavenCli.java:290) [maven-embedder-3.5.3.jar:3.5.3]
+	at org.apache.maven.cli.MavenCli.main(MavenCli.java:194) [maven-embedder-3.5.3.jar:3.5.3]
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method) ~[na:1.8.0_171]
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62) ~[na:1.8.0_171]
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43) ~[na:1.8.0_171]
+	at java.lang.reflect.Method.invoke(Method.java:498) ~[na:1.8.0_171]
+	at org.codehaus.plexus.classworlds.launcher.Launcher.launchEnhanced(Launcher.java:289) [plexus-classworlds-2.5.2.jar:na]
+	at org.codehaus.plexus.classworlds.launcher.Launcher.launch(Launcher.java:229) [plexus-classworlds-2.5.2.jar:na]
+	at org.codehaus.plexus.classworlds.launcher.Launcher.mainWithExitCode(Launcher.java:415) [plexus-classworlds-2.5.2.jar:na]
+	at org.codehaus.plexus.classworlds.launcher.Launcher.main(Launcher.java:356) [plexus-classworlds-2.5.2.jar:na]
+Caused by: org.springframework.beans.factory.parsing.BeanDefinitionParsingException: Configuration problem: <property> element for property 'triggers' must specify a ref or value
+Offending resource: class path resource [spring/applicationContext.xml]
+Bean ''
+	-> Property 'triggers'
+	at org.springframework.beans.factory.parsing.FailFastProblemReporter.error(FailFastProblemReporter.java:70) ~[spring-beans-4.1.9.RELEASE.jar:4.1.9.RELEASE]
+	at org.springframework.beans.factory.parsing.ReaderContext.error(ReaderContext.java:85) ~[spring-beans-4.1.9.RELEASE.jar:4.1.9.RELEASE]
+	at org.springframework.beans.factory.parsing.ReaderContext.error(ReaderContext.java:80) ~[spring-beans-4.1.9.RELEASE.jar:4.1.9.RELEASE]
+	at org.springframework.beans.factory.xml.BeanDefinitionParserDelegate.error(BeanDefinitionParserDelegate.java:316) ~[spring-beans-4.1.9.RELEASE.jar:4.1.9.RELEASE]
+	at org.springframework.beans.factory.xml.BeanDefinitionParserDelegate.parsePropertyValue(BeanDefinitionParserDelegate.java:1016) ~[spring-beans-4.1.9.RELEASE.jar:4.1.9.RELEASE]
+	at org.springframework.beans.factory.xml.BeanDefinitionParserDelegate.parsePropertyElement(BeanDefinitionParserDelegate.java:910) ~[spring-beans-4.1.9.RELEASE.jar:4.1.9.RELEASE]
+	at org.springframework.beans.factory.xml.BeanDefinitionParserDelegate.parsePropertyElements(BeanDefinitionParserDelegate.java:771) ~[spring-beans-4.1.9.RELEASE.jar:4.1.9.RELEASE]
+	at org.springframework.beans.factory.xml.BeanDefinitionParserDelegate.parseBeanDefinitionElement(BeanDefinitionParserDelegate.java:561) ~[spring-beans-4.1.9.RELEASE.jar:4.1.9.RELEASE]
+	... 74 common frames omitted
+2019-05-17 11:19:33.882 [main] ERROR com.zb.service.im.AliIMService - -------------- ALI TEST ----------------
+2019-05-17 11:20:02.126 [main] ERROR com.zb.service.im.AliIMService - -------------- ALI TEST ----------------
+2019-05-17 11:23:41.488 [main] ERROR com.zb.service.im.AliIMService - -------------- ALI TEST ----------------
+2019-05-17 11:26:53.348 [main] ERROR com.zb.service.im.AliIMService - -------------- ALI TEST ----------------
+2019-05-17 11:28:41.593 [main] ERROR com.zb.service.im.AliIMService - -------------- ALI TEST ----------------
+2019-05-17 11:30:32.483 [qtp1825071442-23] ERROR c.z.w.i.AdmOAuth2SimpleInterceptor - /admin/index.xhtml
+2019-05-17 11:32:02.189 [qtp1825071442-16] ERROR c.z.w.i.AdmOAuth2SimpleInterceptor - /admin/coinUsers.xhtml
+2019-05-17 11:33:36.820 [qtp1825071442-16] ERROR c.z.w.i.AdmOAuth2SimpleInterceptor - /admin/changeRobot/index.xhtml
+2019-05-17 11:33:39.076 [qtp1825071442-17] ERROR c.z.w.i.AdmOAuth2SimpleInterceptor - /admin/changeRobot/run/3.xhtml
+2019-05-17 11:33:39.289 [qtp1825071442-17] ERROR com.zb.web.view.admin.ChangeRobotCtl - ：：：：：：：跑一个
+2019-05-17 11:33:40.474 [qtp1825071442-20] ERROR c.z.w.i.AdmOAuth2SimpleInterceptor - /admin/changeRobot/run/4.xhtml
+2019-05-17 11:33:40.654 [qtp1825071442-20] ERROR com.zb.web.view.admin.ChangeRobotCtl - ：：：：：：：跑一个
+2019-05-17 11:33:49.145 [qtp1825071442-46] ERROR c.z.w.i.AdmOAuth2SimpleInterceptor - /admin/regAli.xhtml
+2019-05-17 11:33:56.156 [qtp1825071442-23] ERROR c.z.w.i.AdmOAuth2SimpleInterceptor - /admin/regAli.xhtml
+2019-05-17 11:33:56.181 [qtp1825071442-23] ERROR com.zb.web.view.admin.RegAliCtl - LASTID ---------->:100000095
+2019-05-17 11:33:57.880 [qtp1825071442-17] ERROR c.z.w.i.AdmOAuth2SimpleInterceptor - /admin/pushHXMsg.xhtml
+2019-05-17 11:34:00.011 [qtp1825071442-23] ERROR com.zb.web.view.admin.RegAliCtl - LASTID ---------->:100000195
+2019-05-17 11:34:01.757 [qtp1825071442-22] ERROR c.z.w.i.AdmOAuth2SimpleInterceptor - /admin/aliIMHandler.xhtml
+2019-05-17 11:34:03.879 [qtp1825071442-23] ERROR com.zb.web.view.admin.RegAliCtl - LASTID ---------->:100000295
+2019-05-17 11:34:04.578 [qtp1825071442-20] ERROR c.z.w.i.AdmOAuth2SimpleInterceptor - /admin/userTitles.xhtml
+2019-05-17 11:34:05.447 [qtp1825071442-19] ERROR c.z.w.i.AdmOAuth2SimpleInterceptor - /admin/aliIMHandler.xhtml
+2019-05-17 11:34:06.512 [qtp1825071442-46] ERROR c.z.w.i.AdmOAuth2SimpleInterceptor - /admin/userTitles.xhtml
+2019-05-17 11:34:07.221 [qtp1825071442-23] ERROR com.zb.web.view.admin.RegAliCtl - LASTID ---------->:100000395
+2019-05-17 11:34:10.594 [qtp1825071442-23] ERROR com.zb.web.view.admin.RegAliCtl - LASTID ---------->:100000495
+2019-05-17 11:34:13.777 [qtp1825071442-23] ERROR com.zb.web.view.admin.RegAliCtl - LASTID ---------->:100000595
+2019-05-17 11:34:17.200 [qtp1825071442-17] ERROR c.z.w.i.AdmOAuth2SimpleInterceptor - /admin/monitors.xhtml
+2019-05-17 11:34:17.436 [qtp1825071442-23] ERROR com.zb.web.view.admin.RegAliCtl - LASTID ---------->:100000695
+2019-05-17 11:34:20.654 [qtp1825071442-23] ERROR com.zb.web.view.admin.RegAliCtl - LASTID ---------->:100000795
+2019-05-17 11:34:24.468 [qtp1825071442-23] ERROR com.zb.web.view.admin.RegAliCtl - LASTID ---------->:100000895
+2019-05-17 11:34:29.873 [qtp1825071442-23] ERROR com.zb.web.view.admin.RegAliCtl - LASTID ---------->:100000995
+2019-05-17 11:34:33.019 [qtp1825071442-23] ERROR com.zb.web.view.admin.RegAliCtl - LASTID ---------->:100001095
+2019-05-17 11:34:36.596 [qtp1825071442-23] ERROR com.zb.web.view.admin.RegAliCtl - LASTID ---------->:100001195
+2019-05-17 11:34:39.716 [qtp1825071442-23] ERROR com.zb.web.view.admin.RegAliCtl - LASTID ---------->:100001295
+2019-05-17 11:34:44.075 [qtp1825071442-23] ERROR com.zb.web.view.admin.RegAliCtl - LASTID ---------->:100001395
+2019-05-17 11:34:48.537 [qtp1825071442-23] ERROR com.zb.web.view.admin.RegAliCtl - LASTID ---------->:100001495
+2019-05-17 11:34:51.820 [qtp1825071442-23] ERROR com.zb.web.view.admin.RegAliCtl - LASTID ---------->:100001595
+2019-05-17 11:34:55.153 [qtp1825071442-23] ERROR com.zb.web.view.admin.RegAliCtl - LASTID ---------->:100001695
+2019-05-17 11:34:58.149 [qtp1825071442-23] ERROR com.zb.web.view.admin.RegAliCtl - LASTID ---------->:100001795
+2019-05-17 11:35:01.439 [qtp1825071442-23] ERROR com.zb.web.view.admin.RegAliCtl - LASTID ---------->:100001895
+2019-05-17 11:35:03.612 [qtp1825071442-22] ERROR c.z.w.i.AdmOAuth2SimpleInterceptor - /admin/toolCates.xhtml
+2019-05-17 11:35:05.732 [qtp1825071442-23] ERROR com.zb.web.view.admin.RegAliCtl - LASTID ---------->:100001995
+2019-05-17 11:35:09.033 [qtp1825071442-23] ERROR com.zb.web.view.admin.RegAliCtl - LASTID ---------->:100002095
+2019-05-17 11:35:12.251 [qtp1825071442-23] ERROR com.zb.web.view.admin.RegAliCtl - LASTID ---------->:100109609
+2019-05-17 11:35:15.575 [qtp1825071442-23] ERROR com.zb.web.view.admin.RegAliCtl - LASTID ---------->:100109709
+2019-05-17 11:35:17.312 [qtp1825071442-20] ERROR c.z.w.i.AdmOAuth2SimpleInterceptor - /admin/exts.xhtml
+2019-05-17 11:35:18.504 [qtp1825071442-22] ERROR c.z.w.i.AdmOAuth2SimpleInterceptor - /admin/tools.xhtml
+2019-05-17 11:35:19.311 [qtp1825071442-23] ERROR com.zb.web.view.admin.RegAliCtl - LASTID ---------->:100109809
+2019-05-17 11:35:23.842 [qtp1825071442-23] ERROR com.zb.web.view.admin.RegAliCtl - LASTID ---------->:100109909
+2019-05-17 11:35:26.515 [qtp1825071442-19] ERROR c.z.w.i.AdmOAuth2SimpleInterceptor - /admin/tools.xhtml
+2019-05-17 11:35:26.945 [qtp1825071442-23] ERROR com.zb.web.view.admin.RegAliCtl - LASTID ---------->:100110009
+2019-05-17 11:35:30.142 [qtp1825071442-23] ERROR com.zb.web.view.admin.RegAliCtl - LASTID ---------->:100110109
+2019-05-17 11:35:34.159 [qtp1825071442-23] ERROR com.zb.web.view.admin.RegAliCtl - LASTID ---------->:100110209
+2019-05-17 11:35:37.376 [qtp1825071442-23] ERROR com.zb.web.view.admin.RegAliCtl - LASTID ---------->:100110309
+2019-05-17 11:35:40.780 [qtp1825071442-23] ERROR com.zb.web.view.admin.RegAliCtl - LASTID ---------->:100110409
+2019-05-17 11:35:43.840 [qtp1825071442-23] ERROR com.zb.web.view.admin.RegAliCtl - LASTID ---------->:100110509
+2019-05-17 11:35:49.153 [qtp1825071442-23] ERROR com.zb.web.view.admin.RegAliCtl - LASTID ---------->:100110519
+2019-05-17 11:35:52.153 [qtp1825071442-20] ERROR c.z.w.i.AdmOAuth2SimpleInterceptor - /admin/tools.xhtml
+2019-05-17 11:36:13.062 [qtp1825071442-23] ERROR c.z.w.i.AdmOAuth2SimpleInterceptor - /admin/exts.xhtml
+2019-05-17 11:36:15.207 [qtp1825071442-19] ERROR c.z.w.i.AdmOAuth2SimpleInterceptor - /admin/tools.xhtml
+2019-05-17 11:36:20.259 [qtp1825071442-20] ERROR c.z.w.i.AdmOAuth2SimpleInterceptor - /admin/exts.xhtml
+2019-05-17 11:36:38.247 [qtp1825071442-23] ERROR c.z.w.i.AdmOAuth2SimpleInterceptor - /admin/contactsHeads.xhtml
+2019-05-17 11:37:12.959 [qtp1825071442-20] ERROR c.z.w.i.AdmOAuth2SimpleInterceptor - /admin/resPacks.xhtml
+2019-05-17 11:37:35.667 [qtp1825071442-46] ERROR c.z.w.i.AdmOAuth2SimpleInterceptor - /admin/resPackCates.xhtml
+2019-05-17 11:37:41.097 [qtp1825071442-22] ERROR c.z.w.i.AdmOAuth2SimpleInterceptor - /admin/papers.xhtml
+2019-05-17 11:37:56.025 [qtp1825071442-17] ERROR c.z.w.i.AdmOAuth2SimpleInterceptor - /admin/discountConfigs.xhtml
+2019-05-17 11:37:57.039 [qtp1825071442-16] ERROR c.z.w.i.AdmOAuth2SimpleInterceptor - /admin/goodses.xhtml
+2019-05-17 11:38:02.635 [qtp1825071442-46] ERROR c.z.w.i.AdmOAuth2SimpleInterceptor - /admin/discountConfigs.xhtml
+2019-05-17 11:38:04.423 [qtp1825071442-22] ERROR c.z.w.i.AdmOAuth2SimpleInterceptor - /admin/pointLogs.xhtml
+2019-05-17 11:38:06.742 [qtp1825071442-19] ERROR c.z.w.i.AdmOAuth2SimpleInterceptor - /admin/baseGoodses.xhtml
+2019-05-17 11:38:10.159 [qtp1825071442-46] ERROR c.z.w.i.AdmOAuth2SimpleInterceptor - /admin/userPacks.xhtml
+2019-05-17 11:38:20.184 [qtp1825071442-17] ERROR c.z.w.i.AdmOAuth2SimpleInterceptor - /admin/userPackLogs.xhtml
+2019-05-17 11:38:25.647 [qtp1825071442-19] ERROR c.z.w.i.AdmOAuth2SimpleInterceptor - /admin/propLogs.xhtml
+2019-05-17 11:38:45.854 [qtp1825071442-23] ERROR c.z.w.i.AdmOAuth2SimpleInterceptor - /admin/articles.xhtml
+2019-05-17 11:38:57.873 [qtp1825071442-17] ERROR c.z.w.i.AdmOAuth2SimpleInterceptor - /admin/articles/audited.xhtml
+2019-05-17 11:39:02.216 [qtp1825071442-22] ERROR c.z.w.i.AdmOAuth2SimpleInterceptor - /admin/comments.xhtml
+2019-05-17 11:39:08.377 [qtp1825071442-46] ERROR c.z.w.i.AdmOAuth2SimpleInterceptor - /admin/comment.xhtml
+2019-05-17 11:39:09.459 [qtp1825071442-16] ERROR c.z.w.i.AdmOAuth2SimpleInterceptor - /admin/comment.xhtml
+2019-05-17 11:39:13.553 [qtp1825071442-22] ERROR c.z.w.i.AdmOAuth2SimpleInterceptor - /admin/comment/parise.xhtml
+2019-05-17 11:39:14.868 [qtp1825071442-19] ERROR c.z.w.i.AdmOAuth2SimpleInterceptor - /admin/comments.xhtml
+2019-05-17 11:39:18.257 [qtp1825071442-46] ERROR c.z.w.i.AdmOAuth2SimpleInterceptor - /admin/comment.xhtml
+2019-05-17 11:39:24.786 [qtp1825071442-17] ERROR c.z.w.i.AdmOAuth2SimpleInterceptor - /admin/groups.xhtml
+2019-05-17 11:39:44.338 [qtp1825071442-19] ERROR c.z.w.i.AdmOAuth2SimpleInterceptor - /admin/topics.xhtml
+2019-05-17 11:39:50.550 [qtp1825071442-16] ERROR c.z.w.i.AdmOAuth2SimpleInterceptor - /admin/tipOffSt.xhtml
+2019-05-17 11:39:56.358 [qtp1825071442-23] ERROR c.z.w.i.AdmOAuth2SimpleInterceptor - /admin/shouts.xhtml
+2019-05-17 11:40:00.942 [qtp1825071442-46] ERROR c.z.w.i.AdmOAuth2SimpleInterceptor - /admin/banners.xhtml
+2019-05-17 11:40:04.970 [qtp1825071442-16] ERROR c.z.w.i.AdmOAuth2SimpleInterceptor - /admin/appCovers.xhtml
+2019-05-17 11:40:13.103 [qtp1825071442-17] ERROR c.z.w.i.AdmOAuth2SimpleInterceptor - /admin/banners.xhtml
+2019-05-17 11:40:13.695 [qtp1825071442-46] ERROR c.z.w.i.AdmOAuth2SimpleInterceptor - /admin/appCovers.xhtml
+2019-05-17 11:41:23.437 [qtp1825071442-20] ERROR c.z.w.i.AdmOAuth2SimpleInterceptor - /admin/stCoinIO.xhtml
+2019-05-17 11:41:29.047 [qtp1825071442-17] ERROR c.z.w.i.AdmOAuth2SimpleInterceptor - /admin/appleErrorOrders.xhtml
+2019-05-17 11:41:36.414 [qtp1825071442-16] ERROR c.z.w.i.AdmOAuth2SimpleInterceptor - /admin/stCoinIO.xhtml
+2019-05-17 11:41:37.166 [qtp1825071442-46] ERROR c.z.w.i.AdmOAuth2SimpleInterceptor - /admin/appleErrorOrders.xhtml
+2019-05-17 11:41:39.270 [qtp1825071442-17] ERROR c.z.w.i.AdmOAuth2SimpleInterceptor - /admin/stCoinIO.xhtml
+2019-05-17 11:41:58.442 [qtp1825071442-20] ERROR c.z.w.i.AdmOAuth2SimpleInterceptor - /admin/stCoinIO.xhtml
+2019-05-17 11:42:06.552 [qtp1825071442-17] ERROR c.z.w.i.AdmOAuth2SimpleInterceptor - /admin/st/toolUsed.xhtml
+2019-05-17 11:42:11.957 [qtp1825071442-22] ERROR c.z.w.i.AdmOAuth2SimpleInterceptor - /admin/redeemLogs.xhtml
+2019-05-17 11:42:33.910 [qtp1825071442-46] ERROR c.z.w.i.AdmOAuth2SimpleInterceptor - /admin/searchCount.xhtml
+2019-05-17 11:42:45.528 [qtp1825071442-20] ERROR c.z.w.i.AdmOAuth2SimpleInterceptor - /admin/articleGift.xhtml
+2019-05-17 11:42:47.000 [qtp1825071442-46] ERROR c.z.w.i.AdmOAuth2SimpleInterceptor - /admin/articleGift.xhtml
+2019-05-17 11:42:47.785 [qtp1825071442-22] ERROR c.z.w.i.AdmOAuth2SimpleInterceptor - /admin/slave/cowSlave.xhtml
+2019-05-17 11:42:55.748 [qtp1825071442-20] ERROR c.z.w.i.AdmOAuth2SimpleInterceptor - /admin/undercover/words.xhtml
+2019-05-17 11:42:58.249 [qtp1825071442-46] ERROR c.z.w.i.AdmOAuth2SimpleInterceptor - /admin/punishs.xhtml
+2019-05-17 11:42:59.175 [qtp1825071442-22] ERROR c.z.w.i.AdmOAuth2SimpleInterceptor - /admin/guess/words.xhtml
+2019-05-17 11:43:01.085 [qtp1825071442-19] ERROR c.z.w.i.AdmOAuth2SimpleInterceptor - /admin/active/rooms.xhtml
+2019-05-17 11:43:02.331 [qtp1825071442-16] ERROR c.z.w.i.AdmOAuth2SimpleInterceptor - /admin/active/sellRooms.xhtml
+2019-05-17 11:43:03.421 [qtp1825071442-23] ERROR c.z.w.i.AdmOAuth2SimpleInterceptor - /admin/activities.xhtml
+2019-05-17 11:43:04.938 [qtp1825071442-20] ERROR c.z.w.i.AdmOAuth2SimpleInterceptor - /admin/drawSomething/drawLogs.xhtml
+2019-05-17 11:43:08.402 [qtp1825071442-22] ERROR c.z.w.i.AdmOAuth2SimpleInterceptor - /admin/guesses.xhtml
+2019-05-17 11:44:14.278 [qtp1825071442-16] ERROR c.z.w.i.AdmOAuth2SimpleInterceptor - /admin/guessLogs.xhtml
+2019-05-17 11:44:18.709 [qtp1825071442-46] ERROR c.z.w.i.AdmOAuth2SimpleInterceptor - /admin/oneTasks.xhtml
+2019-05-17 11:44:36.060 [qtp1825071442-17] ERROR c.z.w.i.AdmOAuth2SimpleInterceptor - /admin/taskModels.xhtml
+2019-05-17 11:44:46.560 [qtp1825071442-46] ERROR c.z.w.i.AdmOAuth2SimpleInterceptor - /admin/merchants.xhtml
+2019-05-17 11:44:57.982 [qtp1825071442-16] ERROR c.z.w.i.AdmOAuth2SimpleInterceptor - /admin/thirdApps.xhtml
+2019-05-17 11:45:10.334 [qtp1825071442-23] ERROR c.z.w.i.AdmOAuth2SimpleInterceptor - /admin/openOrders.xhtml
+2019-05-17 11:45:14.670 [qtp1825071442-17] ERROR c.z.w.i.AdmOAuth2SimpleInterceptor - /admin/agents.xhtml
+2019-05-17 11:45:22.132 [qtp1825071442-20] ERROR c.z.w.i.AdmOAuth2SimpleInterceptor - /admin/agentOrders.xhtml
+2019-05-17 11:45:31.440 [qtp1825071442-23] ERROR c.z.w.i.AdmOAuth2SimpleInterceptor - /admin/envs.xhtml
+2019-05-17 11:46:06.743 [qtp1825071442-17] ERROR c.z.w.i.AdmOAuth2SimpleInterceptor - /admin/sys/bak.xhtml
+2019-05-17 11:46:35.008 [qtp1825071442-46] ERROR c.z.w.i.AdmOAuth2SimpleInterceptor - /admin/servers.xhtml
+2019-05-17 11:47:39.404 [qtp1825071442-17] ERROR c.z.w.i.AdmOAuth2SimpleInterceptor - /admin/keywords.xhtml
+2019-05-17 11:47:44.939 [qtp1825071442-20] ERROR c.z.w.i.AdmOAuth2SimpleInterceptor - /admin/delkeyword.xhtml
+2019-05-17 11:56:39.291 [qtp1825071442-19] ERROR c.z.w.i.AdmOAuth2SimpleInterceptor - /admin/servers.xhtml
+2019-05-17 11:56:39.691 [qtp1825071442-22] ERROR c.z.w.i.AdmOAuth2SimpleInterceptor - /admin/sys/bak.xhtml
+2019-05-17 11:56:40.587 [qtp1825071442-20] ERROR c.z.w.i.AdmOAuth2SimpleInterceptor - /admin/servers.xhtml
+2019-05-17 11:56:42.893 [qtp1825071442-16] ERROR c.z.w.i.AdmOAuth2SimpleInterceptor - /admin/sys/bak.xhtml
+2019-05-17 11:56:45.220 [qtp1825071442-46] ERROR c.z.w.i.AdmOAuth2SimpleInterceptor - /admin/servers.xhtml
+2019-05-17 11:56:45.603 [qtp1825071442-17] ERROR c.z.w.i.AdmOAuth2SimpleInterceptor - /admin/keywords.xhtml
+2019-05-17 11:56:46.102 [qtp1825071442-19] ERROR c.z.w.i.AdmOAuth2SimpleInterceptor - /admin/servers.xhtml
+2019-05-17 11:56:46.523 [qtp1825071442-22] ERROR c.z.w.i.AdmOAuth2SimpleInterceptor - /admin/sys/bak.xhtml
+2019-05-17 11:56:50.274 [qtp1825071442-20] ERROR c.z.w.i.AdmOAuth2SimpleInterceptor - /admin/servers.xhtml
+2019-05-17 12:07:39.867 [qtp1825071442-17] ERROR c.z.w.i.AdmOAuth2SimpleInterceptor - /admin/servers.xhtml
+2019-05-17 12:07:48.327 [qtp1825071442-20] ERROR c.z.w.i.AdmOAuth2SimpleInterceptor - /admin/servers.xhtml
+2019-05-17 12:08:43.477 [qtp1825071442-19] ERROR c.z.w.i.AdmOAuth2SimpleInterceptor - /admin/merchants.xhtml

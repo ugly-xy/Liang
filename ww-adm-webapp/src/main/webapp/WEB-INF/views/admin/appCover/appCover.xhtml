@@ -1,0 +1,122 @@
+<#import "/spring.ftl" as spring /> <#import
+"/admin/layouts/common.xhtml" as layout>
+<@layout.title>app启动封面</@layout.title> <@layout.metaKeywordsDescription>
+
+</@layout.metaKeywordsDescription> <@layout.cssLink>
+	<input type="hidden" id="nav_id" value="appCover" />
+<link rel="stylesheet" type="text/css"
+	href="/webuploader/webuploader.css"></@layout.cssLink>
+	<@layout.pageHeader> app启动封面 </@layout.pageHeader> <@layout.mainContent>
+<div class="row">
+	<div class="col-lg-8">
+		<form role="form" id="form">
+			<div class="form-group form-inline">
+				<label>ID(时间)</label> <input class="form-control" id="id" name="id"
+					placeholder="周时间　例:201746" value="${(obj._id)!}">
+			</div>
+			<div class="form-group form-inline">
+				<label>封面图片</label>
+				<!--用来存放item-->
+				<div id="fileList" class="uploader-list">
+					<img id="pic"
+						src="<#if (obj.url)?? ><@layout.img path=obj.url></@layout.img></#if>"
+						width="120px" />
+				</div>
+				<div id="filePicker">选择图片</div>
+
+			<input type="hidden" id="url" name="url" value="${(obj.url)!}" />
+			</div>
+				<div class="form-group form-inline">
+				<label>用户ID</label> <input class="form-control" id="uid" name="uid"
+					placeholder="用户uid" value="${(obj.uid)!}">
+			</div>
+			<div class="form-group form-inline">
+				<label>昵称</label> <input class="form-control" id="nickname" name="nickname"
+					placeholder="用户昵称" value="${(obj.nickname)!}">
+			</div>
+		   
+			<button id="submit" class="btn btn-default">提交</button>
+			<button id="reset" class="btn btn-default">重置</button>
+		</form>
+	</div>
+
+</div>
+<!-- /.row (nested) -->
+
+</@layout.mainContent> <@layout.script>
+<script type="text/javascript" src="<@layout.static path="/webuploader/webuploader.js" />
+">
+</script>
+<script>
+	$(function() {
+		$("#submit").click(function(e) {
+			e.preventDefault();
+			var t = this;
+			var jsonData = $("#form").serializeArray();
+			$.post("/admin/appCover", jsonData, function(ret) {
+				if (0 != ret.code) {
+					alert(ret.msg);
+				} else {
+					alert("Success");
+					window.location.href="/admin/appCovers.xhtml";
+				}
+			});
+		});
+
+		$("#reset").click(function(e) {
+
+		});
+	});
+	uploader = WebUploader.create({
+		auto : true,
+		swf : '/webuploader/Uploader.swf',
+		server : '<@layout.api path="/sys/admPic" />',
+		pick : '#filePicker',
+		accept : {
+			title : 'Images',
+			extensions : 'gif,jpg,jpeg,bmp,png',
+			mimeTypes : 'image/*'
+		},
+		formData : {
+			"token" : '<@layout.token />'
+		}
+	});
+
+	uploader.on('fileQueued', function(file) {
+
+	});
+
+	uploader.on('uploadProgress', function(file, percentage) {
+		var $li = $('#' + file.id), $percent = $li.find('.progress span');
+		if (!$percent.length) {
+			$percent = $('<p class="progress"><span></span></p>').appendTo($li)
+					.find('span');
+		}
+		$percent.css('width', percentage * 100 + '%');
+	});
+
+	// 文件上传成功，给item添加成功class, 用样式标记上传成功。
+	uploader.on('uploadSuccess', function(file, res) {
+		$('#' + file.id).addClass('upload-state-done');
+		if (res.code == 0) {
+			$("#pic").attr('src', res.data);
+			$("#url").val(res.data);
+		}
+	});
+
+	// 文件上传失败，显示上传出错。
+	uploader.on('uploadError', function(file) {
+		var $li = $('#' + file.id), $error = $li.find('div.error');
+		if (!$error.length) {
+			$error = $('<div class="error"></div>').appendTo($li);
+		}
+		$error.text('上传失败');
+	});
+
+	// 完成上传完了，成功或者失败，先删除进度条。
+	uploader.on('uploadComplete', function(file) {
+		$('#' + file.id).find('.progress').remove();
+	});
+
+</script>
+</@layout.script>

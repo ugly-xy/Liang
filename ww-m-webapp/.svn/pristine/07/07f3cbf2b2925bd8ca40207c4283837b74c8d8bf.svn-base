@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title>参与活动赢现金红包</title>
+		<link rel="stylesheet" type="text/css" href="css/common.css"/>
+	</head>
+	<body>
+		<div id="top">
+			<img src="img/top.png"/>
+		</div>
+		<div id="rule">
+			<p class="mon">上榜用户最高奖励现金红包120元</p>
+		</div>
+		<div id="way">
+			<img class="top" src="img/way.png"/>
+			<div class="cont">
+				<dl>
+					<dt><p>1</p></dt>
+					<dd>官方QQ： <span> 1260110110 </span></dd>
+				</dl>
+				<dl>
+					<dt><p>2</p></dt>
+					<dd>
+						<p>官方微信：</p>
+						<img src="img/code2.png" alt="" />
+					</dd>
+				</dl>
+				<div class="warm"><p>友情提示：请认准官方指定联系方式进行领奖，其他途径小心上当受骗！他途径小心上当受骗！</p></div>
+			</div>
+			
+		</div>
+		<div id="tips">
+			<img class="top" src="img/tips.png" />
+			<div class="cont">
+				<p>进入房间需有4人准备方可开启游戏，当人数不足时请耐心等待，同时可以拉动身边好友一同参与娱乐；每天都参加日榜争夺，才会有更大机会赢取周榜奖励；玩你画我猜游戏，当你绘画时，有其他玩家猜中就会得分，但当所有玩家都猜中时，便不会得分；玩谁是卧底游戏，尽量含蓄的形容该词语，同时分析其他玩家的答案，尽快确定自己及其他玩家的身份；如对游戏玩法有疑问或是好建议，请联系官方QQ：<span>1260110110</span></p>
+			</div>
+		</div>
+		<div id="list">
+			<img class="top" src="img/list.png" alt="" />
+			<dl class="tab">
+				<dt><p>你猜我画</p></dt>
+				<dd><p>谁是卧底</p></dd>
+			</dl>
+			<div class="cont">
+				<dl>
+					<dt><p>日榜</p></dt>
+					<dd><p>周榜</p></dd>
+				</dl>
+				<ul class="title">
+					<li>排名</li>
+					<li>玩家</li>
+					<li>累计赢币</li>
+					<li>奖励</li>
+				</ul>
+				<ul class="c">
+				</ul>
+				<div class="bot">
+					
+				</div>
+				<p class="d">您当前排名：xx名，累计赢币：xx币</p>
+			</div>
+			<div id="share">
+				<div class="share">
+					分享
+				</div>
+				<p>把活动分享给身边更多的小伙伴，让大家来一起参与吧！BiBi有你更精彩！</p>
+			</div>
+		</div>
+		
+	</body>
+	<script src="js/jquery-1.11.1.min.js"></script>
+	<script src="js/rem.js"></script>
+	<script src="js/common.js"></script>
+</html>

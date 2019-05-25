@@ -1,0 +1,112 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="css/mui.min.css" rel="stylesheet" />
+		<link rel="stylesheet" type="text/css" href="css/style.css"/>
+	</head>
+
+	<body>
+		<header class="mui-bar mui-bar-nav">
+		    <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+		    <h1 class="mui-title">레벨 </h1>
+		</header>
+		<div class="mui-content levelpage">
+		    <div class="currlevel" >
+		    		<div class="levelleft">
+		    			<img :src="userLevel.path" width="70"/>
+		    			<div class="imgdatail">
+		    				{{userLevel.name}}
+		    			</div>
+		    		</div>
+		    		<div class="levelright">
+			    		<p><span>+{{userLevel.amount}}</span><br />{{userLevel.amountDec}}</p>
+			    		<p><span>+{{userLevel.rate}}%</span><br />{{userLevel.rateDec}}</p>
+		    		</div>
+		    </div>
+		    <div class="listtitle">
+		    		등급 목록
+		    </div>
+		    <ul>
+		        <li v-for="item in levelAll">
+	                <div class="flex-view">
+	                    <img :src="item.path" width="50"/>
+	                    <div class="levelname">{{item.name}}</div>
+	                </div>
+	                <div class="flex-view">
+	                		<span>+{{item.amount}}</span>
+	                		<p>{{item.amountDec}}</p>
+	                </div>
+	                <div class="flex-view">
+	              		<span>{{item.rate}}%</span>
+	                		<p>{{item.rateDec}}</p>
+	                </div>
+		        </li>
+		       <li>
+	               
+		    </ul>
+		</div>
+		<script src="js/mui.min.js"></script>
+		<script src="js/app.js" type="text/javascript" charset="utf-8"></script>
+		<script src="js/vue.min.js" type="text/javascript"></script>
+		<script type="text/javascript">
+			(function($,doc){
+				$.init();
+				
+				function getLevelData (){
+					return {
+						levelAll:[],
+						userLevel:{}
+					}
+				}
+				
+				var userLevelData = new Vue({
+					el:'.mui-content',
+					data:getLevelData()
+				})
+				
+				initUserLeverData();
+				function initUserLeverData(){
+					var list=[];
+					mui.getJSON(app.serverApi(app.apiConstant.getInvitingLevel),{},function(res){
+						app.respondingTo(res.code,function(code){
+							if(0!=code){
+								plus.nativeUI.toast(res.msg);
+							}else{
+								var divisonInfos = res.data.divisonInfos;
+								var divisionId = res.data.userDivisionId;
+								if(!divisionId)divisionId=1;
+								for(var i=0;i<divisonInfos.length;i++){
+									var x=divisonInfos[i];
+									var json={};
+									json.path="images/lv-0"+(i+1)+".png";
+									json.name=x.des;
+									json.rate="";
+									json.rateDec="";
+									if(x.rate&&null!=x.rate){
+										var rate=x.rate;
+										json.rate =parseInt((rate*100));
+										json.rateDec="미션수익의"+json.rate+"% 획득";
+									}
+									json.amount=x.amount;
+									json.amountDec="Candy Token적립금";
+									list.push(json);
+								}
+								
+								if(divisionId&&null!=divisionId&&list.length>0){
+									userLevelData.userLevel=list[(parseInt(divisionId)-1)];
+								}
+							}
+							userLevelData.levelAll=list;
+						})
+					})
+				}
+				
+			}(mui,document))
+		</script>
+	</body>
+
+</html>

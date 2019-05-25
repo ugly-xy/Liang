@@ -1,0 +1,91 @@
+package com.we.web.view.admin;
+
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import org.apache.commons.io.FileUtils;
+import org.apache.commons.io.IOUtils;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
+
+import com.we.common.Constant.ReCode;
+import com.we.common.crypto.MDUtil;
+import com.we.core.conf.Config;
+import com.we.core.web.ReMsg;
+
+@Controller
+@RequestMapping("/file")
+public class FileUploadCtl extends AdminBaseCtl {
+
+	private String getRoot() {
+		return Config.cur().get("file.upload.root", "");
+	}
+
+	private String getDir() {
+		return Config.cur().get("file.upload.dir", "sysPic");
+	}
+
+	private String getImageDomain() {
+		return Config.cur().get("img.domain", "http://test.admin.candy.club:9999");
+	}
+
+	@ResponseBody
+	@RequestMapping("/sysPic")
+	public ReMsg uploadPic(@RequestParam MultipartFile file, String ptoken, String timestamp,
+			HttpServletRequest request, HttpServletResponse response) {
+		long uid = super.getUid();
+		if (uid < 1) {
+			return new ReMsg(ReCode.ACCESS_TOKEN_ERR);
+		}
+		if (file == null || file.getOriginalFilename().lastIndexOf(".") < 0) {
+			return new ReMsg(ReCode.FAIL);
+		}
+		String suffix = file.getOriginalFilename().substring(file.getOriginalFilename().lastIndexOf(".")).toLowerCase();
+		String key = null;
+		try {
+			key = "/" + MDUtil.MD5.digest2HEX(file.getBytes(), true) + suffix;
+			String savePath = getRoot() + "/" + getDir() + key;
+			// System.out.println(savePath);
+			FileOutputStream fos = FileUtils.openOutputStream(new File(savePath));
+			IOUtils.copy(file.getInputStream(), fos);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		// System.out.println(getImageDomain()+"/filePic" + key);
+		return new ReMsg(ReCode.OK, getImageDomain() + "/sysPic" + key);
+	}
+
+	@ResponseBody
+	@RequestMapping("/sysVideo")
+	public ReMsg uploadVedio(@RequestParam MultipartFile file, String ptoken, String timestamp,
+			HttpServletRequest request, HttpServletResponse response) {
+		long uid = super.getUid();
+		if (uid < 1) {
+			return new ReMsg(ReCode.ACCESS_TOKEN_ERR);
+		}
+		if (file == null || file.getOriginalFilename().lastIndexOf(".") < 0) {
+			return new ReMsg(ReCode.FAIL);
+		}
+		String suffix = file.getOriginalFilename().substring(file.getOriginalFilename().lastIndexOf(".")).toLowerCase();
+		String key = null;
+		try {
+			key = "/" + MDUtil.MD5.digest2HEX(file.getBytes(), true) + suffix;
+			String savePath = getRoot() + "/" + getDir() + key;
+			// System.out.println(savePath);
+			FileOutputStream fos = FileUtils.openOutputStream(new File(savePath));
+			IOUtils.copy(file.getInputStream(), fos);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		// System.out.println(getImageDomain()+"/filePic" + key);
+		return new ReMsg(ReCode.OK, getImageDomain() + "/sysPic" + key);
+	}
+
+}

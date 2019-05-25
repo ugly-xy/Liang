@@ -1,0 +1,166 @@
+
+<!-- Navigation -->
+<nav class="navbar navbar-default navbar-static-top" role="navigation"
+	style="margin-bottom: 0">
+	<#include "./nav_head.xhtml"/>
+
+	<!-- /.navbar-top-links -->
+
+	<div class="navbar-default sidebar" role="navigation">
+		<div class="sidebar-nav navbar-collapse">
+			<ul class="nav" id="side-menu">
+				<!-- <li><a href="index.xhtml"><i class="fa fa-dashboard fa-fw"></i>
+						Dashboard</a></li> -->
+				<li><a href="index.xhtml"><i class="fa fa-bar-chart-o fa-fw"></i>
+						用户管理<span class="fa arrow"></span></a>
+					<ul class="nav nav-second-level">
+						<li><a href="/admin/users.xhtml"  data="user">用户</a></li>
+						<li><a href="/admin/coinUsers.xhtml" data="coinUser">用户金币排序</a></li>
+						<li><a href="/admin/userContacts.xhtml" data="userContacts">用户通讯录</a></li>
+						<li><a href="/admin/loginLogs.xhtml" data="loginLog">登录详情</a></li>
+						<li><a href="/admin/changeRobot/index.xhtml" data="robot">机器人换头像</a></li>
+						<li><a href="/admin/regAli.xhtml" data="regAli">阿里帐号注册</a></li>
+						<li><a href="/admin/aliIMHandler.xhtml" data="aliIMHandler">客服号</a></li>
+						<li><a href="/admin/userTitles.xhtml" data="userTitle">用户称号</a></li>
+						<li><a href="/admin/monitors.xhtml" data="monitors">监控</a></li>
+					</ul> <!-- /.nav-second-level --></li>
+				<li><a href="#"><i class="fa fa-bar-chart-o fa-fw"></i>
+						工具管理<span class="fa arrow"></span></a>
+					<ul class="nav nav-second-level">
+						<li><a href="/admin/toolCates.xhtml" data="toolCate">工具分类</a></li>
+						<li><a href="/admin/tools.xhtml" data="tool">工具</a></li>
+						<li><a href="/admin/exts.xhtml" data="ext">工具扩展属性</a></li>
+						<li><a href="/admin/contactsHeads.xhtml" data="contactsHead">联系人资源</a></li>
+						<li><a href="/admin/resPacks.xhtml" data="resPack">表情包</a></li>
+						<li><a href="/admin/resPackCates.xhtml" data="res">表情分类</a></li>
+						<li><a href="/admin/papers.xhtml" data="paper">问答题</a></li>
+					</ul> <!-- /.nav-second-level --></li>
+				<li><a href="#"><i class="fa fa-bar-chart-o fa-fw"></i>
+						物品管理<span class="fa arrow"></span></a>
+					<ul class="nav nav-second-level">
+						<li><a href="/admin/goodses.xhtml" data="goods">商品</a></li>
+						<li><a href="/admin/discountConfigs.xhtml" data="discountConfig">优惠券配置</a></li>
+						<li><a href="/admin/pointLogs.xhtml" data="point">用户积分获得明细</a></li>
+						<li><a href="/admin/baseGoodses.xhtml" data="baseGoods">基础物品管理</a></li>
+						<li><a href="/admin/userPacks.xhtml" data="userPack">用户背包物品统计</a></li>
+						<li><a href="/admin/userPackLogs.xhtml" data="packLog">用户物品获得明细</a></li>
+						<li><a href="/admin/propLogs.xhtml" data="propLog">用户物品使用明细</a></li>
+						<li><a href="/admin/giftLogs.xhtml" data="giftLog">用户礼物赠送明细</a></li>
+						
+						
+					</ul></li>
+				<li><a href="#"><i class="fa fa-bar-chart-o fa-fw"></i>
+						动态管理<span class="fa arrow"></span></a>
+					<ul class="nav nav-second-level">
+						<li><a href="/admin/articles.xhtml" data="article">待审核文章</a></li>
+						<li><a href="/admin/articles/audited.xhtml" data="articled">已审核文章</a></li>
+						<li><a href="/admin/comments.xhtml" data="comment">评论列表</a></li>
+						<li><a href="/admin/groups.xhtml" data="group">圈子管理</a></li>
+						<li><a href="/admin/topics.xhtml" data="topic">话题管理</a></li>
+						<li><a href="/admin/tipOffSt.xhtml" data="tipoff">举报</a></li>
+						<li><a href="/admin/shouts.xhtml" data="shouts">喊话列表</a></li>
+					</ul>
+				</li>
+				
+				<li><a href="#"><i class="fa fa-bar-chart-o fa-fw"></i>
+						App管理<span class="fa arrow"></span></a>
+					<ul class="nav nav-second-level">
+						<li><a href="/admin/banners.xhtml" data="banner">焦点图管理</a></li>
+						<li><a href="/admin/appCovers.xhtml" data="appCover">app启动图管理</a></li>
+					</ul>
+				</li>
+				
+				<li><a href="#"><i class="fa fa-bar-chart-o fa-fw"></i>
+						资金<span class="fa arrow"></span></a>
+					<ul class="nav nav-second-level">
+						<li><a href="/admin/orders.xhtml" data="order">订单管理</a></li>
+						<li><a href="/admin/coinlogs.xhtml" data="coin">金币记录</a></li>
+						<li><a href="/admin/stCoinIO.xhtml" data="stCoinIO">金币统计</a></li>
+						<li><a href="/admin/appleErrorOrders.xhtml" data="appleErr">苹果失败订单</a></li>
+						
+					</ul>
+				</li>
+				
+				<li><a href="#"><i class="fa fa-bar-chart-o fa-fw"></i>
+						统计<span class="fa arrow"></span></a>
+					<ul class="nav nav-second-level">
+						<li><a href="/admin/st/toolUsed.xhtml" data="toolUsed">工具使用统计</a></li>
+						<li><a href="/admin/redeemLogs.xhtml" data="redeem">鲜花兑换活动统计</a></li>
+						<li><a href="/admin/searchCount.xhtml" data="userResCount">用户鲜花额度排行</a></li>
+						<li><a href="/admin/rankList.xhtml" data="rankList">魅力富豪排行榜</a></li>
+						<li><a href="/admin/rankListArticle.xhtml" data="rankListArticle">文章收花排行榜</a></li>
+						<li><a href="/admin/userGift.xhtml" data="userGift">单一用户收礼榜</a></li>
+						<li><a href="/admin/articleGift.xhtml" data="articleGift">单一文章收花榜</a></li>
+						<li><a href="/admin/slave/cowSlave.xhtml" data="cowSlave">最牛奴隶榜排行</a></li>
+					</ul>
+				</li>
+				<li><a href="#"><i class="fa fa-bar-chart-o fa-fw"></i>
+						游戏<span class="fa arrow"></span></a>
+					<ul class="nav nav-second-level">
+						<li><a href="/admin/undercover/words.xhtml" data="ucWord">卧底词库</a></li>
+						<li><a href="/admin/punishs.xhtml" data="punishs">惩罚</a></li>
+						<li><a href="/admin/guess/words.xhtml" data="guess">你画我猜词库</a></li>
+						<li><a href="/admin/active/rooms.xhtml" data="room">活动房间</a></li>
+						<li><a href="/admin/active/sellRooms.xhtml" data="sellRoom">售卖房间</a></li>
+						<li><a href="/admin/activities.xhtml" data="game">游戏列表</a></li>
+						<li><a href="/admin/drawSomething/drawLogs.xhtml?status=1" data="draw">你画我猜用户绘画</a></li>
+						<li><a href="/admin/drawSomething/drawGuessLogs.xhtml?status=1" data="drawGue">你画我猜用户猜词</a></li>
+						<li><a href="/admin/undercover/speakLogs.xhtml?status=1"  data="ucSpeakLog">谁是卧底用户描述</a></li>
+						<li><a href="/admin/slave/slaveJobs.xhtml"  data="slaveJobs">奴隶工作词</a></li>
+						<li><a href="/admin/activity/st.xhtml"  data="activeSt">活动统计</a></li>
+						<li><a href="/admin/slotMachines/query.xhtml" data="hero">王者大乱斗英雄</a></li>
+						<li><a href="/admin/slotMachines/exhibition.xhtml" data="slotData">王者乱斗数据统计</a></li>
+						<li><a href="/admin/slotMachines/slotUserSearch.xhtml" data="slotUser">王者乱斗用户数据</a></li>
+						<li><a href="/admin/werewolfKillSt.xhtml" data="werewolfKillSt">狼人杀用户数据</a></li>
+					    <li><a href="/admin/werewolfKillSt2.xhtml" data="werewolfKillSt2">狼人杀用户榜单</a></li>
+					    <li><a href="/admin/queryGameZip.xhtml" data="queryGameZip">游戏资源地址</a></li>
+					    <li><a href="/admin/slotMachines/blackUsers.xhtml" data="blackUsers">大乱斗黑名单</a></li>
+						<li><a href="/admin/sakuran/exhibition.xhtml" data="sakuranData">花魁乱斗数据统计</a></li>
+						<li><a href="/admin/sakuran/sakuranUserSearch.xhtml" data="sakuranUser">花魁乱斗用户数据</a></li>
+					</ul>
+				</li>
+				<li><a href="#"><i class="fa fa-bar-chart-o fa-fw"></i>
+						猜猜<span class="fa arrow"></span></a>
+					<ul class="nav nav-second-level">
+					<li><a href="/admin/guesses.xhtml" data="guesses">猜猜列表</a></li>
+					<li><a href="/admin/guessLogs.xhtml" data="guessLogs">猜猜参与列表</a></li>
+					</ul>
+				</li>
+				<li><a href="#"><i class="fa fa-bar-chart-o fa-fw"></i>
+						任务<span class="fa arrow"></span></a>
+					<ul class="nav nav-second-level">
+					<li><a href="/admin/oneTasks.xhtml" data="oneTasks">日常活动</a></li>
+					<li><a href="/admin/taskModels.xhtml" data="taskModel">任务模型管理</a></li>
+					<li><a href="/admin/taskLogs.xhtml" data="taskLog">任务数据统计</a></li>
+					</ul>
+				</li>
+				<li><a href="#"><i class="fa fa-bar-chart-o fa-fw"></i>
+						第三方应用<span class="fa arrow"></span></a>
+					<ul class="nav nav-second-level">
+						<li><a href="/admin/merchants.xhtml" data="merchant">商户</a></li>
+						<li><a href="/admin/thirdApps.xhtml" data="third">第三方应用</a></li>
+						<li><a href="/admin/openOrders.xhtml" data="openOrder">第三方订单</a></li>
+						<li><a href="/admin/agents.xhtml" data="agent">代理商</a></li>
+						<li><a href="/admin/agentOrders.xhtml" data="agentOrders">代理商订单</a></li>
+					</ul>
+				</li>
+				<li><a href="#"><i class="fa fa-bar-chart-o fa-fw"></i>
+						系统管理<span class="fa arrow"></span></a>
+					<ul class="nav nav-second-level">
+						<li><a href="/admin/envs.xhtml" data="env">环境变量</a></li>
+						<li><a href="/admin/sys/bak.xhtml" data="bak">数据库备份</a></li>
+						<li><a href="/admin/servers.xhtml" data="server">服务器</a></li>
+						<li><a href="/admin/keywords.xhtml" data="keyWord">关键词</a></li>
+						<li><a href="/admin/feedbacks.xhtml" data="feed">用户反馈</a></li>
+						<li><a href="/admin/versions.xhtml" data="ver">版本更新</a></li>
+						<li><a href="/admin/push.xhtml" data="push">PUSH工具</a></li>
+						<li><a href="/admin/perms.xhtml" data="perm">权限列表</a></li>
+					</ul>
+				</li>
+			</ul>
+		</div>
+		<!-- /.sidebar-collapse -->
+	</div>
+	<!-- /.navbar-static-side -->
+</nav>
+

@@ -1,0 +1,19 @@
+<#import "/spring.ftl" as spring />
+<#import "/admin/layouts/common.xhtml" as layout>
+<@layout.title>充值返回页</@layout.title> <@layout.metaKeywordsDescription>
+
+</@layout.metaKeywordsDescription> <@layout.cssLink>
+
+</@layout.cssLink>
+	<@layout.pageHeader> 充值 </@layout.pageHeader> <@layout.mainContent>
+<input type="hidden" id="nav_id" value="toOrder" />
+<div class="row">
+	<div class="col-lg-5">
+		充值完成！
+	</div>
+</div>
+
+</@layout.mainContent> <@layout.script> 
+<script type="text/javascript" src="<@layout.static path="/js/jquery.qrcode.min.js" />">
+</script>
+ </@layout.script> 

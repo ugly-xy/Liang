@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title>공유</title>
+		<#include "/common/head.xhtml"/>
+		<#if conNum??&&(1==conNum)>
+	         <meta name="og:description" content="【최다 에어드랍 플랫폼】Candy Club 에서 에어드랍 진행중! 77777Candy Token 수령완료! 수량한정, 가입만 해도 지급! 가입하러 바로가기: https://www.candy.club/i/${conCode!}"/>
+	    </#if>
+	    <#if conNum??&&(2==conNum)>
+	         <meta name="og:description" content="【에어드랍 수령】가장 신뢰할 수 있는 에어드랍 플랫폼! Candy Club 에어드랍 진행중!! BTC,BCH,ETH 로 교환!! 친구 초대하고 가입까지 가즈아~! 가입하러 바로 가기:https://www.candy.club/i/${conCode!}"/>
+	    </#if>
+	    <#if conNum??&&(3==conNum)>
+	         <meta name="og:description" content="【긴급공지】Candy Club에서 에어드랍 진행중, 100+개의 프로젝트 토큰 무료지급!! 빠른 가입 , 높은 수익 ! 내부테스트 초대진행중!! 가입하러 바로가기 : https://www.candy.club/i/${conCode!}"/>
+	    </#if>
+		<style>
+			#open_sub .at-icon-wrapper{display: none;}
+			#ling_sub .at-icon-wrapper{display: none;}
+			#jsCopyTip{
+				display: block;
+			    font-size: 16px;
+			    margin: 0 10px;
+			    background: url(/active/assets/image/certified.png) no-repeat left center;
+			    padding-left: 24px;
+			    background-size: 20px;
+			    color: #39B54A;
+			    position: absolute;
+			    bottom: -40px;
+			    left: 50px
+
+			}
+		</style>
+	</head>
+
+	<body class="personalbody">
+	<script async="async" type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=5bab3adc6750788d"></script>
+		<#include "/common/header.xhtml"/>
+		<img src="/active/assets/image/logo-login.png" width="0" height="0" />
+		<section class="bannerpage">
+			<img src="/active/image/presonal.jpg" />
+		</section>
+		<section class="personalpage nopadding">
+			<div class="container">
+				<div class="pagebody">
+					<#include "/personal/personal-left.xhtml"/>
+					<div class="floright rightcon friendssty">
+						<div class="title">친구 초대</div>
+						<div class="datail">
+							
+						</div>
+						<div class="contable minecon">
+							<div class="minetitle">
+								<h2><font>초대 누적수</font></h2>
+							</div>
+							<div class="invitation-list">
+								<div class="invitation-num">
+									<#if userShare??>
+		                                 ${(userShare.totalCnt)!0}
+		                               <#else>
+		                               0
+							       </#if>
+								</div>
+								<ul>
+									<li>M1 <p>
+									<#if userShare??>
+			                                 ${(userShare.m1)!0}
+			                               <#else>
+			                               0
+									       </#if>
+									</p></li>
+									<li>M2 <p>
+									<#if userShare??>
+			                                 ${(userShare.m2)!0}
+			                               <#else>
+			                               0
+									       </#if>
+									</p></li>
+									<li>M3 <p>
+									<#if userShare??>
+			                                 ${(userShare.m3)!0}
+			                               <#else>
+			                               0
+									       </#if>
+									</p></li>
+								</ul>
+								<div class="morelink">
+									<a href="/my/invitingFriendDownline">상세내역</a>
+								</div>
+							</div>
+							<div class="minetitle">
+								<h2><font>초대 방법</font></h2>	
+								<span>친구 초대하고 리워드 수령하기</span>
+							</div>
+
+							<div class="Invitations-method">
+								<ul>
+									<li>
+										<div class="code">${shareCode!}<textarea readonly="readonly" type="text" name="" id="code_num"  data-url="${shareUrl!}" ></textarea></div>
+										<a href="javascript:_jsCopy()">링크 복사</a>
+										<span id="jsCopyTip" class="certified"></span>
+
+									</li>
+									<li>
+										<div class="">
+											<img src="/active/assets/image/pic-code.jpg" width="44" height="50"/>
+										</div>
+										<a href="javascript:showpop1()">포스터 생성</a>
+									</li>
+									<li>
+										<div class="code-txt">
+											字
+										</div>
+										<a href="javascript:showpop2()">문구 생성</a>
+									</li>
+								</ul>
+							</div>
+							<div class="minetitle">
+								<h2><font>초대 공략</font></h2>
+							</div>
+							<div class="Invitation-strategy">	
+								<p align="center">친구 초대 가입시 리워드와 배분을 받을 수 있습니다</p>
+								<p>1.초대된 친구 레벨은 M1등급,M2등급,M3등급으로 나누어 집니다</p>
+								<p>2.내가 초대한 친구의 등급은M1, M1가 초대한 친구의 등급은 M2, M2가 초대한 친구의 등급은 M3.</p>
+								<p>예: 내가 초대한 친구가 친구1, 친구2, 친구3 일때</p>
+								<p>나 -> 초대된 친구1 (M1등급)</p>
+								<p>친구1-> 초대된 친구2 (M2등급)</p>
+								<p>친구2-> 초대된 친구3 (M3등급)</p>
+								<p>매번 친구1 (M1등급 회원) 1명씩 초대될 때마다 500CCC를 받을 수 있으며 친구1(M1등급) 미션 완성 수익의 5% 리워드도 획득할 수 있습니다</p>
+								<p>예: 획득 금액 = 친구1초대 (M1등급) 리워드 500CCC+ 친구1(M1등급) 미션완성 리워드의 5%</p>
+								<p>매번 친구2 (M2등급 회원) 1명씩 초대될 때마다 300CCC를 받을 수 있으며 친구2(M2등급) 미션 완성 수익의 3% 리워드도 획득할 수 있습니다</p>
+								<p>예: 획득 금액 = 친구2초대 (M2등급) 리워드 300CCC+ 친구2(M2등급) 미션완성 리워드의 3%</p>
+								<p>매번 친구3 (M3등급 회원) 1명씩 초대될 때마다 300CCC를 받을 수 있으며 친구3(M2등급) 미션 완성 수익의 3% 리워드도 획득할 수 있습니다</p>
+								<p>예: 획득 금액 = 친구3초대 (M3등급) 리워드 300CCC+ 친구3(M3등급) 미션완성 리워드의 2%</p>
+								<table>
+									<tr><td>등급</td><td>리워드</td><td>수익배분</td></tr	>
+									<tr><td>M1</td><td>500CCC</td><td>5%</td></tr>
+									<tr><td>M2</td><td>300CCC</td><td>3%</td></tr>
+									<tr><td>M3</td><td>200CCC</td><td>2%</td></tr>
+								</table>
+								<p>예:A-->B초대시- A는 5%（500CCC）획득</p>
+								<p><lable style="display: inline-block;margin-left: 15px;"></label> B-->C초대시- A는 3% (300CCC)획득</p>
+								<p><label style="display: inline-block;margin-left: 11px;"></label> C-->D초대시- A는 2% (200CCC)획득</p>
+								<p>즉A는 B의5% + C의3% + D의2%의 수익을 모두 획득할 수 있습니다</p>
+								<p>초대방법:</p>
+								<p>1링크 혹은 QR코드를 커뮤니티(kakao, twitter, facebook, telegram)에 공유 합니다</p>
+								<p>2초대 받은 친구는 링크 혹은 QR코드를 통하여 CandyClub에 가입합니다 </p>
+								<p>3초대된 친구가 CandyClub에 가입후 리워드를 받으실 수 있습니다 </p>
+								<p>4이벤트에 관한 모든 규정과 해석권한은 CandyClub에서 소유하고 있습니다 </p>
+								
+							</div>
+							
+						</div>
+						
+					</div>
+				</div>
+				<ul id="scene-personal" class="scene2">
+					<li class="layers layer1"><img src="/active/assets/image/ico-cro1.png" width="295"></li>
+					<li class="layers layer11"><img src="/active/assets/image/ico-cro1.png" width="99"></li>
+					<li class="layers layer2"><img src="/active/assets/image/ico-cro1.png" width="295"></li>
+					<li class="layers layer3"><img src="/active/assets/image/ico-cro2.png" width="202"></li>
+					<li class="layers layer4"><img src="/active/assets/image/ico-cro3.png" width="193"></li>
+					<li class="layers layer5"><img src="/active/assets/image/ico-cro4.png" width="183"></li>
+					<li class="layers layer6"><img src="/active/assets/image/ico-cro5.png" width="34"></li>
+				</ul>
+			</div>
+		</section>
+		<div class="popup popup1">
+			<div class="pophead">
+				<h2>공유</h2>
+				<div class="datail">
+					포스터 공유하고 에어드랍 받기
+				</div>
+			</div>
+			<div class="popimg">
+				<ul>
+					<li class="active">
+						<a id="downPoster1" href="" target="_blank">이미지 저장</a>
+						<div class="box">
+							<img id="poster1" src="" width="129" height="232"/>
+						</div>
+						<span></span>
+					</li>
+					<li>
+						<a id="downPoster2" href="">이미지 저장</a>
+						<div class="box">
+							<img id="poster2" src="" width="129" height="232"/>
+						</div>
+						<span></span>
+					</li>
+				</ul>
+				
+			</div>
+			<div class="popshare">
+				<div class="datail">
+					커뮤니티 공유
+				</div>
+				<ul>
+					<li class="telegram active" data_name="telegram">
+						<div class="box">
+							Telegram
+						</div>
+						<span></span>
+					</li>
+					<li class="kakaotalk" data_name="kakaotalk">
+						<div class="box">
+							KakaoTalk
+						</div>
+						<span></span>
+					</li>
+					<li class="twitter" data_name="twitter">
+						<div class="box">
+							Twitter
+						</div>
+						<span></span>
+					</li>
+					<li class="facebook" data_name="facebook">
+						<div class="box">
+							FaceBook
+						</div>
+						<span></span>
+					</li>
+				</ul>
+			</div>
+			<div class="submitshare" id="open_sub">
+				<div id ="poster_toolbox" class="addthis_toolbox" >
+				<a style="line-height: 50px;" href="javascript:;" id="opentelegram" class="addthis_button_telegram">공유</a>
+				<a style="display:none;line-height: 50px;" href="javascript:;" id="openkakaotalk" class="addthis_button_kakaotalk">공유</a>
+				<a style="display:none;line-height: 50px;" href="javascript:;" id="opentwitter" class="addthis_button_twitter">공유</a>
+				<a style="display:none;line-height: 50px;" href="javascript:;" id="openfacebook" class="addthis_button_facebook">공유</a>
+				</div>
+			</div>
+			<div class="close"><a href="javascript:hidepop();"><img src="/active/assets/image/close-09.png"/></a></div>
+		</div>
+		<div class="popup popup2">
+			<div class="pophead">
+				<h2>공유</h2>
+				<div class="datail">
+					문구3개 중 하나를 선택하여 친구에게 공유하고 에어드랍 받아가세요
+				</div>
+			</div>
+			<div class="poptxt">
+				<ul>
+					<li class="active">
+						<span></span>
+						<textarea name="" rows="" cols="" id="ling1">【최다 에어드랍 플랫폼】Candy Club 에서 에어드랍 진행중! 77777Candy Token 수령완료! 수량한정, 가입만 해도 지급! 가입하러 바로가기: https://www.candy.club/i/${shareCode!}
+					</textarea>
+						
+					</li>
+					<li>
+						<span></span>
+						<textarea name="" rows="" cols="" id="ling2">【에어드랍 수령】가장 신뢰할 수 있는 에어드랍 플랫폼! Candy Club 에어드랍 진행중!! BTC,BCH,ETH 로 교환!! 친구 초대하고 가입까지 가즈아~! 가입하러 바로 가기:https://www.candy.club/i/${shareCode!}
+					</textarea>
+						
+					</li>
+					<li>
+						<span></span>
+						<textarea name="" rows="" cols="" id="ling3">【긴급공지】Candy Club에서 에어드랍 진행중, 100+개의 프로젝트 토큰 무료지급!! 빠른 가입 , 높은 수익 ! 내부테스트 초대진행중!! 가입하러 바로가기 : https://www.candy.club/i/${shareCode!}</textarea>
+						
+					</li>
+				</ul>
+				
+			</div>
+			<div class="popshare">
+				<div class="datail">
+					커뮤니티 공유
+				</div>
+				<ul>
+					<li class="telegram active" data_name="lingtelegram">
+						<div class="box">
+							Telegram
+						</div>
+						<span></span>
+					</li>
+					<li class="kakaotalk" data_name="lingkakaotalk">
+						<div class="box">
+							KakaoTalk
+						</div>
+						<span></span>
+					</li>
+					<li class="twitter" data_name="lingtwitter">
+						<div class="box">
+							Twitter
+						</div>
+						<span></span>
+					</li>
+					<li class="facebook" data_name="lingfacebook">
+						<div class="box">
+							FaceBook
+						</div>
+						<span></span>
+					</li>
+				</ul>
+			</div>
+			<div class="submitshare" id="ling_sub">
+				<div id ="ling_toolbox" class="addthis_toolbox">
+				<a style="line-height: 50px;" href="javascript:;" id="lingtelegram" class="addthis_button_telegram">공유</a>
+				<a style="display:none;line-height: 50px;" href="javascript:;" id="lingkakaotalk" class="addthis_button_kakaotalk">공유</a>
+				<a style="display:none;line-height: 50px;" href="javascript:;" id="lingtwitter" class="addthis_button_twitter">공유</a>
+				<a style="display:none;line-height: 50px;" href="javascript:;" id="lingfacebook" class="addthis_button_facebook">공유</a>
+				</div>
+			</div>
+			<div class="close"><a href="javascript:hidepop();"><img src="/active/assets/image/close-09.png"/></a></div>
+		</div>
+		<div class="mask-pop">
+			
+		</div>
+		<#include "/common/personal-footer.xhtml"/>	
+		<script src="/active/assets/js/jquery-1.12.3.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="/active/js/main.js" type="text/javascript" charset="utf-8"></script>
+
+		<script type="text/javascript">
+			$("#leftmenu").find("ul>li").eq(2).addClass('active');
+			$("#leftmenu").find(".active ol li").eq(0).addClass('cur');
+			var conNum='';
+			<#if conNum??>
+	             conNum="${conNum!}";
+	       </#if>
+			var addthis_config = addthis_config||{};
+    			addthis_config.data_track_addressbar = false;
+    			var tpng="https://www.candy.club/active/assets/image/logo-login.png";
+			var addthis_share ={};
+			var downParm ="/my/downloadPoster?picAddr=";
+			var path = window.location.href;
+			function showpop1(){
+				var jsonData = {};
+				$.post("/my/sharePic.xhtml", jsonData, function(ret) {
+					if (0 == ret.code) {
+						$('#poster1').attr('src', ret.data.imgDomain+ret.data.poster0);
+						$('#poster2').attr('src', ret.data.imgDomain+ret.data.poster1);
+						$('#downPoster1').attr('href', downParm+ret.data.imgDomain+ret.data.poster0);
+						$('#downPoster2').attr('href', downParm+ret.data.imgDomain+ret.data.poster1);
+						$(".popup.popup1").click();
+					}
+				});
+				$(".popup1,.mask-pop").show();
+			}
+				
+				function hidepop(){
+					$(".popup1,.popup2,.mask-pop").hide();
+				}
+
+			$(window).load(function() {
+				imganimate("layers",12);
+	    		initCopy();
+	    		
+	    		function showpop2(){
+					$(".popup2,.mask-pop").show();
+					ling1();
+				}
+
+	    		$(".popup ul li").click(function(){
+					$(this).parent().find(".active").removeClass("active");
+					$(this).addClass("active");	
+						var id =$(this).parent().find(".active textarea").attr('id');
+						if('ling2'==id){
+							ling2();
+						}else if('ling3'==id){
+							ling3();
+						}else if('ling1'==id){
+							ling1();
+						}
+					var opt =$(this).attr("data_name");
+					if('telegram'==opt||'kakaotalk'==opt||'twitter'==opt||'facebook'==opt){
+						$('#open_sub a').hide();
+						$('#open'+opt).css("display","inline-block");
+					}
+					if('lingtelegram'==opt||'lingkakaotalk'==opt||'lingtwitter'==opt||'lingfacebook'==opt){
+						$('#ling_sub a').hide();
+						$('#'+opt).css("display","inline-block");
+					}
+					
+				});
+
+				function ling1(){
+					copy("ling1",1);
+				};
+				function ling2(){
+					copy("ling2",2);
+				};
+				function ling3(){
+					copy("ling3",3);
+				};
+				function copy(id,num){
+					if(path&&path.indexOf("?conNum")<=0){
+						var param ="?conNum="+num+"&conCode=${shareCode!}";
+						path=path+param;
+					}
+					var ele = document.getElementById(id+"");
+				        		ele.select();
+				        document.execCommand("Copy");
+					updateAddObj("https://www.candy.club/share/invitingFriends?conNum=2",'공유',ele.value||'');
+				}
+
+				$(".popup.popup1").click(function() {
+					var src = $(this).parent().find(".active img").attr("src");
+					updateAddObj(src,'공유','포스터 공유하고 에어드랍 받기');
+					//var area ="https://www.candy.club";
+						
+				});
+
+				function updateAddObj(url,title,des){
+					if(url&&''!=url){
+						updateObj('url',''+url);
+					}
+					if(title&&''!=title){
+						updateObj('title',''+title);
+					}
+					if(des&&''!=des){
+						updateObj('description',''+des);
+					}
+					updateObj('media',tpng);
+					addthis.ready();
+				}
+
+				function updateObj(obj,param){
+					addthis.update('share',''+obj,''+param);
+				}
+
+				function initCopy(){
+					if('2'==conNum){
+	    			ling2();
+		    		}else if('3'==conNum){
+		    			ling3();
+		    		}else{
+		    			ling1();
+		    		}
+				}
+				
+			});
+			
+			function _jsCopy(){
+					var con = "复制成功";
+					con="복사 성공";
+			        var url1 = $("#code_num").attr("data-url");
+				 	var ele = document.getElementById("code_num");
+				 		ele.value = url1;
+			        		ele.select();
+			        document.execCommand("Copy");
+			        
+			        $(".code").addClass('active')
+			        $("#jsCopyTip").text(con);
+			        
+			        ele.onblur=function(){
+						$("#jsCopyTip").text("");
+			        }
+			};
+
+
+		</script>
+		
+	</body>
+
+</html>

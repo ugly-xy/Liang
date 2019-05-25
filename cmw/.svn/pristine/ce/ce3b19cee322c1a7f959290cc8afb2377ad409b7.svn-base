@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title>이메일 연동</title>
+		<#include "/common/head.xhtml"/>
+		<style type="text/css">
+			#read_fm,#email_fm.butt_grey{
+				background:#eee;
+				border-color:#eee;
+				color: #ffffff;
+		    }
+		</style>
+	</head>
+
+	<body class="personalbody">
+		<#include "/common/header.xhtml"/>
+		<section class="bannerpage">
+			<img src="/active/image/presonal.jpg" />
+		</section>
+		<section class="personalpage nopadding">
+			<div class="container">
+				<div class="pagebody">
+					<#include "/personal/personal-left.xhtml"/>
+					<div class="floright rightcon">
+						<div class="title">이메일 인증</div>
+						<!--<div class="datail"></div>-->
+						<div class="contable Settingcon newemail">
+							<dl>
+								<dt>이메일 주소：</dt>
+								<#if user??&&mailStatus??&&2==mailStatus>
+								<dd class="parentCls"><input type="text" name="email" id="settingEmail" 
+									value="<#if mailNo??>${mailNo!}</#if>" class="inputElem" disabled="disabled" />
+									<span id ="fm_tip" class="certified">인증 이메일이 발송 되었습니다 이메일 인증을 완료하세요</span>
+								<#else>
+								<dd class="parentCls"><input type="text" name="email" id="settingEmail" 
+									value="<#if user??&&user.email??>${user.email!}</#if>" class="inputElem"/>
+								<span id ="fm_tip" ></span>
+								</#if>
+								</dd>
+								<dd>
+									<label>*</label><span>이메일 연동 인증 완료후 수정은 불가능합니다</span>
+								</dd>
+
+							</dl>
+							<dl>
+								<dt>&nbsp;</dt>
+								<dd>
+									<div class="btnpading">
+									<#if user??&&mailStatus??&&(2==mailStatus||3==mailStatus)>
+										<input type="button" id="read_fm" class="butt_grey" name="" value="다음 단계" />
+									<#else>
+										 <input type="button" name="" id="email_fm" value="다음 단계" />
+									</#if>
+									</div>
+								</dd>
+							</dl>
+							
+						</div>
+						
+					</div>
+				</div>
+				<ul id="scene-personal" class="scene2">
+					<li class="layers layer1"><img src="/active/assets/image/ico-cro1.png" width="295"></li>
+					<li class="layers layer11"><img src="/active/assets/image/ico-cro1.png" width="99"></li>
+					<li class="layers layer2"><img src="/active/assets/image/ico-cro1.png" width="295"></li>
+					<li class="layers layer3"><img src="/active/assets/image/ico-cro2.png" width="202"></li>
+					<li class="layers layer4"><img src="/active/assets/image/ico-cro3.png" width="193"></li>
+					<li class="layers layer5"><img src="/active/assets/image/ico-cro4.png" width="183"></li>
+					<li class="layers layer6"><img src="/active/assets/image/ico-cro5.png" width="34"></li>
+				</ul>
+			</div>
+		</section>
+		<#include "/common/personal-footer.xhtml"/>
+		<script src="/active/assets/js/jquery-1.12.3.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="/active/js/emailAutoComplete.js" type="text/javascript" charset="utf-8"></script>
+		<script src="/active/js/main.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript">
+			$("#leftmenu").find("ul>li").eq(4).addClass('active');
+			$("#leftmenu").find(".active ol li").eq(2).addClass('cur');
+			$(window).load(function() {
+				imganimate("layers",12);
+			});
+
+			$(document).ready(function(){
+				$("#email_fm").click(function(){
+					initTipCss();	
+					const email = $("#settingEmail").val()+"";	
+					if(!email||''==email){
+						$('#fm_tip').addClass("failed");
+						$('#fm_tip').text("올바른 이메일을 입력해주세요");
+						return;
+					}
+					$('#email_fm').attr("disabled","disabled");
+					$('#email_fm').addClass("butt_grey");
+					$.post("/my/updateOriginalEmail.xhtml", {"email":email}, function(ret) {
+						$('#fm_tip').text("");
+						if (0 != ret.code) {
+							$('#email_fm').removeAttr("disabled");
+							$('#email_fm').removeClass("butt_grey");
+							$('#fm_tip').addClass("failed");
+							$('#fm_tip').text(ret.msg);
+						} else {							
+							window.location.href='/my/settingEmailSended';
+
+							//已绑定
+						}
+						
+					})
+				});
+
+			});
+			function initTipCss(){
+				$('#fm_tip').removeClass("certified");
+				$('#fm_tip').removeClass("failed");
+				$('#fm_tip').text("");
+			}
+			
+			
+		</script>
+	</body>
+
+</html>

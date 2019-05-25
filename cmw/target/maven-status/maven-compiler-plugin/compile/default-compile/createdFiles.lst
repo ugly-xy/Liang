@@ -1,0 +1,9 @@
+com/we/web/view/m/BaseCtl.class
+com/we/web/view/m/ChannelAppCtl.class
+com/we/web/view/m/TelegramCtl.class
+com/we/web/view/m/FileUploadCtl.class
+com/we/web/view/m/MyCtl.class
+com/we/web/view/m/UserCtl.class
+com/we/web/view/m/MyAppCtl.class
+com/we/web/view/m/UserAppCtl.class
+com/we/web/view/m/ChannelCtl.class

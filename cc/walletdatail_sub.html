@@ -1,0 +1,172 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="css/mui.min.css" rel="stylesheet" />
+		<link rel="stylesheet" type="text/css" href="css/style.css"/>
+		<style type="text/css">
+			.mui-content{
+				position: absolute;
+				width: 100%;
+			}
+		</style>
+	</head>
+
+	<body >
+		<div id="pullrefresh" class="mui-content mui-scroll-wrapper ">
+		   <div class="mui-scroll ">
+	   		 <div class="walletinfo-list">
+			   	<ul class="mui-table-view">
+			   	    <li class="mui-table-view-cell" v-for="item in myWallet">
+	   	                {{item.typeDes}}
+	   	                <p class="mui-ellipsis">{{item.updateTime}}</p>
+	   	                <span class="add">{{item.io}}{{item.amount}}</span>
+			   	    </li>
+			   	</ul>
+			  </div>
+		   </div>
+		</div>
+		<script src="js/mui.min.js"></script>
+		<script src="js/app.js" type="text/javascript" charset="utf-8"></script>
+		<script src="js/vue.min.js" type="text/javascript"></script>
+		<script type="text/javascript">
+			(function($, doc) {
+				var coinType ="";
+				if(plus.webview.currentWebview().name)coinType =plus.webview.currentWebview().name;
+			  $.init({
+			  	  pullRefresh: {
+					container: '#pullrefresh',
+					down: {
+						height:50,//可选,默认50.触发下拉刷新拖动距离,
+					      auto: true,//可选,默认false.首次加载自动下拉刷新一次
+					      contentdown : "",//可选，在下拉可刷新状态时，下拉刷新控件上显示的标题内容
+					      contentover : "",//可选，在释放可刷新状态时，下拉刷新控件上显示的标题内容
+					      contentrefresh : "",//可选，正在刷新状态时，下拉刷新控件上显示的标题内容
+						  callback: function() {
+						  	initDown();
+							mui('#pullrefresh').pullRefresh().endPulldownToRefresh();
+						 }
+					},
+					up:{
+						contentinit:'', 
+						contentdown:"위로올려 업데이트 하기",
+						contentnomore:'더 이상 없음',
+						contentrefresh: "로딩중..",
+						callback: function(){
+							setTimeout(function() {
+								initWalletDetailData(2);
+							}, 1000);
+							
+						}
+						
+					}
+				}
+			  });
+			  
+	     function initDown(){
+	 	 	if(window.plus && plus.networkinfo.getCurrentType() === plus.networkinfo.CONNECTION_NONE) {
+				plus.nativeUI.toast('network error..', {
+					verticalAlign: 'top'
+				});
+				 mui('#pullrefresh').pullRefresh().endPulldownToRefresh();
+				return;
+			}
+			detailObj.pageParam.page =0;
+			setTimeout(function() {
+				initWalletDetailData(1);
+			}, 1000);
+	 	 }
+				
+				
+			function getDefaultData(){
+				return {
+					myWallet:[],
+					coinType:'',
+					pageParam:{
+						page:0,
+						size:15,
+					},
+				}
+			}
+		
+			var detailObj = new Vue({
+					el: '.mui-content',
+					data: getDefaultData(),
+					methods: {
+						resetData: function() {//重置数据
+							Object.assign(this.$data, getDefaultData());
+						}
+						
+					}
+			});
+			
+			function initWalletDetailData(val){
+				var cur =parseInt(detailObj.pageParam.page);
+				var count =detailObj.myWallet.length;
+				if(val==1)count=1;
+				detailObj.pageParam.page=parseInt(count/detailObj.pageParam.size)+1;
+				var reqParam ={
+					page:detailObj.pageParam.page,
+					size:detailObj.pageParam.size,
+					coinType:coinType
+				}
+				var list=[];
+				$.getJSON(app.serverApi(app.apiConstant.getAccountDetail),reqParam,function(res){
+					app.respondingTo(res.code,function(code){
+						if(0!=code){
+							plus.nativeUI.toast(res.msg);
+						}else{
+							var wData =res.data.list;
+							detailObj.total=res.data.total;
+							for(var i=0;i<wData.length;i++){
+								var x =wData[i];
+								var json ={};
+								if(i==0){
+									detailObj.coinType =x.coinType;
+								}
+								json.updateTime = app.longFymdhms(x.updateTime);
+								if(1==x.io){
+									json.io = '+';
+								}
+								if(2==x.io){
+									json.io = '-';
+								}
+								json.amount = x.amount;
+								json.typeDes = x.typeDes;
+								list.push(json);
+							}
+							
+							if(val==1){
+			 					detailObj.myWallet=list;
+			 				}else if(detailObj.myWallet.length<detailObj.total){
+			 					detailObj.myWallet=detailObj.myWallet.concat(list);
+			 				}
+			 				
+						}
+						
+						if(val==2){		
+				 			mui('#pullrefresh').pullRefresh().endPullupToRefresh(detailObj.myWallet.length>=detailObj.total);
+				 		}else{
+				 			closePulldown();
+				 		}
+						
+					})
+					
+				})
+			};
+			
+			function closePulldown(id){
+				mui('#pullrefresh').pullRefresh().endPulldownToRefresh();
+	 			mui("#pullrefresh").pullRefresh().refresh(true);
+			}
+				
+			}(mui, document));
+		
+			
+		</script>
+	</body>
+
+</html>

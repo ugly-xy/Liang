@@ -1,0 +1,121 @@
+package com.we.service;
+
+import java.util.List;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.mongodb.BasicDBObject;
+import com.mongodb.DBObject;
+import com.we.common.Constant.Const;
+import com.we.common.Constant.ReCode;
+import com.we.common.mongo.DboUtil;
+import com.we.common.utils.DateUtil;
+import com.we.core.web.ReMsg;
+import com.we.models.DocName;
+import com.we.models.finance.CoinLog;
+import com.we.models.sign.Sign;
+
+@Service
+public class SignService extends BaseService {
+
+	static final Logger log = LoggerFactory.getLogger(SignService.class);
+
+	@Autowired
+	UserService userService;
+
+	@Autowired
+	UserWalletService userWalletService;
+
+	public List<DBObject> findLogByUid(Long userId, int page, int size) {
+		return getC(DocName.SIGN_LOG).find(new BasicDBObject("userId", userId)).sort(new BasicDBObject("day", -1))
+				.skip(getStart(page, size)).limit(getSize(size)).toArray();
+	}
+
+	public DBObject findLogByUid(Long userId) {
+		String id = DateUtil.curDay() + "_" + userId;
+		return getC(DocName.SIGN_LOG).findOne(new BasicDBObject("_id", id));
+	}
+
+	public DBObject findById(Long userId) {
+		return getC(DocName.SIGN).findOne(new BasicDBObject("_id", userId));
+	}
+
+	public Sign getSign(Long userId) {
+		return DboUtil.toBean(findById(userId), Sign.class);
+	}
+
+	public static final int[] reward = new int[] { 10, 20, 30, 40, 50, 60, 70 };
+
+	// 签到奖励
+	public ReCode sendReward(long uid, int day) {
+		int amount = 0;
+		if (day >= 7) {
+			amount = reward[6];
+		} else if (day > 0) {
+			amount = reward[day - 1];
+		}
+		return userWalletService.addCoin(uid, CoinLog.IN_SIGN, day, Const.COIN_CANDY_ID, amount, 0, "Sign");
+	}
+
+	// 签到
+	public ReMsg sign(long uid) {
+		if (super.lock("sign:" + uid, 2)) {
+			try {
+				Sign sign = getSign(uid);
+				if (sign == null) {
+					sign = new Sign(uid);
+				} else {
+					long lastSignTime = sign.getLastSignTime();
+					long time = DateUtil.getTodayZeroTime();
+					if (time - lastSignTime > 0) {// 证明今天还没有签到
+						if (sign.getLastSign() != 0 && time - lastSignTime < Const.DAY) {
+							// 证明昨天也签到了
+							sign.setLastSign(sign.getLastSign() + 1);
+							// 只有连续签到情况下才可能刷新最长签到记录
+							if (sign.getLastSign() > sign.getMaxSign()) {
+								sign.setMaxSign(sign.getLastSign());
+							}
+						} else {
+							sign.setLastSign(1);
+						}
+						sign.setTotal(sign.getTotal() + 1);
+					} else {
+						// 今天已经签到了
+						return new ReMsg(ReCode.HAVE_BEEN_SIGNED);
+					}
+				}
+				sign.setLastSignTime(System.currentTimeMillis());
+				sign.setUpdateTime(sign.getLastSignTime());
+				super.getMongoTemplate().save(sign);
+				return new ReMsg(sendReward(uid, sign.getLastSign()));
+			} finally {
+				super.unlock("sign:" + uid);
+			}
+		}
+		return new ReMsg(ReCode.FAIL);
+	}
+
+	// 查询签到情况
+	public DBObject isSign(long uid) {
+		DBObject dbo = findById(uid);
+		if (dbo != null && DboUtil.getInt(dbo, "lastSign") > 0) {// 签到记录不为空 且连续签到记录不为0
+			long lastSignTime = DboUtil.getLong(dbo, "lastSignTime");// 最后一次签到时间
+			long time = DateUtil.getTodayZeroTime();
+			if (time < lastSignTime) {// 今天已经签到
+				dbo.put("sign", true);
+			} else {
+				if (time - lastSignTime > Const.DAY) {// 昨天没有签到
+					// 重置当前连续签到次数
+					dbo.put("lastSign", 0);
+					super.getC(DocName.SIGN).save(dbo);
+				}
+				dbo.put("sign", false);
+			}
+		}
+		return dbo;
+	}
+
+}

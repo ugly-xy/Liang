@@ -1,0 +1,79 @@
+package com.we.service;
+
+import java.util.List;
+
+import org.apache.commons.lang.StringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Service;
+
+import com.mongodb.BasicDBObject;
+import com.mongodb.DBObject;
+import com.we.common.Constant.ReCode;
+import com.we.core.Page;
+import com.we.core.web.ReMsg;
+import com.we.models.DocName;
+import com.we.models.Notice;
+
+/** 公告 */
+@Service
+public class NoticeService extends BaseService {
+	static final Logger log = LoggerFactory.getLogger(NoticeService.class);
+
+	public ReMsg upsetNotice(Long _id, String title, String content, Integer status, Long adminId) {
+		if (_id == null || _id == 0) {
+			_id = super.getNextId(DocName.NOTICE);
+			long time = System.currentTimeMillis();
+			Notice notice = new Notice(time, title, content, adminId, status);
+			notice.setUpdateTime(time);
+			notice.set_id(_id);
+			super.getMongoTemplate().save(notice);
+		} else {
+			DBObject u = new BasicDBObject("updateTime", System.currentTimeMillis());
+			if (status != null && status != 0) {
+				u.put("status", status);
+			}
+			if (adminId != null && adminId != 0) {
+				u.put("adminId", adminId);
+			}
+			if (StringUtils.isNotBlank(content)) {
+				u.put("content", content);
+			}
+			if (StringUtils.isNotBlank(title)) {
+				u.put("title", title);
+			}
+			getC(DocName.NOTICE).update(new BasicDBObject("_id", _id), new BasicDBObject("$set", u));
+		}
+		return new ReMsg(ReCode.OK);
+	}
+
+	public DBObject findById(Long _id) {
+		return getC(DocName.NOTICE).findOne(new BasicDBObject("_id", _id));
+	}
+
+	public Page<DBObject> query(Integer status, Integer page, Integer size) {
+		size = getSize(size);
+		page = getPage(page);
+		List<DBObject> dbos = find(status, page, size);
+		int count = count(status);
+		return new Page<DBObject>(count, size, page, dbos);
+	}
+
+	public int count(Integer status) {
+		DBObject q = new BasicDBObject();
+		if (status != null && status != 0) {
+			q.put("status", status);
+		}
+		return getC(DocName.NOTICE).find(q).count();
+	}
+
+	public List<DBObject> find(Integer status, Integer page, Integer size) {
+		DBObject q = new BasicDBObject();
+		if (status != null && status != 0) {
+			q.put("status", status);
+		}
+		return getC(DocName.NOTICE).find(q).skip(super.getStart(page, size)).limit(getSize(size))
+				.sort(new BasicDBObject("_id", -1)).toArray();
+	}
+
+}

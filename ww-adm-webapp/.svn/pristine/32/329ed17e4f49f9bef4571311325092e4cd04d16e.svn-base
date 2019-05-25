@@ -1,0 +1,120 @@
+<#import "/spring.ftl" as spring /> <#import "/admin/layouts/common.xhtml" as layout>
+<@layout.title>用户背包物品统计</@layout.title> <@layout.metaKeywordsDescription>
+
+</@layout.metaKeywordsDescription> <@layout.cssLink> </@layout.cssLink>
+<@layout.pageHeader> 用户背包物品统计 </@layout.pageHeader> <@layout.mainContent>
+	<input type="hidden" id="nav_id" value="userPack" />
+<div class="well well-sm">
+	<div class="row">
+		<FORM action="/admin/userPacks.xhtml">
+		<!-- 
+		<div class="col-sm-1">
+			<label>基础物品</label>
+		</div>
+		<div class="col-sm-2">
+			<select class="form-control" id="baseId" name="baseId">
+				<option value="0">全部</option>
+				<option value="1" <#if baseId?? && baseId==1>selected</#if> >VIP</option>
+			</select>
+		</div>
+		 -->
+		 <div class="col-sm-1">
+			<label>用户Id</label>
+		</div>
+		<div class="col-sm-2">
+			<INPUT class="form-control" id="userId" name="userId" value="${userId!}"/> 
+		</div>
+		 <div class="col-sm-1">
+				<label>基础物品</label>
+			</div>
+		<div class="col-sm-2">
+			<select class="form-control" id="type" name="type">
+				<option value="-1">全部</option>
+				<option value="0" <#if type?? && type==0>selected</#if> >道具</option>
+				<option value="2" <#if type?? && type==2>selected</#if> >礼物</option>
+				<option value="4" <#if type?? && type==4>selected</#if> >CAR</option>
+			</select>
+		</div>
+		
+		<div class="col-sm-1">
+				<label>物品名称</label>
+			</div>
+		<div class="col-sm-2">
+			<select class="form-control" id="baseId" name="baseId">
+				<option value="0">全部</option>
+				<option value="20001" <#if baseId?? && baseId==20001>selected</#if> >鲜花</option>
+				<option value="2" <#if baseId?? && baseId==2>selected</#if> >快进卡</option>
+				<option value="4" <#if baseId?? && baseId==4>selected</#if> >黄金喇叭</option>
+				<option value="20002" <#if baseId?? && baseId==20002>selected</#if> >鸡蛋</option>
+				<option value="40001" <#if baseId?? && baseId==40001>selected</#if> >奔驰G55</option>
+			</select>
+		</div>
+		<div class="col-sm-2">
+			<button type="submit" class="btn btn-default">查询</button>
+		</div>
+		</FORM>
+	</div>
+</div>
+<div class="row">
+	<div class="col-lg-12">
+
+		<div class="dataTable_wrapper">
+			<table class="table table-striped table-bordered table-hover"
+				id="dataTables-example">
+				<thead>
+					<tr>
+						<th>用户ID</th>
+						<th>基础物品|物品名称</th>
+						<th>数量</th>
+						<th>有效期</th>
+						<th>更新时间</th>
+						<th>操作</th>
+					</tr>
+				</thead>
+				<tbody>
+					<#list page.list as it>
+					<tr class="gradeA">
+						<td><a href="/admin/users.xhtml?userId=${(it.uid)!}" target="_black">${(it.uid)!}</a>
+						</td>
+						<td><#if it.type?? && it.type==0 >道具
+						     <#elseif it.type?? && it.type==1 >金币
+						     <#elseif it.type?? && it.type==2 >礼物
+						     <#elseif it.type?? && it.type==3 >经验
+						     <#elseif it.type?? && it.type==4 >CAR
+						</#if>|
+						<#if it.baseId?? && it.baseId==1 >骰子
+						     <#elseif it.baseId?? && it.baseId==2 >快进卡
+						     <#elseif it.baseId?? && it.baseId==3 >喇叭
+						     <#elseif it.baseId?? && it.baseId==4 >黄金喇叭
+						     <#elseif it.baseId?? && it.baseId==20001 >鲜花
+						     <#elseif it.baseId?? && it.baseId==20002 >鸡蛋
+						     <#elseif it.baseId?? && it.baseId==40001 >奔驰
+						</#if>  (${(it.type)!}|${(it.baseId)!})
+						</td>
+						<td>${it.amount}</td>
+						<td><#if it.expires?? && it.expires==0>永久
+						     <#else>${(it.expires?number?number_to_datetime)!}</#if>
+                        </td>
+						<td>${(it.updateTime?number?number_to_datetime)!}</td>
+						<td class="center"><a href="#" >锁定</a></td>
+					</tr>
+					</#list>
+				</tbody>
+			</table>
+		</div>
+		<div class="row">
+			<div class="col-sm-4">
+				<div class="dataTables_info" id="dataTables-example_info"
+					role="status" aria-live="polite">当前 ${page.curPage}/${page.totalPage}页， 共${page.total}条 </div>
+			</div>
+			<div class="col-sm-8">
+			<@vpage cur=page.curPage total=page.totalPage url=page.url > ${vpage}</@vpage>
+			</div>
+		</div>
+	</div>
+
+	<!-- /.col-lg-12 -->
+</div>
+
+</@layout.mainContent> 
+<@layout.script> </@layout.script>

@@ -1,0 +1,885 @@
+<#import "/spring.ftl" as spring /> <#import
+"/admin/layouts/common.xhtml" as layout>
+<@layout.title>问答题</@layout.title> <@layout.metaKeywordsDescription>
+
+</@layout.metaKeywordsDescription> <@layout.cssLink>
+<link rel="stylesheet" type="text/css"
+	href="/webuploader/webuploader.css"></@layout.cssLink>
+	<@layout.pageHeader> 添加问答题 </@layout.pageHeader> <@layout.mainContent>
+<input type="hidden" id="nav_id" value="paper" />
+<div class="row">
+	<div class="col-lg-8">
+		<form role="form" id="form" >
+			<input type="hidden" id="id" name="id" value="${(dbo._id)!}" />
+			<div class="form-group form-inline">
+				<label>题目</label> <input class="form-control" id="title" name="title"
+					placeholder="题目标题" value="${(dbo.title)!}">
+			</div>
+			
+			<div class="form-group form-inline">
+				<label>测试题介绍</label> <textarea class="form-control" rows="3"  id="introduce" name="introduce"
+					placeholder="测试题介绍" >${(dbo.introduce)!}</textarea>
+			</div>
+			
+			<div class="form-group form-inline">
+				<label>题目类型</label> <select class="form-control" id="type"
+					name="type">
+				<option value="1" <#if dbo?? && dbo.type==1>selected</#if> >分数型</option>
+				<option value="2" <#if dbo?? && dbo.type==2>selected</#if> >跳转型</option>
+			</select>
+			</div>
+			
+			<div class="form-group form-inline">
+				<label>是否付费</label> <select class="form-control" id="pay"
+					name="pay">
+				<option value="-1" <#if dbo?? && dbo.pay==-1>selected</#if> >免费</option>
+				<option value="1" <#if dbo?? && dbo.pay==1>selected</#if> >付费</option>
+			</select>
+			</div>
+
+			<div class="form-group form-inline">
+				<label>文本类型</label> <select class="form-control" id="content"
+					name="content">
+				<option value="2" <#if dbo?? && dbo.content=="2">selected</#if> >文本型</option>
+				<option value="1" <#if dbo?? && dbo.content=="1">selected</#if> >图片型</option>
+				<option value="0" <#if dbo?? && dbo.content=="描述">selected</#if> >其他</option>
+				<option value="-1" <#if dbo?? && dbo.content=="描述5">selected</#if> >其他2</option>
+			</select>
+			</div>
+			
+			<div class="form-group form-inline">
+				<label>排序</label> <input class="form-control" id="sort" name="sort"
+					placeholder="排序" value="${(dbo.sort)!1}" onkeyup="this.value=this.value.replace(/\D/g,'')"onafterpaste="this.value=this.value.replace(/\D/g,'')">
+			</div>
+			<div class="form-group form-inline">
+				<label>使用次数</label> <input class="form-control" id="count" name="count"
+					placeholder="使用次数" value="${(dbo.count)!1}" onkeyup="this.value=this.value.replace(/\D/g,'')"onafterpaste="this.value=this.value.replace(/\D/g,'')">
+			</div>
+			<div class="form-group form-inline">
+				<label>状态</label> <select class="form-control" id="status"
+					name="status">
+				<option value="2" <#if dbo?? && dbo.status==2>selected</#if> >上线</option>
+				<option value="3" <#if dbo?? && dbo.status==3>selected</#if> >上首页</option>
+				<option value="1" <#if dbo?? && dbo.status==1>selected</#if> >下线</option>
+				<option value="-1" <#if dbo?? && dbo.status==-1>selected</#if> >删除</option>
+			</select>
+			</div>
+			
+			<div class="form-group form-inline">
+				<label>图标</label>
+				<!--用来存放item-->
+				<div id="fileList" class="uploader-list">
+					<img id="pic"
+						src="<#if (dbo.logo)?? ><@layout.img path=dbo.logo></@layout.img></#if>"
+						width="120px" />
+				</div>
+				<div id="filePicker">选择图片</div>
+
+				<input type="hidden" id="logo" name="logo" value="${(dbo.logo)!}" />
+			</div>
+			
+			<div class="form-group form-inline">
+				<label>结果展示背景</label>
+				<!--用来存放item-->
+				<div id="fileList" class="uploader-list">
+					<img id="pic2"
+						src="<#if (dbo.backPic)?? ><@layout.img path=dbo.backPic></@layout.img></#if>"
+						width="240px" />
+				</div>
+				<div id="filePicker2">选择图片</div>
+
+				<input type="hidden" id="backPic" name="backPic"
+					value="${(dbo.backPic)!}" />
+			</div>
+			
+			
+			<#if dbo ?? >
+				<label>题目</label> <br>
+				
+				<#list dbo.questions as it>
+					<input type = "hidden" value = "${it.items?size}" id = "itemNum${it_index}" name = "itemNum${it_index}"/>
+					<div class="form-group form-inline" id = 'reQ_${it_index}'>
+							<input type='button' class='btn btn-warning'  id='reQ"+${it_index}+"' value = '移除此题' onclick='removeQuestion(this.id);'/>
+						<label>问题标题</label>
+						<input class="form-control" id="quesTitle${it_index}" name="quesTitle${it_index}"
+							placeholder="" value="${it.title}">
+							
+						<label>问题类型</label>
+							<select class="form-control" id="quesType${it_index}"
+								name="quesType${it_index}">
+								<option value="2" <#if dbo?? && it.type==2>selected</#if> >文本型</option>
+								<option value="1" <#if dbo?? && it.type==1>selected</#if> >图片型</option>
+						</select>
+						<label>问题内容</label>
+							<input class ="form-control" value = "${it.content}" name = "quesContent${it_index}" id = "quesContent${it_index}"/>
+							
+				</br>
+						</br>
+							<#list it.items as its>
+								<div class="form-group form-inline" id = "reI_${it_index}${its_index}">
+									<input type='button' class='btn btn-warning' id='${it_index}${its_index}' value = '移除选项' onclick='removeItems(this.id);'/>
+									<label>选项内容</label><input class="form-control" id="itemContent${it_index}${its_index}" name="itemContent${it_index}${its_index}"
+										placeholder="" value="${its.content}">
+								
+									<label>选项类型</label> 
+										<select class="form-control" id="itemContentType${it_index}${its_index}"
+											name="itemContentType${it_index}${its_index}">
+												<option value="2" <#if dbo?? && its.contentType==2>selected</#if> >文本型</option>
+												<option value="1" <#if dbo?? && its.contentType==1>selected</#if> >图片型</option>
+										</select>
+									<label>选项分数</label>
+										<input class="form-control" value = "${its.score}" name = "itemScore${it_index}${its_index}" id = "itemScore${it_index}${its_index}" 
+										onkeyup="this.value=this.value.replace(/\D/g,'')"onafterpaste="this.value=this.value.replace(/\D/g,'')"/>
+									<input type = "button" class="btn btn-success" value = "+" id = "${it_index}"  name = "${its_index}" onclick = "addItems(this.id,this.name)"/>
+								</div>
+							
+							</#list>
+							
+						</div>	
+					</#list>
+				
+					
+			</#if>
+			
+			<div id = "sta"></div>
+			<#if !dbo??>
+				<input type="button" value = "添加问题" class="btn btn-success" id = "adds" style="display: block;" onclick="addQues();"/>
+				<input type="button" value = "结束添加选项" class="btn btn-success" id = "comAdd" style="display: none;" onclick="compAdd();"/>	
+			</#if>
+			<#if dbo??>
+			<input type="button" value = "添加问题" class="btn btn-success" id = "adds" style="display: block;" onclick="addQues();"/>	
+				<input type="button" value = "结束添加选项" class="btn btn-success" id = "comAdd" style="display: none;" onclick="compAdd();"/>	
+			</#if>
+			
+			<#if dbo ?? >
+				<label>结果(分数由低向高添加)</label> <br>
+			
+				
+				<#list dbo.result as it>
+					<div class="form-group form-inline" id = "reR_${it_index}">
+						<input type='button' class='btn btn-warning'  id='reR"+${it_index}+"' value = '移除此结果' onclick='removeResult(this.id);'/><br>
+					<label>结果类型</label>
+						<select class="form-control" id="resultContentType${it_index}"
+								name="resultContentType${it_index}">
+								<option value="2" <#if dbo?? && it.contentType==2>selected</#if> >文本型</option>
+								<option value="1" <#if dbo?? && it.contentType==1>selected</#if> >图片型</option>
+						</select>
+					<label>结果分数</label><input class="form-control" id="resultScore${it_index}" name="resultScore${it_index}"
+							placeholder="" value="${it.score}" onkeyup="this.value=this.value.replace(/\D/g,'')"onafterpaste="this.value=this.value.replace(/\D/g,'')">
+					<label>结果标题</label><input class="form-control" id="resultTitle${it_index}" name="resultTitle${it_index}"
+						placeholder="" value="${it.title}">
+							<label>结果内容</label><input class="form-control" id="resultContent${it_index}" name="resultContent${it_index}"
+						placeholder="" value="${it.content}">
+						<br>
+						</br>
+						
+					</div>	
+				</#list>
+			
+			
+			
+			</#if>
+			
+			
+			<br>
+			
+			<div id = "res"></div>
+			
+			
+			<input type="button" value = "添加结果" class="btn btn-success" id = "addRe"  onclick="addRes();"/><br>
+			<label>结果(分数由低向高添加)</label> <br>
+			
+			<br>
+			<input type="hidden" id = "quesNum" name = "quesNum" value = "0"/><br>
+			<input type="hidden" id = "resultNum" name = "resultNum" value = "0"/>
+			<button id="submit" class="btn btn-default">提交</button>
+			<button id="reset" class="btn btn-default">重置</button>
+			<button id="back" class="btn btn-default">返回</button>
+		</form>
+	</div>
+
+</div>
+
+</@layout.mainContent>
+ <@layout.script>
+ <script type="text/javascript" src="<@layout.static path="/webuploader/webuploader.js" />">
+
+</script>
+ 
+ 
+ <script>
+var a = 0;
+var c = 0;
+var d = 0;
+
+var itNum = 0;
+var adI = null;
+var quesNum = 0;
+var resultNum = 0;
+<#if !dbo??>
+var iNum = 0;
+function addQues(){
+	//alert('aaa');
+	var b=document.getElementById("sta");
+	var div=document.createElement("div");
+	div.className="form-group form-inline";
+	div.id = "ques"+a;
+	div.innerHTML = ""+
+	"<label>问题"+"</label><input type='button' class='btn btn-warning'  id='reQ"+a+"' value = '移除此题' onclick='removeQuestion(this.id);'/><br>"+
+	"<input type = 'hidden' value = '"+itNum+"' id = 'itemNum"+a+"' name = 'itemNum"+a+"'/>"+
+	"<label>问题标题</label><input class='form-control' id='quesTitle"+a+"' name='quesTitle"+a+"'"+
+	"placeholder='问题标题' value=''><br>"+
+	"<label>问题内容</label><input class='form-control' id='quesContent"+a+"' name='quesContent"+a+"'"+
+	"placeholder='问题内容' value=''><br>"+
+	"<label>题目类型</label> <select class='form-control' id='quesType"+a+"' name='quesType"+a+"'>"+
+	"<option value='2'  >文本</option>"+
+	"<option value='1'  >图片</option>"+
+	"<option value='0'  >无</option>"+
+	"</select><br><div id = 'question"+(a+1)+"'></div><input type='button' class='btn btn-success' id='re_0"+"' value = '添加选项' onclick='addItem(this.id);'/>"+
+	"</br>";
+	//var text=document.createTextNode("ccccccccccc");
+	//div.appendChild(text);
+	b.parentNode.insertBefore(div,b);
+	a = a+1;
+	document.getElementById("quesNum").value = a;
+	document.getElementById("adds").style.display = 'none';
+	document.getElementById("comAdd").style.display = 'block';
+}
+
+
+
+function removeQuestion(id){
+	 var my = document.getElementById(document.getElementById(id).parentElement.id);
+	 //alert(my);
+	 //alert('aa');
+	 my.parentNode.removeChild(my);
+	 //document.getElementById("adds").style.display="block";
+	 //qlen = qlen -1;
+	 //document.getElementById("quesNum").value = parseInt(document.getElementById("quesNum").value)-1;
+	 //if(document.getElementById("quesNum").value=1){
+			document.getElementById("comAdd").style.display = 'none';
+			document.getElementById("adds").style.display = 'block';
+			
+			
+		//};
+	
+}
+
+function addItem(id){
+	 var b=document.getElementById("question"+a);
+	 //alert(b);
+		var div=document.createElement("div");
+		div.className="form-group form-inline";
+		div.id = "item"+(a-1)+c;
+		div.innerHTML =""+
+		"<label>选项"+"</label><input type='button' class='btn btn-warning' id='reI"+(a-1)+c+"' value = '移除选项' onclick='removeItem(this.id);'/><br>"+
+		"<label>选项内容</label><input class='form-control' id='itemContent"+(a-1)+c+"' name='itemContent"+(a-1)+c+"'"+
+		"placeholder='选项内容' value=''><br>"+
+		"<label>选项得分</label><input class='form-control' id='itemScore"+(a-1)+c+"' name='itemScore"+(a-1)+c+"'"+
+		"placeholder='选项得分' value='' onkeyup = 'onk(this.id);' onbeforepaste = 'onk(this.id);'><br>"+
+		"<label>选项类型</label> <select class='form-control' id='itemContentType"+(a-1)+c+"' name='itemContentType"+(a-1)+c+"'>"+
+		"<option value='2' >文本</option>"+
+		"<option value='1' >图片</option>"+
+		"<option value='0' >无</option>"+
+		"</select>";
+		b.parentNode.insertBefore(div,b);
+		
+		c = c+1;
+		iNum = iNum+1;
+		idI = id;
+		document.getElementById("itemNum"+(a-1)).value = parseInt(document.getElementById("itemNum"+(a-1)).value)+1;
+}
+
+function removeItem(id){
+	 var my = document.getElementById(document.getElementById(id).parentElement.id);
+	 //alert(document.getElementById(id).parentElement.id);
+	 //alert(my);
+	 //alert('aa');
+	 my.parentNode.removeChild(my);
+	 //document.getElementById("adds").style.display="block";
+	 //iNum = iNum-1;
+}
+
+function compAdd(){
+	document.getElementById("comAdd").style.display = 'none';
+	document.getElementById("adds").style.display = 'block';
+	//document.getElementById("re_0").style.display = 'none';
+	document.getElementById("re_0").parentNode.removeChild( document.getElementById("re_0") );
+	
+	
+	c=0;
+	iNum = 0;
+}
+
+function addRes(){
+	//alert('aaa');
+	var b=document.getElementById("res");
+	var div=document.createElement("div");
+	div.className="form-group form-inline";
+	div.id = "res"+d;
+	div.innerHTML = ""+
+	"<label>结果</label><input type='button' class='btn btn-warning'   id='reR"+d+"' value = '移除此结果' onclick='removeResult(this.id);'/><br>"+
+	"<label>结果类型</label> <select class='form-control' id='resultContentType"+d+"' name='resultContentType"+d+"'>"+
+	"<option value='2' >文本</option>"+
+	"<option value='1' >图片</option>"+
+	"<option value='0' >无</option>"+
+	"</select>"+
+	
+	"<label>分数</label><input class='form-control' id='resultScore"+d+"' name='resultScore"+d+"'"+
+	"placeholder='分数' value='' onkeyup = 'onk(this.id);' onbeforepaste = 'onk(this.id);'><br>"+
+	"<label>结果标题</label><input class='form-control' id='resultTitle"+d+"' name='resultTitle"+d+"'"+
+	"placeholder='结果标题' value=''><br>"+
+	"<label>结果内容</label><input class='form-control' id='resultContent"+d+"' name='resultContent"+d+"'"+
+	"placeholder='结果内容' value=''><br>"+
+	"</br>";
+	//var text=document.createTextNode("ccccccccccc");
+	//div.appendChild(text);
+	b.parentNode.insertBefore(div,b);
+	d = d+1;
+	document.getElementById("resultNum").value = parseInt(d);
+}
+
+ function removeResult(id){
+	 var my = document.getElementById(document.getElementById(id).parentElement.id);
+	 //alert(document.getElementById(id).parentElement.id);
+	 //alert(my);
+	 //alert('aa');
+	 my.parentNode.removeChild(my);
+	 //document.getElementById("adds").style.display="block";
+	 //rlen = rlen-1;
+	 //document.getElementById("resultNum").value = parseInt(document.getElementById("resultNum").value)-1;
+ }
+
+<#else>
+<#if dbo.questions?size==0>
+var iNum = 0;
+function addQues(){
+	//alert('aaa');
+	var b=document.getElementById("sta");
+	var div=document.createElement("div");
+	div.className="form-group form-inline";
+	div.id = "ques"+a;
+	div.innerHTML = ""+
+	"<label>问题"+"</label><input type='button' class='btn btn-warning'  id='reQ"+a+"' value = '移除此题' onclick='removeQuestion(this.id);'/><br>"+
+	"<input type = 'hidden' value = '"+itNum+"' id = 'itemNum"+a+"' name = 'itemNum"+a+"'/>"+
+	"<label>问题标题</label><input class='form-control' id='quesTitle"+a+"' name='quesTitle"+a+"'"+
+	"placeholder='问题标题' value=''><br>"+
+	"<label>问题内容</label><input class='form-control' id='quesContent"+a+"' name='quesContent"+a+"'"+
+	"placeholder='问题内容' value=''><br>"+
+	"<label>题目类型</label> <select class='form-control' id='quesType"+a+"' name='quesType"+a+"'>"+
+	"<option value='2'  >文本</option>"+
+	"<option value='1'  >图片</option>"+
+	"<option value='0'  >无</option>"+
+	"</select><br><div id = 'question"+(a+1)+"'></div><input type='button' class='btn btn-success' id='re_0"+"' value = '添加选项' onclick='addItem(this.id);'/>"+
+	"</br>";
+	//var text=document.createTextNode("ccccccccccc");
+	//div.appendChild(text);
+	b.parentNode.insertBefore(div,b);
+	a = a+1;
+	document.getElementById("quesNum").value = a;
+	document.getElementById("adds").style.display = 'none';
+	document.getElementById("comAdd").style.display = 'block';
+}
+
+
+
+function removeQuestion(id){
+	 var my = document.getElementById(document.getElementById(id).parentElement.id);
+	 //alert(my);
+	 //alert('aa');
+	 my.parentNode.removeChild(my);
+	 //document.getElementById("adds").style.display="block";
+	 //qlen = qlen -1;
+	 //document.getElementById("quesNum").value = parseInt(document.getElementById("quesNum").value)-1;
+	 //if(document.getElementById("quesNum").value=1){
+			document.getElementById("comAdd").style.display = 'none';
+			document.getElementById("adds").style.display = 'block';
+			
+			
+		//};
+	
+}
+
+function addItem(id){
+	 var b=document.getElementById("question"+a);
+	 //alert(b);
+		var div=document.createElement("div");
+		div.className="form-group form-inline";
+		div.id = "item"+(a-1)+c;
+		div.innerHTML =""+
+		"<label>选项"+"</label><input type='button' class='btn btn-warning' id='reI"+(a-1)+c+"' value = '移除选项' onclick='removeItem(this.id);'/><br>"+
+		"<label>选项内容</label><input class='form-control' id='itemContent"+(a-1)+c+"' name='itemContent"+(a-1)+c+"'"+
+		"placeholder='选项内容' value=''><br>"+
+		"<label>选项得分</label><input class='form-control' id='itemScore"+(a-1)+c+"' name='itemScore"+(a-1)+c+"'"+
+		"placeholder='选项得分' value='' onkeyup = 'onk(this.id);' onbeforepaste = 'onk(this.id);'><br>"+
+		"<label>选项类型</label> <select class='form-control' id='itemContentType"+(a-1)+c+"' name='itemContentType"+(a-1)+c+"'>"+
+		"<option value='2' >文本</option>"+
+		"<option value='1' >图片</option>"+
+		"<option value='0' >无</option>"+
+		"</select>";
+		b.parentNode.insertBefore(div,b);
+		
+		c = c+1;
+		iNum = iNum+1;
+		idI = id;
+		document.getElementById("itemNum"+(a-1)).value = parseInt(document.getElementById("itemNum"+(a-1)).value)+1;
+}
+
+function removeItem(id){
+	 var my = document.getElementById(document.getElementById(id).parentElement.id);
+	 //alert(document.getElementById(id).parentElement.id);
+	 //alert(my);
+	 //alert('aa');
+	 my.parentNode.removeChild(my);
+	 //document.getElementById("adds").style.display="block";
+	 //iNum = iNum-1;
+}
+
+function compAdd(){
+	document.getElementById("comAdd").style.display = 'none';
+	document.getElementById("adds").style.display = 'block';
+	//document.getElementById("re_0").style.display = 'none';
+	document.getElementById("re_0").parentNode.removeChild( document.getElementById("re_0") );
+	
+	
+	c=0;
+	iNum = 0;
+}
+<#if dbo.result?size==0>
+function addRes(){
+	//alert('aaa');
+	var b=document.getElementById("res");
+	var div=document.createElement("div");
+	div.className="form-group form-inline";
+	div.id = "res"+d;
+	div.innerHTML = ""+
+	"<label>结果</label><input type='button' class='btn btn-warning'   id='reR"+d+"' value = '移除此结果' onclick='removeResult(this.id);'/><br>"+
+	"<label>结果类型</label> <select class='form-control' id='resultContentType"+d+"' name='resultContentType"+d+"'>"+
+	"<option value='2' >文本</option>"+
+	"<option value='1' >图片</option>"+
+	"<option value='0' >无</option>"+
+	"</select>"+
+	
+	"<label>分数</label><input class='form-control' id='resultScore"+d+"' name='resultScore"+d+"'"+
+	"placeholder='分数' value='' onkeyup = 'onk(this.id);' onbeforepaste = 'onk(this.id);'><br>"+
+	"<label>结果标题</label><input class='form-control' id='resultTitle"+d+"' name='resultTitle"+d+"'"+
+	"placeholder='结果标题' value=''><br>"+
+	"<label>结果内容</label><input class='form-control' id='resultContent"+d+"' name='resultContent"+d+"'"+
+	"placeholder='结果内容' value=''><br>"+
+	"</br>";
+	//var text=document.createTextNode("ccccccccccc");
+	//div.appendChild(text);
+	b.parentNode.insertBefore(div,b);
+	d = d+1;
+	document.getElementById("resultNum").value = parseInt(d);
+}
+
+ function removeResult(id){
+	 var my = document.getElementById(document.getElementById(id).parentElement.id);
+	 //alert(document.getElementById(id).parentElement.id);
+	 //alert(my);
+	 //alert('aa');
+	 my.parentNode.removeChild(my);
+	 //document.getElementById("adds").style.display="block";
+	 //rlen = rlen-1;
+	 //document.getElementById("resultNum").value = parseInt(document.getElementById("resultNum").value)-1;
+ }
+
+<#else>
+<#list dbo.result as it>
+var rlen = ${dbo.result?size};
+$(function(){
+	document.getElementById("resultNum").value =rlen;
+});
+
+
+
+function addRes(){
+	//alert('aaa');
+	var b=document.getElementById("res");
+	var div=document.createElement("div");
+	div.className="form-group form-inline";
+	div.id = "res"+d;
+	div.innerHTML = ""+
+	"<label>结果</label><input type='button' class='btn btn-warning'   id='reR"+d+"' value = '移除此结果' onclick='removeResult(this.id);'/><br>"+
+	"<label>结果类型</label> <select class='form-control' id='resultContentType"+rlen+"' name='resultContentType"+rlen+"'>"+
+	"<option value='2' >文本</option>"+
+	"<option value='1' >图片</option>"+
+	"<option value='0' >无</option>"+
+	"</select>"+
+	
+	"<label>分数</label><input class='form-control' id='resultScore"+rlen+"' name='resultScore"+rlen+"'"+
+	"placeholder='分数' value='' onkeyup = 'onk(this.id);' onbeforepaste = 'onk(this.id);'><br>"+
+	"<label>结果标题</label><input class='form-control' id='resultTitle"+rlen+"' name='resultTitle"+rlen+"'"+
+	"placeholder='结果标题' value=''><br>"+
+	"<label>结果内容</label><input class='form-control' id='resultContent"+rlen+"' name='resultContent"+rlen+"'"+
+	"placeholder='结果内容' value=''><br>"+
+	"</br>";
+	//var text=document.createTextNode("ccccccccccc");
+	//div.appendChild(text);
+	b.parentNode.insertBefore(div,b);
+	rlen = rlen+1;
+	document.getElementById("resultNum").value = parseInt(document.getElementById("resultNum").value)+1;
+}
+ function removeResult(id){
+	 var my = document.getElementById(document.getElementById(id).parentElement.id);
+	 //alert(document.getElementById(id).parentElement.id);
+	 //alert(my);
+	 //alert('aa');
+	 my.parentNode.removeChild(my);
+	 //document.getElementById("adds").style.display="block";
+	 //rlen = rlen-1;
+	 //document.getElementById("resultNum").value = parseInt(document.getElementById("resultNum").value)-1;
+ }
+</#list>
+</#if>
+<#else>
+<#list dbo.questions as it>
+var itemNum${it_index} = document.getElementById("itemNum${it_index}").value;
+var qlen =${dbo.questions?size}; 
+$(function(){
+	//alert(qlen);
+	document.getElementById("quesNum").value =qlen;            //??????????????????????
+});
+
+function addQues(){
+	//alert('aaa');
+	var b=document.getElementById("sta");
+	var div=document.createElement("div");
+	div.className="form-group form-inline";
+	div.id = "ques"+a;
+	div.innerHTML = "<input type = 'hidden' value = '0' id = 'itemNum"+qlen+"'  name ='itemNum"+qlen+"' />"+
+	"<label>问题"+"</label><input type='button' class='btn btn-warning'  id='reQ"+${it_index}+"' value = '移除此题' onclick='removeQuestion(this.id);'/><br>"+
+	"<label>问题标题</label><input class='form-control' id='quesTitle"+qlen+"' name='quesTitle"+qlen+"'"+
+	"placeholder='问题标题' value=''><br>"+
+	"<label>问题内容</label><input class='form-control' id='quesContent"+qlen+"' name='quesContent"+qlen+"'"+
+	"placeholder='问题内容' value=''><br>"+
+	"<label>题目类型</label> <select class='form-control' id='quesType"+qlen+"' name='quesType"+qlen+"'>"+
+	"<option value='2'  >文本</option>"+
+	"<option value='1'  >图片</option>"+
+	"<option value='0'  >无</option>"+
+	"</select><br><div id = 'question"+(a+1)+"'></div><input type='button' class='btn btn-success' id='re_0"+"' value = '添加选项' onclick='addItem(this.id);'/>"+
+	"</br>";
+	//var text=document.createTextNode("ccccccccccc");
+	//div.appendChild(text);
+	b.parentNode.insertBefore(div,b);
+	qlen = qlen+1;
+	a = a+1;
+	quesNum = qlen;
+	document.getElementById("quesNum").value = parseInt(document.getElementById("quesNum").value)+1;
+	document.getElementById("adds").style.display = 'none';
+	document.getElementById("comAdd").style.display = 'block';
+}
+ 
+ 
+ function removeQuestion(id){
+	 var my = document.getElementById(document.getElementById(id).parentElement.id);
+	 //alert(my);
+	 //alert('aa');
+	 my.parentNode.removeChild(my);
+	 document.getElementById("adds").style.display="block";
+	 //qlen = qlen -1;
+	 //document.getElementById("quesNum").value = parseInt(document.getElementById("quesNum").value)-1;
+			document.getElementById("comAdd").style.display = 'none';
+			document.getElementById("adds").style.display = 'block';
+			
+ }
+ 
+ 
+ <#list it.items as its>
+
+ var iNum = 0;
+ var adI = null;
+ function addItem(id){
+	 var b=document.getElementById("question"+a);
+	 //alert(b);
+		var div=document.createElement("div");
+		div.className="form-group form-inline";
+		div.id = "item"+c;
+		div.innerHTML =""+
+		"<label>选项"+"</label><input type='button' class='btn btn-warning' id='reI_"+c+"' value = '移除选项' onclick='removeItem(this.id);'/><br>"+
+		"<label>选项内容</label><input class='form-control' id='itemContent"+(qlen-1)+iNum+"' name='itemContent"+(qlen-1)+iNum+"'"+
+		"placeholder='选项内容' value=''><br>"+
+		"<label>选项得分</label><input class='form-control' id='itemScore"+(qlen-1)+iNum+"' name='itemScore"+(qlen-1)+iNum+"'"+
+		"placeholder='选项得分' value='' onkeyup = 'onk(this.id);' onbeforepaste = 'onk(this.id);'><br>"+
+		"<label>选项类型</label> <select class='form-control' id='itemContentType"+(qlen-1)+iNum+"' name='itemContentType"+(qlen-1)+iNum+"'>"+
+		"<option value='2' >文本</option>"+
+		"<option value='1' >图片</option>"+
+		"<option value='0' >无</option>"+
+		"</select>";
+		b.parentNode.insertBefore(div,b);
+		c = c+1;
+		iNum = iNum+1;
+		idI = id;
+		document.getElementById("itemNum"+(qlen-1)).value = parseInt(document.getElementById("itemNum"+(qlen-1)).value)+1;
+ }
+ 
+ function addItems(id,name){
+	 var b =  document.getElementById("reI_"+id+(name));
+	 var div=document.createElement("div");
+	 div.className="form-group form-inline";
+	 var ids = id;
+	 var names = document.getElementById("itemNum"+ids).value;
+	 div.id = "reI_"+ids+names;
+	 div.innerHTML =""+
+	 "<input type='button' class='btn btn-warning' id='"+(ids)+(names)+"' value = '移除选项' onclick='removeItems(this.id);'/>"+
+	 "<label>选项内容</label><input class='form-control' id='itemContent"+(ids)+(names)+"' name='itemContent"+(ids)+(names)+"'"+
+	 "placeholder='' value=''><label>选项类型</label><select class='form-control' id='itemContentType"+(ids)+(names)+"'"+
+	 "name='itemContentType"+(ids)+(names)+"'><option value='2'  >文本型</option>"+
+	 "<option value='1'  >图片型</option></select><label>选项分数</label>"+
+	 "<input class='form-control' value = '' onkeyup = 'onk(this.id);' onbeforepaste = 'onk(this.id);' name = 'itemScore"+(ids)+(names)+"' id = 'itemScore"+(ids)+(names)+"'/>"+
+	 "<input type = 'button' class='btn btn-success' value = '+' id = '"+ids+"'  name = '"+names+"' onclick = 'addItems(this.id,this.name)'/></br>";
+	 b.parentNode.appendChild(div);
+	 names = names+1;
+	 document.getElementById("itemNum"+ids).value = parseInt(document.getElementById("itemNum"+ids).value)+1;
+	 
+ }
+ 
+ function removeItem(id){
+	 var my = document.getElementById(document.getElementById(id).parentElement.id);
+	 //alert(document.getElementById(id).parentElement.id);
+	 //alert(my);
+	 //alert('aa');
+	 my.parentNode.removeChild(my);
+	 //document.getElementById("adds").style.display="block";
+	 //iNum = iNum-1;
+ }
+ 
+ function removeItems(id){
+	 var my = document.getElementById("reI_"+id);
+	 my.parentNode.removeChild(my);
+ }
+ </#list>
+ </#list>
+ function compAdd(){
+		document.getElementById("comAdd").style.display = 'none';
+		document.getElementById("adds").style.display = 'block';
+		//document.getElementById("re_0").style.display = 'none';
+		document.getElementById("re_0").parentNode.removeChild( document.getElementById("re_0") );
+		iNum = 0;
+	}
+
+ <#if dbo.result?size==0>
+ function addRes(){
+ 	//alert('aaa');
+ 	var b=document.getElementById("res");
+ 	var div=document.createElement("div");
+ 	div.className="form-group form-inline";
+ 	div.id = "res"+d;
+ 	div.innerHTML = ""+
+ 	"<label>结果</label><input type='button' class='btn btn-warning'   id='reR"+d+"' value = '移除此结果' onclick='removeResult(this.id);'/><br>"+
+ 	"<label>结果类型</label> <select class='form-control' id='resultContentType"+d+"' name='resultContentType"+d+"'>"+
+ 	"<option value='2' >文本</option>"+
+ 	"<option value='1' >图片</option>"+
+ 	"<option value='0' >无</option>"+
+ 	"</select>"+
+ 	
+ 	"<label>分数</label><input class='form-control' id='resultScore"+d+"' name='resultScore"+d+"'"+
+ 	"placeholder='分数' value='' onkeyup = 'onk(this.id);' onbeforepaste = 'onk(this.id);'><br>"+
+ 	"<label>结果标题</label><input class='form-control' id='resultTitle"+d+"' name='resultTitle"+d+"'"+
+ 	"placeholder='结果标题' value=''><br>"+
+ 	"<label>结果内容</label><input class='form-control' id='resultContent"+d+"' name='resultContent"+d+"'"+
+ 	"placeholder='结果内容' value=''><br>"+
+ 	"</br>";
+ 	//var text=document.createTextNode("ccccccccccc");
+ 	//div.appendChild(text);
+ 	b.parentNode.insertBefore(div,b);
+ 	d = d+1;
+ 	document.getElementById("resultNum").value = parseInt(d);
+ }
+
+  function removeResult(id){
+ 	 var my = document.getElementById(document.getElementById(id).parentElement.id);
+ 	 //alert(document.getElementById(id).parentElement.id);
+ 	 //alert(my);
+ 	 //alert('aa');
+ 	 my.parentNode.removeChild(my);
+ 	 //document.getElementById("adds").style.display="block";
+ 	 //rlen = rlen-1;
+ 	 //document.getElementById("resultNum").value = parseInt(document.getElementById("resultNum").value)-1;
+  }
+
+ <#else> 
+<#list dbo.result as it>
+var rlen = ${dbo.result?size};
+$(function(){
+	document.getElementById("resultNum").value =rlen;
+});
+
+
+
+function addRes(){
+	//alert('aaa');
+	var b=document.getElementById("res");
+	var div=document.createElement("div");
+	div.className="form-group form-inline";
+	div.id = "res"+d;
+	div.innerHTML = ""+
+	"<label>结果</label><input type='button' class='btn btn-warning'   id='reR"+d+"' value = '移除此结果' onclick='removeResult(this.id);'/><br>"+
+	"<label>结果类型</label> <select class='form-control' id='resultContentType"+rlen+"' name='resultContentType"+rlen+"'>"+
+	"<option value='2' >文本</option>"+
+	"<option value='1' >图片</option>"+
+	"<option value='0' >无</option>"+
+	"</select>"+
+	
+	"<label>分数</label><input class='form-control' id='resultScore"+rlen+"' name='resultScore"+rlen+"'"+
+	"placeholder='分数' value='' onkeyup = 'onk(this.id);' onbeforepaste = 'onk(this.id);'><br>"+
+	"<label>结果标题</label><input class='form-control' id='resultTitle"+rlen+"' name='resultTitle"+rlen+"'"+
+	"placeholder='结果标题' value=''><br>"+
+	"<label>结果内容</label><input class='form-control' id='resultContent"+rlen+"' name='resultContent"+rlen+"'"+
+	"placeholder='结果内容' value=''><br>"+
+	"</br>";
+	//var text=document.createTextNode("ccccccccccc");
+	//div.appendChild(text);
+	b.parentNode.insertBefore(div,b);
+	rlen = rlen+1;
+	document.getElementById("resultNum").value = parseInt(document.getElementById("resultNum").value)+1;
+}
+ function removeResult(id){
+	 var my = document.getElementById(document.getElementById(id).parentElement.id);
+	 //alert(document.getElementById(id).parentElement.id);
+	 //alert(my);
+	 //alert('aa');
+	 my.parentNode.removeChild(my);
+	 //document.getElementById("adds").style.display="block";
+	 //rlen = rlen-1;
+	 //document.getElementById("resultNum").value = parseInt(document.getElementById("resultNum").value)-1;
+ }
+</#list>
+</#if>
+</#if>
+</#if>
+function onk(id){
+	document.getElementById(id).value=document.getElementById(id).value.replace(/\D/g,'');
+}
+ 
+	$(function() {
+		$("#submit").click(function(e) {
+			e.preventDefault();
+			var t = this;
+			var jsonData = $("#form").serializeArray();
+			//alert("a1");
+			$.post("/admin/paper", jsonData,function(ret)  {
+				//alert("a2");
+				if (0 != ret.code) {
+					alert(ret.msg);
+				} else {
+					alert("Success");
+					window.location.href="/admin/papers.xhtml";
+				}
+			});
+		});
+
+		$("#reset").click(function(e) {
+
+		});
+		$("#back").click(function(e) {
+			window.history.back(-1);
+		});
+		
+	});
+	
+$(function() {
+		
+
+	uploader = WebUploader.create({
+		auto : true,
+		swf : '/webuploader/Uploader.swf',
+		server : '<@layout.api path="/sys/admPic" />',
+		pick : '#filePicker',
+		accept : {
+			title : 'Images',
+			extensions : 'gif,jpg,jpeg,bmp,png',
+			mimeTypes : 'image/*'
+		},
+		formData:{"token":'<@layout.token />'}
+	});
+
+	uploader.on('fileQueued', function(file) {
+
+	});
+
+	uploader.on('uploadProgress', function(file, percentage) {
+		var $li = $('#' + file.id), $percent = $li.find('.progress span');
+		if (!$percent.length) {
+			$percent = $('<p class="progress"><span></span></p>').appendTo($li)
+					.find('span');
+		}
+		$percent.css('width', percentage * 100 + '%');
+	});
+
+	// 文件上传成功，给item添加成功class, 用样式标记上传成功。
+	uploader.on('uploadSuccess', function(file, res) {
+		$('#' + file.id).addClass('upload-state-done');
+		if (res.code == 0) {
+			$("#pic").attr('src', res.data);
+			$("#logo").val(res.data);
+		}
+	});
+
+	// 文件上传失败，显示上传出错。
+	uploader.on('uploadError', function(file) {
+		var $li = $('#' + file.id), $error = $li.find('div.error');
+		if (!$error.length) {
+			$error = $('<div class="error"></div>').appendTo($li);
+		}
+		$error.text('上传失败');
+	});
+
+	// 完成上传完了，成功或者失败，先删除进度条。
+	uploader.on('uploadComplete', function(file) {
+		$('#' + file.id).find('.progress').remove();
+	});
+
+	uploader2 = WebUploader.create({
+		auto : true,
+		swf : '/webuploader/Uploader.swf',
+		server : '<@layout.api path="/sys/admPic" />',
+		pick : '#filePicker2',
+		accept : {
+			title : 'Images',
+			extensions : 'gif,jpg,jpeg,bmp,png',
+			mimeTypes : 'image/*'
+		},
+		formData:{"token":'<@layout.token />'}
+	});
+
+	uploader2.on('fileQueued', function(file) {
+
+	});
+
+	uploader2.on('uploadProgress', function(file, percentage) {
+		var $li = $('#' + file.id), $percent = $li.find('.progress span');
+		if (!$percent.length) {
+			$percent = $('<p class="progress"><span></span></p>').appendTo($li)
+					.find('span');
+		}
+		$percent.css('width', percentage * 100 + '%');
+	});
+
+	// 文件上传成功，给item添加成功class, 用样式标记上传成功。
+	uploader2.on('uploadSuccess', function(file, res) {
+		$('#' + file.id).addClass('upload-state-done');
+		if (res.code == 0) {
+			$("#pic2").attr('src', res.data);
+			$("#backPic").val(res.data);
+		}
+	});
+
+	// 文件上传失败，显示上传出错。
+	uploader2.on('uploadError', function(file) {
+		var $li = $('#' + file.id), $error = $li.find('div.error');
+		if (!$error.length) {
+			$error = $('<div class="error"></div>').appendTo($li);
+		}
+		$error.text('上传失败');
+	});
+
+	// 完成上传完了，成功或者失败，先删除进度条。
+	uploader2.on('uploadComplete', function(file) {
+		$('#' + file.id).find('.progress').remove();
+	});
+	
+});
+</script>	
+ </@layout.script>

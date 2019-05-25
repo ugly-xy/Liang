@@ -1,0 +1,75 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="css/mui.min.css" rel="stylesheet" />
+		<link rel="stylesheet" type="text/css" href="css/style.css" />
+	</head>
+	<body>
+		<div class="mui-content">  
+		</div>
+		<script src="js/mui.min.js"></script>
+		<script src="js/app.js" type="text/javascript" charset="utf-8"></script>
+		<script src="js/vue.min.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript">
+			initShareData();
+			function initShareData(){
+				mui.getJSON(app.serverApi(app.apiConstant.getSharePic),{},function(res){
+					app.respondingTo(res.code,function(code){
+						if(0!=code){
+							plus.nativeUI.toast(res.msg);
+							mui.back();
+						}else{
+							var shareData = res.data;
+							var localShareData ={};
+							localShareData.shareCode=shareData.shareCode;
+							localShareData.poster1="";
+							if(shareData.poster0&&''!=shareData.poster0){
+								localShareData.poster1=shareData.poster0;
+							}
+							localShareData.poster2="";
+							if(shareData.poster1&&''!=shareData.poster1){
+								localShareData.poster2=shareData.poster1;
+							}
+							console.log("==="+localShareData.shareCode);
+							
+							
+							initPage(localShareData.shareCode,localShareData.poster1,localShareData.poster2)
+						}
+					})
+				})
+			}
+				
+			function initPage(code,poster1,poster2){
+				var zoo =app.serverApi(app.apiConstant.getShareText);
+				var sUrl =zoo+encodeURI("?code="+code+"&poster1="+poster1+"&poster2="+poster2);
+				mui.init({
+				subpages: [
+					{
+						url: sUrl,
+						id: 'shareText',
+					}
+				  ]
+				})
+			}
+
+				
+			function toRedirect(url){
+				mui.openWindow({
+					url: url,
+					id: '_'+url,
+					waiting: {
+						autoShow: true
+					}
+					
+				});
+			}
+			
+			
+		</script>
+	</body>
+
+</html>

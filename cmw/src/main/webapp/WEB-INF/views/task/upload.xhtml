@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>wetoken</title>
+		<link rel="stylesheet" type="text/css" href="/webuploader/webuploader.css">
+		<#include "/common/head.xhtml"/>
+		<style type="text/css">
+			.btn-upload.butt_grey p{
+				background:#eee;
+				border-color:#eee;
+				color: #ffffff;
+		    }
+		</style>
+	</head>
+	<body>
+		
+		<#include "/common/header.xhtml"/>
+		<section class="bannerpage">
+			<div class="container"><img src="/active/assets/image/banner-task.jpg" width="1200"/></div>
+		</section>
+		<section class="uploadpage">
+			<div class="container">
+				<div class="uploadcon">
+					<div class="upload-img">
+					   <div id="fileList" class="uploader-list">
+					   	<#if obj??&&(obj.status)?? && obj.status==3>
+						<#if (obj.pics)?? > 
+						<#list (obj.pics) as pic>
+							<div id="o_${pic_index}" class="upload-img0 upload-state-done">
+								<img class="img-bg" src="${imgDomain}${pic}" height="176" />
+								
+							</div>
+						</#list>
+						</#if>
+	                    </#if>
+					   </div>
+	            			
+	                   <div id="filePicker" class="upload-img1">
+                            <img src="/active/image/addImg.png" height="176" width="176" alt="">
+                        </div>
+                        
+	                        
+	                </div>
+	                <INPUT type="hidden" id="id" name="id" value="${(obj._id)!}" /> 
+	                
+	                <#if obj??&&(obj.status)?? && obj.status==3>
+	                    <div class="btn-upload butt_grey" ><p>심사중</p></div>
+	                <#else>
+	                <div class="btn-upload" id="joininWE"><p>제출</p></div>
+	                </#if>
+
+					
+				</div>
+			</div>
+		</section>
+        <#include "/common/footer.xhtml"/>
+        <script src="/webuploader/webuploader.js"></script>
+		<script type="text/javascript">
+		
+		$("#joininWE").click(function(e) {
+			var pics = "";
+			$('input[name="pic"]').each(function() {
+				pics = pics + $(this).val() + ",";
+			});
+			if (pics.length > 0) {
+				pics = pics.substring(0, pics.length - 1);
+			}else{//没有图片不能提交
+				alert("미션 이미지를 제출해주세요");
+				return;
+			}
+			var jsonData = {
+					"photos" : pics,
+					"id":$("#id").val()
+			}
+			$.post("/my/upload", jsonData, function(ret) {
+				if (0 != ret.code) {
+					alert(ret.msg);
+				} else {
+					location.href="/task.xhtml?id=${(obj._id)!}";
+				}
+			});
+		});
+		
+	     $list = $('#fileList'),
+	     uploader = WebUploader.create({
+	 		auto : true,
+	 		swf : '/webuploader/Uploader.swf',
+	 		server :'/file/uPic',
+	 		pick : '#filePicker',
+	 		multiple : true,
+	 		accept : {
+	 			title : 'Images',
+	 			extensions : 'gif,jpg,jpeg,bmp,png',
+	 			mimeTypes : 'image/*'
+	 		},
+	 	});
+
+		uploader.on('fileQueued', function(file) {
+			var $li = $('<div id="' + file.id + '" class="upload-img0">'
+					+ '<img class="img-bg">' + '</div>'), $img = $li.find('img');
+
+			// $list为容器jQuery实例
+			$list.append($li);
+			// 创建缩略图
+			thumbnailWidth = 176;
+			thumbnailHeight = 176;
+			uploader.makeThumb(file, function(error, src) {
+				if (error) {
+					$img.replaceWith('<span>不能预览</span>');
+					return;
+				}
+				$img.attr('src', src);
+			}, thumbnailWidth, thumbnailHeight);
+		});
+
+		uploader.on('uploadProgress', function(file, percentage) {
+			var $li = $('#' + file.id), $percent = $li.find('.progress span');
+			// 避免重复创建
+			if (!$percent.length) {
+				$percent = $('<p class="progress"><span></span></p>').appendTo($li)
+						.find('span');
+			}
+			$percent.css('width', percentage * 100 + '%');
+		});
+
+		// 文件上传成功，给item添加成功class, 用样式标记上传成功。
+		uploader
+				.on(
+						'uploadSuccess',
+						function(file, res) {
+							//alert(res.code+" "+res.data);
+							$('#' + file.id).addClass('upload-state-done');
+							var $span = $('<input type="hidden" name="pic" value="'+res.data+'" />');
+							$('#' + file.id).append($span);
+						});
+
+		// 文件上传失败，显示上传出错。
+		uploader.on('uploadError', function(file) {
+			var $li = $('#' + file.id), $error = $li.find('div.error');
+			// 避免重复创建
+			if (!$error.length) {
+				$error = $('<div class="error"></div>').appendTo($li);
+			}
+			$error.text('上传失败');
+		});
+
+			// 完成上传完了，成功或者失败，先删除进度条。
+		uploader.on('uploadComplete', function(file) {
+			$('#' + file.id).find('.progress').remove();
+		});
+		</script>
+	</body>
+</html>

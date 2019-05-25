@@ -1,0 +1,49 @@
+<#import "/spring.ftl" as spring />
+<#import "/admin/layouts/common.xhtml" as layout>
+<@layout.title>注册用户阿里帐号</@layout.title> <@layout.metaKeywordsDescription>
+
+</@layout.metaKeywordsDescription> <@layout.cssLink>
+<link rel="stylesheet" type="text/css"
+	href="/webuploader/webuploader.css"></@layout.cssLink>
+	<@layout.pageHeader> 注册用户阿里帐号</@layout.pageHeader> <@layout.mainContent>
+<input type="hidden" id="nav_id" value="regAli" />
+
+<div class="row">
+	<div class="col-lg-2">
+		<INPUT  class="form-control" id="id" name="id" value="0" />
+		
+	</div>
+	<div class="col-lg-2">
+		<button id="regAli" class="btn btn-default"
+			onclick="regAli()">未注册用户注册</button>
+	</div>
+	
+	<div class="col-lg-2">
+		<button id="regAli" class="btn btn-default"
+			onclick="regAli(false)">失败用户重新注册</button>
+	</div>
+	
+	<div class="col-lg-2">
+		<button id="pushMsg" class="btn btn-default"
+			onclick="pushMsg()">推送环信的消息</button>
+	</div>
+</div>
+<!-- /.row (nested) --> </@layout.mainContent> <@layout.script> 
+<script type="text/javascript" src="<@layout.static path="/webuploader/webuploader.js" />"> </script> <script>
+	function regAli(type) {
+		var id = $("#id").val();
+		$.post("/admin/regAli",{"type":type,"id":id}, function(data) {
+			alert("注册完了");
+		});
+	}
+	
+	function pushMsg() {
+		var id = $("#id").val();
+		if(id==0){
+			id=100000000;
+		}
+		$.post("/admin/pushHXMsg",{"id":id}, function(data) {
+			alert("疯狂推送中");
+		});
+	}
+</script> </@layout.script> 

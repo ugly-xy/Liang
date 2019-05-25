@@ -1,0 +1,191 @@
+<#import "/spring.ftl" as spring /> <#import
+"/admin/layouts/common.xhtml" as layout>
+<@layout.title>任务模型管理</@layout.title> <@layout.metaKeywordsDescription>
+
+</@layout.metaKeywordsDescription> <@layout.cssLink>
+	<input type="hidden" id="nav_id" value="taskModel" />
+<link rel="stylesheet" type="text/css"
+	href="/webuploader/webuploader.css"></@layout.cssLink>
+	<@layout.pageHeader> 任务模型 </@layout.pageHeader> <@layout.mainContent>
+<div class="row">
+	<div class="col-lg-8">
+		<form role="form" id="form">
+			<div class="form-group form-inline">
+				<label>任务ID</label> <input class="form-control" id="id" name="id"
+					placeholder="任务ID" value="${(obj._id)!}">
+			</div>
+			<div class="form-group form-inline">
+				<label>头像</label>
+				<!--用来存放item-->
+				<div id="fileList" class="uploader-list">
+					<img id="pic"
+						src="<#if (obj.tmPic)?? ><@layout.img path=obj.tmPic></@layout.img></#if>"
+						width="120px" />
+				</div>
+				<div id="filePicker">选择图片</div>
+
+				<input type="hidden" id="tmPic" name="tmPic" value="${(obj.tmPic)!}" />
+			</div>
+			
+		   <div class="form-group form-inline">
+				<label>任务优先级</label> <input class="form-control" id="sort" name="sort"
+					placeholder="1" value="${(obj.sort)!}">
+			</div>
+		   <div class="form-group form-inline">
+				<label>任务标题</label> <select class="form-control" id="tmTitle"
+					name="tmTitle">
+					<option value="免费赚金币" selected>免费赚金币</option>
+					<option value="免费赚经验" <#if (obj.tmTitle)?? && (obj.tmTitle)=="免费赚经验" > selected </#if>>免费赚经验</option>
+					<option value="VIP礼包" <#if (obj.tmTitle)?? && (obj.tmTitle)=="VIP礼包" > selected </#if>>VIP礼包</option>
+					<option value="圈子任务" <#if (obj.tmTitle)?? && (obj.tmTitle)=="圈子任务" > selected </#if>>圈子任务</option>
+					</select>
+			</div>
+			
+			<div class="form-group form-inline">
+				<label>任务名称</label> <input class="form-control" id="tmName" name="tmName"
+					placeholder="任务名称:例:完成三把你画我猜游戏" value="${(obj.tmName)!}">
+			</div>
+
+			<div class="form-group form-inline">
+				<label>任务类型</label> <select class="form-control" id="tmType"
+					name="tmType">
+					<option value="1" selected>新手任务</option>
+					<option value="2"  <#if (obj.tmType)?? && (obj.tmType)==2 > selected </#if>>每日任务</option>
+					<option value="3"  <#if (obj.tmType)?? && (obj.tmType)==3 > selected </#if>>VIP任务</option>
+					<option value="4"  <#if (obj.tmType)?? && (obj.tmType)==4 > selected </#if>>圈子任务</option>
+				</select>
+			</div>
+			<div class="form-group form-inline">
+				<label>任务奖励app显示(例:100金币、100经验、100玫瑰)</label> <input class="form-control" id="tmReward" name="tmReward"
+					placeholder="100金币、100玫瑰" value="${(obj.tmReward)!}">
+			</div>
+           <div class="form-group form-inline">
+				<label>任务奖励(后台使用)(例:金币=100;经验=100;玫瑰=100)</label> <input class="form-control" id="rewards" name="rewards"
+					placeholder="金币,100;经验,100" value="${(obj.rewards)!}">
+			</div>
+			
+			<div class="form-group form-inline">
+				<label>任务完成范围</label> <input class="form-control" id="op" name="op"
+					placeholder="范围 如 userSpace game" value="${(obj.op)!}">
+			</div>
+            <div class="form-group form-inline">
+				<label>任务跳转小范围</label> <input class="form-control" id="opid" name="opid"
+					placeholder="具体游戏填id 别的填0" value="${(obj.opid)!}">
+			</div>
+			
+			
+			<div class="form-group form-inline">
+				<label>任务初始进度</label> <select class="form-control" id="tmPlan"
+					name="tmPlan">
+					<option value="0" selected>0</option>
+				</select>
+			</div>
+            <div class="form-group form-inline">
+				<label>任务结束条件</label> <input class="form-control" id="tmEndCondition" name="tmEndCondition"
+					placeholder="任务结束条件，例：10" value="${(obj.tmEndCondition)!}">
+			</div>
+			<div class="form-group form-inline">
+				<label>任务默认初始状态</label> <select class="form-control" id="tmStatus"
+					name="tmStatus">
+					<option value="3" selected>已完成待领取</option>
+					<option value="2" <#if (obj.tmStatus)?? && (obj.tmStatus)==2 > selected </#if>>进行中</option>
+					</select>
+			</div>
+			
+			<div class="form-group">
+				<label>状态</label> <label class="radio-inline"> <input
+					type="radio" name="status" id="status" value="3" checked>上线
+				</label> <label class="radio-inline"> <input type="radio"
+					name="status" id="status" value="2"<#if
+						(obj.status)??&&obj.status==2 > checked </#if> >隐藏 </label> <label
+					class="radio-inline"> <input type="radio" name="status"
+					id="status" value="1"<#if (obj.status)??&&obj.status==1 >
+						checked </#if> >下线 </label> <label class="radio-inline"> <input
+					type="radio" name="status" id="status" value="-1"<#if
+						(obj.status)??&&obj.status==-1 > checked </#if> >删除 </label>
+			</div>
+			<button id="submit" class="btn btn-default">提交</button>
+			<button id="reset" class="btn btn-default">重置</button>
+		</form>
+	</div>
+
+</div>
+<!-- /.row (nested) -->
+
+</@layout.mainContent> <@layout.script>
+<script type="text/javascript" src="<@layout.static path="/webuploader/webuploader.js" />
+">
+</script>
+<script>
+	$(function() {
+		$("#submit").click(function(e) {
+			e.preventDefault();
+			var t = this;
+			var jsonData = $("#form").serializeArray();
+			$.post("/admin/taskModel", jsonData, function(ret) {
+				if (0 != ret.code) {
+					alert(ret.msg);
+				} else {
+					alert("Success");
+					window.location.href="/admin/taskModels.xhtml";
+				}
+			});
+		});
+
+		$("#reset").click(function(e) {
+
+		});
+	});
+	uploader = WebUploader.create({
+		auto : true,
+		swf : '/webuploader/Uploader.swf',
+		server : '<@layout.api path="/sys/admPic" />',
+		pick : '#filePicker',
+		accept : {
+			title : 'Images',
+			extensions : 'gif,jpg,jpeg,bmp,png',
+			mimeTypes : 'image/*'
+		},
+		formData : {
+			"token" : '<@layout.token />'
+		}
+	});
+
+	uploader.on('fileQueued', function(file) {
+
+	});
+
+	uploader.on('uploadProgress', function(file, percentage) {
+		var $li = $('#' + file.id), $percent = $li.find('.progress span');
+		if (!$percent.length) {
+			$percent = $('<p class="progress"><span></span></p>').appendTo($li)
+					.find('span');
+		}
+		$percent.css('width', percentage * 100 + '%');
+	});
+
+	// 文件上传成功，给item添加成功class, 用样式标记上传成功。
+	uploader.on('uploadSuccess', function(file, res) {
+		$('#' + file.id).addClass('upload-state-done');
+		if (res.code == 0) {
+			$("#pic").attr('src', res.data);
+			$("#tmPic").val(res.data);
+		}
+	});
+
+	// 文件上传失败，显示上传出错。
+	uploader.on('uploadError', function(file) {
+		var $li = $('#' + file.id), $error = $li.find('div.error');
+		if (!$error.length) {
+			$error = $('<div class="error"></div>').appendTo($li);
+		}
+		$error.text('上传失败');
+	});
+
+	// 完成上传完了，成功或者失败，先删除进度条。
+	uploader.on('uploadComplete', function(file) {
+		$('#' + file.id).find('.progress').remove();
+	});
+
+</script>
+</@layout.script>

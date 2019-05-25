@@ -1,0 +1,290 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link rel="stylesheet" type="text/css" href="/active/assets/css/mui.min.css"/>
+		<meta property="og:image" content="https://www.candy.club/active/assets/image/logo-login.png" />
+		<meta property="og:image:secure_url" content="https://www.candy.club/active/assets/image/logo-login.png" />		
+		<meta name="twitter:card" content="summary_large_image">
+		<meta name="twitter:image:src" content="https://www.candy.club/active/assets/image/logo-login.png">
+		<#if conNum??&&(1==conNum)>
+	         <meta name="og:description" content="【최다 에어드랍 플랫폼】Candy Club 에서 에어드랍 진행중! 77777Candy Token 수령완료! 수량한정, 가입만 해도 지급! 가입하러 바로가기: https://www.candy.club/i/${code!}"/>
+	         <meta name="twitter:description" content="【최다 에어드랍 플랫폼】Candy Club 에서 에어드랍 진행중! 77777Candy Token 수령완료! 수량한정, 가입만 해도 지급! 가입하러 바로가기: https://www.candy.club/i/${code!}">
+	    </#if>
+	    <#if conNum??&&(2==conNum)>
+	         <meta name="og:description" content="【에어드랍 수령】가장 신뢰할 수 있는 에어드랍 플랫폼! Candy Club 에어드랍 진행중!! BTC,BCH,ETH 로 교환!! 친구 초대하고 가입까지 가즈아~! 가입하러 바로 가기:https://www.candy.club/i/${code!}"/>
+	         <meta name="twitter:description" content="【에어드랍 수령】가장 신뢰할 수 있는 에어드랍 플랫폼! Candy Club 에어드랍 진행중!! BTC,BCH,ETH 로 교환!! 친구 초대하고 가입까지 가즈아~! 가입하러 바로 가기:https://www.candy.club/i/${code!}">
+	    </#if>
+	    <#if conNum??&&(3==conNum)>
+	         <meta name="og:description" content="【긴급공지】Candy Club에서 에어드랍 진행중, 100+개의 프로젝트 토큰 무료지급!! 빠른 가입 , 높은 수익 ! 내부테스트 초대진행중!! 가입하러 바로가기 : https://www.candy.club/i/${code!}"/>
+	         <meta name="twitter:description" content="【긴급공지】Candy Club에서 에어드랍 진행중, 100+개의 프로젝트 토큰 무료지급!! 빠른 가입 , 높은 수익 ! 내부테스트 초대진행중!! 가입하러 바로가기 : https://www.candy.club/i/${code!}">
+	    </#if>
+		<style>
+			body{
+				background: #fff;
+			}
+			* { touch-action: pan-y; }
+			.mui-bar-nav {
+			    background: #fff;
+			    box-shadow: 0 1px 10px #f8f8f8;
+			}
+			.mui-bar-nav .mui-action-back {
+			    font-size: 26px;
+			    color: #576073;
+			}			
+			.mui-content {
+				height: 100%;
+				background: #fff;
+				width: 90%;
+				margin: 0 auto;
+				z-index: 1;
+				position: relative;
+			}
+			.sharelist {
+			    overflow: hidden;
+			    padding: 30px 0;
+			    margin-bottom: 30px;
+			}
+			.sharelist .share-view {
+			    width: 45%;
+			    display: inline-block;
+			    margin-left: 2.5%;
+			    text-align: center;
+			    position: relative;
+			}
+			.sharelist div img {
+			    width: 90%;
+			    vertical-align: bottom;
+			    border-radius: 15px;
+			    box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.1);
+			}
+			.sharelist .share-view .share-btn {
+			    position: absolute;
+			    z-index: 9;
+			    bottom: -20px;
+			    left: 50%;
+			    -webkit-transform: translateX(-50%);
+			    transform: translateX(-50%);
+			}
+			h4{
+			    line-height: 1;
+			    margin-top: 5px;
+			    margin-bottom: 5px;
+			}
+			p {
+			    color: #576073;
+			    font-size: 14px;
+			    margin-top: 0;
+			    margin-bottom: 10px;
+			}
+
+			.sharelink .link-view {
+			    position: relative;
+			    padding-right: 50px;
+			    padding-left: 20px;
+			    background: url(/active/image/icon-crl-01.png) no-repeat left 0px;
+			    background-size: 15px;
+			    margin-bottom: 15px;
+			}
+			.sharelink .share-btn {
+			    position: absolute;
+			    z-index: 9;
+			    top: 50%;
+			    -webkit-transform: translateY(-50%);
+			    transform: translateY(-50%);
+			    right: 0;
+			}
+			.share-btn {
+			    display: inline-block;
+			    background: url(/active/image/icon-share-02.png) no-repeat center center #fff;
+			    background-size: 15px;
+			    width: 40px;
+			    height: 40px;
+			    border-radius: 20px;
+			    box-shadow: 0px 3px 13px rgba(255, 100, 100, 0.2);
+			}
+			.sharebox{
+				position: fixed;
+				top: 50%;
+				left: 50%;
+				-webkit-transform: translate(-50%,-50%);
+				transform: translate(-50%,-50%);
+				z-index: 10001;
+				width: 100%;
+				text-align: center;
+				display: none;
+			}
+
+		</style>
+	</head>
+
+	<body>
+		<script async="async" type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=5bab3adc6750788d"></script>
+		<header class="mui-bar mui-bar-nav">
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+			<h1 class="mui-title">친구초대</h1>
+		</header>
+		<div class="mui-content">
+			<img src="https://www.candy.club/active/assets/image/logo-login.png" width="0" height="0" />
+			<div class="sharelist">
+				<div class="share-view">
+					<img src="${poster1!}" id="poster1"/>
+					<a href="javascript:;"  class="share-btn" id="downPoster1"></a>
+				</div>
+				<div class="share-view">
+					<img src="${poster2!}" id="poster2"/>
+					<a href="javascript:;" class="share-btn" id="downPoster2"></a>
+				</div>
+			</div>
+			<div class="sharelink">
+				<div class="link-view">
+					<h4 >최다 에어드랍 플랫폼</h4>
+					<p id="shareCon1">【최다 에어드랍 플랫폼】Candy Club 에서 에어드랍 진행중! 77777Candy Token 수령완료! 수량한정, 가입만 해도 지급! 가입하러 바로가기: <font id="shareCode1">${code!}</font></p>
+					<a href="javascript:;" id="tar1" data-url="https://www.candy.club/share/invitingFriends" data-clipboard-action="copy" data-clipboard-target="#shareCon1" data-info="shareCon1" dada-num="1" data-title="" class="share-btn"></a>
+				</div>
+				<div class="link-view">
+					<h4>최다 에어드랍 플랫폼</h4>
+					<p id="shareCon2">【에어드랍 수령】가장 신뢰할 수 있는 에어드랍 플랫폼! Candy Club 에어드랍 진행중!! BTC,BCH,ETH 로 교환!! 친구 초대하고 가입까지 가즈아~! 가입하러 바로 가기:<font id="shareCode2">${code!}</font></p>
+					<a href="javascript:;" id="tar2" class="share-btn" data-clipboard-action="copy" data-clipboard-target="#shareCon2"
+					data-url="https://www.candy.club/share/invitingFriends"  data-info="shareCon2" dada-num="2"></a>
+				</div>
+				<div class="link-view">
+					<h4>최다 에어드랍 플랫폼</h4>
+					<p id="shareCon3">【긴급공지】Candy Club에서 에어드랍 진행중, 100+개의 프로젝트 토큰 무료지급!! 빠른 가입 , 높은 수익 ! 내부테스트 초대진행중!! 가입하러 바로가기 : <font id="shareCode3">${code!}</font></p>
+					<a href="javascript:;" id="tar3" class="share-btn" data-clipboard-action="copy" data-clipboard-target="#shareCon3"
+					data-url="https://www.candy.club/share/invitingFriends" data-info="shareCon3" dada-num="3"></a>
+				</div>
+			</div>
+
+			<div id="shareTitle" hidden="hidden" data-url='www.baidu.com'></div>
+			<div id="descri" hidden="hidden"></div>
+		</div>
+
+		<div hidden="hidden" class="addthis_toolbox sharebox" id="sharebox">
+			<a class="addthis_button_facebook" href="javascript:;" id="subfacebook"><img src="/active/image/icon-facebook.png" width="48" /></a>
+			<a class="addthis_button_twitter" href="javascript:;" id="subtwitter"><img src="/active/image/icon-twitter.png" width="48" /></a>
+			<a class="addthis_button_kakao" href="javascript:;" id="subkakaotalk"><img src="/active/image/icon-kakaotalk.png" width="48" /></a>
+			<a class="addthis_button_telegram" href="javascript:;" id="subtelegram"><img src="/active/image/icon-telegram.png" width="48" /></a>
+		</div>
+		
+		<script src="/active/assets/js/jquery-1.12.3.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="/active/js/main.js" type="text/javascript" charset="utf-8"></script>
+        <script src="/active/js/mui.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="/active/js/clipboard.min.js"></script>
+		<script type="text/javascript">
+    			var downParm ="/my/downloadPoster?picAddr=";
+				var path = getUrlPre()+location.pathname;
+				$('.sharelink .share-btn').click(function(e){
+					var e =e||e.Event;
+					var tar= e.target;
+					var tarId =tar.getAttribute("data-info")+"";
+					var tarNum =tar.getAttribute("dada-num")+"";
+					var curId =tar.getAttribute("id")+"";
+					var con = $('#'+tarId).text();
+					con_copy(curId,tarNum,con);
+					var mask = mui.createMask(dclosed);
+					function dclosed() {
+						document.getElementById('sharebox').style.display = 'none';
+					}
+					mask.show();
+					document.getElementById('sharebox').style.display = 'block';
+					
+				})
+
+				$("#sharebox a").click(function(){
+					var nwaiting = plus.nativeUI.showWaiting();
+					setTimeout(function(){
+						nwaiting.close();  
+					},500)
+					
+				})
+
+				var sUrlbak="https://www.candy.club/app/sharePic";
+				var sUrl=getUrlPre()+"/app/sharePic";
+				var addthis_config = addthis_config||{};
+				addthis_config.data_track_addressbar = false;
+				$('#downPoster1').click(function(){
+					var  picUrl =$('#poster1').attr("src")+"";
+					toRedirect(sUrl+encodeURI("?picUrl="+picUrl));
+				})
+
+
+				$('#downPoster2').click(function(){
+					var picUrl =$('#poster2').attr("src")+"";
+					toRedirect(sUrl+encodeURI("?picUrl="+picUrl));
+				})
+
+				mui.plusReady(function() {
+					mui.preload({
+					    url:""+sUrl,
+					    id:"_sharePic",
+					    styles:{},
+					});
+
+				})
+
+				function toRedirect(url){
+					mui.openWindow({
+						url: url,
+						id: '_'+url,
+						waiting: {
+							autoShow: true
+						}
+						
+					});
+				}
+				
+				function getQueryString(name) {
+			        var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i"); 
+			        var r = window.location.search.substr(1).match(reg); 
+			        if (r != null) return unescape(r[2]); 
+			        return "";
+			    } 
+			    function getUrlPre(){
+			    	return location.protocol+"//"+window.location.host;
+			    }
+
+    			var tpng="https://www.candy.club/active/assets/image/logo-login.png";
+			
+				function updateAddObj(url,title,des){
+					if(url&&''!=url){
+						updateObj('url',''+url);
+					}
+					if(title&&''!=title){
+						updateObj('title',''+title);
+					}
+					if(des&&''!=des){
+						updateObj('description',''+des);
+					}
+					updateObj('media',tpng);
+					addthis.ready();
+				}
+
+				function updateObj(obj,param){
+					addthis.update('share',''+obj,''+param);
+				}
+
+				function con_copy(id,num,con){
+					var attach = "?conNum";
+					var param ="?conNum="+num+"&code=${code!}";
+					if(path&&path.indexOf(attach)<=0){
+						path=path+param;
+					}else{
+						path =path.substr(0,path.indexOf(attach))+param;
+					}
+					updateAddObj(path,'공유',con);
+					var clipboard = new ClipboardJS('#'+id,{
+						text: function() {
+					        return ""+con;
+					    }
+					});
+			       
+				}
+			
+		</script>
+	</body>
+
+</html>

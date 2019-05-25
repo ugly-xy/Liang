@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:dubbo="http://code.alibabatech.com/schema/dubbo"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans        http://www.springframework.org/schema/beans/spring-beans.xsd        http://code.alibabatech.com/schema/dubbo        http://code.alibabatech.com/schema/dubbo/dubbo.xsd">
+
+	<!-- 提供方应用信息，用于计算依赖关系 -->
+	<dubbo:application name="${dubbo.application}" />
+	<!-- <dubbo:registry address="redis://192.168.1.112:6379" /> -->
+	<dubbo:registry address="${dubbo.registry.address}" />
+
+
+	<!-- 用dubbo协议在9527端口暴露服务 -->
+	<dubbo:protocol name="dubbo" port="9527" />
+
+	<!-- 声明需要暴露的服务接口 -->
+	<dubbo:service interface="com.zb.dubbo.RpcUserService"
+		ref="rpcUserService" />
+	<bean id="rpcUserService" class="com.zb.dubbo.impl.RpcUserServiceImpl" />
+
+	<dubbo:service interface="com.zb.dubbo.RpcRoomService"
+		ref="rpcRoomService" />
+	<bean id="rpcRoomService" class="com.zb.dubbo.impl.RpcRoomServiceImpl" />
+
+	<dubbo:service interface="com.zb.dubbo.RpcUndercoverService"
+		ref="rpcUndercoverService" />
+	<bean id="rpcUndercoverService" class="com.zb.dubbo.impl.RpcUndercoverServiceImpl" />
+
+	<dubbo:service interface="com.zb.dubbo.RpcDrawSomethingService"
+		ref="rpcDrawSomethingService" />
+	<bean id="rpcDrawSomethingService" class="com.zb.dubbo.impl.RpcDrawSomethingServiceImpl" />
+
+	<dubbo:service interface="com.zb.dubbo.RpcDiceService"
+		ref="rpcDiceService" />
+	<bean id="rpcDiceService" class="com.zb.dubbo.impl.RpcDiceServiceImpl" />
+
+	<dubbo:service interface="com.zb.dubbo.RpcSlotMachinesService"
+		ref="rpcSlotMachinesService" />
+	<bean id="rpcSlotMachinesService" class="com.zb.dubbo.impl.RpcSlotMachinesServiceImpl" />
+
+	<dubbo:service interface="com.zb.dubbo.RpcWorldChatService"
+		ref="rpcWorldChatService" />
+	<bean id="rpcWorldChatService" class="com.zb.dubbo.impl.RpcWorldChatServiceImpl" />
+	
+	<dubbo:service interface="com.zb.dubbo.RpcWerewolfKillService"
+        ref="rpcWerewolfKillService" />
+    <bean id="rpcWerewolfKillService" class="com.zb.dubbo.impl.RpcWerewolfKillServiceImpl" />
+    
+	<dubbo:service interface="com.zb.dubbo.RpcSouthPenguinService"
+		ref="rpcSouthPenguinService" />
+	<bean id="rpcSouthPenguinService" class="com.zb.dubbo.impl.RpcSouthPenguinServiceImpl" />
+
+	<dubbo:service interface="com.zb.dubbo.RpcSysService"
+		ref="rpcSysService" />
+	<bean id="rpcSysService" class="com.zb.dubbo.impl.RpcSysServiceImpl" />
+
+	<dubbo:service interface="com.zb.dubbo.RpcSchoolWarService"
+		ref="rpcSchoolWarService" />
+	<bean id="rpcSchoolWarService" class="com.zb.dubbo.impl.RpcSchoolWarServiceImpl" />
+
+	<dubbo:service interface="com.zb.dubbo.RpcAnimalChessService"
+		ref="rpcAnimalChessService" />
+	<bean id="rpcAnimalChessService" class="com.zb.dubbo.impl.RpcAnimalChessServiceImpl" />
+	
+	<dubbo:service interface="com.zb.dubbo.RpcGomokuService"
+        ref="rpcGomokuService" />
+    <bean id="rpcGomokuService" class="com.zb.dubbo.impl.RpcGomokuServiceImpl" />
+    
+    <dubbo:service interface="com.zb.dubbo.RpcSakuranService"
+        ref="rpcSakuranService" />
+    <bean id="rpcSakuranService" class="com.zb.dubbo.impl.RpcSakuranServiceImpl" />
+    
+    <dubbo:service interface="com.zb.dubbo.RpcChatBoxService"
+        ref="rpcChatBoxService" />
+    <bean id="rpcChatBoxService" class="com.zb.dubbo.impl.RpcChatBoxServiceImpl" />
+    
+    <dubbo:service interface="com.zb.dubbo.RpcWinmineService"
+        ref="rpcWinmineService" />
+    <bean id="rpcWinmineService" class="com.zb.dubbo.impl.RpcWinmineServiceImpl" />
+    
+    <dubbo:service interface="com.zb.dubbo.RpcNeuroCatService"
+        ref="rpcNeuroCatService" />
+    <bean id="rpcNeuroCatService" class="com.zb.dubbo.impl.RpcNeuroCatServiceImpl" />
+    
+    <dubbo:service interface="com.zb.dubbo.RpcCowService"
+        ref="rpcCowService" />
+    <bean id="rpcCowService" class="com.zb.dubbo.impl.RpcCowServiceImpl" />
+    
+    <dubbo:service interface="com.zb.dubbo.RpcTexasService"
+        ref="rpcTexasService" />
+    <bean id="rpcTexasService" class="com.zb.dubbo.impl.RpcTexasServiceImpl" />
+</beans>

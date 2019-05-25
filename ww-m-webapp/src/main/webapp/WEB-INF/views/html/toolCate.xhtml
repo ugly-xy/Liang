@@ -1,0 +1,116 @@
+<#import "/spring.ftl" as spring /> 
+<#import "/layouts/common.xhtml" as layout>
+<@layout.title>${title}</@layout.title> <@layout.metaKeywordsDescription>
+
+</@layout.metaKeywordsDescription> <@layout.cssLink> </@layout.cssLink>
+<@layout.pageHeader> ${title} </@layout.pageHeader> <@layout.mainContent>
+<div class="content">
+	<div class="container">
+	<div class="port">
+		<div style="height: 10px;"></div>
+		<div class="with-line">工具分类</div>
+		<div style="height: 10px;"></div>
+		<DIV style="background-color: white;">
+		<div style="height: 10px;"></div>
+			<div style="width: 100%;height: auto;margin-right: auto;margin-left: auto;overflow: hidden;margin: auto;text-align: center;">
+				
+				<div style="width: 25%;float: left;;">
+					<a href="/tool/cate.xhtml?id=13" > 
+						<img style="width: 60px;height: 83px;" src="/images/tuhaorenxing.png">
+					</a>
+				</div>
+				
+				<div style="width: 25%;float: left;">
+					<a href="/tool/cate.xhtml?id=22" > 
+						<img style="width: 60px;height: 83px;" src="/images/mingxinglaile.png">
+					</a>
+				</div>
+				<div style="width: 25%;float: right;">
+					<a href="/tool/cate.xhtml?id=23" > 
+						<img style="width: 60px;height: 83px;" src="/images/naocanduihua.png">
+					</a>
+				</div>
+				<div style="width: 25%;float: right;">
+					<a href="/tool/cate.xhtml?id=14" > 
+						<img style="width: 60px;height: 83px;" src="/images/aiqingbiaobai.png">
+					</a>
+				</div>
+			</div>
+			<div style="height: 5px;"></div>
+			<div style="width: 100%;height: auto;margin-right: auto;margin-left: auto;overflow: hidden;margin: auto;text-align: center;">
+				
+				<div style="width: 25%;float: left;;">
+					<a href="/tool/cate.xhtml?id=15" > 
+						<img style="width: 60px;height: 83px;" src="/images/egaodouqu.png">
+					</a>
+				</div>
+				
+				
+				<div style="width: 25%;float: left;">
+					<a href="/tool/cate.xhtml?id=16" > 
+						<img style="width: 60px;height: 83px;" src="/images/youxidaren.png">
+					</a>
+				</div>
+				<div style="width: 25%;float: right;">
+					<a href="/tool/cate.xhtml?id=17" > 
+						<img style="width: 60px;height: 83px;" src="/images/nitianzhengjian.png">
+					</a>
+				</div>
+				<div style="width: 25%;float: right;">
+					<a href="/tool/cate.xhtml?id=18" > 
+						<img style="width: 60px;height: 83px;" src="/images/tiancaishaonian.png">
+					</a>
+				</div>
+			</div>
+		
+		<div style="height: 10px;"></div>
+		</DIV>
+			<h2>${title}</h2>
+				</div>
+				<div id="portfoliolist">
+				<#list newTools as tool>
+					<div class="portfolio app mix_all" data-cat="tool" style="display: inline-block; opacity: 1;">
+						<div class="portfolio-wrapper ">		
+							<a href="/tool.xhtml?id=${tool._id}">
+						    <img  class="img-responsive" src="${tool.logo}" alt="${tool.name}"  /> 
+							</a>
+						<div class="gir">						
+							<h5>${tool.name}</h5>
+							<p> <a href="/tool.xhtml?id=${tool._id}" class="btn btn-primary">我要装逼</a></p>													
+						</div>
+						</div>
+					</div>
+					
+					<!-- <a href="/tool.xhtml?id=${tool._id}">
+					<div class="notif notif-white" style="width: 100%;height: 100px;">
+					
+						    <img  style="width: 87px;height: 87px;" src="${tool.logo}" alt="${tool.name}"  /> 
+								
+									<span style="font-size:15px;">${tool.name}</span>
+									
+									<span style="font-size:larger;color: orange;">点击装逼</span>
+								
+								
+								
+				  	</div>	
+				  	</a>	 -->
+				</#list>		
+					<div class="clearfix"> </div>
+				</div>	
+				<div class="container-fluid">
+				<div class="row" style="text-align: center;">
+					<div class="col-md-12">
+						<div class="dataTables_info" id="dataTables-example_info"
+							role="status" aria-live="polite">当前 ${page.curPage}/${page.totalPage}页， 共${page.total}条 
+						</div>
+					</div>
+					<div class="col-sm-12">
+						<@vpage cur=page.curPage total=page.totalPage url=page.url > ${vpage}</@vpage>
+					</div>
+				</div>
+				</div>
+			<!-- Script for gallery Here -->
+
+</@layout.mainContent> <@layout.script>
+
+</@layout.script>

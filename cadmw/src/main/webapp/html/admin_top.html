@@ -1,0 +1,44 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><head>
+   <title>管理后台</title>
+   <meta http-equiv="Content-Type" content="text/html; charset=gbk" />
+   <link href="/css/transdmin.css" rel="stylesheet" type="text/css" media="screen" />  
+   <!--[if IE 6]><link rel="stylesheet" type="text/css" media="screen" href="/css/ie6.css" /><![endif]-->
+   <!--[if IE 7]><link rel="stylesheet" type="text/css" media="screen" href="/css/ie7.css" /><![endif]-->
+</head>
+<body>
+<div id="mainNav" style="display:none">
+	<dl>
+	</dl>
+</div>
+<div id="mainwelcome">
+	<dl>
+		<dt>管理系统</dt>
+		<dd><a href="/admin/user/resetPwdDef" target="main" onfocus="this.blur()" class="blue"><span id="userName" title="修改密码">修改密码</span></a><a href="/logout" target="_top" onfocus="this.blur()" style="padding-left:10px;" class="blue">退出</a><span id="dateStr" style="padding-left:10px;"></span></dd>
+	</dl>
+</div>
+<script type="text/javascript">
+function formatDateYMD(g) {
+	var f = g.getFullYear();
+	var h = g.getMonth() + 1;
+	h = (h < 10) ? "0" + h : h;
+	var d = g.getDate();
+	d = (d < 10) ? "0" + d : d;
+	return (f + "-" + h + "-" + d);
+}
+
+var userName = "";
+var b=document.cookie.split(";");
+if(b.length>0){
+	for(var i=0;i<b.length;i++){
+		var c=b[i].replace(/(^\s*)|(\s*$)/g, "").split("=");
+		if(c.length>1 && "chju".toLowerCase()==c[0].toLowerCase()){
+			userName=unescape(c[1]);break;
+		}
+	}
+}
+document.getElementById("userName").innerHTML = userName+",修改密码";
+document.getElementById("dateStr").innerHTML = formatDateYMD(new Date());
+</script>
+</body>
+</html>

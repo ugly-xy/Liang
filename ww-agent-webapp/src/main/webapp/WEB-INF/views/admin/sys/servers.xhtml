@@ -1,0 +1,70 @@
+<#import "/spring.ftl" as spring /> <#import
+"/admin/layouts/common.xhtml" as layout>
+<@layout.title>关键词列表</@layout.title> <@layout.metaKeywordsDescription>
+
+</@layout.metaKeywordsDescription> <@layout.cssLink> </@layout.cssLink>
+<@layout.pageHeader> 关键词列表 </@layout.pageHeader> <@layout.mainContent>
+	<input type="hidden" id="nav_id" value="server" />
+<div class="well well-sm">
+	<div class="row">
+		<FORM action="/admin/servers.xhtml">
+			<div class="col-sm-2">
+				<select class="form-control" id="type" name="type">
+					<option value="">全部</option>
+					<option value="socket" <#if type?? && type=="socket">selected</#if> >socket</option>
+					<option value="websocket" <#if type?? && type=="websocket">selected</#if> >websocket</option>
+				</select>
+			</div>
+			<div class="col-sm-2">
+				<button type="submit" class="btn btn-default">查询</button>
+			</div>
+		</FORM>
+	</div>
+</div>
+<div class="row">
+	<div class="col-lg-12">
+
+		<div class="dataTable_wrapper">
+			<table class="table table-striped table-bordered table-hover"
+				id="dataTables-example">
+				<thead>
+					<tr>
+						<th>服务器</th>
+						<th>类型</th>
+						<th>当前连接数</th>
+						<th>最大连接数</th>
+						<th>状态</th>
+						<th>时间</th>
+					</tr>
+				</thead>
+				<tbody>
+					<#list page.list as it>
+					<tr class="gradeA">
+						<td>${it._id}</td>
+						<td>${it.type}</td>
+						<td>${it.connectCnt}</td>
+						<td>${it.maxCnt}</td>
+						<td class="center"><#if it.status?? && it.status==3 >正常
+							<#else>不正常</#if></td>
+						<td>${it.updateTime?number?number_to_datetime} </td>
+					</tr>
+					</#list>
+				</tbody>
+			</table>
+		</div>
+		<div class="row">
+			<div class="col-sm-4">
+				<div class="dataTables_info" id="dataTables-example_info"
+					role="status" aria-live="polite">当前 ${page.curPage}/${page.totalPage}页， 共${page.total}条 </div>
+			</div>
+			<div class="col-sm-8">
+			<@vpage cur=page.curPage total=page.totalPage url=page.url > ${vpage}</@vpage>
+			</div>
+		</div>
+	</div>
+
+	<!-- /.col-lg-12 -->
+</div>
+
+</@layout.mainContent> <@layout.script>
+</@layout.script>

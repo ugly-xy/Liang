@@ -1,0 +1,294 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:jee="http://www.springframework.org/schema/jee"
+	xmlns:tx="http://www.springframework.org/schema/tx" xmlns:util="http://www.springframework.org/schema/util"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:mongo="http://www.springframework.org/schema/data/mongo"
+	xmlns:aop="http://www.springframework.org/schema/aop" xmlns:p="http://www.springframework.org/schema/p"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+http://www.springframework.org/schema/beans/spring-beans-4.1.xsd
+http://www.springframework.org/schema/tx
+http://www.springframework.org/schema/tx/spring-tx-4.1.xsd
+http://www.springframework.org/schema/jee
+http://www.springframework.org/schema/jee/spring-jee-4.1.xsd
+http://www.springframework.org/schema/context
+http://www.springframework.org/schema/context/spring-context-4.1.xsd
+http://www.springframework.org/schema/schema/util
+http://www.springframework.org/schema/schema/util/spring-util-4.1.xsd
+http://www.springframework.org/schema/data/mongo
+http://www.springframework.org/schema/data/mongo/spring-mongo-1.5.xsd 
+http://www.springframework.org/schema/aop
+http://www.springframework.org/schema/aop/spring-aop-4.1.xsd ">
+
+	<bean id="contextHolder" class="com.zb.core.spring.SpringContextHolder"
+		lazy-init="false" />
+
+	<bean id="multipartResolver"
+		class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+		<!-- maxUploadSize:文件上传的最大值以byte为单位 -->
+		<property name="maxUploadSize" value="1024000"></property>
+	</bean>
+
+	<context:property-placeholder location="classpath:spring/app.conf" />
+
+	<context:annotation-config />
+
+	<context:component-scan base-package="com.zb.service" />
+
+	<aop:aspectj-autoproxy />
+	<aop:aspectj-autoproxy proxy-target-class="true" />
+
+	<!-- mongo config -->
+
+	<bean id="mongoTemplate" class="org.springframework.data.mongodb.core.MongoTemplate">
+		<constructor-arg name="mongo" ref="mongo" />
+		<constructor-arg name="databaseName" value="${mongo.dbname}" />
+	</bean>
+
+	<bean id="chatMongoTemplate" class="org.springframework.data.mongodb.core.MongoTemplate">
+		<constructor-arg name="mongo" ref="mongo" />
+		<constructor-arg name="databaseName" value="${mongo.chat.dbname}" />
+	</bean>
+	
+	<bean id="bakMongoTemplate" class="org.springframework.data.mongodb.core.MongoTemplate">
+		<constructor-arg name="mongo" ref="mongo" />
+		<constructor-arg name="databaseName" value="${mongo.bak.dbname}" />
+	</bean>
+
+	<!-- 这里需要指定一个Mongo URI来连接数据库，需要的信息可以从阿里云控制台上获取，连接是帐号密码要跟帐号所在的数据库对应起来，否则无法通过认证，默认创建的root帐号是admin数据库下的 -->
+	<bean class="com.mongodb.MongoURI" id="mongoURI">
+		<constructor-arg value="${mongo.uri}" />
+	</bean>
+
+	<bean class="com.mongodb.Mongo" id="mongo">
+		<constructor-arg ref="mongoURI" />
+	</bean>
+
+	<!-- redis config -->
+
+	<bean id="jedisPoolConfig" class="redis.clients.jedis.JedisPoolConfig"
+		p:maxTotal="${redis.maxActive}" p:maxIdle="${redis.maxIdle}"
+		p:maxWaitMillis="${redis.maxWait}" p:testOnBorrow="${redis.testOnBorrow}"
+		p:testOnReturn="${redis.testOnReturn}" />
+
+	<bean id="jedisConnFactory"
+		class="org.springframework.data.redis.connection.jedis.JedisConnectionFactory"
+		p:use-pool="true" p:host-name="${redis.host}" p:port="${redis.port}"
+		p:pool-config-ref="jedisPoolConfig" />
+
+	<!-- redis template definition -->
+	<!-- <bean id="redisTemplate" class="org.springframework.data.redis.core.RedisTemplate" -->
+	<bean id="redisTemplate" class="org.springframework.data.redis.core.StringRedisTemplate"
+		p:connection-factory-ref="jedisConnFactory">
+	</bean>
+
+
+	<bean id="chatJedisConnFactory"
+		class="org.springframework.data.redis.connection.jedis.JedisConnectionFactory"
+		p:use-pool="true" p:host-name="${redis.chat.host}" p:port="${redis.chat.port}"
+		p:pool-config-ref="jedisPoolConfig" />
+
+	<bean id="chatRedisTemplate" class="org.springframework.data.redis.core.StringRedisTemplate"
+		p:connection-factory-ref="chatJedisConnFactory">
+	</bean>
+
+	<!--接收聊天消息监听器 -->
+	<bean id="serialization"
+		class="org.springframework.data.redis.serializer.JdkSerializationRedisSerializer" />
+
+	<bean id="redisRecvListener" class="com.zb.core.redis.RedisRecvListener" />
+	<bean id="redisRecvServiceListenerAdapter"
+		class="org.springframework.data.redis.listener.adapter.MessageListenerAdapter">
+		<property name="delegate" ref="redisRecvListener" />
+		<property name="serializer" ref="serialization" />
+	</bean>
+
+	<!-- 配置redis订阅 -->
+	<bean id="redisContainer"
+		class="org.springframework.data.redis.listener.RedisMessageListenerContainer">
+		<property name="connectionFactory" ref="chatJedisConnFactory" />
+		<property name="messageListeners">
+			<map>
+				<entry key-ref="redisRecvServiceListenerAdapter">
+					<list>
+						<bean class="org.springframework.data.redis.listener.ChannelTopic">
+							<constructor-arg value="${server_channel_topic}" />
+						</bean>
+					</list>
+				</entry>
+			</map>
+		</property>
+	</bean>
+
+	<!-- <bean class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
+		<property name="triggers">
+			<list>
+				<ref bean="roomTrigger" />
+				<ref bean="roomRobitTrigger" />
+				<ref bean="roomUserRobitTrigger" />
+				<ref bean="stTrigger" />
+				<ref bean="recommendTrigger" />
+				<ref bean="wolfRankListTrigger" />
+				<ref bean="topTrigger" />
+				<ref bean="rankingTrigger" />
+			<ref bean="lotteryTrigger" />
+				<ref bean="guessDrawTrigger" />
+			</list>
+		</property>
+		<property name="autoStartup" value="true" />
+	</bean>
+	
+	<bean id="guessDrawTrigger"
+        class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
+        <property name="jobDetail" ref="guessDraw" />
+        <property name="cronExpression" value="0 0/1 * * * ?" />每1分钟触发一次
+    </bean>
+    <bean id="guessDraw"
+        class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+        <property name="targetObject" ref="guessDrawJob" />
+        <property name="targetMethod" value="execute" />
+        <property name="concurrent" value="false" />
+    </bean>
+   <bean id="guessDrawJob" class="com.zb.service.jobs.GuessDrawJob" />
+	
+	<bean id="lotteryTrigger"
+        class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
+        <property name="jobDetail" ref="lotteryRank" />
+        <property name="cronExpression" value="0 0/1 * * * ?" /> 每隔1min触发一次
+    </bean>
+    <bean id="lotteryRank"
+        class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+        <property name="targetObject" ref="lotteryJob" />
+        <property name="targetMethod" value="execute" />
+        <property name="concurrent" value="false" />
+    </bean>
+   <bean id="lotteryJob" class="com.zb.service.jobs.SpiderLotteryJob" />
+
+    <bean id="wolfRankListTrigger"
+        class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
+        <property name="jobDetail" ref="wolfRank" />
+        <property name="cronExpression" value="11 0/3 * * * ?" />
+                每隔5分钟触发一次
+    </bean>
+    <bean id="wolfRank"
+        class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+        <property name="targetObject" ref="wolfRankListJob" />
+        <property name="targetMethod" value="execute" />
+        <property name="concurrent" value="false" />
+    </bean>
+   <bean id="wolfRankListJob" class="com.zb.service.jobs.WolfRankListJob" />
+
+
+	<bean id="topTrigger"
+		class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
+		<property name="jobDetail" ref="top" />
+		<property name="cronExpression" value="25 * * * * ?" />
+			每隔1分钟触发一次
+	</bean>
+	<bean id="top"
+		class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+		<property name="targetObject" ref="topJob" />
+		<property name="targetMethod" value="execute" />
+		<property name="concurrent" value="false" />
+	</bean>
+	
+	<bean id="topJob" class="com.zb.service.jobs.StJob" />
+	
+	<bean id="rankingTrigger"
+		class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
+		<property name="jobDetail" ref="ranking" />
+		<property name="cronExpression" value="0 0 0 * * ?" />每天00:00触发一次
+	</bean>
+	<bean id="ranking"
+		class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+		<property name="targetObject" ref="rankingJob" />
+		<property name="targetMethod" value="execute" />
+		<property name="concurrent" value="false" />
+	</bean>
+	<bean id="rankingJob" class="com.zb.service.jobs.RankListJob" />
+
+	<bean id="recommendTrigger"
+		class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
+		<property name="jobDetail" ref="recommend" />
+		<property name="cronExpression" value="15 0/3 * * * ?" />
+			每隔1分钟触发一次
+	</bean>
+
+	<bean id="recommend"
+		class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+		<property name="targetObject" ref="recommendJob" />
+		<property name="targetMethod" value="execute" />
+		<property name="concurrent" value="false" />
+	</bean>
+	<bean id="recommendJob" class="com.zb.service.jobs.RecommendJob" />
+
+
+	<bean id="roomTrigger"
+		class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
+		<property name="jobDetail" ref="roomJobDetail" />
+		<property name="cronExpression" value="* * * * * ?" />每隔1秒钟触发一次
+	</bean>
+
+	<bean id="roomJobDetail"
+		class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+		<property name="targetObject" ref="roomJob" />
+		<property name="targetMethod" value="execute" />
+		<property name="concurrent" value="false" />
+	</bean>
+
+	<bean id="roomJob" class="com.zb.service.jobs.RoomJob" />
+
+	<bean id="roomRobitTrigger"
+		class="org.springframework.scheduling.quartz.SimpleTriggerFactoryBean">
+		<property name="jobDetail" ref="roomRobitJobDetail" />
+		<property name="startDelay" value="5" />
+		<property name="repeatInterval" value="2345" />
+	</bean>
+
+	<bean id="roomRobitJobDetail"
+		class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+		<property name="targetObject" ref="roomRobitJob" />
+		<property name="targetMethod" value="execute" />
+		<property name="concurrent" value="false" />
+	</bean>
+
+	<bean id="roomRobitJob" class="com.zb.service.jobs.RoomRobitJob" />
+
+
+	<bean id="roomUserRobitTrigger"
+		class="org.springframework.scheduling.quartz.SimpleTriggerFactoryBean">
+		<property name="jobDetail" ref="roomUserRobitJobDetail" />
+		<property name="startDelay" value="5" />
+		<property name="repeatInterval" value="200" />
+	</bean>
+
+	<bean id="roomUserRobitJobDetail"
+		class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+		<property name="targetObject" ref="roomUserRobitJob" />
+		<property name="targetMethod" value="execute" />
+		<property name="concurrent" value="false" />
+	</bean>
+
+	<bean id="roomUserRobitJob" class="com.zb.service.jobs.RoomUserRobitJob" />
+
+
+	<bean id="stTrigger"
+		class="org.springframework.scheduling.quartz.SimpleTriggerFactoryBean">
+		<property name="jobDetail" ref="stJobDetail" />
+		<property name="startDelay" value="5" />
+		<property name="repeatInterval" value="2000" />
+	</bean>
+
+	<bean id="stJobDetail"
+		class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+		<property name="targetObject" ref="stJob" />
+		<property name="targetMethod" value="execute" />
+		<property name="concurrent" value="false" />
+	</bean>
+
+	<bean id="stJob" class="com.zb.service.jobs.StJob" /> -->
+
+
+	<import resource="dubbo.xml" />
+
+</beans>

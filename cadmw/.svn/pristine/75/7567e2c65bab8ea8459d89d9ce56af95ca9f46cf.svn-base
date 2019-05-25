@@ -1,0 +1,245 @@
+<#import "/spring.ftl" as spring /> <#import
+"/admin/layouts/common.xhtml" as layout>
+<@layout.title>banner管理</@layout.title> <@layout.metaKeywordsDescription>
+
+</@layout.metaKeywordsDescription> <@layout.cssLink>
+<link rel="stylesheet" type="text/css"
+	href="/webuploader/webuploader.css"></@layout.cssLink>
+	<@layout.pageHeader> banner图 </@layout.pageHeader> <@layout.mainContent>
+	<input type="hidden" id="nav_id" value="banner" />
+
+<div class="row">
+	<div class="col-lg-8">
+		<form role="form" id="form">
+			<input type="hidden" id="id" name="id" value="${(obj._id)!}" />
+			<div class="form-group form-inline">
+				<label>标题</label> <input class="form-control" id="title"
+					name="title" placeholder="xx工具上线" value="${(obj.title)!}">
+			</div>
+            <div class="form-group form-inline">
+            <label>上线时间</label> 
+				 <input id="st" name="st" type="text"
+					onClick="WdatePicker()" value="${(obj.startTime?number?number_to_datetime)!}" placeholder="上线时间" />
+					
+			</div>
+		 	<div class=" form-group form-inline">
+		 	<label>下线时间</label> 
+				 <input id="et" name="et" type="text"
+					onClick="WdatePicker()" value="${(obj.endTime?number?number_to_datetime)!}" placeholder="下线时间" />
+			</div>
+			<div class="form-group form-inline">
+				<label>大图</label>
+				<div id="fileList" class="uploader-list">
+					<img id="spic"
+						src="<#if obj??&&(obj.pic)?? >${(imgDomain)!}${obj.pic}</#if>"
+						width="120px" />
+				</div>
+				<div id="filePicker">选择图片</div>
+				<input type="hidden" id="pic" name="pic" value="<#if obj??&&(obj.pic)?? >${obj.pic}</#if>" />
+			</div>
+
+			<div class="form-group form-inline">
+				<label>(可选)前置小图:</label>
+				<div id="fileList" class="uploader-list">
+					<img id="ppic"
+						src="<#if obj??&&(obj.prePic)?? >${(imgDomain)!}${obj.prePic}</#if>"
+						width="120px" />
+				</div>
+				<div id="filePicker2">选择图片</div>
+				<input type="hidden" id="prePic" name="prePic" value="${(obj.prePic)!}" />
+			</div>
+
+			<div class="form-group form-inline">
+				<label>banner位置</label> <select class="form-control" id="type"
+					name="type"> 
+					<#list types as it>
+					<option <#if (obj.type)?? && (obj.type)==it >selected</#if> value="${it}" > ${it} </option> 
+					</#list>
+				</select>
+			</div>
+
+			<div class="form-group form-inline">
+				<label>操作</label> <select class="form-control" id="op" name="op">
+					<#list ops as it>
+					<option <#if (obj.op)?? && (obj.op)==it> selected </#if> value="${it}" > ${it} </option> </#list>
+				</select>
+			</div>
+
+			<div class="form-group form-inline">
+				<label>操作Id</label> <input class="form-control" id="opId"
+					name="opId" placeholder="具体对应Id或者URL" value="${(obj.opId)!}">
+			</div>
+
+			<div class="form-group">
+				<label>状态</label> <label class="radio-inline"> <input
+					type="radio" name="status" id="status" value="3" checked>上线
+				</label> <label class="radio-inline"> <input type="radio"
+					name="status" id="status" value="2"<#if
+						(obj.status)??&&obj.status==2 > checked </#if> >隐藏 </label> <label
+					class="radio-inline"> <input type="radio" name="status"
+					id="status" value="1"<#if (obj.status)??&&obj.status==1 >
+						checked </#if> >下线 </label> <label class="radio-inline"> <input
+					type="radio" name="status" id="status" value="-1"<#if
+						(obj.status)??&&obj.status==-1 > checked </#if> >删除 </label>
+			</div>
+
+			<div class="form-group form-inline">
+				<label>排序</label> <input class="form-control" id="sort" name="sort"
+					value="${(obj.sort)?default('1')}">
+			</div>
+
+			<button id="submit" class="btn btn-default">提交</button>
+			<button id="reset" class="btn btn-default">重置</button>
+		</form>
+	</div>
+
+</div>
+<!-- /.row (nested) -->
+
+</@layout.mainContent> <@layout.script>
+<script type="text/javascript" src="<@layout.static path="/webuploader/webuploader.js" />
+">
+</script>
+<script>
+	$(function() {
+		$("#submit").click(function(e) {
+			e.preventDefault();
+			var t = this;
+			var jsonData = $("#form").serializeArray();
+			$.post("/admin/banner.xhtml", jsonData, function(ret) {
+				if (0 != ret.code) {
+					alert(ret.msg);
+				} else {
+					alert("Success");
+					window.location.href="/admin/banners.xhtml";
+				}
+			});
+		});
+
+		$("#reset").click(function(e) {
+
+		});
+
+		$list = $('#fileList'),
+
+		uploader = WebUploader.create({
+			auto : true,
+			swf : '/webuploader/Uploader.swf',
+			// 文件接收服务端。
+			server : '<@layout.api path="/file/sysPic" />',
+			// 选择文件的按钮。可选。
+			// 内部根据当前运行是创建，可能是input元素，也可能是flash.
+			pick : '#filePicker',
+
+			// 只允许选择图片文件。
+			accept : {
+				title : 'Images',
+				extensions : 'gif,jpg,jpeg,bmp,png',
+				mimeTypes : 'image/*'
+			}
+		});
+
+		uploader.on('fileQueued', function(file) {
+
+		});
+
+		uploader.on('uploadProgress', function(file, percentage) {
+			var $li = $('#' + file.id), $percent = $li.find('.progress span');
+
+			// 避免重复创建
+			if (!$percent.length) {
+				$percent = $('<p class="progress"><span></span></p>').appendTo(
+						$li).find('span');
+			}
+
+			$percent.css('width', percentage * 100 + '%');
+		});
+
+		// 文件上传成功，给item添加成功class, 用样式标记上传成功。
+		uploader.on('uploadSuccess', function(file, res) {
+			$('#' + file.id).addClass('upload-state-done');
+			if (res.code == 0) {
+				$("#spic").attr('src', '${(imgDomain)!}'+res.data);
+				$("#pic").val(res.data);
+			}
+		});
+
+		// 文件上传失败，显示上传出错。
+		uploader.on('uploadError', function(file) {
+			var $li = $('#' + file.id), $error = $li.find('div.error');
+
+			// 避免重复创建
+			if (!$error.length) {
+				$error = $('<div class="error"></div>').appendTo($li);
+			}
+
+			$error.text('上传失败');
+		});
+
+		// 完成上传完了，成功或者失败，先删除进度条。
+		uploader.on('uploadComplete', function(file) {
+			$('#' + file.id).find('.progress').remove();
+		});
+
+		//two
+		uploader = WebUploader.create({
+			auto : true,
+			swf : '/webuploader/Uploader.swf',
+			// 文件接收服务端。
+			server : '<@layout.api path="/file/sysPic" />',
+			// 选择文件的按钮。可选。
+			// 内部根据当前运行是创建，可能是input元素，也可能是flash.
+			pick : '#filePicker2',
+
+			// 只允许选择图片文件。
+			accept : {
+				title : 'Images',
+				extensions : 'gif,jpg,jpeg,bmp,png',
+				mimeTypes : 'image/*'
+			}
+		});
+
+		uploader.on('fileQueued', function(file) {
+
+		});
+
+		uploader.on('uploadProgress', function(file, percentage) {
+			var $li = $('#' + file.id), $percent = $li.find('.progress span');
+
+			// 避免重复创建
+			if (!$percent.length) {
+				$percent = $('<p class="progress"><span></span></p>').appendTo(
+						$li).find('span');
+			}
+
+			$percent.css('width', percentage * 100 + '%');
+		});
+
+		// 文件上传成功，给item添加成功class, 用样式标记上传成功。
+		uploader.on('uploadSuccess', function(file, res) {
+			$('#' + file.id).addClass('upload-state-done');
+			if (res.code == 0) {
+				$("#ppic").attr('src', '${(imgDomain)!}'+res.data);
+				$("#prePic").val(res.data);
+			}
+		});
+
+		// 文件上传失败，显示上传出错。
+		uploader.on('uploadError', function(file) {
+			var $li = $('#' + file.id), $error = $li.find('div.error');
+
+			// 避免重复创建
+			if (!$error.length) {
+				$error = $('<div class="error"></div>').appendTo($li);
+			}
+
+			$error.text('上传失败');
+		});
+
+		// 完成上传完了，成功或者失败，先删除进度条。
+		uploader.on('uploadComplete', function(file) {
+			$('#' + file.id).find('.progress').remove();
+		});
+	});
+</script>
+</@layout.script>

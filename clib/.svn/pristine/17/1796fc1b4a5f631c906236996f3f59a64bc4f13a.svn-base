@@ -1,0 +1,95 @@
+package com.we.service;
+
+import java.util.List;
+
+import org.apache.commons.lang.StringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Service;
+
+import com.mongodb.BasicDBObject;
+import com.mongodb.DBObject;
+import com.we.common.Constant.ReCode;
+import com.we.core.Page;
+import com.we.core.web.ReMsg;
+import com.we.models.CoinType;
+import com.we.models.DocName;
+
+@Service
+public class CoinTypeService extends BaseService {
+
+	static final Logger log = LoggerFactory.getLogger(CoinTypeService.class);
+
+	public Page<DBObject> query(Integer status, String _id, Integer page, Integer size) {
+		size = getSize(size);
+		page = getPage(page);
+		List<DBObject> dbos = find(_id, status, page, size);
+		int count = count(_id, status);
+		return new Page<DBObject>(count, size, page, dbos);
+	}
+
+	public int count(String _id, Integer status) {
+		DBObject q = new BasicDBObject();
+		if (StringUtils.isNotBlank(_id)) {
+			q.put("_id", new BasicDBObject("$regex", _id));
+		}
+		if (status != null && status != 0) {
+			q.put("status", status);
+		}
+		return getC(DocName.COIN_TYPE).find(q).count();
+	}
+
+	public List<DBObject> find(String _id, Integer status, Integer page, Integer size) {
+		DBObject q = new BasicDBObject();
+		if (StringUtils.isNotBlank(_id)) {
+			q.put("_id", new BasicDBObject("$regex", _id));
+		}
+		if (status != null && status != 0) {
+			q.put("status", status);
+		}
+		return getC(DocName.COIN_TYPE).find(q).skip(super.getStart(page, size)).limit(getSize(size))
+				.sort(new BasicDBObject("sort", -1)).toArray();
+	}
+
+	public DBObject findById(String _id) {
+		return getC(DocName.COIN_TYPE).findOne(new BasicDBObject("_id", _id));
+	}
+
+	/** 根据状态(上下线)查询所有的货币 */
+	public List<DBObject> findAllCoinType(Integer status) {
+		DBObject q = new BasicDBObject();
+		if (status != null && status > 0) {
+			q.put("status", status);
+		}
+		return getC(DocName.COIN_TYPE).find(q).toArray();
+	}
+
+	/** 更改货币状态 */
+	public ReMsg status(final String _id, final Integer status, long adminId) {
+		super.getC(DocName.COIN_TYPE).update(new BasicDBObject("_id", _id),
+				new BasicDBObject("$set", new BasicDBObject("status", status).append("adminId", adminId)
+						.append("updateTime", System.currentTimeMillis())));
+		return new ReMsg(ReCode.OK);
+	}
+
+	/** 增加或修改货币 */
+	public ReCode upsetCoinType(String _id, String fullname, String pic, int status, int sort, long adminId,
+			String detail, String url, Long totalCnt, Long sendCnt, Double price_dollar, Double price_rmb, String stage,
+			String name, String platform, String country, Boolean candy, String intro,Long circulation,String bigPic) {
+		CoinType coinType = new CoinType(_id, fullname, pic, status, adminId, sort, detail, url, totalCnt, sendCnt,
+				price_dollar, price_rmb, stage, name, platform, country, candy, intro,circulation,bigPic);
+		coinType.setAdminId(adminId);
+		coinType.setUpdateTime(System.currentTimeMillis());
+		super.getMongoTemplate().save(coinType);
+		return ReCode.OK;
+	}
+
+	/** 增加货币的送出数量 */
+	public ReCode addCoinSendTotal(String coinType, long count) {
+		DBObject u = new BasicDBObject("$inc", new BasicDBObject("sendCnt", count)).append("$set",
+				new BasicDBObject("updateTime", System.currentTimeMillis()));
+		getMongoTemplate().getCollection(DocName.COIN_TYPE).update(new BasicDBObject("_id", coinType), u);
+		return ReCode.OK;
+	}
+
+}

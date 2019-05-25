@@ -1,0 +1,460 @@
+package com.we.service;
+
+import java.io.IOException;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.concurrent.TimeUnit;
+
+import javax.servlet.http.HttpServletRequest;
+
+import org.apache.commons.lang.StringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.ValueOperations;
+import org.springframework.stereotype.Service;
+
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.databind.JsonMappingException;
+import com.mongodb.BasicDBObject;
+import com.mongodb.DBObject;
+import com.mongodb.WriteConcern;
+import com.mongodb.util.JSON;
+import com.we.common.Constant.Const;
+import com.we.common.Constant.ReCode;
+import com.we.common.crypto.MDUtil;
+import com.we.common.mongo.DboUtil;
+import com.we.common.redis.RK;
+import com.we.common.utils.RegexUtil;
+import com.we.common.utils.ShareCodeUtil;
+import com.we.core.Page;
+import com.we.core.web.ReMsg;
+import com.we.models.Division;
+import com.we.models.DocName;
+import com.we.models.User;
+import com.we.service.cloud.StorageService;
+
+@Service
+public class UserService extends BaseService {
+
+	@Autowired
+	UserWalletService userWalletService;
+
+	@Autowired
+	StorageService storageService;
+
+	@Autowired
+	SmsService smsService;
+
+	@Autowired
+	UserShareService userShareService;
+
+	@Autowired
+	UserDivisionService userDivisionService;
+
+	@Autowired
+	DivisionService divisionService;
+
+	static final Logger log = LoggerFactory.getLogger(UserService.class);
+
+	public DBObject findByUsername(String username) {
+		return getC(DocName.USER).findOne(new BasicDBObject("username", username));
+	}
+
+	public DBObject findByPhone(String phone) {
+		return getC(DocName.USER).findOne(new BasicDBObject("phone", phone));
+
+	}
+
+	public ReMsg getMyInfo(HttpServletRequest req) throws JsonParseException, JsonMappingException, IOException {
+		long uid = super.getUid();
+		if (uid < 1) {
+			return new ReMsg(ReCode.NOT_AUTHORIZED);
+		}
+		DBObject user = findById(uid);
+		if (null != user) {
+			super.getRedisTemplate().expire(RK.accessToken(super.getToken(req)), 10, TimeUnit.DAYS);
+			return new ReMsg(ReCode.OK, user);
+		}
+		return new ReMsg(ReCode.FAIL);
+	}
+
+	public ReMsg getUserInfo(Long uid) {
+		DBObject user = findById(uid);
+		if (null != user) {
+			user = removeUserInfo(user);
+			return new ReMsg(ReCode.OK, user);
+		}
+		return new ReMsg(ReCode.FAIL);
+	}
+
+	private DBObject removeUserInfo(DBObject user) {
+		user = removeFile(user, new String[] { "pwd", "phone", "email", });
+		return user;
+	}
+
+	/**
+	 * 获取用户全部信息，带有密码之类敏感信息，最好使用findByIdSafe接口
+	 * 
+	 * @param id
+	 * @return
+	 */
+	@Deprecated
+	public DBObject findById(Long id) {
+		ValueOperations<String, String> opsv = getRedisTemplate().opsForValue();
+		String s = opsv.get(RK.keyUser(id));
+		if (null == s) {
+			DBObject user = getC(DocName.USER).findOne(new BasicDBObject("_id", id));
+			if (null != user) {
+				opsv.set(RK.keyUser(id), JSON.serialize(user), 1, TimeUnit.HOURS);
+			}
+			return user;
+		} else {
+			return (DBObject) JSON.parse(s);
+		}
+	}
+
+	/**
+	 * 根据id获取用户信息，无密码之类敏感信息
+	 * 
+	 * @param id
+	 * @return
+	 */
+	public DBObject findByIdSafe(Long id) {
+		DBObject dbo = findById(id);
+		if (dbo != null) {
+			return removeUserInfo(dbo);
+		}
+		return dbo;
+	}
+
+	public Map<Long, DBObject> findByIds(Long[] ids) {
+		Map<Long, DBObject> map = new HashMap<Long, DBObject>();
+		for (Long id : ids) {
+			map.put(id, this.findById(id));
+		}
+		return map;
+	}
+
+	public ReMsg checkNickname(String nickname, long uid) {
+		DBObject dbo = getC(DocName.USER).findOne(new BasicDBObject("nickname", nickname));
+		if (dbo != null) {
+			if (uid > 0 && uid == DboUtil.getLong(dbo, "_id")) {
+				return new ReMsg(ReCode.OK);
+			}
+			return new ReMsg(ReCode.NICKNAME_EXISTS);
+		}
+		return new ReMsg(ReCode.OK);
+	}
+
+	public ReMsg admUpsetUserInfo(Long uid, String firstname, String lastname, String phone, Integer status,
+			Integer sex, Integer role, String walletAddress, String email) {
+		DBObject u = new BasicDBObject("updateTime", System.currentTimeMillis());
+		if (StringUtils.isNotBlank(firstname)) {
+			u.put("firstname", firstname);
+		}
+		if (StringUtils.isNotBlank(lastname)) {
+			u.put("lastname", lastname);
+		}
+		if (StringUtils.isNotBlank(phone)) {
+			u.put("phone", phone);
+		}
+		if (status != null && status != 0) {
+			u.put("status", status);
+		}
+		if (sex != null && sex != 0) {
+			u.put("sex", sex);
+		}
+		if (role != null && role != 0) {
+			u.put("role", role);
+		}
+		if (walletAddress != null) {
+			u.put("walletAddress", walletAddress);
+		}
+		if (email != null) {
+			u.put("email", email);
+		}
+		return update(uid, u);
+	}
+
+	public ReMsg setStatus(Long uid, Integer status) {
+		DBObject u = new BasicDBObject("updateTime", System.currentTimeMillis());
+		u.put("status", status);
+		return update(uid, u);
+	}
+
+	public ReMsg setEthAddr(Long uid, String ethAddr) {
+		DBObject u = new BasicDBObject("updateTime", System.currentTimeMillis());
+		u.put("walletAddress", ethAddr);
+		return update(uid, u);
+	}
+
+	public ReMsg setFirstlastname(Long uid, String firstname, String lastname) {
+		DBObject u = new BasicDBObject("updateTime", System.currentTimeMillis());
+		if (StringUtils.isNotBlank(firstname)) {
+			u.put("firstname", firstname);
+		}
+		if (StringUtils.isNotBlank(lastname)) {
+			u.put("lastname", lastname);
+		}
+		return update(uid, u);
+	}
+
+	public ReMsg setRole(Long uid, Integer role) {
+		DBObject u = new BasicDBObject("updateTime", System.currentTimeMillis());
+		u.put("role", role);
+		return update(uid, u);
+	}
+
+	public ReMsg updateUserDivision(Long uid, Long divisionId) {
+		DBObject u = new BasicDBObject("updateTime", System.currentTimeMillis());
+		u.put("divisionId", divisionId);
+		return update(uid, u);
+	}
+
+	public ReMsg update(Long uid, DBObject u) {
+		getC(DocName.USER).update(new BasicDBObject("_id", uid), new BasicDBObject("$set", u));
+		super.getRedisTemplate().delete(RK.keyUser(uid));
+		return new ReMsg(ReCode.OK);
+	}
+
+	public ReMsg update(DBObject q, DBObject u) {
+		getC(DocName.USER).update(q, new BasicDBObject("$set", u), false, true);
+		return new ReMsg(ReCode.OK);
+	}
+
+	public ReMsg updatePwd(long uid, String newPwd) {
+		DBObject user = this.findById(uid);
+		if (null != user) {
+			DBObject u = new BasicDBObject("updateTime", System.currentTimeMillis());
+			u.put("pwd", MDUtil.SHA.digest2HEX(newPwd));
+			return update(uid, u);
+		}
+		return new ReMsg(ReCode.FAIL);
+	}
+
+	public ReCode save(User user) {
+		Long uid = super.getNextId(DocName.USER);
+		user.set_id(uid);
+		// 用户的邀请码
+		user.setShareCode(ShareCodeUtil.toSerialCode(uid));
+		if (StringUtils.isNotBlank(user.getPwd())) {
+			user.setPwd(MDUtil.SHA.digest2HEX(user.getPwd()));
+		}
+		user.setCreateTime(System.currentTimeMillis());
+		user.setUpdateTime(user.getCreateTime());
+		getMongoTemplate().save(user);
+		return ReCode.OK;
+	}
+
+	public ReCode update(User user) {
+		if (StringUtils.isNotBlank(user.getPwd())) {
+			user.setPwd(MDUtil.SHA.digest2HEX(user.getPwd()));
+		}
+		user.setUpdateTime(user.getCreateTime());
+		getMongoTemplate().save(user);
+		return ReCode.OK;
+	}
+
+	public Page<DBObject> queryUser(Long uid, Integer status, Integer role, String phone, String nickname, Integer page,
+			Integer size) {
+		if (size == null || size == 0) {
+			size = 100;
+		}
+		size = getSize(size);
+		page = getPage(page);
+		List<DBObject> dbos = this.findUser(uid, status, role, phone, nickname, page, size);
+		int count = countUser(uid, status, role, phone, nickname);
+		return new Page<DBObject>(count, size, page, dbos);
+	}
+
+	public List<DBObject> findUser(Long uid, Integer status, Integer role, String phone, Integer page, Integer size) {
+		return findUser(uid, status, role, phone, null, page, size);
+	}
+
+	public List<DBObject> findUser(Long uid, Integer status, Integer role, String phone, String nickname, Integer page,
+			Integer size) {
+		DBObject q = new BasicDBObject();
+		if (null != status && status != 0) {
+			q.put("status", status);
+		}
+		if (null != role && role != 0) {
+			q.put("role", role);
+		}
+		if (null != uid && uid > 0) {
+			q.put("_id", uid);
+		}
+		if (StringUtils.isNotBlank(phone)) {
+			q.put("phone", phone);
+		}
+		if (StringUtils.isNotBlank(nickname)) {
+			q.put("username", new BasicDBObject("$regex", nickname));
+		}
+		return getC(DocName.USER).find(q).skip(super.getStart(page, size)).limit(getSize(size))
+				.sort(new BasicDBObject("createTime", -1)).toArray();
+	}
+
+	public int countUser(Long uid, Integer status, Integer role, String phone) {
+		return countUser(uid, status, role, phone, null);
+	}
+
+	public int countUser(Long uid, Integer status, Integer role, String phone, String nickname) {
+		DBObject q = new BasicDBObject();
+		if (null != status && status != 0) {
+			q.put("status", status);
+		}
+		if (null != role && role != 0) {
+			q.put("role", role);
+		}
+		if (null != uid && uid > 0) {
+			q.put("_id", uid);
+		}
+		if (StringUtils.isNotBlank(phone)) {
+			q.put("phone", phone);
+		}
+		if (StringUtils.isNotBlank(nickname)) {
+			q.put("username", new BasicDBObject("$regex", nickname));
+		}
+		return getC(DocName.USER).find(q).count();
+	}
+
+	/** candy club 代码 */
+
+	/** 注册用户 */
+	public ReMsg reg(String firstname, String lastname, String phone, String pwd, String code, String walletAddress,
+			String email, String shareCode, HttpServletRequest req)
+			throws JsonParseException, JsonMappingException, NumberFormatException, IOException {
+		String coinType = Const.COIN_CANDY_ID;// 用户注册时的奖励货币类型
+		if (!smsService.validCode(phone, code)) {
+			return new ReMsg(ReCode.AUTHCODE_ERR);
+		}
+		DBObject dbo = findByPhone(phone);
+		if (null != dbo) {
+			return new ReMsg(555, "手机号已存在!");
+		}
+		User user = new User(firstname, lastname, phone, pwd, walletAddress, email, getIp(req));
+		DBObject shareUser = null;
+		if (StringUtils.isNotBlank(shareCode)) {
+			long shareUid = ShareCodeUtil.codeToId(shareCode);
+			if (shareUid > 0) {
+				shareUser = findById(shareUid);
+				int recommendCnt = 0;
+				// 进行推荐名额限制检测
+				List<DBObject> list = divisionService.findAllDivisionByStatus(Const.STATUS_OK);
+				for (DBObject division : list) {
+					if (DboUtil.getLong(division, "_id") == DboUtil.getLong(shareUser, "division")) {
+						recommendCnt = DboUtil.getInt(division, "recommendCnt");
+						break;
+					}
+				}
+				DBObject userShare = userShareService.findById(shareUid);
+				// 已推荐人数还没达到上限
+				if (DboUtil.getInt(userShare, "m1") < recommendCnt) {
+					user.setShareUid(shareUid);
+				} else {
+					// 达到上限 邀请码视为无效
+					shareUser = null;
+				}
+			}
+		}
+
+		// 用户的邀请码在存储用户时赋值
+		ReCode rc = this.save(user);
+		userWalletService.addCoin(user.get_id(), 0, 0, coinType, 888, 0, "新用户注册");
+		// 做新用户注册的段位任务
+		userDivisionService.doDivisionTask(user.get_id(), Division.ConditiontType.REG.getCode());
+		if (shareUser != null) {
+			String mx = "m1";
+			// 更新推广表
+			userShareService.addUserShareCnt(DboUtil.getLong(shareUser, "_id"), mx);
+			// TODO 对这个用户做推广注册新用户做检测
+			// 赠送金币
+			userWalletService.addCoin(DboUtil.getLong(shareUser, "_id"), 0, 0, coinType, 888, 0, "新增一个" + mx + "级别用户");
+			for (int i = 2; i > 0; i--) {// 除去新注册用户提供的邀请码 最多还能有2个上层的用户
+				// 2 m2 1 m3 找上级用户
+				shareUser = findById(DboUtil.getLong(shareUser, "shareUid"));
+				if (shareUser != null) {
+					mx = "m" + (4 - i);
+					// 更新推广表
+					userShareService.addUserShareCnt(DboUtil.getLong(shareUser, "_id"), mx);
+					// 赠送金币
+					userWalletService.addCoin(DboUtil.getLong(shareUser, "_id"), 0, 0, coinType, 888, 0,
+							"新增一个" + mx + "级别用户");
+					continue;
+				}
+				break;
+			}
+		}
+		if (StringUtils.isNotBlank(email)) {
+			// 绑定邮箱
+			userDivisionService.doDivisionTask(user.get_id(), Division.ConditiontType.EMAIL.getCode());
+		}
+		return new ReMsg(rc);
+	}
+
+	/** 用户更新个人信息 姓 名 钱包地址 邮箱 */
+	public ReMsg upsetUserInfo(Long uid, String firstname, String lastname, String walletAddress, String email,
+			HttpServletRequest req) {
+		DBObject u = new BasicDBObject("updateTime", System.currentTimeMillis());
+		if (firstname != null) {
+			u.put("firstname", firstname);
+		}
+		if (lastname != null) {
+			u.put("lastname", lastname);
+		}
+		if (walletAddress != null) {
+			u.put("walletAddress", walletAddress);
+		}
+		if (email != null) {
+			u.put("email", email);
+		}
+		return update(uid, u);
+	}
+
+	/** 根据验证码修改密码 */
+	public ReMsg upsetPwd(String phone, String code, String newPwd, HttpServletRequest req)
+			throws JsonParseException, JsonMappingException, IOException {
+		if (!RegexUtil.isPhoneChina(phone) && !RegexUtil.isPhoneKorea(phone)) {
+			return new ReMsg("您输入手机号不符合规则！");
+		}
+		if (!RegexUtil.isPassword(newPwd)) {
+			return new ReMsg("密码为6－20位！");
+		}
+		if (smsService.validCode(phone, code)) {// 验证码通过
+			DBObject user = this.findByPhone(phone.toString());
+			Long uid = DboUtil.getLong(user, "_id");
+			DBObject u = new BasicDBObject("updateTime", System.currentTimeMillis());
+			u.put("pwd", MDUtil.SHA.digest2HEX(newPwd));
+			if (getC(DocName.USER).update(new BasicDBObject("phone", phone.toString()), new BasicDBObject("$set", u),
+					false, false, WriteConcern.ACKNOWLEDGED).getN() > 0) {
+				super.getRedisTemplate().delete(RK.keyUser(uid));
+				return new ReMsg(ReCode.OK);
+			}
+		}
+		return new ReMsg(ReCode.AUTHCODE_ERR);
+	}
+
+	/** 根据旧密码修改密码 */
+	public ReMsg upsetPwd(String oldPwd, String newPwd, HttpServletRequest req) {
+		long uid = super.getUid();
+		if (uid < 1) {
+			return new ReMsg(ReCode.NOT_AUTHORIZED);
+		}
+		DBObject user = this.findById(uid);
+		if (null != user) {
+			if (MDUtil.SHA.digest2HEX(oldPwd).equals(user.get("pwd").toString())) {
+				DBObject u = new BasicDBObject("updateTime", System.currentTimeMillis());
+				u.put("pwd", MDUtil.SHA.digest2HEX(newPwd));
+				if (getC(DocName.USER).update(new BasicDBObject("_id", uid), new BasicDBObject("$set", u), false, false,
+						WriteConcern.ACKNOWLEDGED).getN() > 0) {
+					super.getRedisTemplate().delete(RK.keyUser(uid));
+					return new ReMsg(ReCode.OK);
+				}
+			} else {
+				return new ReMsg(ReCode.PASSWORD_VER_ERR);
+			}
+		}
+		return new ReMsg(ReCode.FAIL);
+	}
+}

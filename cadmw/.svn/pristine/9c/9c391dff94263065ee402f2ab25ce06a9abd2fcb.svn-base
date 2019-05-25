@@ -1,0 +1,143 @@
+<#import "/spring.ftl" as spring /> <#import "/admin/layouts/common.xhtml" as layout>
+<@layout.title>telegram设置</@layout.title> <@layout.metaKeywordsDescription>
+
+</@layout.metaKeywordsDescription> <@layout.cssLink> </@layout.cssLink>
+<@layout.pageHeader> telegram 相关设置</@layout.pageHeader>
+<@layout.mainContent>
+<input type="hidden" id="nav_id" value="telegram" />
+
+<div class="row">
+	<div class="col-lg-12">
+      botName:&nbsp;&nbsp;${botName}   </br>
+      botToken:&nbsp;&nbsp;${botToken}  </br>
+      </br>
+
+      setWebhook:<a href="javascript:set()">setWebhook</a>
+                </br>
+                <div class="form-group ">
+				    <label>地址</label> 
+				    <input class="form-control" id="url"
+					name="url" placeholder="webhook地址" >
+				</div>
+                <div class="form-group form-inline">
+				    <label>HTTPS连接数</label> 
+				        <input class="form-control" id="max_connections"
+					    name="max_connections" placeholder="1-100 默认40" >
+                    <label>证书</label> 
+				        <input class="form-control" id="certificate"
+					    name="certificate" type="file">
+				    </br>
+				</div>
+				<div class="form-group ">
+                    <label>allowed_updates</label></br>
+                    完整选择:["message","edited_message","channel_post","edited_channel_post","inline_query","chosen_inline_result","callback_query","shipping_query","pre_checkout_query"]
+				    <input class="form-control" id="allowed_updates"
+					   name="allowed_updates" placeholder="接收的更新类型 默认全部 不填不更新 输入空数组[]变为接收全部" >
+				</div>
+      </br>
+      </br>
+      deleteWebhook:<a href="javascript:del()">deleteWebhook</a>
+      </br>
+      <span id="title"><center></center></span>
+      <!--
+      </br>
+      getWebhookInfo:  
+      </br>&nbsp;&nbsp;&nbsp;&nbsp;网址: ret.url
+      </br>&nbsp;&nbsp;&nbsp;&nbsp;has_custom_certificate:  ret.has_custom_certificate
+      </br>&nbsp;&nbsp;&nbsp;&nbsp;pending_update_count:  ret.pending_update_count
+      </br>&nbsp;&nbsp;&nbsp;&nbsp;last_error_date:  ret.last_error_date
+      </br>&nbsp;&nbsp;&nbsp;&nbsp;last_error_message:  ret.last_error_message
+      </br>&nbsp;&nbsp;&nbsp;&nbsp;MAX_CONNECTIONS:  ret.MAX_CONNECTIONS
+      </br>&nbsp;&nbsp;&nbsp;&nbsp;allowed_updates:  ret.allowed_updates
+      -->
+
+	</div>
+</div>
+
+</@layout.mainContent> <@layout.script>
+
+<script>
+	var baseUrl;
+	$(document).ready(function() {
+	   base_url="https://api.telegram.org/bot${botToken}/";
+		
+		//获取WebhookInfo
+       $.post(base_url+"getWebhookInfo", function(ret) {
+       	     var time=undefined;
+       	     if(ret.result.last_error_date!=null){
+       	     	//如果时间戳不为空  转换时间戳
+       	     	time=new Date(parseInt(ret.result.last_error_date) * 1000).toLocaleString().replace(/:\d{1,2}$/,' ');   
+       	     }
+       	     if(ret.result.max_connections!=null&&ret.result.max_connections!=""){
+                $("#max_connections").val(ret.result.max_connections);
+       	     }
+       	     var allowed_updates="默认所有类型";
+       	     if(ret.result.url!=""&&ret.result.allowed_updates!=null&&ret.result.allowed_updates!=""){
+       	     	allowed_updates=ret.result.allowed_updates+"";
+       	     	var arr=allowed_updates.split(",");
+       	     	if(arr.length>0){
+       	     		allowed_updates="[";
+       	     	    for (var i = 0; i <arr.length; i++) {
+       	     		    allowed_updates=allowed_updates+"\""+arr[i]+"\",";
+       	     	    }
+       	     	    allowed_updates=allowed_updates.substring(0,allowed_updates.length-1);
+       	     	    allowed_updates=allowed_updates+"]";
+       	     	    $("#allowed_updates").val(allowed_updates);
+       	     	}
+       	     }
+       	     var title="";
+       	     if(ret.result.url==null||ret.result.url==""){
+       	     	title="&nbsp;&nbsp;<b style='color: red'>还没有设置webhook!!!</b>";
+       	     }else{
+       	     	$("#url").val(ret.result.url);
+       	     }
+
+       	     
+       	     //动态追加信息
+             $("#title").after("</br>getWebhookInfo:"+title+"</br>&nbsp;&nbsp;&nbsp;&nbsp;url(&nbsp;为空代表没有设置webhook&nbsp;):&nbsp;&nbsp;"+ret.result.url+"</br>&nbsp;&nbsp;&nbsp;&nbsp;has_custom_certificate(&nbsp;是否为webhook证书检查提供了自定义证书&nbsp;):&nbsp;&nbsp;"+ret.result.has_custom_certificate+" </br>&nbsp;&nbsp;&nbsp;&nbsp;pending_update_count(&nbsp;等待交付的更新数量&nbsp;):&nbsp;&nbsp;"+ret.result.pending_update_count+"  </br>&nbsp;&nbsp;&nbsp;&nbsp;last_error_date(&nbsp;通过webhook发送更新时发生的最新错误时间Unix&nbsp;):&nbsp;&nbsp;"+time+"</br>&nbsp;&nbsp;&nbsp;&nbsp;last_error_message(&nbsp;通过webhook传递更新时发生的最新错误的人类可读格式的错误消息&nbsp;):&nbsp;&nbsp;"+ret.result.last_error_message+" </br>&nbsp;&nbsp;&nbsp;&nbsp;max_connections(&nbsp;与webhook同步的HTTPS连接的最大允许数量&nbsp;):&nbsp;&nbsp;"+ret.result.max_connections+"   </br>&nbsp;&nbsp;&nbsp;&nbsp;allowed_updates(&nbsp;机器人订阅的更新类型列表 默认为所有更新类型&nbsp;):&nbsp;&nbsp;"+allowed_updates);			
+		});
+    });
+
+    function del() {
+	   $.post(base_url+"deleteWebhook", function(ret) {
+			alert(ret.result+"  :  "+ret.description);
+			window.location.href="/admin/telegrams.xhtml";
+	   });
+	}
+
+	function set() {
+		var url=$("#url").val();
+        url = url.replace(/\s+/g,"");
+		if(url==null||url==""){
+			alert("url不能为空!否则视为删除webhook!");
+			return;
+		}
+		var max_connections=$("#max_connections").val();
+		if(max_connections!=null&&max_connections!=""){
+			if(max_connections>100||max_connections<1){
+			    alert("HTTPS连接数必须在1-100之间!");
+			    return;
+		    }
+		}
+        
+		if($("#certificate").val()==null){
+			alert("请上传公钥证书!");
+			return;
+		}
+
+	    var jsonData = {
+            "url":url,
+            "max_connections":max_connections,
+            "allowed_updates":$("#allowed_updates").val(),
+            "certificate":$("#certificate").val()
+	    };
+	    console.log(jsonData);
+		$.post(base_url+"setWebhook", jsonData, function(ret) {
+			alert(ret.result+"  :  "+ret.description);
+			window.location.href="/admin/telegrams.xhtml";
+		});
+	}
+
+</script>
+</@layout.script>
+

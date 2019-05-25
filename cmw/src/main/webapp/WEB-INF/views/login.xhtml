@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>로그인</title>
+		<link rel="stylesheet" type="text/css" href="/active/css/globel.css"/>
+		<link rel="stylesheet" type="text/css" href="/active/assets/flexslider/flexslider.css"/>
+		<link rel="stylesheet" type="text/css" href="/active/assets/css/animate.min.css"/>
+		<link rel="stylesheet" type="text/css" href="/active/css/style.css"/>
+		<!--[if lt IE 9]>
+	      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+	      <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+	    <![endif]-->
+	</head>
+	<body>
+		<section id="login" class="login">
+			<div class="container">
+				<!--<div class="layer layer4"><img src="assets/image/login-bg-01.png" width="1017"></div>-->
+				<div class="login-content">
+					<div class="login-body">
+						<div class="back"><a href="/">되돌리기</a></div>
+						<div class="login-logo">
+							<img src="/active/assets/image/logo-login.png" width="107"/>
+						</div>
+						<div class="title">로그인</div>
+						<div class="login-form">
+							<form role="form" action="/login" method="post" onsubmit="return check(this)">
+								<input type="hidden" name="url" id="url" value="${(url)!}" />
+								<ul>
+									<li><input type="text" name="username" id="username" value="${(phone)!}" placeholder="휴대폰 번호" /></li>
+									<li><input type="password" name="password" id="password" value="" placeholder="비밀번호" /></li>
+									<li><input type="submit" id="loginbtn" value="로그인" /></li>
+								</ul>
+							</form>
+						</div>
+						
+                        <div id="fm_tips"><#if msg??><span class="fromtips">${(msg)!}</span></#if></div>
+						
+						<div class="other-link">
+							<a href="/forget.xhtml?url=${(url)!}">비밀번호 찾기</a>
+							<a href="/register.xhtml?url=${(url)!}">회원가입</a>
+						</div>
+					</div>
+				</div>
+				<div class="login-footer">
+					<div class="icp">
+						Copyright © 2018 CANDY.CLUB. All Rights Reserved.
+					</div>
+				</div>
+				<ul id="scene" class="scene">
+					<li class="layer layer1"><img src="/active/assets/image/login-bg-02.png" width="53"></li>
+					<li class="layer layer2"><img src="/active/assets/image/login-bg-03.png" width="24"></li>
+					<li class="layer layer3"><img src="/active/assets/image/login-bg-04.png" width="49"></li>
+					<!--<li class="layer layer4"><img src="assets/image/login-bg-01.png" width="1017"></li>-->
+				</ul>
+			</div>
+		</section> 
+		
+		<script src="/active/assets/js/jquery-1.12.3.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="/active/js/main.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript">
+			$(window).load(function() {
+				imganimate("layer",100);
+			});
+
+			function check(form){
+				const username =form.username.value;
+				const password = form.password.value;
+				if(!username||username.length<=0){
+					printTip("올바른 휴대폰 번호를 입력해주세요");
+				}else if(!password||password.length<=0){
+					printTip("비밀번호를 입력해주세요");//
+				}else if(password.length<6){
+					printTip("비밀번호가 올바르지 않습니다");
+				}else{
+					return true;
+				}
+				return false;
+			}
+
+			function printTip(msg){
+				$('#fm_tips').html("<span class='fromtips'>"+msg+"</span>");
+			}
+
+
+		</script>
+	</body>
+</html>

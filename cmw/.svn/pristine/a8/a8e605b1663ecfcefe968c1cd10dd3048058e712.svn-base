@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>비즈니스 - CandyClub캔디클럽 | 수익을 창출하는 플랫폼</title>
+		<meta name="description" content="캔디클럽 비즈니스 파트너, 연락처 남겨주시면 빠른 시일내에 연락 드리겠습니다"/>
+		<meta name="keywords" content="비즈니스, ICO공유, 토큰 에어드랍, 에어드랍 토큰, ICO커뮤니티 협력, 토큰 세일." />
+		<meta property="og:title" content="비즈니스 - CandyClub캔디클럽 | 수익을 창출하는 플랫폼"/>
+		<meta property="og:description" content="캔디클럽 비즈니스 파트너, 연락처 남겨주시면 빠른 시일내에 연락 드리겠습니다"/>
+		<meta property="og:url" content="https://www.candy.club/business"/>
+		<#include "/common/head.xhtml"/>
+		<style type="text/css">
+			.businesstable ul li label{color:red;}
+		</style>
+	</head>
+	<body>
+		<#include "/common/header.xhtml"/>
+		<section class="bannerpage">
+			<div class="container"><img src="/active/assets/image/banner-business.jpg" width="1200"/></div>
+		</section>
+		<section class="businesspage">
+			<div class="container">
+				<div class="pagebody">
+					<div class="title">비지니스 파트너</div>
+					<div class="intro">성함과 연락처 및 협력의향서를 남겨주시면 빠른 시일내에 답변드리겠습니다 감사합니다.</div>
+					<div class="businesstable">
+						<ul>
+							<li><label>*</label><input type="text"  id="name"  placeholder="프로젝트명" /></li>
+							<li><textarea id="introduction" placeholder="프로젝트 간략소개"></textarea></li>
+							<li><input type="text"  id="officialAddr"  placeholder="홈페이지 주소" /></li>
+							<li><label>*</label><input type="text"  id="contact" placeholder="프로젝트 담당자" /></li>
+							<li><label>*</label><input type="tel"  id="phone"  placeholder="연락번호" /></li>
+							<li><label>*</label><input type="text"  id="contactInfo"  placeholder="연락번호(telegram&kakao)" /></li>
+							<li><input type="email"  id="email" placeholder="이메일" /></li>
+							<li><label>*</label><textarea id="cooperation" placeholder="Cooperation intention "></textarea></li>
+						</ul>
+						<div class="hide" id="subEndDiv">
+							<input type="submit"  class="submitbusiness" value="제출" />
+						</div>
+						<div class="show" id="subDiv">
+						    <input type="submit" name="" id="submit" class="submitbusiness" value="제출" />
+					 	</div>
+					</div>
+					<!--<div class="businesstitle">
+						<h2><font>OUR CLUB</font></h2>
+						<p>If you have  the intention of cooperation，please leave your contact information as below，we will contact you as soon as possible.</p>
+					</div>
+					<div class="ico-club">
+						<a href=""><img src="/active/assets/image/ico-telegram.png" width="80"/></a>
+						<a href=""><img src="/active/assets/image/ico-talk3.png" width="80"/></a>
+						<a href=""><img src="/active/assets/image/ico-email.png" width="80"/></a>
+					</div>-->
+				</div>
+			</div>
+		</section>
+        <#include "/common/footer.xhtml"/>
+		<script type="text/javascript">
+			$("#submit").click(function(){
+				var jsonData={
+					"name":$("#name").val()+"",
+					"introduction":$("#introduction").val()+"",
+					"officialAddr":$("#officialAddr").val()+"",
+					"contact":$("#contact").val()+"",
+					"phone":$("#phone").val()+"",
+					"contactInfo":$("#contactInfo").val()+"",
+					"email":$("#email").val()+"",
+					"cooperation":$("#cooperation").val()
+				}
+				initHtmlStr();
+				if(''==jsonData.name){
+					return printHtmlStr(0,"프로젝트명을 입력해주세요");
+				}
+				if(''==jsonData.contact){
+					return printHtmlStr(3,"연락 성함을 입력해주세요");
+				}
+				if(''==jsonData.phone){
+					return printHtmlStr(4,"핸드폰 번호를 입력해주세요");
+				}
+				if(!testPhone(jsonData.phone)){
+					return printHtmlStr(4,"자리의 전화번호를 입력해주세요");
+				}
+				if(''==jsonData.contactInfo){
+					return printHtmlStr(5,"연락 번호를 입력해주세요");
+				}
+				if(''==jsonData.cooperation){
+					return printHtmlStr(7,"Cooperation intention을 입력해주세요");
+				}
+
+				$.post("/my/applyForBusiness",jsonData, function(ret) {
+					if (0 != ret.code) {
+						printHtmlStr(ret.msg);
+						if(40013==ret.code){
+							return printHtmlStr(0,"프로젝트명을 입력해주세요");
+						}
+						if(40014==ret.code){
+						return printHtmlStr(3,"연락 성함을 입력해주세요");
+						}
+						if(40017==ret.code){
+						return printHtmlStr(4,"핸드폰 번호를 입력해주세요");
+						}
+						if(50011==ret.code){
+						return printHtmlStr(4,"자리의 전화번호를 입력해주세요");
+						}
+						if(40015==ret.code){
+						return printHtmlStr(5,"연락 번호를 입력해주세요");
+						}
+						if(40016==ret.code){
+							return printHtmlStr(7,"Cooperation intention을 입력해주세요");
+						}
+					} else {
+						$("#subDiv").removeClass("show").addClass("hide");
+						$("#subEndDiv").removeClass("hide").addClass("show");
+						// location.reload(true);   
+					}
+			    });
+			});
+			function printHtmlStr(_index,str){
+				$('.businesstable ul li').eq(_index).append("<span class='failedTip'>"+str+"</span>");
+				return false;
+			}
+			function initHtmlStr(){
+				$('.businesstable ul li').find('.failedTip').remove();
+				return;
+			}
+			function testPhone(phone){
+				phone+="";
+				if(phone&&phone.length>1){
+					var reg_zh =/1[3|4|5|7|8]\d{9}/;
+					var reg_ko =/01[0|1|7|9]\d{8}/;
+					var reg_ko2=/01[0|1|7|9]\d{7}/;
+					if(10==phone.length&&"1"==phone.substr(0,1)){
+						phone ="0"+phone;
+					}
+					if(!reg_zh.test(phone)&&!(reg_ko.test(phone)||reg_ko2.test(phone))){
+						return false;
+					}else{
+						return true;
+					}
+				}
+				return false;
+			}
+		</script>
+	</body>
+</html>

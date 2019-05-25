@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title>마이 페이지</title>
+		<#include "/common/head.xhtml"/>
+	</head>
+
+	<body class="personalbody">
+		<#include "/common/header.xhtml"/>
+		<section class="bannerpage">
+			<img src="/active/image/presonal.jpg" />
+		</section>
+		<section class="personalpage nopadding">
+			<div class="container">
+				<div class="pagebody">
+					<#include "/personal/personal-left.xhtml"/>
+
+					<div class="floright rightcon">
+						<div class="contable minecon">
+							<div class="mycard">
+								<dl>
+									<dt>
+										<!-- <#-- <img src="${imgDomain!}/${user.photo?substring(user.photo?index_of('filePic'))!}" style="width: 100px;height: 100px;"/> --> -->
+										<#if  user??&&user.photo??>
+										 <img src="${imgDomain!}${user.photo!}" style="width: 100px;height: 100px;"/>
+										<#else>
+											<#if user??&&user.sex?? && 2==user.sex>
+												<img src="/active/image/avatar/women_2.jpg" style="width: 100px;height: 100px;"/>
+											<#else>
+												<img src="/active/image/avatar/man_1.jpg" style="width: 100px;height: 100px;"/>
+											</#if>
+										</#if>
+									</dt>
+									<dd>
+										<div class="usernameid"><#if  user??&&user.username??>${user.username}<#else>    </#if>
+											<#if user??&&user.sex?? && 2==user.sex>
+												<span class="woman"><img src="/active/assets/image/woman-icon.png"/></span>
+											<#else>
+												<span class="man"><img src="/active/assets/image/man-icon.png"/></span>
+											</#if>
+										</div>
+										<div class="uuid">UID：<span><#if  user??&&user._id??>${(user._id)!}</#if></span></div>
+										<div class="telid">TEL：<span><#if  user??&&user.phone??>${(user.phone)!}</#if></span></div>
+										
+									</dd>
+								</dl>
+								<div class="leveicon">
+								<#if userDivision.code??>
+								<a href="/my/invitingLevel">
+									<#if userDivision.code =1>
+										<img src="/active/assets/image/vip1.png" width="100" />
+									<#elseif userDivision.code =2>
+										<img src="/active/assets/image/vip2.png" width="100" />
+									<#elseif userDivision.code =3>
+										<img src="/active/assets/image/vip3.png" width="100" />
+									<#elseif userDivision.code =4>
+										<img src="/active/assets/image/vip4.png" width="1000" />
+									<#elseif userDivision.code =5>
+										<img src="/active/assets/image/vip5.png" width="100" />
+									<#elseif userDivision.code =6>
+										<img src="/active/assets/image/vip6.png" width="100" />
+									</#if>
+								</#if>
+									<p>
+									<#if userDivision??&&userDivision.rate??>
+									   수익 ${(userDivision.rate*100)!0}%
+									</#if>
+									</p>
+								</a>
+								</div>
+								<ul>
+									<li>
+										<div class="view-title">금일 수익</div>
+										<div class="view-num view-money1">${(todayAmount)!'0'}</div>
+										<div class="view-btn"><a href="/task">수령</a></div>
+									</li>
+									<li>
+										<div class="view-title">지갑 잔여량</div>
+										<div class="view-num view-money2"><#if walletsAmount??> ${walletsAmount!0} </#if></div>
+										<div class="view-btn"><a href="/my/accountDetails.xhtml">상세 내역</a></div>
+									</li>
+									<li>
+										<div class="view-title">나의 오프라인</div>
+										<div class="view-num">
+										   <#if userShare??&&userShare.totalCnt??>
+			                                 ${(userShare.totalCnt)!}
+			                               <#else>
+			                               0
+									       </#if></div>
+										<div class="view-btn"><a href="/my/invitingFriends">초대</a></div>
+									</li>
+								</ul>
+									
+							</div>
+							<div class="minetitle">
+								<h2><font>나의 미션</font></h2>
+							</div>
+							<#if sign??&&sign.cycle??>
+								<#assign x = sign.cycle!1>
+								<#else>
+								<#assign x =1>
+							</#if>
+							<#if x gt 7 ><#assign x =7></#if>
+							<div class="candy-task-list">
+								<#if sign??&&sign.sign??>
+									<#assign signFlag = sign.sign!>
+									<#else>
+									<#assign signFlag = false>
+								</#if>
+								<ul>
+									<li class="active">
+										<a disabled="true" href="javascript:;" id="doSign" class="clicksign signed">
+										<img src="/active/assets/image/dt_sign.png" width="60" height="60"/>
+										<div class="num">
+										<#if signFlag>
+											+${signReward[x-1]!0}
+										<#else>
+											<#if 6 lt x>
+											+${signReward[6]!0}
+											<#elseif 1==x>
+											+${signReward[0]}
+											<#else>
+											+${signReward[x]!0}
+											</#if>
+										</#if>
+										</div>
+										<p>출석 체크</p>
+										<span><#if signFlag>출석 체크 완료<#else>출석 체크</#if></span>	
+										</a>
+										
+									</li>
+
+									<#if myDivisonTask??>
+										<#list myDivisonTask as t>
+										<li>
+
+											<a href="javascript:;" onclick="takeReward(${t.status},${t.code},'${t.link}')">
+											<#if t.pic??&&t.pic!=""><img src="${t.pic!}"
+											<#else><img src="/active/assets/image/candy-task-01.png"
+											</#if> width="60" height="60"/>
+											<div class="num">+<#if t.reward??>${t.reward!0}</#if></div>
+											<p><#if t.des??>${t.des!}</#if></p>
+											
+												<#if 2==t.status>
+												<span id="takeReward" class="finished">수령</span>
+												<#else>
+												<span id="takeReward">완성하기</span>
+												</#if>	
+											
+											
+											</a>
+										</li>
+										</#list>
+									</#if>
+									
+								</ul>
+							</div>
+							<div class="minetitle">
+								<h2><font>이벤트</font></h2>
+								<span></span>
+							</div>
+							<div class="invitationlist">
+								<div class="view">
+									<img src="/active/assets/image/add_01.jpg"/>
+								</div>
+								<div class="view">
+									<img src="/active/assets/image/add_02.jpg"/>
+								</div>
+								
+							</div>
+							
+						</div>
+						
+					</div>
+				</div>
+				<ul id="scene-personal" class="scene2">
+					<li class="layers layer1"><img src="/active/assets/image/ico-cro1.png" width="295"></li>
+					<li class="layers layer11"><img src="/active/assets/image/ico-cro1.png" width="99"></li>
+					<li class="layers layer2"><img src="/active/assets/image/ico-cro1.png" width="295"></li>
+					<li class="layers layer3"><img src="/active/assets/image/ico-cro2.png" width="202"></li>
+					<li class="layers layer4"><img src="/active/assets/image/ico-cro3.png" width="193"></li>
+					<li class="layers layer5"><img src="/active/assets/image/ico-cro4.png" width="183"></li>
+					<li class="layers layer6"><img src="/active/assets/image/ico-cro5.png" width="34"></li>
+				</ul>
+			</div>
+		</section>
+		<#include "/common/personal-footer.xhtml"/>
+		<div class="popup popup3">
+			<div class="levelimg">
+				<img id="levelImg" src="/active/assets/image/vip1.png" width="140"/>
+			</div>
+			<div class="levelbg">
+				<img src="/active/assets/image/levelbg.png" width="215" height="215"/>
+			</div>
+			<div class="leveltitle">축하드립니다! <br/><font id="levelName">青铜</font> 등급에 달성하셨습니다 
+				</div>
+			<div class="datail">
+				미션 수익
+				<p><font id="curRate">0%</font></p>
+				등급 리워드
+				<p><font id="curAmount">0</font>ccc</p>
+			</div>
+			<div onclick="_hidepop();" class="close">
+				<img src="/active/assets/image/close-09.png" width="60"/>
+			</div>
+			<a href="javascript:_hidepop();">OK</a>
+		</div>
+
+		<div class="popup popup3 popup4">
+			<div class="levelimg">
+				<img src="/active/assets/image/kok.png" width="140"/>
+			</div>
+			<div class="levelbg">
+				<img src="/active/assets/image/levelbg.png" width="215" height="215"/>
+			</div>
+			<div class="leveltitle">출석 체크 완성</div>
+			
+			<div class="datail">
+				축하드립니다
+				<div class="nums">
+					<font id="f_reward">+${signReward[x-1]!0} </font><font><img src="/active/assets/image/icio.png" width="26" height="13"/></font>
+				</div>
+			</div>
+			<div class="signed" id="signNav">
+				
+				<h3>연속 <font id="f_day">${x}</font>일 출석 체크 완성하였습니다</h3>
+				<ol>
+
+					<#list signReward as t>
+					<li
+					<#if t_index lt (x-1) >
+					class="active"
+					<#elseif t_index == (x-1)>
+					class="active in"
+					</#if>
+
+					 class="">
+						<div class="croico"></div>
+						<div class="daynum">
+							Day${t_index+1}
+							<p>+${t}</p>
+						</div>
+					</li>
+
+
+					</#list>
+					
+				</ol>
+			</div>
+			<div class="Cumulative">
+				총 출석 누적수<font id="f_total">
+					<#if sign??&&sign.total??> 
+					${sign.total!0}	
+					<#else>
+					0
+					</#if>
+				</font>일
+			</div>
+			<div onclick="_hidepop();" class="close">
+				<img src="/active/assets/image/close-09.png" width="60"/>
+			</div>
+			<a href="javascript:_hidepop();">닫기</a>
+		</div>
+		<div class="mask-pop"></div>
+		<script src="/active/assets/js/jquery-1.12.3.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="/active/js/main.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript">
+			$("#leftmenu").find("li").eq(0).addClass('active');
+			$(window).load(function() {
+				imganimate("layers",12);
+			});
+			var rewardArr =[];
+				<#list signReward as r>
+				rewardArr.push(${r});
+				</#list>
+			var flag="否";
+				<#if sign??> 
+					flag = "${sign.sign!}";
+				</#if>
+
+			$(document).ready(function(){
+				$("#doSign").click(function(){
+					if(("是")==flag){
+						showpop4();
+						return;
+					}
+					
+					$.post("/my/sign", {}, function(ret) {
+						if (0 != ret.code) {
+						}else{
+							var sign =ret.data;
+							if(sign&&sign!=null){
+								var cycle = Number(sign.cycle);
+								if(!cycle||cycle<1)cycle=1;
+								$('#f_reward').text(rewardArr[cycle-1]);
+								$('#f_day').text(cycle);
+								$('#f_total').text(sign.total);
+
+								addSignCss(cycle);
+							}
+						}
+						showpop4();
+					})
+
+				})
+
+			})
+
+			function addSignCss(cycle){
+				var x = Number(cycle);
+				if(x<7&&x>1){
+					$('#signNav').find("ol li").removeClass("in");
+			 		$('#signNav').find("ol li").eq(x-1).addClass("active in");
+				}
+				if(x==1){
+					$('#signNav').find("ol li").removeClass("active");
+					$('#signNav').find("ol li").removeClass("in");
+			 		$('#signNav').find("ol li").eq(0).addClass("active in");
+				}
+
+			}
+			//!2_"미션을 완성해주세요"
+			function takeReward(status,code,link){
+				if(status!=2){
+					if(!link||'#sign'==link){
+						$("#doSign").click();
+					}else{
+					   window.location.href=link;
+					}
+					return;
+				}
+				$.post("/my/takeReward", {taskCode:code}, function(ret) {
+						if (0 != ret.code) {
+							alert(ret.msg);
+						}else{
+						 var data = ret.data;
+						 var cur =data['newDivId'];
+						  if((cur&&'undefined'!=cur)||data.hasOwnProperty("newDivId")){
+							//$('#befRate').text(data.befRate);
+							$('#curRate').text(data.curRate+"%");
+							$('#curAmount').text(data.amount);
+							$('#levelName').text(data.name);
+							$('#levelImg').attr('src',"/active/assets/image/vip"+cur+".png");
+							showpop3();
+							return;
+						  }
+						  reload();				
+						}
+
+					})
+				//请去完成该任务！
+			}
+
+			function _hidepop(){
+				hidepop();				
+				reload();
+			}
+
+		</script>
+	</body>
+
+</html>

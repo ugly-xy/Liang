@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title>나의 지갑</title>
+		<#include "/common/head.xhtml"/>
+	</head>
+
+	<body class="personalbody">
+		<#include "/common/header.xhtml"/>
+		<section class="bannerpage">
+			<img src="/active/image/presonal.jpg" />
+		</section>
+		<section class="personalpage nopadding">
+			<div class="container">
+				<div class="pagebody">
+					<#include "/personal/personal-left.xhtml"/>
+			<div class="floright rightcon">
+						<div class="title">나의 지갑</div>
+						<div class="contable walletcon">
+							<table border="0" cellspacing="0" cellpadding="0">
+								<tr>
+									<th width="20%">코인</th>
+									<th width="30%">잔여 한도</th>
+									<th width="20%">동결 금액</th>
+									<th width="30%">내역</th>
+								</tr>
+
+								<#if objs??>
+			                        <#list objs as ob> 
+			                        <tr>
+										<td><img <#if ob.pic??&&''!= ob.pic>src="${imgDomain}${ob.pic!}"<#else>src="/active/image/coin-03.png"</#if> height="30" /></td>
+										<td>${ob.coin}</td>
+										<td>0</td>
+										<td><a href="/my/accountDetails?coinType=${ob.key!}">상세 내역</a>출금<!-- <a href="javascript:;" 
+											onclick="aplicationCash('${ob.key}')">提现</a> --></td>
+									</tr>   
+					                </#list>
+								</#if>
+
+							</table>
+						</div>
+						<!-- <div class="pages">
+							<ul>
+								<li><a href="">1</a></li>
+								<li><a href="">2</a></li>
+								<li><a href="">3</a></li>
+								<li><a href="">4</a></li>
+								<li><a href="">5</a></li>
+								<li><a href="">6</a></li>
+								<li class="page-prev"><a href="">Prev</a></li>
+								<li class="page-Next"><a href="">Next</a></li>
+							</ul>
+						</div> -->
+					</div>
+				</div>
+				<ul id="scene-personal" class="scene2">
+					<li class="layers layer1"><img src="/active/assets/image/ico-cro1.png" width="295"></li>
+					<li class="layers layer11"><img src="/active/assets/image/ico-cro1.png" width="99"></li>
+					<li class="layers layer2"><img src="/active/assets/image/ico-cro1.png" width="295"></li>
+					<li class="layers layer3"><img src="/active/assets/image/ico-cro2.png" width="202"></li>
+					<li class="layers layer4"><img src="/active/assets/image/ico-cro3.png" width="193"></li>
+					<li class="layers layer5"><img src="/active/assets/image/ico-cro4.png" width="183"></li>
+					<li class="layers layer6"><img src="/active/assets/image/ico-cro5.png" width="34"></li>
+				</ul>
+			</div>
+		</section>
+		<#include "/common/personal-footer.xhtml"/>
+		<script src="/active/assets/js/jquery-1.12.3.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="/active/js/main.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript">
+			$("#leftmenu").find("ul>li").eq(1).addClass('active');
+			$("#leftmenu").find(".active ol li").eq(0).addClass('cur');
+			$(window).load(function() {
+				imganimate("layers",12);
+			});
+
+			$(document).ready(function(){
+
+			});
+			function aplicationCash(coinType){
+
+				
+return;
+				$.post("/my/updateCashApplication.xhtml", {"coinType":coinType}, function(ret) {
+					if (0 != ret.code) {
+						alert(ret.msg);
+					} else {
+						showpop6(reload,"");
+					}
+
+				})
+
+
+			}
+			function hidepop() {
+				$(".popup1,.popup2,.popup3,.popup4,.layer-con,.mask-pop").hide();
+				location.reload(true);
+			}
+
+			
+		</script>
+	</body>
+
+</html>

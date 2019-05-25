@@ -1,0 +1,476 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title>KYC인증</title>
+		<link rel="stylesheet" type="text/css" href="/webuploader/webuploader.css">
+		<#include "/common/head.xhtml"/>
+		<style>
+		.delOpt1{display: none;}
+		.delOpt2{display: none;}
+		.delOpt3{display: none;}
+		#butt_grey{
+			background:#eee;
+			border-color:#eee;
+			color: #ffffff;
+		}
+		</style>
+	</head>
+
+	<body class="personalbody">
+		<#include "/common/header.xhtml"/>
+		<section class="bannerpage">
+			<img src="/active/image/presonal.jpg" />
+		</section>
+		<section class="personalpage nopadding">
+			<div class="container">
+				<div class="pagebody">
+					<#include "/personal/personal-left.xhtml"/>
+					<div class="floright rightcon">
+						<div class="title">KYC인증</div>
+						<!--<div class="datail"></div>-->
+						<div id="fileList" class="contable Settingcon setkyc">
+							<dl>
+								<dt>신분증 정면 사진：</dt>
+								<dd>
+									<div id="fileP1" class="kycimg" >
+										<div class="box">
+										<#if userIdentity??&&userIdentity.frontPic??>
+											<a href=""><img src="${imgDomain!}${userIdentity.frontPic}" width="120"/></a>
+									   		 <#else>
+									   		<a href=""><img src="/active/assets/image/kyc-front.jpg" width="90"/></a>
+									    </#if>
+		
+										</div>
+									</div>
+									<div class="showdemo size1"><span>참고 양식</span><div class="imgdemo"><img src="/active/assets/image/examples-01.png" width="450"/></div></div>
+								</dd>
+								<dd>
+									<div class="del delOpt1"><a href="javascript:;" onclick="delPreview(1)">삭제</a></div>									
+									<#if userIdentity??&& userIdentity.status?? && 2==userIdentity.status>
+										<div class="tips showTip1 " >심사중</div>
+									<#elseif userIdentity??&& userIdentity.status?? && 3==userIdentity.status>
+										<div class="certified showTip1" >&nbsp;</div>
+									<#else>
+									<div class="tips showTip1" ></div>
+									</#if>
+								</dd>
+							</dl>
+							
+
+							 <dl>
+								<dt>신분증 뒷면 사진：</dt>
+								<dd>
+									<div id="fileP2" class="kycimg">
+										<div class="box">
+									<#if userIdentity??&&userIdentity.backPic??>
+									<a href=""><img src="${imgDomain!}${userIdentity.backPic}" width="120"/></a>
+									<#else>
+										<a href=""><img src="/active/assets/image/kyc-back.jpg" width="90"/></a>
+									</#if>
+										</div>
+									</div>
+									<div class="showdemo size2"><span>참고 양식</span><div class="imgdemo"><img src="/active/assets/image/examples-02.png" width="450"/></div></div>
+								</dd>
+								<dd>
+									<div class="del delOpt2"><a href="javascript:;" onclick="delPreview(2)">삭제</a></div>
+									<#if userIdentity??&& userIdentity.status?? && 2==userIdentity.status>
+										<div class="tips showTip2 " >심사중</div>
+									<#elseif userIdentity??&& userIdentity.status?? && 3==userIdentity.status>
+										<div class="certified showTip2" >&nbsp;</div>
+									<#else>
+									<div class="tips showTip2 " ></div>
+									</#if>
+								</dd>
+							</dl> 
+							<dl>
+								<dt>신분증을 들고 있는 <br/>본인 사진 ：</dt>
+								<dd>
+									<div id="fileP3" class="kycimg">
+										<div class="box">
+										<#if userIdentity??&&userIdentity.inHandPic??>
+										<a href=""><img src="${imgDomain!}${userIdentity.inHandPic}" width="120"/></a>
+										<#else>
+											<a href=""><img src="/active/assets/image/kyc-inhand.jpg" height="70"/></a>
+										</#if>
+										</div>
+									</div>
+									<div class="showdemo size3"><span>참고 양식</span><div class="imgdemo"><img src="/active/assets/image/examples-03.png" width="450"/></div></div>
+								</dd>
+								<dd>
+									<div class="del delOpt3"><a href="javascript:;" onclick="delPreview(3)">삭제</a></div>
+									
+									<#if userIdentity??&& userIdentity.status?? && 2==userIdentity.status>
+										<div class="tips showTip3 " >심사중</div>
+									<#elseif userIdentity??&& userIdentity.status?? && 3==userIdentity.status>
+										<div class="certified showTip3 " >&nbsp;</div>
+									<#else>
+									<div class="tips showTip3 " ></div>
+									</#if>
+									
+								</dd>
+							</dl>
+							<dl>
+								<dt>&nbsp;</dt>
+								<dd>
+									<div class="btnpading"><br /><br />
+										<input type="hidden" name="frontPic" id="frontPic">
+										<input type="hidden" name="inHandPic" id="inHandPic">
+										<input type="hidden" name="backPic" id="backPic">
+										<#if userIdentity??&& userIdentity.status?? && (2==userIdentity.status||3==userIdentity.status)>
+										    <input type="button" name="" id="butt_grey" value="제출" />
+										<#else>
+											<input type="button" name=""  id="kyc_fm" value="제출" />
+										</#if>
+									</div>
+								</dd>
+							</dl>
+							
+						</div>
+						<#-- <!-- <div class="kyctipscon">
+							<ul>
+								<li>신분증 앞면: 신분증의 사진과 글자가 명확하게 보여야 하며 신분증 뒷자리는 가려 주셔야 합니다. 파일 형식:JPG, PNG,파일최대크기: **MB</li>
+								<li>신분증 뒷면: 신분증의 사진과 글자가 명확하게 보여야 합니다. 파일 형식:JPG, PNG,파일최대크기: **MB</li>
+								<li>신분증을 들고 찍은 사진: 신분증이나 여권을 들고“오늘의 날짜”서명”이 적힌 메모를 들고 찍은 사진을 첨부해 주세요. 얼굴, 신분증, 메모, 글자가 명확히 보여야 합니다.</li>
+							</ul>
+						</div> => -->
+					</div>
+				</div>
+				<ul id="scene-personal" class="scene2">
+					<li class="layers layer1"><img src="/active/assets/image/ico-cro1.png" width="295"></li>
+					<li class="layers layer11"><img src="/active/assets/image/ico-cro1.png" width="99"></li>
+					<li class="layers layer2"><img src="/active/assets/image/ico-cro1.png" width="295"></li>
+					<li class="layers layer3"><img src="/active/assets/image/ico-cro2.png" width="202"></li>
+					<li class="layers layer4"><img src="/active/assets/image/ico-cro3.png" width="193"></li>
+					<li class="layers layer5"><img src="/active/assets/image/ico-cro4.png" width="183"></li>
+					<li class="layers layer6"><img src="/active/assets/image/ico-cro5.png" width="34"></li>
+				</ul>
+			</div>
+		</section>
+		<#include "/common/personal-footer.xhtml"/>
+		<script src="/active/assets/js/jquery-1.12.3.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="/webuploader/webuploader.js"></script>
+		<script src="/active/js/main.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript">
+			$("#leftmenu").find("ul>li").eq(4).addClass('active');
+			$("#leftmenu").find(".active ol li").eq(3).addClass('cur');
+			$(window).load(function() {
+				imganimate("layers",12);
+			});
+			$(".showdemo span").hover(function(){
+				$(this).parent().find(".imgdemo").show();
+			},function(){
+				$(".imgdemo").hide()
+			})
+			$("#newword").focus(function(){
+				$(".password-security").show()
+			})
+			$("#newword").blur(function(){
+				$(".password-security").hide()
+			})
+		function clearShowTip(){
+			$('.showTip1').text("");
+			$('.showTip3').text("");
+			$('.showTip2').text("");
+		}
+		$(document).ready(function(){
+			$("#kyc_fm").click(function(){
+				clearShowTip();	
+				  const frontPic = $("#frontPic").val();
+				  const backPic = $("#backPic").val();
+				  const inHandPic = $('#inHandPic').val();
+				  <#if userIdentity??&&userIdentity.frontPic??>
+				   <#else>
+			   		  if(!frontPic||''==frontPic||frontPic.length<5){
+					  	 $('.showTip1').text("이미지를 선택해주세요");
+					  	 return;
+					  }
+				   </#if>
+				   <#if userIdentity??&&userIdentity.backPic??>
+				   <#else>
+				   	  if(!backPic||backPic.length<5){
+					   	 $('.showTip2').text("이미지를 선택해주세요");
+					   	 return
+					   }
+			       </#if>
+			       //身份证
+				  <#if userIdentity??&&userIdentity.inHandPic??>
+				   <#else>
+					   if(!inHandPic||''==inHandPic||inHandPic.length<5){
+					  	 $('.showTip3').text("이미지를 선택해주세요");
+					  	 return;
+					  }
+				   </#if>
+				   
+				  var json ={
+				  	frontPic:frontPic+"",
+				  	backPic: backPic+"",
+				  	inHandPic: inHandPic+""
+				  }
+
+				  $.post("/my/updateSettingkyc", json, function(ret) {
+					if (0 != ret.code) {
+						alert(ret.msg);
+					} else {
+						showpop6(redirect,"제출 완료");
+					}
+				});
+				
+			});
+		});
+		
+		function redirect(){
+		    window.location.href='/my/settingAccount';
+		}
+
+		function delPreview(num){
+			if(!num)return;	
+			if(1==num){
+				$("#fileList").find("#fileP1 a").html('<img src="/active/assets/image/kyc-front.jpg" width="90"/>');
+				$('.delOpt1').hide();
+			    $("#frontPic").val('');
+			}
+		    if(2==num){
+				$("#fileList").find("#fileP2 a").html('<img src="/active/assets/image/kyc-back.jpg" width="90"/>');
+				$('.delOpt2').hide();
+			    $("#backPic").val('');
+			}
+			if(3==	num){
+				$("#fileList").find("#fileP3 a").html('<img src="/active/assets/image/kyc-inhand.jpg" height="70"/>');
+				$('.delOpt3').hide();
+				$('#inHandPic').val('');
+			}
+		}
+
+
+$list = $('#fileList'),
+		     uploader = WebUploader.create({
+		 		auto : true,
+		 		swf : '/webuploader/Uploader.swf',
+		 		server :'/my/updatePersonalImg',
+		 		pick : '#fileP1',
+		 		multiple : true,
+		 		accept : {
+		 			title : 'Images',
+		 			extensions : 'gif,jpg,jpeg,bmp,png',
+		 			mimeTypes : 'image/*'
+		 		},
+	 	    });
+		     uploader.on('fileQueued', function(file) {
+				// var $li = $('<div id="' + file.id + '" class="upload-img0">'
+					// + '<img class="img-bg">' + '</div>'), 
+				
+				 $img = $list.find('#fileP1 img');
+				
+			// $list为容器jQuery实例
+			// 	$list.append($li);
+			// 创建缩略图ßß
+			thumbnailWidth = 100;
+			thumbnailHeight = 100;
+			uploader.makeThumb(file, function(error, src) {
+				if (error) {
+					$img.replaceWith('<span>不能预览</span>');
+					return;
+				}
+				$img.attr('src', src);
+				$('.delOpt1').show();
+				$('.showTip1').text('');
+			}, thumbnailWidth, thumbnailHeight);
+		});
+		     uploader.on('uploadProgress', function(file, percentage) {
+			var $li = $('#' + file.id), $percent = $li.find('.progress span');
+			// 避免重复创建
+			if (!$percent.length) {
+				$percent = $('<p class="progress"><span></span></p>').appendTo($li)
+						.find('span');
+			}
+			$percent.css('width', percentage * 100 + '%');
+		});
+
+		// 文件上传成功，给item添加成功class, 用样式标记上传成功。
+			uploader.on(
+						'uploadSuccess',
+						function(file, res) {							
+							$('#' + file.id).addClass('upload-state-done');
+							$('#' + file.id).append("");
+							if(0==res.code){
+								$('#frontPic').val(res.data);
+							}else{	
+							    $('.showTip1').text(res.msg);
+							    $('.delOpt1').hide();
+							}
+							uploader.removeFile(file);
+						});
+
+		// 文件上传失败，显示上传出错。
+			uploader.on('uploadError', function(file) {
+			var $li = $('#' + file.id), $error = $li.find('div.error');
+			// 避免重复创建
+			if (!$error.length) {
+				$error = $('<div class="error"></div>').appendTo($li);
+			}
+			$error.text('업로드 실패 ');
+		});
+
+			// 完成上传完了，成功或者失败，先删除进度条。
+			uploader.on('uploadComplete', function(file) {
+			$('#' + file.id).find('.progress').remove();
+		});
+			//！！！3ge
+			uploader3 = WebUploader.create({
+		 		auto : true,
+		 		swf : '/webuploader/Uploader.swf',
+		 		server :'/my/updatePersonalImg',
+		 		pick : '#fileP3',
+		 		multiple : true,
+		 		accept : {
+		 			title : 'Images',
+		 			extensions : 'gif,jpg,jpeg,bmp,png',
+		 			mimeTypes : 'image/*'
+		 		},
+	 	    });
+		     uploader3.on('fileQueued', function(file) {
+				// var $li = $('<div id="' + file.id + '" class="upload-img0">'
+					// + '<img class="img-bg">' + '</div>'), 
+				
+				 $img = $list.find('#fileP3 img');
+				
+			// $list为容器jQuery实例
+			// 	$list.append($li);
+			// 创建缩略图ßß
+			thumbnailWidth = 100;
+			thumbnailHeight = 100;
+			uploader3.makeThumb(file, function(error, src) {
+				if (error) {
+					$img.replaceWith('<span>不能预览</span>');
+					return;
+				}
+				$img.attr('src', src);
+				$('.delOpt3').show();
+				$('.showTip3').text('');
+				
+			}, thumbnailWidth, thumbnailHeight);
+		});
+		     uploader3.on('uploadProgress', function(file, percentage) {
+			var $li = $('#' + file.id), $percent = $li.find('.progress span');
+			// 避免重复创建
+			if (!$percent.length) {
+				$percent = $('<p class="progress"><span></span></p>').appendTo($li)
+						.find('span');
+			}
+			$percent.css('width', percentage * 100 + '%');
+		});
+
+		// 文件上传成功，给item添加成功class, 用样式标记上传成功。
+			uploader3.on(
+						'uploadSuccess',
+						function(file, res) {							
+							$('#' + file.id).addClass('upload-state-done');
+							$('#' + file.id).append("");
+							if(0==res.code){
+								$('#inHandPic').val(res.data);
+								
+							}else{	
+								
+							    $('.showTip3').text(res.msg);
+							    $('.delOpt3').hide();
+							}
+							uploader3.removeFile(file);
+						});
+
+		// 文件上传失败，显示上传出错。
+			uploader3.on('uploadError', function(file) {
+			var $li = $('#' + file.id), $error = $li.find('div.error');
+			// 避免重复创建
+			if (!$error.length) {
+				$error = $('<div class="error"></div>').appendTo($li);
+			}
+			$error.text('업로드 실패 ');
+		});
+
+			// 完成上传完了，成功或者失败，先删除进度条。
+			uploader3.on('uploadComplete', function(file) {
+			$('#' + file.id).find('.progress').remove();
+		});
+		//～～～～2ge～～～
+			uploader2 = WebUploader.create({
+		 		auto : true,
+		 		swf : '/webuploader/Uploader.swf',
+		 		server :'/my/updatePersonalImg',
+		 		pick : '#fileP2',
+		 		multiple : true,
+		 		accept : {
+		 			title : 'Images',
+		 			extensions : 'gif,jpg,jpeg,bmp,png',
+		 			mimeTypes : 'image/*'
+		 		},
+	 	    });
+		     uploader2.on('fileQueued', function(file) {
+				// var $li = $('<div id="' + file.id + '" class="upload-img0">'
+					// + '<img class="img-bg">' + '</div>'), 
+				
+				 $img = $list.find('#fileP2 img');
+				
+			// $list为容器jQuery实例
+			// 	$list.append($li);
+			// 创建缩略图ßß
+			thumbnailWidth = 100;
+			thumbnailHeight = 100;
+			uploader2.makeThumb(file, function(error, src) {
+				if (error) {
+					$img.replaceWith('<span>不能预览</span>');
+					return;
+				}
+				$img.attr('src', src);
+				$('.delOpt2').show();
+				$('.showTip2').hide();
+			}, thumbnailWidth, thumbnailHeight);
+		});
+		     uploader2.on('uploadProgress', function(file, percentage) {
+			var $li = $('#' + file.id), $percent = $li.find('.progress span');
+			// 避免重复创建
+			if (!$percent.length) {
+				$percent = $('<p class="progress"><span></span></p>').appendTo($li)
+						.find('span');
+			}
+			$percent.css('width', percentage * 100 + '%');
+		});
+
+		// 文件上传成功，给item添加成功class, 用样式标记上传成功。
+			uploader2.on(
+						'uploadSuccess',
+						function(file, res) {							
+							$('#' + file.id).addClass('upload-state-done');
+							$('#' + file.id).append("");
+							if(0==res.code){
+								$('#backPic').val(res.data);
+
+							}else{	
+							    
+							    $('.showTip2').text(res.msg);
+							    $('.delOpt2').hide();
+							}
+							uploader2.removeFile(file);
+						});
+
+		// 文件上传失败，显示上传出错。
+			uploader2.on('uploadError', function(file) {
+			var $li = $('#' + file.id), $error = $li.find('div.error');
+			// 避免重复创建
+			if (!$error.length) {
+				$error = $('<div class="error"></div>').appendTo($li);
+			}
+			$error.text('업로드 실패 ');
+		});
+
+			// 完成上传完了，成功或者失败，先删除进度条。
+			uploader2.on('uploadComplete', function(file) {
+			$('#' + file.id).find('.progress').remove();
+		});
+
+
+		</script>
+	</body>
+
+</html>

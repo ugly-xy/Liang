@@ -1,0 +1,67 @@
+package com.we.web.view.admin;
+
+import java.util.HashMap;
+import java.util.Map;
+
+import javax.servlet.http.HttpServletRequest;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
+
+import com.mongodb.DBObject;
+import com.we.common.Constant.ReCode;
+import com.we.core.Page;
+import com.we.core.web.ReMsg;
+import com.we.models.Division;
+import com.we.service.DivisionService;
+
+@Controller
+@RequestMapping("/admin")
+public class AdminDivisionCtl extends AdminBaseCtl {
+
+	@Autowired
+	DivisionService divisionService;
+
+	/** 所有的段位 */
+	@RequestMapping("/divisions")
+	public ModelAndView divisions(Long _id, Integer status, String name, Integer page, Integer size,
+			HttpServletRequest request) {
+		Page<DBObject> curPage = divisionService.query(status, _id, name, page, size);
+		curPage.setUrl(request.getRequestURI());
+		Map<String, Object> model = new HashMap<String, Object>();
+		model.put("page", curPage);
+		model.put("_id", _id);
+		model.put("name", name);
+		model.put("status", status);
+		return new ModelAndView("admin/divisions/divisions", model);
+	}
+
+	/** 修改段位 */
+	@ResponseBody
+	@RequestMapping(value = "/division", method = RequestMethod.POST)
+	public ReMsg division(Long _id, Integer[] type, String[] detail, Integer[] cnt, Integer[] reward, String name,
+			Integer recommendCnt, Double unit, int sort, int status, String prerogative) {
+		long adminId = divisionService.getUid();
+		if (adminId < 1) {
+			return new ReMsg(ReCode.PARAMETER_ERR);
+		}
+		return new ReMsg(ReCode.OK, divisionService.upsetDivision(_id, type, detail, cnt, reward, name, recommendCnt,
+				unit, sort, status, prerogative));
+	}
+
+	/** 修改段位界面 */
+	@RequestMapping("/division")
+	public ModelAndView division(Long _id) {
+		Map<String, Object> model = new HashMap<String, Object>();
+		if (_id != null && _id > 0) {
+			model.put("obj", divisionService.findById(_id));
+		}
+		model.put("conditionTypes", Division.ConditiontType.values());
+		return new ModelAndView("admin/divisions/division", model);
+	}
+
+}

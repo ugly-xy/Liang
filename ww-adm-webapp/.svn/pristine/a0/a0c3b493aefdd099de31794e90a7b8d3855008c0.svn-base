@@ -1,0 +1,58 @@
+<#import "/spring.ftl" as spring /> <#import
+"/admin/layouts/common.xhtml" as layout>
+<@layout.title>创建房间</@layout.title> <@layout.metaKeywordsDescription>
+
+</@layout.metaKeywordsDescription> <@layout.cssLink>
+<link rel="stylesheet" type="text/css"
+	href="/webuploader/webuploader.css"></@layout.cssLink>
+	<@layout.pageHeader> 创建房间 </@layout.pageHeader> <@layout.mainContent>
+		<input type="hidden" id="nav_id" value="sellRoom" />
+<div class="row">
+	<div class="col-lg-8">
+		<form role="form" id="form">
+			<div class="form-group form-inline">
+				<label>房间ID</label> 
+				<TEXTAREA class="form-control" id="roomIds" name="roomIds"  placeholder="例:200198,200358,200456,300000-400000" cols="65" rows="1"></TEXTAREA>
+			</div>
+			
+			<div class="form-group form-inline">
+				<label>可售状态</label> 
+				    <select class="form-control" id="sellStatus" name="sellStatus">
+					    <option value="1" >不可售</option>
+					    <option value="2" selected>可售</option>
+					    <option value="3" >已售</option>
+					</select>
+			</div>
+			<button id="submit" class="btn btn-default">添加</button>
+			<button id="reset" class="btn btn-default">重置</button>
+		</form>
+	</div>
+
+</div>
+<!-- /.row (nested) -->
+
+</@layout.mainContent> <@layout.script>
+<script type="text/javascript" src="<@layout.static path="/webuploader/webuploader.js" />
+">
+</script>
+<script>
+	$(function() {
+		$("#submit").click(function(e) {
+			e.preventDefault();
+			var jsonData = {
+				"roomIds":$("#roomIds").val(),
+				"sellStatus":$("#sellStatus").val()
+			};
+			
+			$.post("/admin/active/createRoom.xhtml", jsonData, function(ret) {
+				if (0 != ret.code) {
+					alert(ret.msg);
+				} else {
+					alert("success");
+					window.location.href="/admin/active/sellRooms.xhtml";
+				}
+			});
+		});
+	});
+</script>
+</@layout.script>

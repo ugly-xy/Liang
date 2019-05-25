@@ -1,0 +1,106 @@
+<#macro img path="" suffix=""><#if !path?? || path?index_of("http://")==0><#if path?index_of("http://zim.")==0 && suffix?? >${path}${suffix}<#else>${path}</#if><#else>http://img.zhuangdianbi.com${path}</#if></#macro>
+<#macro static path="" >${path}</#macro>
+<#macro api path="" >http://img.zhuangdianbi.com${path}</#macro>
+<#macro token >Zdb123Abc456</#macro>
+<#macro title>
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title><#nested/>-后台</title></#macro>
+    
+	<#macro metaKeywordsDescription><#nested/></#macro>
+	
+<#macro cssLink>
+    <!-- Bootstrap Core CSS -->
+    <link href="<@static path="/sb-admin/bower_components/bootstrap/dist/css/bootstrap.min.css"></@static>" rel="stylesheet">
+
+    <!-- MetisMenu CSS -->
+    <link href="<@static path="/sb-admin/bower_components/metisMenu/dist/metisMenu.min.css"></@static>" rel="stylesheet">
+
+    <!-- Timeline CSS -->
+    <link href="<@static path="/sb-admin/dist/css/timeline.css"></@static>" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link href="<@static path="/sb-admin/dist/css/sb-admin-2.css"></@static>" rel="stylesheet">
+
+    <!-- Morris Charts CSS -->
+    <link href="<@static path="/sb-admin/bower_components/morrisjs/morris.css"></@static>" rel="stylesheet">
+
+    <!-- Custom Fonts -->
+    <link href="<@static path="/sb-admin/bower_components/font-awesome/css/font-awesome.min.css"></@static>" rel="stylesheet" type="text/css">
+    
+    <!-- DataTables CSS -->
+    <link href="<@static path="/sb-admin/bower_components/datatables-plugins/integration/bootstrap/3/dataTables.bootstrap.css"></@static>" rel="stylesheet">
+
+    <!-- DataTables Responsive CSS -->
+    <link href="<@static path="/sb-admin/bower_components/datatables-responsive/css/dataTables.responsive.css"></@static>" rel="stylesheet">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+		<#nested/>
+</#macro>
+ <#macro pageHeader>
+</head>
+
+<body>
+
+    <div id="wrapper">
+
+        <!-- Navigation -->
+		<#include "./nav.xhtml"/>       
+
+        <div id="page-wrapper">
+            <div class="row">
+                <div class="col-lg-12">
+                   <h4 class="page-header"> <#nested/> </h4>
+                </div>
+                <!-- /.col-lg-12 -->
+            </div>
+</#macro>
+<#macro mainContent>
+			<#nested/>
+			<!-- /.row -->
+			        
+            <div class="row">
+            	<hr/>
+            </div>
+        </div>
+        <!-- /#page-wrapper -->
+    </div>
+    <!-- /#wrapper -->
+</#macro>  
+
+<#macro script>
+<!-- jQuery -->
+
+    <!-- ALIIM WSDK-->
+    <script src="https://g.alicdn.com/aliww/h5.openim.sdk/1.0.6/scripts/wsdk.js"></script>
+    
+    <script src="<@static path="/sb-admin/bower_components/jquery/dist/jquery.min.js"></@static>"></script>
+    <script src="<@static path="/js/jquery.cookie.js"></@static>"></script>
+
+    <!-- Bootstrap Core JavaScript -->
+    <script src="<@static path="/sb-admin/bower_components/bootstrap/dist/js/bootstrap.min.js"></@static>"></script>
+
+    <!-- Metis Menu Plugin JavaScript -->
+    <script src="<@static path="/sb-admin/bower_components/metisMenu/dist/metisMenu.min.js"></@static>"></script>
+
+    <!-- Custom Theme JavaScript -->
+    <script src="<@static path="/sb-admin/dist/js/sb-admin-2.js"></@static>"></script>
+    <script src="<@static path="/My97DatePicker/WdatePicker.js"></@static>"></script>
+
+<#nested/>
+
+</body>
+
+</html>
+</#macro>
+

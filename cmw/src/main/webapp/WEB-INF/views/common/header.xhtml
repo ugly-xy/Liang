@@ -1,0 +1,40 @@
+
+		
+		<header id="header" class="header">
+			<div class="container">
+				<div class="pull-left">
+					<div class="logo">
+						<a href="/"><img src="/active/assets/image/logo.png" width="246" height="36"/></a>
+					</div>
+					
+				</div>
+				<div class="pull-right">
+					<nav>
+						<ul>
+							<li><a href="/">메인</a></li>
+							<li><a href="/task.xhtml">미션</a></li>
+							<li><a href="/news.xhtml">뉴스</a></li>
+							<li><a href="/business.xhtml">비지니스</a></li>
+						</ul>
+					</nav>
+					<#if username??>
+					<div class="mypersonal">
+						<a href="/my/personalMine.xhtml" class="mytel">${username!}님</a>
+						<a href="/logout" class="logout">로그아웃</a>
+					</div>
+					<#else>
+					<div class="loginbtn">
+						<a href="/login.xhtml">로그인</a>
+					</div>
+					</#if>
+					<#-- <div class="langlist">
+						<span><img src="/active/assets/image/ico-en.png" width="16" height="10"/>KR</span>
+						
+						<#-- <div class="updiv">
+							<span><img src="/active/assets/image/ico-en.png" width="16" height="10"/>EN</span>
+						</div> --=>
+					</div> -->
+				</div>
+			</div>
+		</header>
+

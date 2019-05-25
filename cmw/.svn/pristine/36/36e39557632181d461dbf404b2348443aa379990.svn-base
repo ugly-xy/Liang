@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title>CandyClub – 나의 등급</title>
+		<#include "/common/head.xhtml"/>
+	</head>
+
+	<body class="personalbody">
+		<#include "/common/header.xhtml"/>
+		<section class="bannerpage">
+			<img src="/active/image/presonal.jpg" />
+		</section>
+		<section class="personalpage nopadding">
+			<div class="container">
+				<div class="pagebody">
+					<#include "/personal/personal-left.xhtml"/>
+
+					<div class="floright rightcon mylevel">
+						<div class="title">나의 등급</div>
+						<div class="levellist">
+							<ul>
+								<#list divisonInfos as d>
+								<li>
+								<#if (d_index+1) =1>
+									<div class="imgbox">
+										<img src="/active/assets/image/vip1.png" width="119" height="119"/>
+										<p>브론즈</p>
+									</div>
+
+									<div class="view">
+										+3000
+										<p>Candy Token적립금</p>
+									</div>
+								<#elseif (d_index+1) =2>
+									<div class="imgbox">
+										<img src="/active/assets/image/vip2.png" width="119" height="119"/>
+										<p>실버</p>
+									</div>
+									<div class="view">
+										+1000
+										<p>Candy Token적립금</p>
+									</div>
+								<#elseif (d_index+1) =3>
+									<div class="imgbox">
+										<img src="/active/assets/image/vip3.png" width="119" height="119"/>
+										<p>골드</p>
+									</div>
+									<div class="view">
+										+2000
+										<p>Candy Token적립금</p>
+									</div>
+								<#elseif (d_index+1) =4>
+									<div class="imgbox">
+										<img src="/active/assets/image/vip4.png" width="119" height="119"/>
+										<p>플래티넘</p>
+									</div>
+									<div class="view">
+										+3000
+										<p>Candy Token적립금</p>
+									</div>
+								<#elseif (d_index+1) =5>
+									<div class="imgbox">
+										<img src="/active/assets/image/vip5.png" width="119" height="119"/>
+										<p>다이아몬드</p>
+									</div>
+									<div class="view">
+										+77777
+										<p>Candy Token적립금</p>
+									</div>
+								<#elseif (d_index+1) =6>
+									<div class="imgbox">
+										<img src="/active/assets/image/vip6.png" width="119" height="119"/>
+										<p>챌린저</p>
+									</div>
+									<div class="view">
+										+88888
+										<p>Candy Token적립금</p>
+									</div>
+								</#if>
+
+									
+									<div class="view">
+										+${divisonInfos[d_index].rate?number*100}%
+										<p>미션수익의${divisonInfos[d_index].rate?number*100}% 획득</p>
+									</div>
+								 </li>
+								</#list>
+
+							</ul>
+						</div>
+						
+					</div>
+				</div>
+				<ul id="scene-personal" class="scene2">
+					<li class="layers layer1"><img src="/active/assets/image/ico-cro1.png" width="295"></li>
+					<li class="layers layer11"><img src="/active/assets/image/ico-cro1.png" width="99"></li>
+					<li class="layers layer2"><img src="/active/assets/image/ico-cro1.png" width="295"></li>
+					<li class="layers layer3"><img src="/active/assets/image/ico-cro2.png" width="202"></li>
+					<li class="layers layer4"><img src="/active/assets/image/ico-cro3.png" width="193"></li>
+					<li class="layers layer5"><img src="/active/assets/image/ico-cro4.png" width="183"></li>
+					<li class="layers layer6"><img src="/active/assets/image/ico-cro5.png" width="34"></li>
+				</ul>
+			</div>
+		</section>
+		<#include "/common/personal-footer.xhtml"/>
+		<script src="/active/assets/js/jquery-1.12.3.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="/active/js/main.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript">
+			$("#leftmenu").find("ul>li").eq(2).addClass('active');
+			$("#leftmenu").find(".active ol li").eq(2).addClass('cur');
+			$(window).load(function() {
+				imganimate("layers",12);
+			});
+
+
+				
+		</script>
+	</body>
+
+</html>

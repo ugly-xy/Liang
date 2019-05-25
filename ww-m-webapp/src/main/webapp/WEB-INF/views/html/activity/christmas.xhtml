@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+<head>
+    <meta charset="UTF-8">
+    <title>双旦狂欢、花满年华</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="renderer" content="webkit">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimumcale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="screen-orientation" content="portrait">
+    <meta name="x5-orientation" content="portrait">
+    <meta name="Keywords" content="双旦狂欢、花满年华">
+    <meta name="Description" content="和最有趣的人一起边玩边聊！">
+    <link rel="stylesheet" href="/active/christmas/css/global.css">
+    <script type="text/javascript" src="/active/christmas/js/master.js"></script>
+</head>
+
+<body>
+    <!--头部主图-->
+    <div class="header_top">
+         <img src="/active/christmas/img/header.png" alt="">
+        <div class="font_date"> 12月23日-1月3日</div>
+    </div>
+    <!--排行榜-->
+    <div class="ranking_btn">
+        <a href="/activity/christmas?type=0"><img  src="/active/christmas/img/newyear/newyear_${type}_left.png"  alt=""></a>
+        <a href="/activity/christmas?type=1"><img  src="/active/christmas/img/newyear/newyear_${type}_center.png"  alt=""></a>
+        <a href="/activity/christmas?type=2"><img  src="/active/christmas/img/newyear/newyear_${type}_right.png"  alt=""></a>
+    </div>
+    
+    <div class="ranking">
+        <div class="ranking_border">
+            <div class="ranking_content">
+                <ul style="list-style: none;" class="clear">
+                    <#list list as it>
+                    <li>
+                        <div class="num">
+                            <#if it.top lt 4>
+                            <img class="num_pm" src="/active/christmas/img/No.${it.top}.png" alt="">
+                            <#else>
+                            <span class="num_num">${it.top}</span>
+                            </#if>
+                        </div>
+                        <div class="head">
+                            <span>
+                            <!-- 头像 -->
+                        <img class="num_head" src="${it.avatar}" alt="">
+                        </span>
+                            <div class="num_nc">
+                             <!-- 等级 -->
+                                <img class="num_dj" src="/active/christmas/img/grade/grade_${it.lv}.png" alt="">
+                             <!-- sex -->
+                                <img class="num_gender" src="/active/christmas/img/sex_${it.sex}.png" alt="">
+                             <!-- vip -->
+                                <#if it.vipLv?? && it.vipLv gt 0>
+                                <img class="num_vip" src="/active/christmas/img/vip/VIP_${it.vipLv}.png" alt="">
+                                </#if>
+                                <!-- 昵称 -->
+                                <P class="num_nc_1">${it.nickname}</p>
+                            </div>
+                        </div>
+                        <div class="num_flower">
+                        <!-- 花数 -->
+                            <span style="color: #ff3c73">${it.count}</span>
+                            <span style="color: #000">花</span>
+                        </div>
+                    </li>
+                  </#list>
+                </ul>
+            </div>
+        </div>
+    </div>
+    </div>
+    <!--活动规则-->
+    <div class="footer_body">
+        <div class="footer_rule">
+            <div class="footer_rule_img">
+                <img class="rule_img" src="/active/christmas/img/font_rule_dis.png" alt="">
+                <div class="footer_rule_size">
+                    <ul style="list-style-type:decimal;">
+                        <li>活动时间：12月23号—1月3号</li>
+                        <li>参与方式：活动期间，通过任意形式为其他玩家宝宝赠送鲜花，即有机会进入双旦送花榜、圣诞收花榜和元旦收花榜，排名前十的玩家将分别获得称号奖励。</li>
+                        <li>活动奖励：
+							<br/>1．双旦送花榜:<br/>活动时间:<b style="color: red">12月23号—1月3日(24点截止)</b>
+							<br/>当日送花排名前10的玩家将分别获得称号奖励
+							<br/><img src="http://zim.zhuangdianbi.com/e0507c1c9de10e86f08f90b987d12b0a.png" alt="">第1名&nbsp;(有效期3天)
+							<br/><img src="http://zim.zhuangdianbi.com/bcc15c28367f3414ef327aacd238c223.png" alt="">第2~10名&nbsp; (有效期3天)
+							<br/>2．圣诞收花榜:<br/>活动时间:<b style="color: red">12月23日—12月25日(24点截止)</b>
+							<br/>收花累计排名前10的玩家将分别获得称号奖励
+							<br/><img class="title_model" src="http://zim.zhuangdianbi.com/660c91e3ba35b95ce76086825ad0905f.png" alt="">
+							     <img class="title_model" src="http://zim.zhuangdianbi.com/40de14e5e8555a3c5445d1ad6df7881a.png" alt="">第1名&nbsp;(有效期28天)
+							<br/><img class="title_model" src="http://zim.zhuangdianbi.com/5749b4a2e088b83276f3a7de867c757a.png" alt="">第2~10名&nbsp;(有效期28天)
+							<br/>3．元旦收花榜:<br/>活动时间:<b style="color: red">12月26日—1月3日(24点截止)</b>
+							<br/>收花累计排名前10的玩家将分别获得称号奖励
+							<br/><img class="title_model" src="http://zim.zhuangdianbi.com/290fa848a2eaa2895e48e156fc575b24.png" alt="">第1名&nbsp;(有效期60天)
+							<br/><img class="title_model" src="http://zim.zhuangdianbi.com/f37657da6693b7597ee8471454333886.png" alt="">第2~10名&nbsp;(有效期60天)
+							<br/>4．12月24日花魁榜限定称号
+							<br/><img class="title_model" src="http://zim.zhuangdianbi.com/36fc9aaf45bc5b1dd79db3e1a3c62144.png" alt="">
+							     <img class="title_model" src="http://zim.zhuangdianbi.com/1966d1406726f3ca3b28adc62a0510b3.png" alt="">花魁及其守护&nbsp;(有效期20天)
+							<br/><img class="title_model" src="http://zim.zhuangdianbi.com/c0edb79552570bb8b74e4cb207613b40.png" alt="">第2、3名&nbsp;(有效期7天)
+							<br/><img class="title_model" src="http://zim.zhuangdianbi.com/752b8fd38a3716c6f02f3015606d7975.png" alt="">第4~10名&nbsp;(有效期3天)
+							<br/>5．12月25日花魁榜限定称号
+							<br/><img class="title_model" src="http://zim.zhuangdianbi.com/a85848b5ae65fe1f8d9631d68d6a4d2a.png" alt="">
+							     <img class="title_model" src="http://zim.zhuangdianbi.com/da9399420d4bd42b4d8157427e360209.png" alt="">花魁及其守护&nbsp;(有效期20天)
+							<br/><img class="title_model" src="http://zim.zhuangdianbi.com/bf31ae7cb604575de01900ace08a70c3.png" alt="">第2、3名&nbsp;(有效期7天)
+							<br/><img class="title_model" src="http://zim.zhuangdianbi.com/4b6c139a7dda7a84b116c733bde715e8.png" alt="">第4~10名&nbsp;(有效期3天)
+							<br/>6．活动期间，充值388元大礼包获得限定称号
+							<br/><img class="num_dj" src="http://zim.zhuangdianbi.com/3f076fc4bdccfd2bbd0f3bd3fb9f00a5.png" alt="">(有效期2天)
+							<br/>7．活动期间，为他人送花有机会获得圣诞老公公送出的鲜花大礼包(内含6、33、88、188、520、666、888、1314、3344、6666或9999朵鲜花)。
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <!--注意事项-->
+        <div class="footer_note">
+            <div class="footer_note_img">
+                <img src="/active/christmas/img/font_note_dis.png" alt="">
+                <div class="footer_note_size">
+                    <ul style="list-style-type:decimal;">
+                        <li>未按规则参与活动均视为无效，发现作弊者一律取消参与资格；</li>
+                        <li>活动奖励于获奖的3个工作日内发放至获奖账号；</li>
+                        <li>本次活动最终解释权归BiBi娱乐社区所有。</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

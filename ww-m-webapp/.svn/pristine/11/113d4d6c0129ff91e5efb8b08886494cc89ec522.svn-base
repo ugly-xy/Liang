@@ -1,0 +1,295 @@
+*{
+	padding: 0;
+	margin: 0;
+	box-sizing: border-box;
+}
+html,body{
+	width: 100%;
+	height: 100%;
+	background: #ff465c;
+	font-size: 12px;
+	font-family: "微软雅黑";
+	color: #333;
+}
+ul{
+	list-style: none;
+}
+#top{
+	height: 12.7rem;
+	width: 100%;
+}
+#top img{
+	height: 100%;
+	width: 100%;
+}
+#rule{
+	width: 15rem;
+	background: #fff;
+	margin:0 auto;
+	border-radius: 10px;
+	padding: 1.17rem 0.36rem;
+	position: relative;
+}
+#rule ul{
+	height: 100%;
+	width: 100%;
+}
+#rule ul li{
+	width: 100%;
+}
+#rule ul dl{
+	width: 100%;
+	display: flex;
+}
+#rule ul dl dt{
+	margin-right: 0.5rem;
+}
+#rule ul dl dt p{
+	width: 0.7rem;
+	height: 0.7rem;
+	border-radius: 0.35rem;
+	background: #ff465c;
+	text-align: center;
+	color: #fefd7d;
+	position: relative;
+	top: 0.1rem;
+}
+#rule ul dl dd{
+	line-height: 1rem;
+	font-size: 13px;
+}
+#rule p.mon{
+	position: absolute;
+	bottom: -1rem;
+	color: #fefd7d;
+	text-align: center;
+	width: 100%;
+}
+#rule .bot{
+	height: 0.55rem;
+	width: 0.87rem;
+	position: relative;
+	margin: 0 auto;
+	background: url(../img/bot.png) no-repeat;
+	background-size:100%;
+}
+#way{
+	width: 100%;
+}
+#way img.top{
+	height: 1.9rem;
+	width: 100%;
+	display: block;
+	margin-top: 1.2rem;
+}
+#way .cont{
+	height: 7.25rem;
+	margin: 0 auto;
+	width: 15rem;
+	background: #fff;
+	border-radius:10px ;
+	padding: 1.17rem 0.36rem;
+}
+#way .cont dl{
+	width: 100%;
+	display: flex;
+}
+#way dl dt{
+	margin-right: 0.5rem;
+}
+#way dl dt p{
+	width: 0.7rem;
+	height: 0.7rem;
+	border-radius: 0.35rem;
+	background: #ff465c;
+	text-align: center;
+	color: #fefd7d;
+	position: relative;
+	top: 0.1rem;
+}
+#way dl dd{
+	line-height: 1rem;
+	font-size: 13px;
+	display: flex;
+}
+#way dl dd img{
+	height: 2.7rem;
+	width: 2.7rem;
+}
+#way dl dd span{
+	color: #00a2e6;
+}
+#way .warm{
+	margin-top:0.55rem ;
+	height: 1.74rem;
+	background: #ffecee;
+	color: #ff7283;
+	padding: 0.25rem;
+	border-radius: 5px;
+}
+#way .warm p{
+	line-height: 0.6rem;
+}
+#tips{
+	width: 100%;
+}
+#tips img.top{
+	width: 100%;
+	height: 2.7rem;
+}
+#tips .cont{
+	margin: 0 auto;
+	width: 15rem;
+	border-radius:10px ;
+	padding: 1.17rem 0.36rem;
+	background: url(../img/mu.png) #fff no-repeat right bottom;
+}
+#tips .cont p{
+	line-height: 1rem;
+	font-size: 13px;
+}
+#tips .cont p span{
+	color: #00a2e6;
+}
+
+#list{
+	width: 100%;
+}
+#list img.top{
+	height: 1.85rem;
+	width: 100%;
+	display: block;
+}
+#list dl.tab{
+	width: 100%;
+	display: flex;
+	height: 2rem;
+}
+#list dl.tab dd,#list dl.tab dt{
+	width: 50%;
+	height: 100%;
+}
+#list dl.tab p{
+	height: 1.1rem;
+	line-height: 1.1rem;
+	width: 4.17rem;
+	background: #f8e05a;
+	margin: 0 auto;
+	text-align: center;
+	border-radius:10px ;
+	margin-top: 0.5rem;
+}
+#list dl.tab dd p{
+	margin-left: 1rem;
+}
+#list dl.tab dt p{
+	margin-left: 4rem;
+}
+#list .cont{
+	margin: 0 auto;
+	width: 15rem;
+	border-radius:10px ;
+	background: #fff;
+}
+#list .cont dl{
+	height: 1.5rem;
+	line-height: 1.5rem;
+	width: 100%;
+	display: flex;
+	border-bottom: 1px solid #ff465c;
+	font-size: 13px;
+}
+#list .cont dl dt,#list .cont dl dd{
+	width: 50%;
+	text-align: center;
+}
+#list .cont ul.title{
+	display: flex;
+	width: 100%;
+	height: 1.5rem;
+	line-height: 1.5rem;
+}
+#list .cont ul.title li{
+	text-align: center;
+	width: 25%;
+	color: #dcdcdc;
+}
+#list .cont ul.c li{
+	height: 2.12rem;
+	border-bottom: 1px solid #ccc;
+	width: 100%;
+	display: flex;
+}
+#list .cont ul.c li div:nth-of-type(1){
+	width: 1.48rem;
+	text-align: center;
+	line-height: 2.1rem;
+}
+#list .cont ul.c li div:nth-of-type(2){
+	width: 2.4rem;
+}
+#list .cont ul.c li div:nth-of-type(2) img{
+	width:1.87rem;
+	height: 1.87rem;
+}
+#list .cont ul.c li div:nth-of-type(3){
+	width: 5.0rem;
+	line-height: 2.1rem;
+}
+#list .cont ul.c li div:nth-of-type(4){
+	width: 3.4rem;
+	line-height: 2.1rem;
+}
+#list .cont ul.c li div:nth-of-type(5){
+	line-height: 2.1rem;
+}
+#list .cont ul.c li div:nth-of-type(4) img,#list .cont ul.c li div:nth-of-type(5) img{
+	width: 0.8rem;
+	height: 0.8rem;
+	position: relative;
+	top: 0.2rem;
+	left: -0.2rem;
+}
+
+
+
+#list .cont .bot{
+	width: 100%;
+	height: 1.5rem;
+	background: url(../img/mm.png) no-repeat right bottom;
+	position: relative;
+	background-size:2.29rem 1.68rem ;
+	bottom: -0.5rem;
+	right: 0.2rem;
+}
+#list .cont p.d{
+	position: relative;
+	bottom: -1rem;
+	width: 100%;
+	text-align: center;
+	color: #f8e05a;
+}
+#share{
+	width: 100%;
+	margin: 3rem 0;
+}
+#share .share{
+	height: 1.75rem;
+	line-height: 1.75rem;
+	text-align: center;
+	color: #ff465c;
+	font-size: 15px;
+	margin: 0 auto;
+	width: 15rem;
+	border-radius:10px ;
+	background: #f8e05a;
+	margin-bottom: 0.5rem;
+}
+#share p{
+	color: #f8e05a;
+	padding: 0 1rem;
+	line-height: 1rem;
+}
+
+
+

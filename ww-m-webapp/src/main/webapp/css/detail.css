@@ -1,0 +1,58 @@
+@charset "utf-8";
+/*公共样式 start*/
+body,div,h1,p,h2,header,ul,li,dl,dt,dd,ol,nav,input,footer{ margin:0; padding:0;}
+h1,h2,h3,h4,h5,h6{ margin:0; padding:0;font-size:100%; font-weight:normal;}
+ul,li{ list-style:none;}
+html{-webkit-text-size-adjust:none;}
+article,aside,details,figcaption,figure,footer,header,hgroup,menu,nav,section {display:block;}
+img{border:none;  vertical-align:middle; width:100%;}
+.clearfix:after {content:"\200B"; display:block; height:0; clear:both;}
+.clearfix{ *zoom:1;}
+input{ font-family:Arial, Helvetica, sans-serif;}
+a{ text-decoration:none; color:#fff;}
+a:hover{ text-decoration:none;}
+.clearfix:after {content:"\200B"; display:block; height:0; clear:both;}
+.clearfix{ *zoom:1;}
+body{background: #fff;font-family: "微软雅黑"}
+.pic_tit,.video,.icons,.comment{margin-left: 15px;margin-right: 15px;}
+.pic_tit span.pic{float: left;display: inline-block;width: 45px;height: 45px;margin: 15px 10px 15px 0;}
+.pic_tit span.pic img{max-width: 100%;width: 45px;height: 45px;border-radius: 50%}
+.pic_tit p.text{float: left;font-size: 11px;color: #888888;margin-top: 24px;}
+.pic_tit p.text span{display: block;}
+.pic_tit p.text span a{color: #888888;display: inline-block;max-width: 65px;overflow: hidden;text-overflow:ellipsis;white-space: nowrap;}
+.pic_tit p.text span.name{font-size: 14px;font-weight: normal;}
+.pic_tit p.text span i{display: inline-block;width: 27.5px;height: 13px;background-size: 100% 100%;position: relative;top: -3px;}
+.pic_tit p.detail{clear: both;font-size: 16px;line-height: 27px;padding-bottom: 20px;color: #323232}
+.video{position: relative;}
+.video strong{display: block;width:50px;height: 50px;position: absolute;top:50%;left:50%;margin-left: -25px;margin-top: -25px}
+.video strong.play img,.video strong.pause img{width:50px;height: 50px;max-width: 100%}
+.video p{width: 100%;height: 35px;background: rgba(0,0,0,0.3);position: absolute;bottom: 0;left:0;}
+.video span.number{color: #fff;font-size: 14px;display: inline-block;line-height: 35px;padding-left: 7px}
+.video span.number i{color: #fcd746;font-style: normal;}
+.video span.time{float: right;font-size: 14px;padding-right: 35px;line-height: 35px;color: #fff}
+.video span.time i{display: inline-block;width: 16px;height: 16px;position: absolute;right: 9px;top:9px;background: url(../images/enlarge.png) no-repeat;background-size: 100% 100%;}
+.video img{max-width:90%;height:auto;margin: 10px 20px 10px 20px; }
+.icons p{font-size: 12px;float: left;height: 50px;line-height: 50px;color: #888888;margin-right: 20px}
+.icons p span{width: 18px;height: 15.5px;display: inline-block;margin-right: 9px}
+.icons p.icon1{margin-left: 5px}
+.icons p.icon4 {float: right;margin-right: 0;}
+.icons p span img{max-width: 100%}
+.line{width: 100%;height: 10px;background: #efeff4;clear: both;}
+.comment{margin-bottom:20px}
+.comment h2{font-size: 12px;color: #ff4344;height: 30px;line-height: 30px;border-bottom: 1px solid #e1e1e1}
+.pl{border-bottom:1px solid #e1e1e1}
+.pl span.sm_pic{width: 30px;height: 30px;display: inline-block;float: left;margin-top: 15px;margin-right: 10px}
+.pl .sm_text p{font-size: 16px;color: #323232;margin-left: 40px;padding-bottom: 15px}
+.pl .sm_text span.sm_name{padding-top:20px;padding-bottom: 5px;display: inline-block;}
+.pl .sm_text span.sm_name a{color: #888888;font-size: 14px;display: inline-block;max-width: 65px;overflow: hidden;text-overflow: ellipsis;white-space: nowrap; }
+.pl .sm_text span.sm_name i{display: inline-block;background: none;width: 27.5px;height: 13px;background-size: 100% 100%;position: relative;top: -3px;}
+.pl .sm_text span.zan_num{font-size: 12px;color: #888;float: right;padding-top: 20px}
+.pl .sm_text span.zan_num i{display: inline-block;background: url(../images/icon1.png) no-repeat;width: 16px;height: 14px;background-size: 100% 100%;margin-right: 8px}
+.pl .sm_text span.zan_num i.cur{display: inline-block;background: url(../images/icon2.png) no-repeat;width: 16px;height: 14px;background-size: 100% 100%;margin-right: 8px}
+.pl .sm_text span.zan_num.cur{color: #ff4344}
+.pl .sm_text span.zan_num b{font-weight: normal;}
+.hot_topic{position: fixed;width: 100%;height: 50px;bottom: 0;z-index: 10;background: rgba(0,0,0,0.8);}
+.hot_topic p{float: left;}
+.hot_topic p span{display: inline-block;height: 50px;color: #fff;line-height: 50px;font-size: 16px;margin-left: 63px}
+.hot_topic p i{width: 41px;height: 41px;display: inline-block;background: url(../images/logo.png) no-repeat;background-size: 100% 100%;position: absolute;top:4.5px;left: 14px;}
+.hot_topic a.open_btn{display: inline-block;width: 90px;height: 50px;background: #fcd746;line-height: 50px;text-align: center;font-size: 16px;position: absolute;right: 0;bottom: 0;}

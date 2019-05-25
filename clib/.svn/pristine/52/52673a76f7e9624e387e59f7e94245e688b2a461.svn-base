@@ -1,0 +1,104 @@
+package com.we.service;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.concurrent.TimeUnit;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.data.redis.core.ValueOperations;
+import org.springframework.stereotype.Service;
+
+import com.mongodb.BasicDBObject;
+import com.mongodb.DBObject;
+import com.mongodb.util.JSON;
+import com.we.common.Constant.Const;
+import com.we.common.Constant.ReCode;
+import com.we.common.redis.RK;
+import com.we.core.Page;
+import com.we.core.web.ReMsg;
+import com.we.models.Division;
+import com.we.models.Division.Condition;
+import com.we.models.DocName;
+
+@Service
+public class DivisionService extends BaseService {
+	static final Logger log = LoggerFactory.getLogger(DivisionService.class);
+
+	/** upset段位 */
+	public ReMsg upsetDivision(Long _id, Integer[] type, String[] detail, Integer[] cnt, Integer[] reward, String name,
+			Integer recommendCnt, Double unit, Integer sort, Integer status, String prerogative) {
+		if (_id == null || _id == 0) {
+			_id = super.getNextId(DocName.DIVISION);
+		}
+		Division division = new Division(name, recommendCnt, unit, sort, status, prerogative);
+		ArrayList<Condition> conditions = new ArrayList<Condition>();
+		if (type != null && type.length > 0) {
+			for (int i = 0; i < type.length; i++) {
+				if (type[i] != 0) {
+					conditions.add(division.new Condition(type[i], detail[i], cnt[i], reward[i]));
+				}
+			}
+		}
+		division.setConditions(conditions);
+		division.set_id(_id);
+		division.setUpdateTime(System.currentTimeMillis());
+		super.getMongoTemplate().save(division);
+		// 删除缓存
+		super.getRedisTemplate().delete(RK.divisionList(Const.STATUS_OK));
+		return new ReMsg(ReCode.OK);
+	}
+
+	public DBObject findById(Long _id) {
+		return getC(DocName.DIVISION).findOne(new BasicDBObject("_id", _id));
+	}
+
+	/** 根据状态查询所有的段位 设置缓存 */
+	public List<DBObject> findAllDivisionByStatus(Integer status) {
+		ValueOperations<String, String> opsv = getRedisTemplate().opsForValue();
+		String objects = opsv.get(RK.divisionList(status));
+		if (objects != null) {
+			List<DBObject> curL = (List<DBObject>) JSON.parse(objects);
+			return curL;
+		}
+		DBObject q = new BasicDBObject();
+		if (status != null && status != 0) {
+			q.put("status", status);
+		}
+		List<DBObject> dbos = getC(DocName.DIVISION).find(q).sort(new BasicDBObject("sort", -1)).toArray();
+		opsv.set(RK.divisionList(status), JSON.serialize(dbos), 7, TimeUnit.DAYS);
+		return dbos;
+	}
+
+	public Page<DBObject> query(Integer status, Long _id, String name, Integer page, Integer size) {
+		size = getSize(size);
+		page = getPage(page);
+		List<DBObject> dbos = find(status, _id, name, page, size);
+		int count = count(status, _id, name);
+		return new Page<DBObject>(count, size, page, dbos);
+	}
+
+	public int count(Integer status, Long _id, String name) {
+		DBObject q = new BasicDBObject();
+		if (status != null && status != 0) {
+			q.put("status", status);
+		}
+		if (_id != null && _id != 0) {
+			q.put("_id", _id);
+		}
+		return getC(DocName.DIVISION).find(q).count();
+	}
+
+	public List<DBObject> find(Integer status, Long _id, String name, Integer page, Integer size) {
+		DBObject q = new BasicDBObject();
+		if (status != null && status != 0) {
+			q.put("status", status);
+		}
+		if (_id != null && _id != 0) {
+			q.put("_id", _id);
+		}
+		return getC(DocName.DIVISION).find(q).skip(super.getStart(page, size)).limit(getSize(size))
+				.sort(new BasicDBObject("sort", 1)).toArray();
+	}
+
+}

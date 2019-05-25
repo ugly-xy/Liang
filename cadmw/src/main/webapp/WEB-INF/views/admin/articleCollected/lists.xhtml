@@ -1,0 +1,141 @@
+<#import "/spring.ftl" as spring /> <#import
+"/admin/layouts/common.xhtml" as layout>
+<@layout.title>搜集列表</@layout.title> <@layout.metaKeywordsDescription>
+
+</@layout.metaKeywordsDescription> <@layout.cssLink>
+ </@layout.cssLink>
+<@layout.pageHeader> 搜集列表 </@layout.pageHeader> <@layout.mainContent>
+	<input type="hidden" id="nav_id" value="collected" />
+<div class="well well-sm">
+	<div class="row">
+		<FORM action="/admin/articles/collected.xhtml">
+		
+			<div class="col-sm-4 form-group form-inline">
+				<span >
+				<input class="form-control" id="beginDate" name="beginDate" value="${(beginDate)!}" 
+				onClick="WdatePicker({startDate:'%y-%M-%d',dateFmt:'yyyy-MM-dd',alwaysUseStartDate:true})" placeholder="起始时间" />
+				<input class="form-control" id="endDate" name="endDate" value="${(endDate)!}" 
+				onClick="WdatePicker({startDate:'%y-%M-%d',dateFmt:'yyyy-MM-dd',alwaysUseStartDate:true})" placeholder="结束时间" />
+				</span>
+
+				
+				<div class="form-group form-inline" style="margin-left: 20px;">
+				<LABEL>是否重点:</LABEL>
+				<select class="form-control" id="mark" name="mark">
+					<option value="">全部</option>
+					<option value="true" <#if mark??&&mark==true>selected</#if>>是</option>
+					<option value="false" <#if mark??&&mark==false>selected</#if>>否</option>
+				</select>
+				</div>
+			</div>
+
+			
+			<div class="col-sm-2  form-inline" >
+				<LABEL>标题:</LABEL>
+				<input  class="form-control" id="title" name="title" value="${title!}" placeholder="标题" />
+			</div>
+
+			
+
+			<div class="col-sm-2">	
+				<button type="submit" class="btn btn-default">查询</button>
+			</div>
+		</FORM>
+	</div>
+</div>
+<div class="row">
+	<div class="col-lg-12">
+
+		<div class="dataTable_wrapper">
+			<table class="table table-striped table-bordered table-hover"
+				id="dataTables-example">
+				<thead>
+					<tr>
+						<th style="width:260px;">标题</th>
+						<th>内容</th>
+						<th class="center" style="width:100px;">是否重点</th>
+						<th style="width:300px;">时间</th>
+						<th style="width:150px;">操作 </th>
+					</tr>
+				</thead>
+				<tbody>
+					<#list page.list as it>
+					<tr class="gradeA">
+						<td>${it.title!}</td>
+						<td>${it.content}</td>											
+						<td class="center">
+							<#if it.mark??&&it.mark==true>是<#else>否</#if>
+						</td>
+						<td>
+							发布日期：<#if it.conDate??>${it.conDate?number?number_to_datetime}</#if><br>	
+							更新时间：<#if it.updateTime??>${it.updateTime?number?number_to_datetime}</#if><br>
+						</td>
+						<td class="center"><a href="/admin/articleCollectOne?id=${it._id!}">查看</a><br/>
+							<a href="javascript:deleteCollect(${it._id!});" >删除</a>
+						</td>
+						
+					</tr>
+					</#list>
+				</tbody>
+			</table>
+		</div>
+		<div class="row">
+			<div class="col-sm-4">
+				<div class="dataTables_info" id="dataTables-example_info"
+					role="status" aria-live="polite">当前
+					${page.curPage}/${page.totalPage}页， 共${page.total}条</div>
+			</div>
+			<div class="col-sm-8"><@vpage cur=page.curPage
+				total=page.totalPage url=page.url > ${vpage}</@vpage></div>
+		</div>
+	</div>
+
+	<!-- /.col-lg-12 -->
+</div>
+
+</@layout.mainContent> <@layout.script> 
+<script type="text/javascript">
+    function del(){
+    	$("#del").html('<a href="javascript:remo(2);" >移除</a>&nbsp;<a href="javascript:canc();" >取消</a>');
+    	$("input[name='checkId']").show();
+    }
+    
+    function canc(){
+        $("#del").html('<a href="javascript:del();" >移除精选</a>');
+        $("input[name='checkId']").hide();
+    }
+    
+    $("#groupId").bind("change",function () {  
+    	var groupId=$("#groupId").val();
+    	if(groupId==0){
+    		$("#topicId").empty().append("<option value=" + 0 + ">全部" + "</option>");
+    	}else{
+    		$.post("/admin/getTopics", {groupId:groupId}, function(res) {
+    			var topic = $("#topicId");
+    			topic.empty().append("<option value=" + 0 + ">全部" + "</option>");
+    		    for (var i = 0; i < res.length; i++) {
+    		    	topic.append("<option value=" + res[i]._id + ">" + res[i].name + "</option>");
+    		    }
+    		})
+    	}
+    })
+ 
+	function deleteCollect(id) {
+		if(''==id){
+			location.reload();
+		}
+
+		if (confirm("确定删除？")) {
+			$.post("/admin/deleteCollect", {
+				id : id
+			}, function(ret) {
+				if (ret.code != 0) {
+					alert(ret.msg);
+				} else {
+					location.reload();	
+				}
+			})
+		}
+	}
+</script>
+</@layout.script>

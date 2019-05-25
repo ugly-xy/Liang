@@ -1,0 +1,507 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=Edge，chrome=1">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>wetoken</title>
+		<link rel="shortcut icon" href="favicon.ico">
+		<link rel="stylesheet" type="text/css" href="/active/css/globel.css"/>
+		<link rel="stylesheet" type="text/css" href="/active/assets/flexslider/flexslider.css"/>
+		<link rel="stylesheet" type="text/css" href="/active/assets/css/animate.min.css"/>
+		<link rel="stylesheet" type="text/css" href="/active/css/style.css"/>
+		<!--[if lt IE 9]>
+	      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+	      <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+	    <![endif]-->
+	</head>
+	<style type="text/css">
+		body{
+			width: 7.5rem;
+			height: 6.4rem;
+			position: relative;
+			margin: 0 auto;
+			min-width: auto;
+		}
+		.guide{
+			background:url(/active/assets/image/h5bg.png) no-repeat #e9511a;
+			background-size: 101.5%;
+			padding-top: 7.6rem;
+		}
+		header{
+			width: 100%;
+		}
+		header .header-logo{
+			position: absolute;
+			left: 0.6rem;
+			top: 0.5rem;
+		}
+		header .header-logo img{
+			width:auto;
+			height: .4rem;
+		}
+		header .header-btn{
+			position: absolute;
+			right: 0.6rem;
+			top: 0.3rem
+		}
+		header .header-btn img{
+			width: auto;
+			height: .6rem;
+		}
+		
+		.formlogo{ text-align: center; margin-bottom: .3rem;}
+		.formlogo img{ width: auto; height: .32rem;}
+		.guidecon .container{
+			overflow: visible;
+			display: table;
+		}
+	
+		.numcon{
+			position: absolute;
+			right: 70px;
+			top: 8rem;
+			width: 4.4rem;
+			font-size: 26px;
+		}
+		.numcon h5{
+			position: absolute;
+			right: 0;
+			top: .1rem;
+			font-size: .3rem;
+			color: #fff;
+		}
+		.runNum{
+            padding: 0;
+            overflow: hidden;
+            height: 30px;
+            line-height: 30px;
+            text-align: center;
+            font-weight: bold;
+            position: relative;
+        }
+        .runNum>li{
+            list-style: none;
+            width: 30px;
+            float: left;
+            position: absolute;
+    			color: #fff;
+           
+        }
+        .runNum>li div{
+        		background: url(/active/assets/image/nbgrpet.png) repeat-x;
+        		border-radius: 4px;
+        		margin-right: 5px;
+        		font-size: .3rem;
+        }
+
+		.guidecon form{
+			width: 83%;
+			margin: 0 auto;
+			background: #fff;
+			padding: .4rem 0;
+			border-radius: 2px;
+			margin-bottom: .15rem;
+		}
+		.guidecon form ul li{
+			margin-bottom: .24rem;
+			position: relative;
+			text-align: center;
+		}
+		.guidecon form ul li input{
+			width: 75%;
+			padding: 0 5%;
+			padding-left: 10%;
+			height: 50px;
+			line-height: 50px;
+			outline: none;
+			border: 0;
+			border-radius: 4px;
+			font-size: .22rem;
+		}
+		.guidecon form ul li.fcode .telcode{
+			display: inline-block;
+			position: absolute;
+			right: .5rem;
+			top:18px;
+			border-left: 1px solid #ccc;
+			padding-left: 10px;
+			
+		}
+		.guidecon form ul li.fcode .telcode a{
+			color: #ff852b;
+			font-size: .22rem;
+			line-height: .22rem;
+			height: .22rem;
+			display: inline-block;
+		}
+		.guidecon form ul li.fcode .telcode a:hover{
+			font-weight: bold;
+		}
+		.guidecon form ul li.ftel input{
+			background:url(/active/assets/image/r-01.png) no-repeat 10px center #f8f8f8;
+			background-size: 13px;
+		}
+		.guidecon form ul li.fcode input{
+			background:url(/active/assets/image/r-02.png) no-repeat 10px center #f8f8f8;
+			background-size: 15px;
+		}
+		.guidecon form ul li.fpswd input{
+			background:url(/active/assets/image/r-03.png) no-repeat 10px center #f8f8f8;
+			background-size: 16px;
+		}
+		.guidecon form input[type=submit]{
+			width: 60%;
+			margin-left: 20%;
+			height: .66rem;
+			line-height: .66rem;
+			background:#fda933;
+			color: #fff;
+			border: none;
+			border-radius: .33rem;
+			font-size:0.22rem;
+			outline: none;
+		}
+		.guidecon .agcon{
+			margin-bottom: .3rem;
+			text-align: center;
+			font-size: .2rem;
+		}
+		.guidecon .agcon input{
+			position: relative;
+			top: .06rem;
+		}
+		.pictip{ width: 83%; margin: 0 auto; overflow: hidden;}
+		.pictip img{
+			height: 3.3rem;
+		}
+		.pictip img:nth-child(1){
+
+			float: left;
+		}
+		.pictip img:nth-child(2){
+
+			float: right;
+		}
+		footer{
+			width: 100%;
+			padding-bottom: .5rem;
+			text-align: center;
+		}
+		footer img{
+			width: auto;
+			height: .35rem;
+		}
+		.guidecon form ul li.fcode .telcode.hide{
+			display: none;
+		}
+		.guidecon form ul li.fcode .telcode.show{
+			display: block;
+		}
+		#smsSend a{color: #999}
+		#msgDiv{
+
+			display: block;
+			text-align: center;
+			margin-bottom: .2rem;
+
+		}
+		.fromtips{
+			font-size: .22rem;
+		}
+
+	</style>
+	<body class="guide">
+		<header>
+			<div class="header-logo">
+				<img src="/active/assets/image/logo-07.png" class="" width="240"/>
+			</div>
+			<div class="header-btn">
+				<a href=""><img src="/active/assets/image/header-btn.png" width="130"/></a>
+			</div>
+		</header>
+		<section class="guidecon">
+			<div class="container-m">
+				<div class="numcon">
+					<ul class="runNum" id="test"></ul>
+					<h5>수령 완료</h5>
+				</div>
+				<form action="/register" method="post" onsubmit="return check(this)">
+					<input type="hidden" name="url" id="url" value="${(url)!}" />
+					<input type="hidden" name="flag" id="flag" value="11" />
+					<ul>
+						<li class="ftel"><input type="tel" name="phone" id="phone" value="${(phone)!}" placeholder="휴대폰 번호"/></li>
+						<li class="fcode"><input type="text" name="code" id="code" value="${(code)!}" placeholder="인증번호"/>
+							<div id="getSms" class="telcode"><a href="javascript:;">인증번호<br/>발송</a></div>
+							<div id="smsSend" class="telcode hide" ><span id="but_time" disabled="disabled" style="color:#ff852b;">인증번호발송</span></div>
+
+						</li>
+						<li class="fpswd"><input type="password" name="password" id="password" value="" placeholder="비밀번호" />
+						</li>
+						<li class="fpswd"><input type="password" name="password2" id="password2" value="" placeholder="비밀번호 재확인" /></li>
+					</ul>
+					<div class="agcon">
+						<label for="agreement"><input type="checkbox" name="checkbox" checked ="checked" id="agreement" >이용약관 전체동의<a href="/agreement.xhtml" target="_blank">개인정보 수집 안내</a></label>
+					</div>
+					<div id="msgDiv">
+						<#if msg??><span class="fromtips">${(msg)!}</span></#if>
+					</div>
+					<input type="submit" id="loginbtn" value="회원가입"/>
+				</form>
+				<div class="pictip">
+					<img src="/active/assets/image/guide-nb11.png"/>
+					<img src="/active/assets/image/guide-nb22.png"/>
+				</div>
+			</div>
+		</section>
+		<footer>
+			<img src="/active/assets/image/logo-07.png " width="100"/>
+		</footer>
+		<script src="/active/assets/js/jquery-1.12.3.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="/active/js/main.js" type="text/javascript" charset="utf-8"></script>
+		<!--<script src="js/jquery.inview.min.js" type="text/javascript" charset="utf-8"></script>-->
+		<script type="text/javascript">
+			$("#password").focus(function() {
+				$(".password-security").show();
+			})
+			$("#password").keyup(function() {
+				checkLevel("#password");
+			})
+
+			$("#password").blur(function() {
+				$(".password-security").hide()
+			})
+
+			$('#agreement').click(function(e){
+				$(this).val($(this).is(":checked"));
+			})
+			
+			$("#getSms").click(function(e) {
+
+				var phone = $("#phone").val();
+				if(!phone || '' == phone) {
+					printTip("올바른 핸드폰 번호를 입력해주세요");
+					return;
+				}
+				if(!regTestPhone(phone)){
+					printTip("올바른 전화번호를 입력해주세요");
+					return;
+				}
+				var jsonData = {
+					"reqKey": phone,
+					"flag": 10,
+				}
+
+				$.post("/dynamicKey", jsonData, function(ret) {
+					if(0 != ret.code) {
+						printTip(ret.msg);
+						return;
+					}
+					var key = ret.data;
+					if(!key || key.indexOf(",") < 0) {
+						return;
+					}
+					var data = key.split(",");
+					jsonData = {
+						"phone": phone,
+						"data": data[0],
+						"timestamp": data[1]
+					}
+					//发送验证码
+					$.post("/sendSms", jsonData, function(ret) {
+						if(0 != ret.code) {
+							printTip(ret.msg + "");
+							//$("#msgDiv").html(ret.msg).removeClass("hide").addClass(".show-inline");
+						} else {
+							//切换发送验证码的button
+							$("#msgDiv").html('');
+							$("#smsSend").removeClass("hide").addClass("show");
+							$("#getSms").removeClass("show").addClass("hide");
+							beginCount(10);
+							//$("#msgDiv").removeClass(".show-inline").addClass("hide");
+						}
+					});
+				});
+
+			});
+
+			function toVaild(phone, pwd1, pwd2, code,agreement) {
+				$("#msgDiv").html('');
+				if(!agreement){
+					printTip("이용약관을 확인하고 동의해주세요");
+					return false;
+				}
+				if(!phone || phone == "") {
+					printTip("올바른 핸드폰 번호를 입력해주세요");
+					return false;
+				}
+				if(!regTestPhone(phone)){
+					printTip("올바른 전화번호를 입력해주세요");
+					return false;
+				}
+				if(!code || code == "") {
+					printTip("인증번호를 입력해주세요");
+					return false;
+				}
+				if(!pwd1 || pwd1 == "") {
+					printTip("비밀번호를 입력해주세요");
+					return false;
+				}
+				if(pwd1.length < 6) {
+					printTip("비밀번호가 올바르지 않습니다");
+					return false;
+				}
+
+				if(pwd1 != pwd2) {
+					printTip("비밀번호가 불일치 합니다");
+					return false;
+				}
+				return true;
+			}
+
+			function check(form) {
+				const phone = form.phone.value;
+				const password = form.password.value;
+				const password2 = form.password2.value;
+				const code = form.code.value;
+				const agreement = $('#agreement').is(":checked");
+				return toVaild(phone,password,password2,code,agreement);
+			}
+
+			function printTip(msg) {
+				$("#msgDiv").html("<span class='fromtips'>" + msg + "</span>");
+			}
+
+			function validPhone() {
+				var $phone = document.getElementById("phone");
+				const regNum = /(\D+)*/g;
+				var context = $phone.value;
+				context = context.replace(regNum, "");
+				context = context.substring(0, 11);
+				$phone.value = context;
+			}
+
+			function validCode(){
+				var $code = document.getElementById("code");
+				var context = $code.value;
+				context = context.substring(0, 8);
+				$code.value = context;
+			}
+			document.getElementById("code").onchange = function() {
+				validCode();
+			}
+
+			$("#code").keyup(function() {
+				validCode();
+			})
+
+			document.getElementById("phone").onchange = function() {
+				validPhone();
+			}
+
+			$("#phone").keyup(function() {
+				validPhone();
+			})
+		</script>
+		<script type="text/javascript">
+    (function ($) {
+    	/*jQuery对象添加  runNum  方法*/
+        $.fn.extend({
+        	/*
+        		*	滚动数字
+				*	@ val 值，	params 参数对象
+				*	params{addMin(随机最小值),addMax(随机最大值),interval(动画间隔),speed(动画滚动速度),width(列宽),height(行高)}
+        	*/
+            runNum:function (val,params) {
+                /*初始化动画参数*/
+                var valString = val || '70225800'
+                var par= params || {};
+                var runNumJson={
+                    el:$(this),
+                    value:valString,
+                    valueStr:valString.toString(10),
+                    width:par.width || 30,
+                    height:par.height || 30,
+                    addMin:par.addMin || 10000,
+                    addMax:par.addMax || 99999,
+                    interval:par.interval || 5000,
+                    speed:par.speed || 1000,
+                    width:par.width || 30,
+                    length:valString.toString(10).length
+                };
+                $._runNum._list(runNumJson.el,runNumJson);
+                $._runNum._interval(runNumJson.el.children("li"),runNumJson);
+            }
+        });
+        /*jQuery对象添加  _runNum  属性*/
+        $._runNum={
+            /*初始化数字列表*/
+            _list:function (el,json) {
+                var str='';
+                for(var i=0; i<json.length;i++){
+                    var w=json.width*i;
+                    var t=json.height*parseInt(json.valueStr[i]);
+                    var h=json.height*10;
+                    str +='<li style="width:'+json.width+'px;left:'+w+'px;top: '+-t+'px;height:'+h+'px;">';
+                    for(var j=0;j<10;j++){
+                        str+='<div style="height:'+json.height+'px;line-height:'+json.height+'px;">'+j+'</div>';
+                    }
+                    str+='</li>';
+                }
+                el.html(str);
+            },
+            /*生成随即数*/
+            _random:function (json) {
+                var Range = json.addMax - json.addMin;
+                var Rand = Math.random();
+                var num=json.addMin + Math.round(Rand * Range);
+                return num;
+            },
+            /*执行动画效果*/
+            _animate:function (el,value,json) {
+                for(var x=0;x<json.length;x++){
+                    var topPx=value[x]*json.height;
+                    el.eq(x).animate({top:-topPx+'px'},json.speed);
+                }
+            },
+            /*定期刷新动画列表*/
+            _interval:function (el,json) {
+                var val=json.value;
+                setInterval(function () {
+                    val+=$._runNum._random(json);
+                    $._runNum._animate(el,val.toString(10),json);
+                },json.interval);
+            }
+        }
+    })(jQuery);
+    (function(doc, win) {
+	    var docEl = doc.documentElement,
+	        isIOS = navigator.userAgent.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/),
+	        dpr = isIOS ? Math.min(win.devicePixelRatio, 3) : 1,
+	        dpr = window.top === window.self ? dpr : 1, //被iframe引用时，禁止缩放
+	        dpr = 1,
+	        scale = 1 / dpr,
+	        resizeEvt = 'orientationchange' in window ? 'orientationchange' : 'resize';
+	    docEl.dataset.dpr = dpr;
+	    var metaEl = doc.createElement('meta');
+	    metaEl.name = 'viewport';
+	    metaEl.content = 'initial-scale=' + scale + ',maximum-scale=' + scale + ', minimum-scale=' + scale;
+	    docEl.firstElementChild.appendChild(metaEl);
+	    var recalc = function() {
+	        var width = docEl.clientWidth;
+	        if (width / dpr > 750) {
+	            width = 750 * dpr;
+	        }
+	        // 乘以100，px : rem = 100 : 1
+	        docEl.style.fontSize = 100 * (width / 750) + 'px';
+	    };
+	    recalc()
+	    if (!doc.addEventListener) return;
+	    win.addEventListener(resizeEvt, recalc, false);
+	})(document, window);
+</script>
+<script type="text/javascript">
+	$("#test").runNum(22454);
+</script>
+	</body>
+</html>

@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<#include "/common/head.xhtml"/>
+		<meta property="og:image:width" content="125" />
+		<meta property="og:image:height" content="125" />
+		<meta property="og:type" content="article" />
+		<#if new??>
+		<title>${(new.title)!}</title>
+		<meta property="og:image" content="https://www.candy.club/active/assets/image/logo-login.png" />
+		<meta property="og:image:secure_url" content="https://www.candy.club/active/assets/image/logo-login.png" />
+		<meta name="twitter:card" content="summary_large_image">
+		<meta name="twitter:title" content="${(new.title)?html}"> 
+		<meta name="twitter:description" content="${(new.content)?html}">
+		<meta name="twitter:image:src" content="https://www.candy.club/active/assets/image/logo-login.png">
+		<#elseif notice??>
+		<title>${(notice.title)!}</title>
+		<meta property="og:image" content="https://www.candy.club/active/assets/image/logo-login.png" />
+		<meta property="og:image:secure_url" content="https://www.candy.club/active/assets/image/logo-login.png" />
+		<meta name="twitter:card" content="summary_large_image">
+		<meta name="twitter:title" content="${(notice.title)?html}"> 
+		<meta name="twitter:description" content="${(notice.content)?html}">
+		<meta name="twitter:image:src" content="https://www.candy.club/active/assets/image/logo-login.png">
+		</#if>
+		
+	</head>
+
+	<body>
+		<#include "/common/header.xhtml"/>
+		<section class="pageinfo">
+		<script async="async" type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=5bab3adc6750788d"></script>
+		<img src="https://www.candy.club/active/assets/image/logo-login.png" width="0" height="0" />
+			<div class="container">
+				<div class="newsinfo">
+					<div class="infoleft">
+						<#if new??>
+							<h1>${(new.title)!}</h1>
+							<p><img src="${(imgDomain)!}${(new.cover)!}" width="786"></p>
+							<p>${(new.content)!} </p>
+							<p id="time" style="display: none">${(new.publishTime?number_to_datetime)!} </p>
+							
+							<input id="shareTitle" type="hidden" value="${(new.title)?html}">
+							<input id="descri" type="hidden" value="${(new.content)?html}">
+						<#elseif notice??>
+							<h1>${(notice.title)!}</h1>
+							<p>${(notice.content)!}</p>
+							<p id="time" style="display: none">${(notice.createTime?number_to_datetime)!}</p>
+							<input id="shareTitle" type="hidden" value="${(notice.title)?html}">
+							<input id="descri" type="hidden" value="${(notice.content)?html}">
+						</#if>
+						
+					</div>
+					<div class="inforight">
+						<div class="datescroll">
+							<div class="year"></div>
+							<div class="date"></div>
+							<div class="time"></div>
+							<div class="author"></div>
+							<div class="share">
+								<div class="stitle">Share</div>
+								<div class="sico addthis_toolbox">
+									<a href="" class="addthis_button_facebook"><img src="/active/assets/image/ico-facebook.png" width="40" /></a>
+									<a href="" class="addthis_button_twitter"><img src="/active/assets/image/ico-twitter.png" width="40" /></a>
+									<a href="" class="addthis_button_kakao"><img src="/active/assets/image/ico-talk1.png" width="40"/></a>
+									<a href="" class="addthis_button_telegram"><img src="/active/assets/image/ico-telegram1.png" width="40"/></a>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
+        <#include "/common/footer.xhtml"/>
+        <script src="/active/assets/js/jquery-1.12.3.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="/active/js/main.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript">
+			const path = window.location.href;
+			var addthis_config = addthis_config||{};
+    			addthis_config.data_track_addressbar = false;
+    			var tpng="${(imgDomain)!}${(new.cover)!}";
+			var addthis_share ={};
+			var title =$('#shareTitle').val()+"";
+			var des =$('#descri').val()+"";
+
+			getAddObj(addthis_share,path,title,des,tpng);			
+
+			$(window).load(function() {
+				var dv = $('.datescroll'),st;
+				dv.attr('otop', dv.offset().top); //存储原来的距离顶部的距离
+				$(window).scroll(function() {
+					st = Math.max(document.body.scrollTop || document.documentElement.scrollTop);
+					if(st > parseInt(dv.attr('otop'))) {
+						if(dv.css('position') != 'fixed') dv.css({
+							'position': 'fixed',
+							top: 0
+						});
+					} else if(dv.css('position') != 'static') dv.css({
+						'position': 'static'
+					});
+				});
+				
+				datetostr($("#time").html()+"");
+				
+			});
+
+			function datetostr(time){
+				var subTime = "2018-07-14 12:59:00";
+				if(time&&time!=''){
+					subTime=time;
+				}
+				var time = new Date(subTime);
+				Y = time.getFullYear();
+				M = (time.getMonth()+1 < 10 ? '0'+(time.getMonth()+1) : time.getMonth()+1) ;
+				D = time.getDate() ;
+				h = time.getHours() ;
+				m = time.getMinutes();
+				$(".year").html(Y);
+				$(".date").html(M+"/"+D);
+				$(".time").html(h+":"+m);
+			}
+
+			
+		</script>
+	</body>
+
+</html>

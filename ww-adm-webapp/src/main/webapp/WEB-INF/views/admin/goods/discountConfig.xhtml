@@ -1,0 +1,93 @@
+<#import "/spring.ftl" as spring /> <#import
+"/admin/layouts/common.xhtml" as layout>
+<@layout.title>优惠券配置</@layout.title> <@layout.metaKeywordsDescription>
+
+</@layout.metaKeywordsDescription> <@layout.cssLink>
+<link rel="stylesheet" type="text/css"
+	href="/webuploader/webuploader.css"></@layout.cssLink>
+	<@layout.pageHeader> 添加优惠券 </@layout.pageHeader> <@layout.mainContent>
+<input type="hidden" id="nav_id" value="discountConfig" />
+<div class="row">
+	<div class="col-lg-8">
+		<form role="form" id="form">
+			<input type="hidden" id="id" name="id" value="${(obj._id)!}" />
+			<div class="form-group form-inline">
+				<label>名称</label> <input class="form-control" id="name" name="name"
+					placeholder="优惠券名称" value="${(obj.name)!}">
+			</div>
+
+			<div class="form-group">
+				<label>类型</label> <label class="radio-inline"> <input
+					type="radio" name="type" id="type" value="1" checked>折扣券 </label> <label
+					class="radio-inline"> <input type="radio" name="type"
+					id="type" value="2"<#if (obj.type)??&&obj.type==2 >
+						checked </#if> >减免券 </label>
+			</div>
+
+			<div class="form-group form-inline">
+				<label>价值</label> <input class="form-control" id="amount"
+					name="amount" placeholder="10.00"
+					value="<#if (obj.amount)??> ${obj.amount/100.0}</#if>"> 元 
+			</div>
+
+			<div class="form-group form-inline">
+				<label>使用限额</label> <input class="form-control" id="limitAmount"
+					name="limitAmount" placeholder="100.00"
+					value="<#if (obj.limitAmount)??>${obj.limitAmount/100.0}</#if>">
+			</div>
+
+			<div class="form-group form-inline">
+				<label>有效期限</label> <input class="form-control" id="startTime"
+					name="startTime"
+					value="<#if (obj.startTime)??>${(obj.startTime)?number?number_to_date}<#else>2015-12-01</#if>">
+					－ <input class="form-control" id="endTime" name="endTime"
+					value="<#if (obj.endTime)??>${(obj.endTime)?number?number_to_date}<#else>2115-12-01</#if>">
+			</div>
+
+			<div class="form-group">
+				<label>状态</label> <label class="radio-inline"> <input
+					type="radio" name="status" id="status" value="3" checked>上线
+				</label> <label class="radio-inline"> <input type="radio"
+					name="status" id="status" value="2"<#if
+						(obj.status)??&&obj.status==2 > checked </#if> >隐藏 </label> <label
+					class="radio-inline"> <input type="radio" name="status"
+					id="status" value="1"<#if (obj.status)??&&obj.status==1 >
+						checked </#if> >下线 </label> <label class="radio-inline"> <input
+					type="radio" name="status" id="status" value="-1"<#if
+						(obj.status)??&&obj.status==-1 > checked </#if> >删除 </label>
+			</div>
+
+			<div class="form-group form-inline">
+				<label>总量</label> <input class="form-control" id="total"
+					name="total" value="${(obj.total)!}">
+			</div>
+			<button id="submit" class="btn btn-default">提交</button>
+			<button id="reset" class="btn btn-default">重置</button>
+		</form>
+	</div>
+
+</div>
+<!-- /.row (nested) -->
+</@layout.mainContent> <@layout.script>
+<script>
+	$(function() {
+		$("#submit").click(function(e) {
+			e.preventDefault();
+			var t = this;
+			var jsonData = $("#form").serializeArray();
+			$.post("/admin/discountConfig", jsonData, function(ret) {
+				if (0 != ret.code) {
+					alert(ret.msg);
+				} else {
+					alert("Success");
+					window.location.href="/admin/discountConfigs.xhtm";
+				}
+			});
+		});
+
+		$("#reset").click(function(e) {
+
+		});
+	});
+</script>
+</@layout.script>

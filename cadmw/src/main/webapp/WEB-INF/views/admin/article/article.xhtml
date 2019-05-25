@@ -1,0 +1,531 @@
+<#import "/spring.ftl" as spring /> <#import
+"/admin/layouts/common.xhtml" as layout>
+<@layout.title>发布文章</@layout.title> <@layout.metaKeywordsDescription>
+
+</@layout.metaKeywordsDescription> <@layout.cssLink>
+<link rel="stylesheet" type="text/css"
+	href="/webuploader/webuploader.css">
+<link href="/umeditor/themes/default/css/umeditor.css" type="text/css"
+	rel="stylesheet">
+<link
+	href="http://g.alicdn.com/de/prismplayer/1.3.3/skins/default/index-min.css"
+	type="text/css" rel="stylesheet"></@layout.cssLink>
+	<@layout.pageHeader> 发布文章 </@layout.pageHeader> <@layout.mainContent>
+		<input type="hidden" id="nav_id" value="article" />
+<div class="row">
+	<div class="col-lg-12">
+		<div class="panel panel-default">
+			<div class="panel-body">
+				<div class="row">
+					<form role="form">
+						<div class="form-group col-lg-7">
+							<input type="hidden" id="id" name="id" value="${(obj._id)!}" />
+							
+							<!--<div class="form-group form-inline">
+				                <label>文章圈子</label> <select class="form-control" id="groupId"
+					                    name="groupId"> 
+					           <#list groups as it>
+					              <option <#if (obj.groupId)?? && (obj.groupId)==it._id >selected</#if> value="${it._id}" > ${it.name} </option> 
+					          </#list>
+				                </select>
+			                  </div>
+			                  -->
+							<div class="row">
+								<div class="form-group">
+									<label>标题</label> 
+									<input class="form-control" id="title" name="title" placeholder="标题名"
+										value="${(obj.title)!}">
+								</div>
+							</div>
+							<!--
+							<div class="row">
+								<div class="form-group">
+									<label>话题</label> <input class="form-control" id="topic"
+										name="topic" placeholder="话题" value="${(obj.topic)!}">
+								</div>
+							</div>
+						-->
+							<div class="form-group">
+								<label>内容 &nbsp;&nbsp;&nbsp; <img id="emoj" src="/emoj/face_0.png"/></label>
+								<div>
+									<TEXTAREA id="myEditor" name="myEditor" cols="80" rows="6">${(obj.content)!}</TEXTAREA>
+								</div>
+
+								<!-- script type="text/plain" id="myEditor"
+								style="width: 1000px; height: 240px;">
+    							<#if (obj.content)??>${(obj.content)!}</#if>
+							</script -->
+							</div>
+                     <div  id="Hide" style="left:40%;position: fixed;display:none; top: 20%;z-index: 9999;
+                          margin-top: -75px;background-color: #fff;border: 1px #000 solid;border-radius: 4px;">
+                     </div>
+							<div class="row">
+								<!--
+								<div class="form-group col-lg-4">
+									<label>加精</label> <label class="radio-inline"> <input
+										type="radio" name="essence" id="essence" value="1" checked>否
+									</label> <label class="radio-inline"> <input type="radio"
+										name="essence" id="essence" value="2"<#if
+											(obj.essence)??&&obj.essence==2 > checked </#if> >是 </label>
+								</div>
+
+								<div class="form-group col-lg-4">
+									<label>审核</label> <label class="radio-inline"> <input
+										type="radio" name="audited" id="audited" value="2" checked>已
+									</label> <label class="radio-inline"> <input type="radio"
+										name="audited" id="audited" value="1"<#if
+											(obj.audited)??&&obj.audited==1 > checked </#if> >未 </label>
+								</div>
+
+								<div class="form-group col-lg-4">
+									<label>匿名</label> <label class="radio-inline"> <input
+										type="radio" name="anonymous" id="anonymous" value="1" checked>否
+									</label> <label class="radio-inline"> <input type="radio"
+										name="anonymous" id="anonymous" value="2"<#if
+											(obj.anonymous)??&&obj.anonymous==2 > checked </#if> >匿 </label>
+								</div>
+							-->
+
+							</div>
+							<div class="row">
+								<div class="form-group col-lg-6">
+									<label>发布时间</label> <input id="pubTime" type="text"
+										value="<#if (obj.publishTime)?? && obj.publishTime gt 1 >${obj.publishTime?number?number_to_datetime}</#if>"
+										onClick="WdatePicker({skin:'whyGreen',dateFmt:'yyyy-MM-dd HH:mm:ss'})" />
+								</div>
+								<div class="form-group col-lg-6">
+									<label>发布用户</label> 
+									<label class="radio-inline"> <input
+										type="radio" name="userType" id="userType" value="2" checked>当前账户
+										<!--
+									<label class="radio-inline"> <input
+										type="radio" name="userType" id="userType" value="1" checked>随机
+									</label> <label class="radio-inline"> <input type="radio"
+										name="userType" id="userType" value="2"<#if
+											(obj.userType)??&&obj.userType==2 > checked </#if> >当前帐户 </label>
+									 <label class="radio-inline"> <input type="radio"
+										name="userType" id="userType" value="3"<#if
+											(obj.userType)??&&obj.userType==3 > checked </#if> >特定账户:<input type="text" id="curUid" name="curUid" /> </label>
+										-->
+								</div>
+							</div>
+							<!--
+							<div class="row">
+								<div class="form-group col-lg-2">
+									<label>标签</label>
+								</div>
+								<div class="form-group col-lg-3">
+									<input class="form-control" id="tage" name="tage" value="">
+								</div>
+								<div class="form-group col-lg-6">
+									 <label></label>
+									<div id="tags">
+										<#if (obj.tags)??> <#list obj.tags as t><span class="btn tc">${t}</span></#list>
+										</#if>
+									</div>
+								</div>
+							</div>
+							<div class="form-group">
+								<label>地点:</label>
+								<input type="radio" id="pri" name="pri"  value="1" checked="true"/>广场
+			                    <input type="radio" id="pri" name="pri"  value="2" />朋友圈
+							</div>
+							-->
+							<div class="form-group col-lg-4">
+								<!--
+								<button id="up" class="btn btn-default">推荐新闻</button>
+							    -->
+								<button id="personal" class="btn btn-default">发布新闻</button>
+						    </div>
+							<!-- <button id="down" class="btn btn-default">下线</button> -->
+						</div>
+						<div class="col-lg-1"></div>
+
+						<div class="col-lg-4">
+							<div class="rows">
+								<div class="form-group">
+								<!--<label>上传视频</label>-->
+								<!--用来存放item-->
+								<div id="fileList2" class="uploader-list">
+									<div id='J_prismPlayer' class='prism-player'></div>
+								</div>
+								<!-- <div id="filePicker2">选择视频</div> -->
+								<!-- <input type="hidden" id="video" name="video"
+									value="${(obj.video)!}" /> <input type="file" name="file"
+									id="files" multiple /> -->
+								</div>
+							</div>
+							<div class="rows">
+								<div class="form-group">
+								<label>图</label>
+								<div id="fileList" class="uploader-list">
+									<#if (obj.pics)?? > <#list obj.pics as pic>
+									<div id="o_${pic_index}" class="file-item thumbnail upload-state-done">
+										<a href="<@layout.img path=pic suffix="@!bi7"></@layout.img>" target="_break"><img src="<@layout.img path=pic suffix="@!bi7"></@layout.img>" width="120px" /></a>
+										<a href="#" class="btn btn-sm btn-default picdel" data-id="o_${pic_index}">删除</a>
+										<input type="hidden" name="pic" value="<@layout.img path=pic></@layout.img>" /> 
+									</div>
+									</#list>
+									</#if>
+								</div>
+								<div id="filePicker">选择图片</div>
+								</div>
+							</div>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+</div>
+
+<!-- /.row (nested) -->
+
+</@layout.mainContent> <@layout.script>
+<script type="text/javascript" src="<@layout.static path="/webuploader/webuploader.js" /> ">
+</script>
+<script type="text/javascript" charset="utf-8"
+	src="<@layout.static path="/umeditor/umeditor.config.js" /> ">
+</script>
+<script type="text/javascript" charset="utf-8"
+	src="<@layout.static path="/umeditor/umeditor.min.js" /> ">
+</script>
+<script type="text/javascript" src="<@layout.static path="/umeditor/lang/zh-cn/zh-cn.js" /> ">
+</script>
+<script src="/js/aliyun-sdk.min.js"></script>
+<script src="/js/vod-sdk-upload.min.js"></script>
+<script type="text/javascript"
+	src="http://g.alicdn.com/de/prismplayer/1.3.3/prism-min.js">
+	
+</script>
+<script>
+	//var um = UM.getEditor('myEditor');
+	var player = new prismplayer({
+		id : "J_prismPlayer", // 容器id
+		source : "${(obj.video)!}", // 视频url 支持互联网可直接访问的视频地址
+		autoplay : false, // 自动播放
+		width : "213px", // 播放器宽度
+		height : "120px" // 播放器高度
+	});
+	var init=0;
+	var emojs=["[微笑]","[撇嘴]","[色]","[发呆]","[得意]","[害羞]","[流泪]","[闭嘴]",
+		"[睡]","[大哭]","[尴尬]","[发怒]","[调皮]","[呲牙]","[惊讶]","[难过]","[酷]",
+		"[冷汗]","[抓狂]","[吐]","[偷笑]","[愉快]","[白眼]","[傲慢]","[饥饿]","[困]",
+		"[惊恐]","[流汗]","[憨笑]","[悠闲]","[奋斗]","[咒骂]","[疑问]","[嘘]","[晕]",
+		"[疯了]","[衰]","[骷髅]","[敲打]","[再见]","[擦汗]","[抠鼻]","[鼓掌]","[糗大了]",
+		"[坏笑]","[左哼哼]","[右哼哼]","[哈欠]","[鄙视]","[委屈]","[快哭了]","[阴险]","[亲亲]",
+		"[吓]","[可怜]","[菜刀]","[西瓜]","[啤酒]","[篮球]","[乒乓]","[咖啡]","[饭]",
+		"[玫瑰]","[凋谢]","[嘴唇]","[猪头]","[爱心]","[心碎]","[蛋糕]","[闪电]","[炸弹]",
+		"[刀]","[足球]","[瓢虫]","[便便]","[月亮]","[太阳]","[礼物]","[拥抱]","[强]","[弱]",
+		"[握手]","[胜利]","[抱拳]","[勾引]","[拳头]","[差劲]","[爱你]","[NO]","[OK]",	
+		"[爱情]","[飞吻]","[跳跳]","[发抖]","[怄火]","[转圈]","[磕头]","[回头]","[跳绳]",
+		"[投降]","[哈哈]","[口罩]","[哭笑]","[哎呀]","[刺瞎]","[瞪眼]","[害怕]","[囧]",
+		"[媚眼]","[失落]","[不屑]","[妖怪]","[幽灵]","[求爱]","[合十]","[强壮]","[有钱]",
+		"[生日]","[气球]","[礼物]"];
+	function addEmoj(i){
+		var emoj=emojs[i];
+		$("#myEditor").val($("#myEditor").val()+emoj);
+		$("#Hide").css("display","none");
+	 }
+	$(function() {
+		$("#emoj").click(function() {
+			var j=0;
+			if(init==0){
+				for (var i = 0; i < emojs.length; i++) {
+					j++;
+					var imgHTM="<img onClick='addEmoj("+i+")' src='/emoj/face_"+i+".png'>" ;
+					//var imgHTM="<img onClick='addEmoj("+i+")' width='20px' src='http://192.168.31.238:7777/images/face0.png'>" ;
+	                $("#Hide").append(imgHTM);
+	                if(j==12){
+	                	$("#Hide").append("</br>");
+	                	j=0;
+	                }
+				}
+			}
+			init=1;
+			if($("#Hide").css("display")=='none'){
+				$("#Hide").css("display","block");
+		    }else{
+		    	$("#Hide").css("display","none");
+		    }
+		});	
+		
+		$(".picdel").click(function() {
+			var id = $(this).data("id");
+			$('#' + id).remove();
+		});
+		
+		$("#tage").blur(
+				function(e) {
+					var $span = $('<span class="btn tc">'
+							+ $("#tage").val().trim() + '</span>');
+					$("#tags").append($span);
+					$("#tage").val("");
+				});
+
+		$("#tage").keydown(
+				function(e) {
+					if (!e)
+						var e = window.event;
+					if (e.keyCode == 32) {
+						var $span = $('<span class="btn tc">'
+								+ $("#tage").val().trim() + '</span>');
+						$("#tags").append($span);
+						$("#tage").val("");
+					}
+				});
+		
+		function doPost(type,pics,tags){
+			if (pics.length > 0) {
+				pics = pics.substring(0, pics.length - 1);
+			}
+			if (tags.length > 0) {
+				tags = tags.substring(0, tags.length - 1);
+			}
+			var status = 3;
+			if(type==2){
+				status = 2;
+			}
+			//var audited = $("input[name='audited']:checked").val();
+			var audited = 2;//默认是已审核
+			var jsonData = {
+				"id" : $("#id").val(),
+				"title" : $("#title").val(),
+				"audited" : audited,
+				//"essence" : $("input[name='essence']:checked").val(),
+				"essence" : 1,//不加精
+				//"anonymous" : $("input[name='anonymous']:checked").val(),
+				"anonymous" : 1,//不匿名
+				"userType" : $("input[name='userType']:checked").val(),
+				"status" : status,
+				"tags" : tags,
+				"pics" : pics,
+				"video" : $("#video").val(),
+				"pubTime" : $("#pubTime").val(),
+				//"content" : UM.getEditor('myEditor').getContent(),
+				"content" : $("#myEditor").val(),
+				"groudId" : $("#groupId").val(),
+				"topic" : $("#topic").val(),
+				"curUid":$("#curUid").val(),
+				"pri":$("input[name*='pri']:checked").val()
+			}
+
+			$.post("/admin/article", jsonData, function(ret) {
+				if (0 != ret.code) {
+					alert(ret.msg);
+				} else {
+					alert("Success");
+					if(audited==2){
+						window.location.href="/admin/articles/audited.xhtml";
+					}else{
+						window.location.href="/admin/articles.xhtml";
+					}
+				}
+			});
+		}
+
+		$("#up").click(function(e) {
+			e.preventDefault();
+			var cur = this;
+			var pics = "";
+			$('input[name="pic"]').each(function() {
+				pics = pics + $(this).val() + ",";
+			});
+			
+			var tags = "";
+			$('.tc').each(function() {
+				tags = tags + $(this).text() + ",";
+			});
+			doPost(1,pics,tags);
+		});
+		
+		$("#personal").click(function(e) {
+			e.preventDefault();
+			var cur = this;
+			var pics = "";
+			$('input[name="pic"]').each(function() {
+				pics = pics + $(this).val() + ",";
+			});
+			
+			var tags = "";
+			$('.tc').each(function() {
+				tags = tags + $(this).text() + ",";
+			});
+			doPost(2,pics,tags);
+		});
+		
+		$("#down").click(function(e) {
+			e.preventDefault();
+			var cur = this;
+			var pics = "";
+			$('input[name="pic"]').each(function() {
+				pics = pics + $(this).val() + ",";
+			});
+			var tags = "";
+			$('.tc').each(function() {
+				tags = tags + $(this).text() + ",";
+			});
+			doPost(2,pics,tags);
+		});
+
+	});
+
+	$list = $('#fileList'),
+
+	uploader = WebUploader.create({
+		auto : true,
+		swf : '/webuploader/Uploader.swf',
+		server : '<@layout.api path="/file/sysPic" />',
+		pick : '#filePicker',
+		multiple : true,
+		accept : {
+			title : 'Images',
+			extensions : 'gif,jpg,jpeg,bmp,png',
+			mimeTypes : 'image/*'
+		}
+	});
+
+	uploader.on('fileQueued', function(file) {
+		var $li = $('<div id="' + file.id + '" class="file-item thumbnail">'
+				+ '<img>' + '</div>'), $img = $li.find('img');
+
+		// $list为容器jQuery实例
+		$list.append($li);
+
+		// 创建缩略图
+		thumbnailWidth = 100;
+		thumbnailHeight = 100;
+		uploader.makeThumb(file, function(error, src) {
+			if (error) {
+				$img.replaceWith('<span>不能预览</span>');
+				return;
+			}
+			$img.attr('src', src);
+		}, thumbnailWidth, thumbnailHeight);
+	});
+
+	uploader.on('uploadProgress', function(file, percentage) {
+		var $li = $('#' + file.id), $percent = $li.find('.progress span');
+		// 避免重复创建
+		if (!$percent.length) {
+			$percent = $('<p class="progress"><span></span></p>').appendTo($li)
+					.find('span');
+		}
+		$percent.css('width', percentage * 100 + '%');
+	});
+
+	// 文件上传成功，给item添加成功class, 用样式标记上传成功。
+	uploader
+			.on(
+					'uploadSuccess',
+					function(file, res) {
+						//alert(res.code+" "+res.data);
+						$('#' + file.id).addClass('upload-state-done');
+						var $span = $('<input type="hidden" name="pic" value="'+res.data+'" />');
+						$('#' + file.id).append($span);
+					});
+
+	// 文件上传失败，显示上传出错。
+	uploader.on('uploadError', function(file) {
+		var $li = $('#' + file.id), $error = $li.find('div.error');
+		// 避免重复创建
+		if (!$error.length) {
+			$error = $('<div class="error"></div>').appendTo($li);
+		}
+		$error.text('上传失败');
+	});
+
+	// 完成上传完了，成功或者失败，先删除进度条。
+	uploader.on('uploadComplete', function(file) {
+		$('#' + file.id).find('.progress').remove();
+	});
+
+	uploader2 = WebUploader.create({
+		auto : true,
+		swf : '/webuploader/Uploader.swf',
+		server : '<@layout.api path="/file/sysVideo" />',
+		pick : '#filePicker2',
+		multiple : false
+	});
+
+	uploader2.on('fileQueued', function(file) {
+
+	});
+
+	uploader2.on('uploadProgress', function(file, percentage) {
+		var $li = $('#' + file.id), $percent = $li.find('.progress span');
+
+		// 避免重复创建
+		if (!$percent.length) {
+			$percent = $('<p class="progress"><span></span></p>').appendTo($li)
+					.find('span');
+		}
+
+		$percent.css('width', percentage * 100 + '%');
+	});
+
+	// 文件上传成功，给item添加成功class, 用样式标记上传成功。
+	uploader2.on('uploadSuccess', function(file, res) {
+		$('#' + file.id).addClass('upload-state-done');
+		if (res.code == 0) {
+			alert("视频上传成功");
+			$('#video').val(res.data);
+			player.source = res.data;
+		} else {
+			alert("视频上传失败");
+		}
+	});
+
+	// 文件上传失败，显示上传出错。
+	uploader2.on('uploadError', function(file) {
+		var $li = $('#' + file.id), $error = $li.find('div.error');
+
+		// 避免重复创建
+		if (!$error.length) {
+			$error = $('<div class="error"></div>').appendTo($li);
+		}
+
+		$error.text('上传失败');
+	});
+
+	// 完成上传完了，成功或者失败，先删除进度条。
+	uploader2.on('uploadComplete', function(file) {
+		$('#' + file.id).find('.progress').remove();
+	});
+
+	var uploader3 = new VODUpload({
+		// 文件上传失败
+		'onUploadFailed' : function(fileName, code, message) {
+			console.log("onUploadFailed: " + fileName + code + "," + message);
+		},
+		// 文件上传完成
+		'onUploadSucceed' : function(fileName) {
+			console.log("onUploadSucceed: " + fileName);
+		},
+		// 文件上传进度
+		'onUploadProgress' : function(fileName, totalSize, uploadedSize) {
+			console.log("file:" + fileName + ", " + totalSize, uploadedSize,
+					"percent:", Math.ceil(uploadedSize * 100 / totalSize));
+		},
+		// token超时
+		'onUploadTokenExpired' : function(callback) {
+			console.log("onUploadTokenExpired");
+		}
+	});
+
+	uploader3.init("SqtohpMdlAMzGC15", "qTFXvVoEKSKXoN9EfjYT3sz7HbRs5r");
+
+	document.getElementById("files").addEventListener(
+			'change',
+			function(event) {
+				for (var i = 0; i < event.target.files.length; i++) {
+					uploader3.addFile(event.target.files[i],
+							'https://oss-cn-hangzhou.aliyuncs.com', 'zbvod',
+							event.target.files[i].name);
+				}
+
+				uploader3.startUpload();
+			});
+</script>
+</@layout.script>

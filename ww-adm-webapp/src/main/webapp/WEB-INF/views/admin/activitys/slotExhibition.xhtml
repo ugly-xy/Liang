@@ -1,0 +1,118 @@
+<#import "/spring.ftl" as spring />
+<#import "/admin/layouts/common.xhtml" as layout>
+<@layout.title>王者乱斗数据统计</@layout.title> <@layout.metaKeywordsDescription>
+
+</@layout.metaKeywordsDescription> <@layout.cssLink> </@layout.cssLink>
+<@layout.pageHeader> </@layout.pageHeader> <@layout.mainContent>
+	<input type="hidden" id="nav_id" value="slotData" />
+<div class="well well-sm">
+	<div class="row">
+		<FORM action="/admin/slotMachines/exhibition.xhtml">
+			<div class="col-sm-2 form-group form-inline">
+				 <input id="st" name="st" type="text"
+					onClick="WdatePicker()" value="${st!}" placeholder="起始时间" />
+			</div>
+			<div class="col-sm-2 form-group form-inline">
+				 <input id="et" name="et" type="text"
+					onClick="WdatePicker()" value="${et!}" placeholder="结束时间" />
+			</div>
+			<div class="col-sm-2 form-group form-inline">
+				<button type="submit" class="btn btn-default">查询</button>
+			</div>
+			<div class="col-sm-2 form-group form-inline">
+				<span><LABEL>金币池:</LABEL> ${pool.coinPool}</span> 
+				<br/>
+				<span><LABEL>蓄水池:</LABEL> ${pool.cachePool}</span><br/>
+				<span><LABEL>缓冲池:</LABEL> ${pool.bufferPool}</span>
+				<br/>
+				<span><LABEL>抽红池:</LABEL> ${pool.incomePool}</span>
+				<br/>
+				<span><LABEL>距下次放水:</LABEL> ${pool.nextGetCacheCount} 次</span>
+			</div>
+			
+			<div class="col-sm-2 form-group form-inline">
+				<input id="coinPoolChange" name="coinPoolChange" type="text" placeholder="调整金币池(+1/-1)" />
+				<a href="javascript:change('coinPool')">提交</a>
+				<input id="bufferPoolChange" name="bufferPoolChange" type="text" placeholder="调整缓冲池(+1/-1)" />
+				<a href="javascript:change('bufferPool')">提交</a>
+				<input id="incomePoolChange" name="incomePoolChange" type="text" placeholder="调整抽红池(+1/-1)" />
+				<a href="javascript:change('incomePool')">提交</a>
+			</div>
+		</FORM>
+	</div>
+</div>
+<div class="row">
+	<div class="col-lg-12">
+
+		<div class="dataTable_wrapper">
+			<table class="table table-striped table-bordered table-hover"
+				id="dataTables-example">
+				<thead>
+					<tr>
+						<th>时间</th>
+						<th>期号</th>
+						<th>中奖号码</th>
+						<th>盈利 = 收入 - 支出 - 抽红</th>
+						<th>金币池</th>
+						<th>蓄水池</th>
+						<th>缓冲池</th>
+						<th>抽红池</th>
+						<th>详情</th>
+					</tr>
+				</thead>
+				<tbody>
+					<#list page.list as it>
+					<tr class="gradeA">
+						<td>${it.time?number?number_to_datetime}</td>
+						<td>${it.date}&nbsp;&nbsp;${it.inning}期</td>
+						<td>${it.lottery}</td>
+						<td>${it.totalIncome-it.inCoin*0.05}&nbsp;=&nbsp;${it.inCoin}&nbsp;-&nbsp;${it.outCoin}&nbsp;-&nbsp;${it.inCoin*0.05}</td>
+						<td>${it.coinPool}</td>
+						<td>${it.cachePool}</td>
+						<td>${it.bufferPool}</td>
+						<td>${it.incomePool}</td>
+						<#if it.uas?? && it.uas?size gt 0>
+						<td><a href="/admin/slotMachines/exhibition/${it._id}">详情</a></td>
+						<#else>
+						<td>无</td></#if>
+					</tr>
+					</#list>
+				</tbody>
+			</table>
+		</div>
+		<div class="row">
+			<div class="col-sm-4">
+				<div class="dataTables_info" id="dataTables-example_info"
+					role="status" aria-live="polite">当前
+					${page.curPage}/${page.totalPage}页， 共${page.total}条</div>
+			</div>
+			<div class="col-sm-8"><@vpage cur=page.curPage
+				total=page.totalPage url=page.url > ${vpage}</@vpage></div>
+		</div>
+	</div>
+
+	<!-- /.col-lg-12 -->
+</div>
+
+</@layout.mainContent> <@layout.script> <script language="javascript"
+	type="text/javascript" src="/My97DatePicker/WdatePicker.js"></script>
+	<script>
+		function change(type){
+			var change;
+			if(type == "coinPool"){
+				change=$("#coinPoolChange").val();
+			}else if(type == "bufferPool"){
+				change=$("#bufferPoolChange").val();
+			}else if(type == "incomePool"){
+				change=$("#incomePoolChange").val();
+			}
+			$.post("/admin/slotMachines/changePool/"+type, {change:change },function(ret){
+				if(ret.code!=0){
+					alert(ret.message);
+				}else{
+					alert("ok");
+				}
+			});
+		}
+	</script>
+</@layout.script> 

@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>뉴스 - CandyClub 캔디클럽 | 수익을 창출하는 플랫폼</title>
+		<meta name="description" content="블록체인 잇슈 자문, 가상화폐 잇슈 뉴스, 신규 블록체인 기본상식, 블록체인 창업자와 암호화폐 투자자를 위한 플랫폼과 서비스를 제공"/>
+		<meta name="keywords" content="블록체인뉴스, 블록체인댓글, 블록체인매체, 가상화폐 뉴스, 암호화폐 뉴스, 가상화폐 시세, 암호화폐 시세, 가상화폐 거래소 순위, 암호화폐 거래소 순위, 블록체인 양성, 블록체인 학원." />
+		<meta name="robots" content="index"/>
+		<meta property="og:title" content="뉴스 - CandyClub 캔디클럽 | 수익을 창출하는 플랫폼"/>
+		<meta property="og:description" content="블록체인 잇슈 자문, 가상화폐 잇슈 뉴스, 신규 블록체인 기본상식, 블록체인 창업자와 암호화폐 투자자를 위한 플랫폼과 서비스를 제공"/>
+		<meta property="og:url" content="https://www.candy.club/news"/>
+		<meta property="og:type" content="website"/> 
+		<#include "/common/head.xhtml"/>
+	</head>
+	<body>
+		<#include "/common/header.xhtml"/>
+		<section class="bannerpage">
+			
+				<div class="container"><img src="/active/assets/image/banner_news.jpg" width="1200"/></div>
+			
+		</section>
+		<section class="newspage">
+			<div class="container">
+				<div class="pagebody">
+					<div class="floleft">
+						<div class="title">기본상식</div>
+						<div class="listinfo newslist">
+						<#if news??>
+                           <#list news.list as it>
+                            <dl>		
+								<dt><a href="/article.xhtml?id=${(it._id)!}"><img src="${(imgDomain)!}${(it.cover)!}" width="194" height="109"/></a></dt>
+								<dd>
+									<h3><a href="/article.xhtml?id=${(it._id)!}">${(it.title)!}</a></h3>
+									<div class="intro"><span class="date">
+										${(it.publishTime?number?number_to_datetime)!}
+									</span> 
+								    <span class="from"></span>
+									</div>
+									<div class="infos">
+										
+											<#if (it.summary)?? && it.summary?length gt 64>
+												${it.summary[0..64]}...
+											<#else>
+												${(it.summary)!}
+											</#if>
+									</div>
+								</dd>
+							</dl>
+						    </#list>
+						</#if>
+							
+							<!-- <dl>
+								<dt><a href=""><img src="/active/image/new-01.jpg" width="194" height="109"/></a></dt>
+								<dd>
+									<h3><a href="">After the Westworld finale, I still don't understand what's happening in Westworld</a></h3>
+									<div class="intro"><span class="date">July 13, 2018 4:04 AM PDT</span> | <span class="from"></span></div>
+									<div class="infos"><p>Commentary: The maze isn't meant for me and that's OK.</p></div>
+								</dd>
+							</dl> -->
+						</div>
+						<div class="pages">
+							<@vpage cur=news.curPage  total=news.totalPage url=news.url > ${vpage}</@vpage>
+						</div>
+					</div>
+					<div class="floright">
+						<div class="title">공지사항</div>
+						<div class="listinfo noticelist">
+							<ul>
+							<#if notices??>
+                               <#list notices as it>
+                                <li>
+									<h2><a href="/notice.xhtml?id=${(it._id)!}">${(it.title)!}</a></h2>
+									<div class="intro"><span class="date">${(it.createTime?number?number_to_datetime)!}</span>  <span class="from"></span></div>
+								</li>
+						      </#list>
+						    </#if>
+								
+								<!-- <li>
+									<h2><a href="">After the Westworld finale, I still don't understand what's happening in Westworld</a></h2>
+									<div class="intro"><span class="date">July 13, 2018 4:04 AM PDT</span> | <span class="from"></span></div>
+								</li> -->
+								
+							</ul>
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
+		<#include "/common/footer.xhtml"/>
+	</body>
+</html>

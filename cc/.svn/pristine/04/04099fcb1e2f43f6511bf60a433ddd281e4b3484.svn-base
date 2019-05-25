@@ -1,0 +1,637 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title></title>
+		<link href="css/mui.min.css" rel="stylesheet" />
+		<link rel="stylesheet" type="text/css" href="css/style.css" />
+		<style type="text/css">
+			.mui-content {
+				width: 100%;
+				position: absolute;
+				padding-top: 44px;
+			}
+			
+			.singnactive .modelcon {
+				margin-bottom: -12px;
+			}
+			
+			.mui-bar-nav {
+				border: none;
+			}
+			
+			
+		</style>
+	</head>
+
+	<body>
+		<header class="mui-bar mui-bar-nav">
+			<a class="mui-icon mui-pull-right icon-chat" id="chatbt"></a>
+			<h1 class="mui-title">미션</h1>
+		</header>
+		<div class="barshadow"></div>
+		<div class="conbody">
+			<div class="mui-content mui-scroll-wrapper" id="pullrefresh">
+				<div class="mui-scroll scrollcon">
+					<div class="banner">
+						<div id="slider" class="mui-slider">
+							<div class="mui-slider-group mui-slider-loop">
+								<div class="mui-slider-item mui-slider-item-duplicate">
+									<a href="#">
+										<img :src="lBanner" style="width:100%;height:145px;">
+									</a>
+								</div>
+								<!-- 第一张 -->
+								<div class="mui-slider-item" v-for="item in banners">
+									<a href="#">
+										<img :src="item.pic" style="width:100%;height:145px;">
+									</a>
+								</div>
+								
+								<!-- 额外增加的一个节点(循环轮播：最后一个节点是第一张轮播) -->
+								<div class="mui-slider-item mui-slider-item-duplicate">
+									<a href="#">
+										<img :src="fBanner" style="width:100%;height:145px;">
+									</a>
+								</div>
+							</div>
+							<!--<div class="mui-slider-indicator" >
+								<div class="mui-indicator mui-active"></div>
+								<div class="mui-indicator"></div>
+							</div>-->
+						</div>
+					</div>
+					<div class="candytask">
+						<div class="task-title">나의 미션</div>
+						<ul class="mui-row">
+							<li class="cdlst mui-col-sm-3 mui-col-xs-3" data-url="images/img-day.png" @tap="toViewSign" data-name="출석 체크" data-tag="출석 체크" data-num="">
+								<img src="images/img-day.png" />
+								<p>출석 체크</p>
+								<i class="coinsty coin-candy"></i><span>+{{signReward[signInfo.cycle-1]}}</span></li>
+							<li class="pTask cdlst mui-col-sm-3 mui-col-xs-3" v-for="item in personalTask" @tap="toViewTask(item)" data-url="" data-name="" data-tag="" data-num="">
+								<img :src="item.pic" width="60" />
+								<p>{{item.des}}</p> <i class="coinsty coin-candy"></i><span>+{{item.reward}}</span></li>
+						</ul>
+					</div>
+					<div class="tasklist">
+						<div class="task-title">프로젝트 미션</div>
+						<ul class="mui-table-view">
+							<li class="mui-table-view-cell mui-media" v-for="item in tasks" @tap="completeTask(item)">
+								<a href="javascript:;">
+									<img class="mui-media-object mui-pull-left" :src="(item.taskPic)" />
+									<div class="mui-media-body">
+										<div class="tasklisttitle">{{item.title}}</div>
+										<p class="mui-ellipsis">{{item.finish}} / {{item.total}}</p>
+										<div class="coinlist">
+											<div class="cionbd" v-for="(coin,name) in item.rewards">
+												<img :src="imgDomain+(coinPics[name])" width="15" alt="{{name}}" />
+												<span><i>+</i>{{coin}}</span>
+											</div>
+										</div>
+									</div>
+								</a>
+							</li>
+
+						</ul>
+					</div>
+
+				</div>
+				
+			</div>
+			<div v-if="signInfo.isSign" class="singncon singnactive" id="singncon">
+					<div class="modelcon">
+						<img src="images/img-day.png" class="icoimg" width="80" />
+						<div class="signinfo" id="signtitle">출석 체크 완성</div>
+						<div class="signsucces">
+							<font>+ {{signReward[signInfo.cycle-1]}}</font> <i class="coinsty coin-candy"></i>
+							<p>연속{{signInfo.cycle}}일 체크 완성하였습니다 </p>
+							<ul>
+								<span v-for="(item,index) in signReward">
+					<li class="active"  v-if="(index+1) <=signInfo.cycle">
+						{{index+1}}
+						<div class="sign-icon ">
+							<i class="icosty icon-success-2"></i>
+						</div>
+						+<span>{{signReward[index]}}</span>
+								</li>
+
+								<li v-else>
+									{{index+1}}
+									<div class="sign-icon ">
+										<i class="icosty icon-success-2"></i>
+									</div>
+									+<span>{{signReward[index]}}</span>
+								</li>
+								</span>
+							</ul>
+							<div class="tjnum">
+								총 출석 누적수 {{signInfo.total}}일
+							</div>
+						</div>
+						<a id="doSign" href="javascript:;"></a>
+
+					</div>
+					<a href="javascript:;" id="closesnbtn" class="closebtn"></a>
+				</div>
+				<div v-else class="singncon" id="singncon">
+					<div class="modelcon">
+						<img src="images/img-day.png" class="icoimg" width="80" />
+						<div class="signinfo" id="signtitle">출석 체크</div>
+						<a id="doSign" href="javascript:;">출석 체크</a>
+						<!--签到-->
+					</div>
+					<a href="javascript:;" id="closesnbtn" class="closebtn"></a>
+				</div>
+				<div class="modellevel" id="modellevel">
+					<div class="title">
+						축하드립니다
+					</div>
+					<div class="modelcon">
+						<img id="levelImg" src="" width="80">
+						<h4>
+			축하드립니다!<br /><font id="levelName">--</font> 등급에 달성하셨습니다 </h4>
+						<div class="levecon">
+							미션 수익<br />
+							<span id="curRate">0%</span><br /> 등급 리워드<br />
+							<span d="curAmount">+0</span>ccc<i class="coinsty coin-candy"></i>
+						</div>
+					</div>
+				</div>
+				<div class="model" id="model">
+					<div class="title">미션</div>
+					<!-- 任 -->
+					<div class="modelcon">
+						<img src="" id="taskimg" width="80" />
+						<h4 id="taskname"></h4>
+						<!--<p id="taskdatail"></p>-->
+						<div class="stylenum">+<span id="tasknum"></span>&nbsp;<img src="images/signed-icon.png" width="16" /></div>
+						<a id="gototask" link="" taskCode="" data-status=""></a>
+					</div>
+					<a href="javascript:;" id="closebtn" class="closebtn"></a>
+				</div>
+		</div>
+		<script src="./js/mui.min.js"></script>
+		<script src="./js/app.js" type="text/javascript" charset="utf-8"></script>
+		<script src="./js/vue.min.js" type="text/javascript"></script>
+		<script type="text/javascript">
+		</script>
+		<script type="text/javascript"> 
+			mui.init({}); 
+			initIdexInfo(); 
+			var mainz = null; 
+			mui.plusReady(function() {
+				mui(".mui-scroll-wrapper").scroll().refresh();
+				mainz = plus.webview.currentWebview().opener();
+				var closeedmsk = document.getElementById("closebtn");
+				var closesnbtnmsk = document.getElementById('closesnbtn');
+				document.getElementById('gototask').addEventListener('tap', function() {
+					var status = this.getAttribute("data-status") + "";
+					var link = this.getAttribute("link");
+					if("2" != status) {
+						if(link && ('#' != link && '' != link)) {
+							toHref(link)
+						}
+					} else {
+						updatePersonalReward(status, this.getAttribute("taskCode") + "");
+					}
+					mui.trigger(closeedmsk, 'tap');
+					return;
+				})
+
+				document.getElementById("doSign").addEventListener('tap', function() {
+					if(!validLogin()) {
+						return;
+					}
+					if(taskObj.signInfo.isSign) {
+						return;
+					}
+					document.getElementById("singncon").style.cssText = "display:none;";
+					mui.post(app.serverApi(app.apiConstant.updateSign), {}, function(res) {
+						app.respondingTo(res.code, function(code) {
+							if(0 != code) {
+								if(10010 == code) {
+									taskObj.signInfo.isSign = true;
+									return;
+								}
+								plus.nativeUI.toast(res.msg);
+							} else {
+								var sign = res.data;
+								if(sign && sign != null) {
+									var cycle = 1;
+									if(sign.cycle && sign.cycle != null) {
+										cycle = parseInt(sign.cycle);
+										taskObj.signInfo.cycle = cycle;
+									}
+									taskObj.signInfo.isSign = true;
+									taskObj.signInfo.total = sign.total;
+									mui.fire(plus.webview.getWebviewById("personal"), "fpers", null);
+								}
+							}
+						})
+					})
+					document.getElementById("singncon").classList.add("singnactive");
+					document.getElementById("singncon").style.cssText = "display:block";
+				})
+				setTimeout(function() {
+					var gallery = mui('.mui-slider');
+					gallery.slider({
+						interval: 5000
+					});
+				}, 300)
+			})
+
+			function validLogin() {
+				if(app.getAuth() && null != app.getAuth()) {
+					return true;
+				}
+				app.respondingTo(11000, function(code) {
+					return false;
+				})
+				return false;
+			}
+
+			function getDefaultData() {
+				return {
+					banners:[],
+					fBanner:"",
+					lBanner:"",
+					tasks: [],
+					personalTask: [],
+					signReward: [50],
+					signInfo: {
+						isSign: false,
+						cycle: 1,
+						total: 1,
+					},
+				}
+			}
+
+			var taskObj = new Vue({
+				el: '.conbody',
+				data: getDefaultData(),
+				methods: {
+					resetData: function() { //重置数据
+						Object.assign(this.$data, getDefaultData());
+					},
+					toViewTask: function(item) {
+						var status = item.status + '';
+						var code = item.code + '';
+						var imgsrc = item.pic + '';
+						var imgname = item.des + '';
+						var imgnum = item.reward + "";
+//						var imgtag = item.des + '';
+						var viewLink = item.viewLink + '';
+						document.getElementById("taskimg").src = imgsrc;
+						document.getElementById("taskname").innerHTML = imgname;
+//						document.getElementById("taskdatail").innerHTML = imgtag;
+						document.getElementById("tasknum").innerHTML = imgnum;
+						var gototaskBt = document.getElementById("gototask");
+						gototaskBt.setAttribute("link", viewLink);
+						if(status && "2" == status) {
+							gototaskBt.innerHTML = "리워드 수령"; //领取奖励 
+							gototaskBt.setAttribute("data-status", status);
+							gototaskBt.setAttribute("taskCode", code);
+						} else {
+							gototaskBt.innerHTML = "완성하기";
+							//去做任务
+						}
+						document.getElementById("model").style.cssText = "display:block;"
+						var flag = false;
+						//打开遮罩蒙板
+						var mask = mui.createMask(callback);
+						mask.show();
+						mui.fire(mainz, 'openMask', {});
+
+						function callback() {
+							return flag;
+						}
+						var closeedmsk = document.getElementById("closebtn");
+						closeedmsk.addEventListener('tap', function(event) {
+							flag = true;
+							mask.close();
+							document.getElementById("model").style.cssText = "display:none;"
+							mui.fire(mainz, 'closeMask', {});
+						})
+
+					},
+					toViewSign: function() {
+						viewSignPage();
+					},
+					completeTask: function(item) {
+
+						mui.openWindow({
+							url: 'taskdetail.html',
+							id: 'taskdetail',
+							show: {
+								aniShow: 'pop-in'
+							},
+							styles: {
+								popGesture: 'close'
+							},
+							waiting: {
+								autoShow: true
+							},
+							extras: {
+								item: item,
+								coinPics: taskObj.coinPics,
+								imgDomain: taskObj.imgDomain
+							},
+						});
+
+					}
+				}
+			});
+
+			function toShow(id) {
+				taskId = id + "";
+				var task = plus.webview.getWebviewById(taskId);
+				if(task) {
+					task.show();
+					mui.trigger(closeedmsk, 'tap');
+				}
+			}
+
+			function toHref(url) {
+				if(url && '' != url)
+					mui.openWindow({
+						url: '' + url,
+						id: '_href' + url,
+						show: {
+							aniShow: 'pop-in'
+						},
+						styles: {
+							popGesture: 'close'
+						},
+						waiting: {
+							autoShow: true
+						},
+					});
+				plus.nativeUI.closeWaiting();
+			}
+
+			function initPersonalData() {
+				var list = [];
+				mui.getJSON(app.serverApi(app.apiConstant.getPersonalTask), {}, function(res) {
+					app.respondingTo(res.code, function(code) {
+						if(0 != code) {
+							plus.nativeUI.toast(res.msg);
+						} else {
+
+							var signData = res.data.sign;
+							taskObj.signReward = res.data.signReward;
+							var myDivisonTask = res.data.myDivisonTask;
+							for(var i = 0; i < myDivisonTask.length; i++) {
+								var json = {};
+								var x = myDivisonTask[i];
+								json.code = x.code;
+								json.pic = x.pic;
+								json.des = "";
+								if(x.des) {
+									json.des = x.des;
+								}
+								json.reward = x.reward;
+								json.viewLink = x.link;
+								json.status = x.status;
+								json.code = x.code;
+								list.push(json);
+							}
+
+							taskObj.personalTask = list;
+							if(signData && signData != null && signData != '') {
+								var info = taskObj.signInfo;
+								var sign = signData.sign;
+								var cycle = signData.cycle;
+								var total = signData.total;
+								if(sign && "true" == sign + "") {
+									info.isSign = true;
+								}
+								if(cycle && cycle != null) {
+									info.cycle = parseInt(cycle);
+								}
+								if(total && total != null) {
+									info.total = total;
+								}
+
+							}
+						}
+					})
+				})
+
+			}
+
+			function updatePersonalReward(status, code) {
+				if("2" == status && code && '' != code) {
+					mui.post(app.serverApi(app.apiConstant.updatePersonalReward), {
+						'taskCode': code
+					}, function(res) {
+						app.respondingTo(res.code, function(code) {
+							if(0 != code) {
+								plus.nativeUI.toast(res.msg);
+							} else {
+								var rewardData = res.data;
+								var cur = rewardData.newDivId;
+								if(cur && 'undefined' != cur) {
+									document.getElementById("levelName").innerHTML = rewardData.name;
+									document.getElementById("curRate").innerHTML = rewardData.curRate + "%";
+									document.getElementById("curAmount").innerHTML = rewardData.amount;
+									document.getElementById("levelImg").setAttribute("src", "images/lv-0" + cur + ".png");
+									openuplevel();
+								}
+								plus.nativeUI.toast("SUCCESS.");
+								location.reload();
+								plus.webview.getWebviewById("personal").reload();
+							}
+						})
+					})
+				}
+			}
+
+			function initData() {
+				var list = [];
+				mui.getJSON(app.serverApi(app.apiConstant.getTasks), {}, function(res) {
+					app.respondingTo(res.code, function(code) {
+						if(0 != code) {
+							plus.nativeUI.toast(res.msg);
+						} else {
+							var tasks = res.data.tasks;
+							var coinPics = res.data.coinPics;
+							var imgDomain = res.data.imgDomain;
+							for(var i = 0; i < tasks.length; i++) {
+								var json = {};
+								var x = tasks[i];
+								json.title = x.task.title + "";
+								json.finish = x.task.finish;
+								json.total = x.task.total;
+								json.status = x.status;
+								json.id = "";
+								if(x.id && null != x.id) {
+									json.id = x.id;
+								}
+								json.taskId = x.task._id;
+								json.rewards = x.task.rewards;
+								json.taskSymbol = '';
+								if(x.task.symbol && null != x.task.symbol) {
+									json.taskSymbol = x.task.Symbol;
+								}
+								json.taskPic = '';
+								if(x.task.pic && null != x.task.pic) {
+									json.taskPic = imgDomain + "" + x.task.pic;
+								}
+								json.summary = "";
+								if(x.task.summary && null != x.task.summary) {
+									json.summary = x.task.summary;
+								}
+								json.taskDetail = "";
+								if(x.task.detail && null != x.task.detail) {
+									json.taskDetail = x.task.detail + "";
+								}
+								list.push(json);
+							}
+							taskObj.coinPics = coinPics;
+							taskObj.imgDomain = imgDomain;
+							taskObj.tasks = list;
+						}
+					})
+				})
+
+			}
+
+			function initIdexInfo() {
+				if(app.getAuth() && null != app.getAuth()) {
+					initPersonalData();
+				}
+				initData();
+
+			}
+			
+			initBannerData();
+			function initBannerData(){
+				var b_list = [];
+				mui.getJSON(app.serverApi(app.apiConstant.getBanners),{},function(res){
+					 app.respondingTo(res.code, function(code) {
+						if(0 != code) {
+							plus.nativeUI.toast(res.msg);
+						} else {
+							var bannerDt = res.data.banners;
+							var imgDomain = res.data.imgDomain;
+							
+							for(var i=0;i<bannerDt.length;i++){
+								var json ={};
+								var x = bannerDt[i];
+								json.op = x.opId;
+								if(!json.op||json.op==null){
+									json.op ="";
+								}
+								json.prePic= x.prePic;
+								if(json.prePic&&json.prePic!=null){
+									json.prePic = imgDomain+json.prePic;
+								}
+								json.pic =x.pic;
+								if(json.pic&&json.pic!=null){
+									json.pic = imgDomain+json.pic;
+									if(0==i){
+										taskObj.fBanner = json.pic;
+										
+									}else if(i==(bannerDt.length-1)){
+										taskObj.lBanner = json.pic;
+									}
+								}
+								
+								b_list.push(json);
+							}
+							taskObj.banners = b_list;
+							
+						}
+					})
+				})
+			}
+
+			window.addEventListener('setVal', function(e) {
+				if(!app.getAuth() || null == app.getAuth()) {
+					taskObj.personalTask = [];
+					taskObj.signInfo.isSign = false;
+				}
+			});
+
+			document.getElementById("chatbt").addEventListener('tap', function() {
+				if(validLogin()) {
+					mui.openWindow({
+						url: 'chat.html',
+						id: 'chat',
+						show: {
+							aniShow: 'pop-in'
+						},
+						styles: {
+							popGesture: 'close'
+						},
+						waiting: {
+							autoShow: true
+						},
+					});
+				}
+
+				return;
+			})
+
+			function viewSignPage() {
+				var flag = false;
+				var mask = mui.createMask(callback);
+
+				function callback() {
+					return flag;
+				}
+				mui.fire(mainz, 'openMask', {});
+				document.getElementById("singncon").style.cssText = "display:block;";
+				mask.show();
+				document.getElementById('closesnbtn').addEventListener('tap', function(event) {
+					flag = true;
+					mask.close();
+					document.getElementById("singncon").style.cssText = "display:none;"
+					mui.fire(mainz, 'closeMask', {});
+				})
+
+				var _class = document.getElementById("singncon").getAttribute('class');
+
+				if(_class.indexOf("singnactive") > 0) {
+					console.log("singnactive..")
+				} else {
+					console.log('go class')
+				}
+
+				mui(".mui-backdrop:not(.singnactive)")[0].addEventListener('tap', function() {
+					flag = true;
+					mask.close();
+					document.getElementById("singncon").style.cssText = "display:none;"
+					mui.fire(mainz, 'closeMask', {});
+				})
+
+			}
+
+			function openuplevel() {
+				var id = "modellevel";
+				document.getElementById(id).style.cssText = " display: block;"
+				var flag = false;
+				var mask = mui.createMask(callback);
+				mask.show();
+				mui.fire(mainz, 'openMask', {});
+
+				function callback() {
+					return flag;
+				}
+				setTimeout(function() {
+					flag = true;
+					mask.close();
+					document.getElementById(id).style.cssText = "display:none;"
+					mui.fire(mainz, 'closeMask', {});
+				}, 3000)
+			}
+
+			window.addEventListener('fresh', function(e) {
+				initIdexInfo();
+			});
+		</script>
+	</body>
+
+</html>

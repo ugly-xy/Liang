@@ -1,0 +1,63 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		 <link href="css/mui.min.css" rel="stylesheet"/>
+   		 <link rel="stylesheet" type="text/css" href="css/style.css"/> 
+		
+	</head>
+
+	<body>
+		<div class="barshadow"></div>
+		<div class="newslist">
+			<div class="mui-slider " >
+			    <div id="sliderH" class="mui-slider-indicator mui-segmented-control mui-segmented-control-inverted  mui-flex">
+			        <div class="newh mui-control-item mui-active"  data-id="1">뉴스</div>
+			        <div class="newh mui-control-item"  data-id="2">공지</div>
+			    </div>
+			    <div class="mui-slider-group">
+			    		<div id="news" class="mui-slider-item mui-control-content  mui-active">
+						<div class="mui-content"></div>
+					</div>
+				</div>
+			</div>
+		
+		</div>
+		<script src="js/mui.min.js"></script>
+		<script src="js/app.js" type="text/javascript" charset="utf-8"></script>
+		<script src="js/vue.min.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript">
+			var viewId="news_sub.html";
+			mui.init({
+				gestureConfig:{
+					doubletap:true
+				},
+				subpages:[{
+					url:'news_sub.html',
+					id:viewId,
+					styles:{
+						top: '45px',
+						bottom: '0px',
+					}
+				}]
+			});
+			
+			mui(".mui-slider-indicator").on('tap','.newh',function(){
+				 actId= this.getAttribute('data-id');
+				 mui.fire(plus.webview.getWebviewById(viewId),"actId",{'actId':actId});
+			})
+			
+			var contentWebview = null;
+			document.getElementById("sliderH").addEventListener('doubletap',function () {
+			if(contentWebview==null){
+				contentWebview = plus.webview.currentWebview().children()[0];
+			}
+			contentWebview.evalJS("mui('.mui-scroll-wrapper').scroll().setTranslate(0,0)");
+		});
+		</script>
+	</body>
+
+</html>

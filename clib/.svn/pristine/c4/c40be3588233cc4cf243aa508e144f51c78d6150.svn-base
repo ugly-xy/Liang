@@ -1,0 +1,179 @@
+package com.we.models.finance;
+
+import com.we.models.AbstractDocument;
+
+public class CoinLog extends AbstractDocument {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1253943538773764911L;
+	public static final int IN = 1;
+	public static final int OUT = 2;
+
+	public static final int IN_ADMIN = 3;// 管理员加币
+	public static final int OUT_ADMIN = 4;// 管理员扣币
+	public static final int CHEST = 5;// 宝箱
+	public static final int SIGN = 6;// 签到
+	public static final int OUT_RESIGN = 7;// 签到
+	public static final int TASK = 8;// 任务
+	public static final int DIVISION = 9;// 段位任务
+	public static final int WITH_DRAW = 10;// 提币
+
+	private int io;// 1收入 2 支出
+	private int type;// 收入类型 1充值
+	private long linkId;
+	private String coinType;
+	private long uid;// 用户
+	private long amount;// 数量
+	private long balance;// 余额
+	private long adminId;
+	private String detail;// 详情
+
+	public int getIo() {
+		return io;
+	}
+
+	public void setIo(int io) {
+		this.io = io;
+	}
+
+	public int getType() {
+		return type;
+	}
+
+	public void setType(int type) {
+		this.type = type;
+	}
+
+	public long getLinkId() {
+		return linkId;
+	}
+
+	public void setLinkId(long linkId) {
+		this.linkId = linkId;
+	}
+
+	public String getCoinType() {
+		return coinType;
+	}
+
+	public void setCoinType(String coinType) {
+		this.coinType = coinType;
+	}
+
+	public long getUid() {
+		return uid;
+	}
+
+	public void setUid(long uid) {
+		this.uid = uid;
+	}
+
+	public long getAmount() {
+		return amount;
+	}
+
+	public void setAmount(long amount) {
+		this.amount = amount;
+	}
+
+	public long getBalance() {
+		return balance;
+	}
+
+	public void setBalance(long balance) {
+		this.balance = balance;
+	}
+
+	public long getAdminId() {
+		return adminId;
+	}
+
+	public void setAdminId(long adminId) {
+		this.adminId = adminId;
+	}
+
+	public String getDetail() {
+		return detail;
+	}
+
+	public void setDetail(String detail) {
+		this.detail = detail;
+	}
+
+	public CoinLog(long _id, int io, int type, long linkId, String coinType, long uid, long amount, long balance,
+			long adminId, String detail) {
+		super();
+		this._id = _id;
+		this.io = io;
+		this.type = type;
+		this.linkId = linkId;
+		this.coinType = coinType;
+		this.uid = uid;
+		this.amount = amount;
+		this.balance = balance;
+		this.adminId = adminId;
+		this.detail = detail;
+		this.updateTime = System.currentTimeMillis();
+	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = super.hashCode();
+		result = prime * result + (int) (adminId ^ (adminId >>> 32));
+		result = prime * result + (int) (amount ^ (amount >>> 32));
+		result = prime * result + (int) (balance ^ (balance >>> 32));
+		result = prime * result + ((coinType == null) ? 0 : coinType.hashCode());
+		result = prime * result + ((detail == null) ? 0 : detail.hashCode());
+		result = prime * result + io;
+		result = prime * result + (int) (linkId ^ (linkId >>> 32));
+		result = prime * result + type;
+		result = prime * result + (int) (uid ^ (uid >>> 32));
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (!super.equals(obj))
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		CoinLog other = (CoinLog) obj;
+		if (adminId != other.adminId)
+			return false;
+		if (amount != other.amount)
+			return false;
+		if (balance != other.balance)
+			return false;
+		if (coinType == null) {
+			if (other.coinType != null)
+				return false;
+		} else if (!coinType.equals(other.coinType))
+			return false;
+		if (detail == null) {
+			if (other.detail != null)
+				return false;
+		} else if (!detail.equals(other.detail))
+			return false;
+		if (io != other.io)
+			return false;
+		if (linkId != other.linkId)
+			return false;
+		if (type != other.type)
+			return false;
+		if (uid != other.uid)
+			return false;
+		return true;
+	}
+
+	@Override
+	public String toString() {
+		return "CoinLog [io=" + io + ", type=" + type + ", linkId=" + linkId + ", coinType=" + coinType + ", uid=" + uid
+				+ ", amount=" + amount + ", balance=" + balance + ", adminId=" + adminId + ", detail=" + detail + "]";
+	}
+
+}

@@ -1,0 +1,89 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="css/mui.min.css" rel="stylesheet" />
+		<link rel="stylesheet" type="text/css" href="css/style.css"/>
+	</head>
+
+	<body>
+		<header class="mui-bar mui-bar-nav">
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+		    <h1 class="mui-title">我的钱包</h1>
+		</header>
+		<div class="mui-content">
+		   <div class="wallet-list">
+		   		<ul class="mui-table-view">
+	   		        <li class="mui-table-view-cell" id="{{item.name}}" data-name="{{item.name}}" v-for="item in myWallet">
+	   		            <a class="mui-navigate-right"><img :src="imgDomain+item.pic"/><font>{{item.name}}</font><span class="coinnum">{{item.coin}}</span></a>
+	   		        </li>
+	   		    </ul>
+		   </div>
+		</div>
+	<script src="js/mui.min.js"></script>
+	<script src="js/app.js" type="text/javascript" charset="utf-8"></script>
+	<script src="js/vue.min.js" type="text/javascript"></script>
+	<script type="text/javascript">
+	(function($, doc) {
+			mui.init({
+				
+			});
+
+			mui.plusReady(function() {
+				mui(".mui-table-view").on("tap", ".mui-table-view-cell", function() {
+						mui.openWindow({
+							url: 'walletdatail.html',
+						});
+					}, false);
+			})
+				
+		  function getDefaultData(){
+				return {
+					myWallet:[]
+				}
+			}
+		
+			var walletObj = new Vue({
+					el: '.mui-content',
+					data: getDefaultData(),
+					methods: {
+						resetData: function() {//重置数据
+							Object.assign(this.$data, getDefaultData());
+						}
+						
+					}
+			});
+			
+			initMyWalletData();
+			function initMyWalletData(){
+				var list=[];
+				$.getJSON(app.serverApi(app.apiConstant.getAllMyWallet),{},function(res){
+					app.respondingTo(res.code,function(code){
+						if(0!=code){
+							plus.nativeUI.toast(res.msg);
+						}else{
+							var myW =res.data.objs;
+							var imgDomain = res.data.imgDomain;
+							for(var i=0;i<myW.length;i++){
+								var json ={};
+								var x = myW[i];
+								json.name = x.key;
+								json.coin = x.coin;
+								json.pic = x.pic;
+								list.push(json);
+							}
+							walletObj.imgDomain = imgDomain;
+							walletObj.myWallet = list;
+						}
+					})
+					
+				})
+			};
+		}(mui, document));
+		</script>
+	</body>
+
+</html>

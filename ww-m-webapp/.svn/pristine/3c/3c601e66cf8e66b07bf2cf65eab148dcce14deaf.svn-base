@@ -1,0 +1,165 @@
+<#import "/spring.ftl" as spring /> 
+<#import "/layouts/common.xhtml" as layout>
+<@layout.title>${dbo.title}</@layout.title> <@layout.metaKeywordsDescription>
+
+</@layout.metaKeywordsDescription> <@layout.cssLink> </@layout.cssLink>
+<@layout.pageHeader> ${dbo.title}</@layout.pageHeader> <@layout.mainContent>
+<div class="content" style="margin-bottom: 0%;">
+	<div class="container">
+		<div class="port" >
+			<hr style="height:1px;border:none;border-top:1px solid #555555;margin-top: -5px;" />
+				<h2 style="padding: 0em;">${dbo.title}</h2>
+				<br/>
+				<div style="text-align: center;">
+					<b style="background: #433848;display: inline-block;
+				    padding: 0 10px;line-height: 20px;font-size: 12px;color: #fff;
+				    border-radius: 10px;font-weight: normal;">
+				    		专业版测试
+				    </b><br>
+					<b style="display: inline-block;
+				    padding: 0 10px;line-height: 20px;font-size: 12px;color: #9E9E9E;
+				    border-radius: 10px;font-weight: normal;margin-top: 15px;margin-bottom: 15px;">
+				    	<#if dbo.count?? >已有${(dbo.count)!}人参与</#if>
+				    		
+				    </b>
+				</div>
+				<div style="text-align: center;margin-top: 0%;">
+					<img src="${(dbo.backPic)!}" width="100%;" />
+				</div>
+			<div style="margin-top: 0%;background-color: white;border-radius:0px;">
+				<!-- <div style="width: auto;">
+					<img style="width: 100%;" src="http://imgzb.zhuangdianbi.com/581705820cf2828dc37143f4" />
+						
+				</div>	 -->
+				<div style="height: 10px;"></div>
+				<#list dbo.result as it>
+				
+						<div id = "result${it_index}" style="display: none;background-color: #7D7D7D;border-radius:0px;width: 100%;">
+					
+						<input type = "hidden" id="score${it_index}" value = "${it.score}"/>
+						
+						<ul style="overflow: hidden;">
+								
+							<li  
+								style="padding: 13px 15px;margin-top: 7px;border-radius: 6px;cursor: hand;">
+								
+								<!-- <FONT style="FONT-SIZE: 15pt; FILTER: Glow(color=#4A7AC9,strength=2); COLOR: #EA6084; HEIGHT: 9pt">你的分数是${(score)!}!</FONT><br> -->
+								<p style="text-align:center;FONT-SIZE: 18pt; FILTER: Glow(color=#8000FF,strength=2); COLOR: white;">${(it.title)!}</p><br><hr>
+								<p style="align:left;FONT-SIZE: 12pt;color: white;word-break:break-all">${(it.content)!}    </p>
+							</li>
+						</ul>
+					</div>
+				</#list>
+				<div style="height: 20px;"></div>
+			</div>	
+			<div>
+				<ul style="overflow: hidden;text-align:center;">	
+					<li  onclick="window.location.href='paper?id=${dbo._id}'"
+						style="background-color: #7D7D7D;list-style:none;float:left;width:48%;padding: 13px 15px;border: 1px solid #333;border-radius: 0px;cursor: hand;">
+						<label style="color: white;">再测一次</label>
+					</li>
+					<li  onclick="window.location.href='papers.xhtml'"
+						style="background-color: #7D7D7D;list-style:none;float:right;width:48%;padding: 13px 15px;border: 1px solid #333;border-radius: 0px;cursor: hand;">
+						<label style="color: white;">更多测试</label>
+					</li>
+				</ul>
+			</div>
+			
+			<div class="games" style="width: 100%;">
+				<div class="label" >
+					<a >
+						<div class="inner" style="margin-bottom: -15px;">
+							<p style="font-size: 15px;">精品测试推荐</p>
+						</div>
+					</a>
+				</div>
+				
+				
+			<div class="detail">
+				<ul>
+					<#list rslist as tool>
+						<li>
+							<a href="paper.xhtml?id=${tool._id}" style="TEXT-DECORATION:none;">
+								<div class="inner">
+									<img class="g-logo" src="${(tool.logo)!}">
+									<div class="info">
+										<h4 style="font-weight: bold;">${(tool.title)!}</h4>
+										<p><#if tool.count?? >已有${(tool.count)!}人参与</#if></p>
+									</div>
+								</div>
+							</a>
+						</li>
+					</#list>		
+				</ul>
+			</div>
+		</div>
+			
+		</div>
+	</div>
+</div>	
+
+
+<DIV style="text-align: center;batext-align: center;width: 100%;height: 50px;margin-right: auto;margin-left: auto;overflow: hidden;margin: auto;text-align: center;bottom:0px;right:0px;">
+				<ul  class="fancyNav" style="width: 100%;height: 100%;">
+					<a href="http://m.zhuangdianbi.com/downloads/app.xhtml"  >
+						<li style="width: 50%;height: 50px;text-align: center;line-height: 50px;">
+							下载BiBi娱乐社区
+						</li>
+					</a>
+					
+					<li id="" style="width: 50%;height: 50px;text-align: center;line-height: 50px;" onclick="show();">
+					关注BiBi娱乐微信
+					</li>
+				</ul>
+			</DIV>
+			<div id="follow" class="follow" style="display: none;">
+			    <span class="close" onclick="hide()"><span style="color: white;">×</span></span>
+			    <img src="/images/qrcode_for_gh_534835f97de1_860.jpg">
+			</div>
+
+
+				
+</@layout.mainContent> 
+<@layout.script>
+<script>
+
+var a= [${dbo.result?size}];
+var score  = ${score};
+var b = 0;
+<#list dbo.result as it>
+
+
+
+$(function(){
+	
+	a[${it_index}] = document.getElementById("score${it_index}").value;
+	//alert(a[${it_index}]);
+    if(score>=b  && score<=a[${it_index}]){
+		if(parseInt(${it_index})==0){
+			document.getElementById("result${it_index}").style.display = 'block';
+		}else{
+			if(score>a[${it_index-1}] && score<=a[${it_index}]){
+				document.getElementById("result${it_index}").style.display = 'block';
+			}
+		}
+		
+	}   
+	//b = b+parseInt(a[${it_index}]);
+	//alert(score);
+	//alert(a[2]);
+});
+
+</#list>
+
+</script>
+
+<script type="text/javascript">
+    function show(){
+        document.getElementById("follow").style.display = "block";
+    }
+    function hide(){
+        document.getElementById("follow").style.display = "none";
+    }
+</script>
+
+</@layout.script>

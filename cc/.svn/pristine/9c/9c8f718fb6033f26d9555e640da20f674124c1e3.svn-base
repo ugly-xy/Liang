@@ -1,0 +1,68 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title>이벤트</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<link href="css/mui.min.css" rel="stylesheet" />
+		<link rel="stylesheet" type="text/css" href="css/style.css"/>
+		<style type="text/css">
+			.activity-list img{
+				height: 100px;
+			}
+			.mui-bar-nav{
+				border:none ;
+			}
+		</style>
+	</head>
+
+	<body>
+		<header class="mui-bar mui-bar-nav">
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+		    <h1 class="mui-title" id="wTitle"></h1>
+		</header>
+		<div class="barshadow"></div>
+		<div class="mui-content">
+		   
+		</div>
+	 <script src="js/mui.min.js"></script>
+	 <script src="js/app.js" type="text/javascript" charset="utf-8"></script>
+	 <script src="js/vue.min.js" type="text/javascript"></script>
+	 <script type="text/javascript">
+		mui.init({
+			gestureConfig:{
+				doubletap:true
+			},
+			subpages:[{
+				url:'walletdatail_sub.html',
+				id:'walletdatail_sub.html',
+				styles:{
+					top: '45px',
+					bottom: '0px',
+				}
+			}]
+		});
+		
+		mui.plusReady(function() {
+			var view =plus.webview.currentWebview();
+			var name="";
+			if(view.name){
+				name=view.name;
+			}
+			document.getElementById("wTitle").innerHTML=name;
+		
+		})
+	
+		var contentWebview = null;
+		document.querySelector('header').addEventListener('doubletap',function () {
+			if(contentWebview==null){
+				contentWebview = plus.webview.currentWebview().children()[0];
+			}
+			contentWebview.evalJS("mui('#pullrefresh').pullRefresh().scrollTo(0,0,100)");
+		});
+		
+	 </script>
+	</body>
+</html>

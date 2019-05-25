@@ -1,0 +1,91 @@
+package com.we.web.view.admin;
+
+import java.text.ParseException;
+import java.util.HashMap;
+import java.util.Map;
+
+import javax.servlet.http.HttpServletRequest;
+
+import org.apache.commons.lang.StringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
+
+import com.mongodb.DBObject;
+import com.we.common.Constant.Const;
+import com.we.common.Constant.ReCode;
+import com.we.common.utils.DateUtil;
+import com.we.core.Page;
+import com.we.core.web.ReMsg;
+import com.we.models.userTask.Task;
+import com.we.service.CoinTypeService;
+import com.we.service.userTask.TaskService;
+
+@Controller
+@RequestMapping("/admin")
+public class AdminTaskCtl {
+
+	static final Logger log = LoggerFactory.getLogger(AdminTaskCtl.class);
+
+	@Autowired
+	TaskService taskService;
+
+	@Autowired
+	CoinTypeService coinTypeService;
+
+	/** 任务 */
+	@RequestMapping("/tasks")
+	public ModelAndView task(Long _id, Integer templateId, Integer status, Integer page, Integer size,
+			HttpServletRequest request) {
+		Page<DBObject> curPage = taskService.query(_id, templateId, status, page, size);
+		curPage.setUrl(request.getRequestURI());
+		Map<String, Object> model = new HashMap<String, Object>();
+		model.put("page", curPage);
+		model.put("templateId", templateId);
+		model.put("_id", _id);
+		model.put("status", status);
+		model.put("templateTypes", Task.Template.values());
+		return new ModelAndView("admin/task/tasks", model);
+	}
+
+	@RequestMapping("/task")
+	public ModelAndView task(Long _id) {
+		Map<String, Object> model = new HashMap<String, Object>();
+		if (_id != null && _id > 0) {
+			model.put("obj", taskService.findById(_id));
+		}
+		model.put("templateTypes", Task.Template.values());
+		model.put("coinTypes", coinTypeService.findAllCoinType(Const.STATUS_OK));
+		return new ModelAndView("admin/task/task", model);
+	}
+
+	@ResponseBody
+	@RequestMapping(value = "/task", method = RequestMethod.POST)
+	public ReMsg update(Long _id, String title, String[] coinType, Integer[] coinAmount, Integer templateId,
+			int endCondition, int status, Integer sort, Long telegramId, String telegramUrl, String twitterId,
+			String st, String et, String detail, String taskPic) throws ParseException {
+		long startTime = 0;
+		long endTime = 0;
+		if (StringUtils.isNotBlank(st)) {
+			startTime = DateUtil.getZeroTime(DateUtil.convertDate(st, "yyyy-MM-dd"));
+		}
+		if (StringUtils.isNotBlank(et)) {
+			endTime = DateUtil.getZeroTime(DateUtil.convertDate(et, "yyyy-MM-dd")) + DateUtil.DAY;
+		}
+		return taskService.upSet(_id, title, coinType, coinAmount, templateId, endCondition, status, sort, telegramId,
+				telegramUrl, twitterId, startTime, endTime, detail, taskPic);
+	}
+
+	@ResponseBody
+	@RequestMapping("/task/del")
+	public ReMsg del(Long _id) {
+		taskService.del(_id);
+		return new ReMsg(ReCode.OK);
+	}
+
+}

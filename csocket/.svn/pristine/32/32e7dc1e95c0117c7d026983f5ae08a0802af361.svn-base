@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:util="http://www.springframework.org/schema/util"
+	xmlns:p="http://www.springframework.org/schema/p" xmlns:mongo="http://www.springframework.org/schema/data/mongo"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+				http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-3.0.xsd
+				http://www.springframework.org/schema/data/mongo http://www.springframework.org/schema/data/mongo/spring-mongo.xsd"
+	default-lazy-init="true">
+
+	<bean class="com.mongodb.MongoURI" id="mongoURI">
+		<constructor-arg value="mongodb://192.168.1.112:27017" />
+	</bean>
+
+	<bean class="com.mongodb.Mongo" id="mongo">
+		<constructor-arg ref="mongoURI" />
+	</bean>
+
+	<bean id="mongoTemplate" class="org.springframework.data.mongodb.core.MongoTemplate">
+		<constructor-arg name="mongo" ref="mongo" />
+		<constructor-arg name="databaseName" value="${mongo.dbname}" />
+	</bean>
+
+
+	<bean class="com.mongodb.MongoURI" id="chatMongoURI">
+		<constructor-arg value="${mongo.chat.uri}" />
+	</bean>
+
+	<bean class="com.mongodb.Mongo" id="chatMongo">
+		<constructor-arg ref="mongoURI" />
+	</bean>
+
+	<bean id="chatMongoTemplate" class="org.springframework.data.mongodb.core.MongoTemplate">
+		<constructor-arg name="mongo" ref="chatMongo" />
+		<constructor-arg name="databaseName" value="${mongo.chat.dbname}" />
+	</bean>
+
+
+
+
+
+	<!-- <util:constant static-field="com.mongodb.WriteConcern.${mongo.cost.write}" 
+		id="writeConcern"/> <bean class="com.ttpod.rest.web.spring.MongoFactoryBean" 
+		id="mongo"> <property name="options"> <bean class="com.mongodb.MongoOptions" 
+		p:connectionsPerHost="80" p:threadsAllowedToBlockForConnectionMultiplier="6" 
+		p:connectTimeout="5000" p:maxWaitTime="10000" p:autoConnectRetry="true" p:socketKeepAlive="true" 
+		p:socketTimeout="15000" p:wtimeout="3000" p:fsync="false" p:w="1"/> </property> 
+		<property name="autoSlaveOk" value="true"/> <property name="urls" value="${mongo.uri}"/> 
+		</bean> <bean id="mainMongo" class="com.ttpod.rest.web.spring.DbFactoryBean" 
+		p:mongo-ref="mongo" p:name="xy" /> <bean id="userMongo" class="com.ttpod.rest.web.spring.DbFactoryBean" 
+		p:mongo-ref="mongo" p:name="xy" /> <bean id="topicMongo" class="com.ttpod.rest.web.spring.DbFactoryBean" 
+		p:mongo-ref="mongo" p:name="xytopic" /> <bean id="activeMongo" class="com.ttpod.rest.web.spring.DbFactoryBean" 
+		p:mongo-ref="mongo" p:name="xyactive" /> <bean id="unionMongo" class="com.ttpod.rest.web.spring.DbFactoryBean" 
+		p:mongo-ref="mongo" p:name="xy_union" /> <bean id="singMongo" class="com.ttpod.rest.web.spring.DbFactoryBean" 
+		p:mongo-ref="mongo" p:name="xy_sing" /> <bean id="rankMongo" class="com.ttpod.rest.web.spring.DbFactoryBean" 
+		p:mongo-ref="mongo" p:name="xyrank" /> <bean id="logMongo" class="com.ttpod.rest.web.spring.DbFactoryBean" 
+		p:mongo-ref="mongo" p:name="xylog" /> <bean id="adminMongo" class="com.ttpod.rest.web.spring.DbFactoryBean" 
+		p:mongo-ref="mongo" p:name="xy_admin" /> <bean id="xyRankMongo" class="com.ttpod.rest.web.spring.DbFactoryBean" 
+		p:mongo-ref="mongo" p:name="xy_rankdata" /> <bean id="adminDb" class="com.ttpod.rest.web.spring.DbFactoryBean" 
+		p:mongo-ref="mongo" p:name="xy_admin" /> <bean id="chatLogsDb" class="com.ttpod.rest.web.spring.DbFactoryBean" 
+		p:mongo-ref="mongo" p:name="chatLogsDb" /> <bean id="userKGS" class="com.ttpod.rest.persistent.MongoKGS" 
+		p:db-ref="adminDb" p:nameSpace="user"/> <bean id="orderKGS" class="com.ttpod.rest.persistent.MongoKGS" 
+		p:db-ref="adminDb" p:nameSpace="order"/> -->
+
+</beans>

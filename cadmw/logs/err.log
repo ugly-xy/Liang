@@ -1,0 +1,158 @@
+2019-03-07 22:00:30.046 [pool-1-thread-1] ERROR c.w.s.article.CollectActicleService - ------请求抓取内容出错：Read timed out
+2019-03-07 22:40:30.025 [pool-1-thread-1] ERROR c.w.s.article.CollectActicleService - ------请求抓取内容出错：Read timed out
+2019-03-07 23:00:30.028 [pool-1-thread-1] ERROR c.w.s.article.CollectActicleService - ------请求抓取内容出错：Read timed out
+2019-03-07 23:30:30.022 [pool-1-thread-1] ERROR c.w.s.article.CollectActicleService - ------请求抓取内容出错：Read timed out
+2019-03-08 03:00:30.022 [pool-1-thread-1] ERROR c.w.s.article.CollectActicleService - ------请求抓取内容出错：Read timed out
+2019-03-08 03:20:30.030 [pool-1-thread-1] ERROR c.w.s.article.CollectActicleService - ------请求抓取内容出错：Read timed out
+2019-03-08 05:40:30.029 [pool-1-thread-1] ERROR c.w.s.article.CollectActicleService - ------请求抓取内容出错：Read timed out
+2019-03-08 07:10:30.024 [pool-1-thread-1] ERROR c.w.s.article.CollectActicleService - ------请求抓取内容出错：Read timed out
+2019-03-11 15:20:30.032 [pool-1-thread-1] ERROR c.w.s.article.CollectActicleService - ------请求抓取内容出错：Read timed out
+2019-03-11 15:50:30.030 [pool-1-thread-1] ERROR c.w.s.article.CollectActicleService - ------请求抓取内容出错：Read timed out
+2019-03-11 16:00:00.014 [pool-1-thread-1] ERROR o.s.s.s.TaskUtils$LoggingErrorHandler - Unexpected error occurred in scheduled task.
+org.springframework.data.redis.RedisConnectionFailureException: Cannot get Jedis connection; nested exception is redis.clients.jedis.exceptions.JedisConnectionException: Could not get a resource from the pool
+	at org.springframework.data.redis.connection.jedis.JedisConnectionFactory.fetchJedisConnector(JedisConnectionFactory.java:162) ~[spring-data-redis-1.6.0.RELEASE.jar:1.6.0.RELEASE]
+	at org.springframework.data.redis.connection.jedis.JedisConnectionFactory.getConnection(JedisConnectionFactory.java:251) ~[spring-data-redis-1.6.0.RELEASE.jar:1.6.0.RELEASE]
+	at org.springframework.data.redis.connection.jedis.JedisConnectionFactory.getConnection(JedisConnectionFactory.java:58) ~[spring-data-redis-1.6.0.RELEASE.jar:1.6.0.RELEASE]
+	at org.springframework.data.redis.core.RedisConnectionUtils.doGetConnection(RedisConnectionUtils.java:128) ~[spring-data-redis-1.6.0.RELEASE.jar:1.6.0.RELEASE]
+	at org.springframework.data.redis.core.RedisConnectionUtils.getConnection(RedisConnectionUtils.java:91) ~[spring-data-redis-1.6.0.RELEASE.jar:1.6.0.RELEASE]
+	at org.springframework.data.redis.core.RedisConnectionUtils.getConnection(RedisConnectionUtils.java:78) ~[spring-data-redis-1.6.0.RELEASE.jar:1.6.0.RELEASE]
+	at org.springframework.data.redis.core.RedisTemplate.execute(RedisTemplate.java:178) ~[spring-data-redis-1.6.0.RELEASE.jar:1.6.0.RELEASE]
+	at org.springframework.data.redis.core.RedisTemplate.execute(RedisTemplate.java:153) ~[spring-data-redis-1.6.0.RELEASE.jar:1.6.0.RELEASE]
+	at org.springframework.data.redis.core.AbstractOperations.execute(AbstractOperations.java:86) ~[spring-data-redis-1.6.0.RELEASE.jar:1.6.0.RELEASE]
+	at org.springframework.data.redis.core.DefaultHashOperations.putIfAbsent(DefaultHashOperations.java:183) ~[spring-data-redis-1.6.0.RELEASE.jar:1.6.0.RELEASE]
+	at com.we.service.article.CollectActicleService.clearRecordData(CollectActicleService.java:129) ~[candy-club-lib-0.1-SNAPSHOT.jar:na]
+	at com.we.service.article.CollectActicleService.getRequireWebHtmlData(CollectActicleService.java:189) ~[candy-club-lib-0.1-SNAPSHOT.jar:na]
+	at com.we.core.myTask.CollectWebHtmlArticle.doTask(CollectWebHtmlArticle.java:19) ~[candy-club-lib-0.1-SNAPSHOT.jar:na]
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method) ~[na:1.8.0_171]
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62) ~[na:1.8.0_171]
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43) ~[na:1.8.0_171]
+	at java.lang.reflect.Method.invoke(Method.java:498) ~[na:1.8.0_171]
+	at org.springframework.scheduling.support.ScheduledMethodRunnable.run(ScheduledMethodRunnable.java:65) ~[spring-context-4.1.9.RELEASE.jar:4.1.9.RELEASE]
+	at org.springframework.scheduling.support.DelegatingErrorHandlingRunnable.run(DelegatingErrorHandlingRunnable.java:54) ~[spring-context-4.1.9.RELEASE.jar:4.1.9.RELEASE]
+	at org.springframework.scheduling.concurrent.ReschedulingRunnable.run(ReschedulingRunnable.java:81) [spring-context-4.1.9.RELEASE.jar:4.1.9.RELEASE]
+	at java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:511) [na:1.8.0_171]
+	at java.util.concurrent.FutureTask.run(FutureTask.java:266) [na:1.8.0_171]
+	at java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.access$201(ScheduledThreadPoolExecutor.java:180) [na:1.8.0_171]
+	at java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.run(ScheduledThreadPoolExecutor.java:293) [na:1.8.0_171]
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1149) [na:1.8.0_171]
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624) [na:1.8.0_171]
+	at java.lang.Thread.run(Thread.java:748) [na:1.8.0_171]
+Caused by: redis.clients.jedis.exceptions.JedisConnectionException: Could not get a resource from the pool
+	at redis.clients.util.Pool.getResource(Pool.java:50) ~[jedis-2.7.3.jar:na]
+	at redis.clients.jedis.JedisPool.getResource(JedisPool.java:99) ~[jedis-2.7.3.jar:na]
+	at redis.clients.jedis.JedisPool.getResource(JedisPool.java:12) ~[jedis-2.7.3.jar:na]
+	at org.springframework.data.redis.connection.jedis.JedisConnectionFactory.fetchJedisConnector(JedisConnectionFactory.java:155) ~[spring-data-redis-1.6.0.RELEASE.jar:1.6.0.RELEASE]
+	... 26 common frames omitted
+Caused by: redis.clients.jedis.exceptions.JedisConnectionException: java.net.ConnectException: Host is down (connect failed)
+	at redis.clients.jedis.Connection.connect(Connection.java:164) ~[jedis-2.7.3.jar:na]
+	at redis.clients.jedis.BinaryClient.connect(BinaryClient.java:82) ~[jedis-2.7.3.jar:na]
+	at redis.clients.jedis.BinaryJedis.connect(BinaryJedis.java:1641) ~[jedis-2.7.3.jar:na]
+	at redis.clients.jedis.JedisFactory.makeObject(JedisFactory.java:85) ~[jedis-2.7.3.jar:na]
+	at org.apache.commons.pool2.impl.GenericObjectPool.create(GenericObjectPool.java:861) ~[commons-pool2-2.3.jar:2.3]
+	at org.apache.commons.pool2.impl.GenericObjectPool.borrowObject(GenericObjectPool.java:435) ~[commons-pool2-2.3.jar:2.3]
+	at org.apache.commons.pool2.impl.GenericObjectPool.borrowObject(GenericObjectPool.java:363) ~[commons-pool2-2.3.jar:2.3]
+	at redis.clients.util.Pool.getResource(Pool.java:48) ~[jedis-2.7.3.jar:na]
+	... 29 common frames omitted
+Caused by: java.net.ConnectException: Host is down (connect failed)
+	at java.net.PlainSocketImpl.socketConnect(Native Method) ~[na:1.8.0_171]
+	at java.net.AbstractPlainSocketImpl.doConnect(AbstractPlainSocketImpl.java:350) ~[na:1.8.0_171]
+	at java.net.AbstractPlainSocketImpl.connectToAddress(AbstractPlainSocketImpl.java:206) ~[na:1.8.0_171]
+	at java.net.AbstractPlainSocketImpl.connect(AbstractPlainSocketImpl.java:188) ~[na:1.8.0_171]
+	at java.net.SocksSocketImpl.connect(SocksSocketImpl.java:392) ~[na:1.8.0_171]
+	at java.net.Socket.connect(Socket.java:589) ~[na:1.8.0_171]
+	at redis.clients.jedis.Connection.connect(Connection.java:158) ~[jedis-2.7.3.jar:na]
+	... 36 common frames omitted
+2019-03-11 16:30:00.003 [pool-1-thread-1] ERROR o.s.s.s.TaskUtils$LoggingErrorHandler - Unexpected error occurred in scheduled task.
+org.springframework.data.redis.RedisConnectionFailureException: Cannot get Jedis connection; nested exception is redis.clients.jedis.exceptions.JedisConnectionException: Could not get a resource from the pool
+	at org.springframework.data.redis.connection.jedis.JedisConnectionFactory.fetchJedisConnector(JedisConnectionFactory.java:162) ~[spring-data-redis-1.6.0.RELEASE.jar:1.6.0.RELEASE]
+	at org.springframework.data.redis.connection.jedis.JedisConnectionFactory.getConnection(JedisConnectionFactory.java:251) ~[spring-data-redis-1.6.0.RELEASE.jar:1.6.0.RELEASE]
+	at org.springframework.data.redis.connection.jedis.JedisConnectionFactory.getConnection(JedisConnectionFactory.java:58) ~[spring-data-redis-1.6.0.RELEASE.jar:1.6.0.RELEASE]
+	at org.springframework.data.redis.core.RedisConnectionUtils.doGetConnection(RedisConnectionUtils.java:128) ~[spring-data-redis-1.6.0.RELEASE.jar:1.6.0.RELEASE]
+	at org.springframework.data.redis.core.RedisConnectionUtils.getConnection(RedisConnectionUtils.java:91) ~[spring-data-redis-1.6.0.RELEASE.jar:1.6.0.RELEASE]
+	at org.springframework.data.redis.core.RedisConnectionUtils.getConnection(RedisConnectionUtils.java:78) ~[spring-data-redis-1.6.0.RELEASE.jar:1.6.0.RELEASE]
+	at org.springframework.data.redis.core.RedisTemplate.execute(RedisTemplate.java:178) ~[spring-data-redis-1.6.0.RELEASE.jar:1.6.0.RELEASE]
+	at org.springframework.data.redis.core.RedisTemplate.execute(RedisTemplate.java:153) ~[spring-data-redis-1.6.0.RELEASE.jar:1.6.0.RELEASE]
+	at org.springframework.data.redis.core.AbstractOperations.execute(AbstractOperations.java:86) ~[spring-data-redis-1.6.0.RELEASE.jar:1.6.0.RELEASE]
+	at org.springframework.data.redis.core.DefaultHashOperations.putIfAbsent(DefaultHashOperations.java:183) ~[spring-data-redis-1.6.0.RELEASE.jar:1.6.0.RELEASE]
+	at com.we.service.article.CollectActicleService.clearRecordData(CollectActicleService.java:129) ~[candy-club-lib-0.1-SNAPSHOT.jar:na]
+	at com.we.service.article.CollectActicleService.getRequireWebHtmlData(CollectActicleService.java:189) ~[candy-club-lib-0.1-SNAPSHOT.jar:na]
+	at com.we.core.myTask.CollectWebHtmlArticle.doTask(CollectWebHtmlArticle.java:19) ~[candy-club-lib-0.1-SNAPSHOT.jar:na]
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method) ~[na:1.8.0_171]
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62) ~[na:1.8.0_171]
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43) ~[na:1.8.0_171]
+	at java.lang.reflect.Method.invoke(Method.java:498) ~[na:1.8.0_171]
+	at org.springframework.scheduling.support.ScheduledMethodRunnable.run(ScheduledMethodRunnable.java:65) ~[spring-context-4.1.9.RELEASE.jar:4.1.9.RELEASE]
+	at org.springframework.scheduling.support.DelegatingErrorHandlingRunnable.run(DelegatingErrorHandlingRunnable.java:54) ~[spring-context-4.1.9.RELEASE.jar:4.1.9.RELEASE]
+	at org.springframework.scheduling.concurrent.ReschedulingRunnable.run(ReschedulingRunnable.java:81) [spring-context-4.1.9.RELEASE.jar:4.1.9.RELEASE]
+	at java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:511) [na:1.8.0_171]
+	at java.util.concurrent.FutureTask.run(FutureTask.java:266) [na:1.8.0_171]
+	at java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.access$201(ScheduledThreadPoolExecutor.java:180) [na:1.8.0_171]
+	at java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.run(ScheduledThreadPoolExecutor.java:293) [na:1.8.0_171]
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1149) [na:1.8.0_171]
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624) [na:1.8.0_171]
+	at java.lang.Thread.run(Thread.java:748) [na:1.8.0_171]
+Caused by: redis.clients.jedis.exceptions.JedisConnectionException: Could not get a resource from the pool
+	at redis.clients.util.Pool.getResource(Pool.java:50) ~[jedis-2.7.3.jar:na]
+	at redis.clients.jedis.JedisPool.getResource(JedisPool.java:99) ~[jedis-2.7.3.jar:na]
+	at redis.clients.jedis.JedisPool.getResource(JedisPool.java:12) ~[jedis-2.7.3.jar:na]
+	at org.springframework.data.redis.connection.jedis.JedisConnectionFactory.fetchJedisConnector(JedisConnectionFactory.java:155) ~[spring-data-redis-1.6.0.RELEASE.jar:1.6.0.RELEASE]
+	... 26 common frames omitted
+Caused by: redis.clients.jedis.exceptions.JedisConnectionException: java.net.ConnectException: Host is down (connect failed)
+	at redis.clients.jedis.Connection.connect(Connection.java:164) ~[jedis-2.7.3.jar:na]
+	at redis.clients.jedis.BinaryClient.connect(BinaryClient.java:82) ~[jedis-2.7.3.jar:na]
+	at redis.clients.jedis.BinaryJedis.connect(BinaryJedis.java:1641) ~[jedis-2.7.3.jar:na]
+	at redis.clients.jedis.JedisFactory.makeObject(JedisFactory.java:85) ~[jedis-2.7.3.jar:na]
+	at org.apache.commons.pool2.impl.GenericObjectPool.create(GenericObjectPool.java:861) ~[commons-pool2-2.3.jar:2.3]
+	at org.apache.commons.pool2.impl.GenericObjectPool.borrowObject(GenericObjectPool.java:435) ~[commons-pool2-2.3.jar:2.3]
+	at org.apache.commons.pool2.impl.GenericObjectPool.borrowObject(GenericObjectPool.java:363) ~[commons-pool2-2.3.jar:2.3]
+	at redis.clients.util.Pool.getResource(Pool.java:48) ~[jedis-2.7.3.jar:na]
+	... 29 common frames omitted
+Caused by: java.net.ConnectException: Host is down (connect failed)
+	at java.net.PlainSocketImpl.socketConnect(Native Method) ~[na:1.8.0_171]
+	at java.net.AbstractPlainSocketImpl.doConnect(AbstractPlainSocketImpl.java:350) ~[na:1.8.0_171]
+	at java.net.AbstractPlainSocketImpl.connectToAddress(AbstractPlainSocketImpl.java:206) ~[na:1.8.0_171]
+	at java.net.AbstractPlainSocketImpl.connect(AbstractPlainSocketImpl.java:188) ~[na:1.8.0_171]
+	at java.net.SocksSocketImpl.connect(SocksSocketImpl.java:392) ~[na:1.8.0_171]
+	at java.net.Socket.connect(Socket.java:589) ~[na:1.8.0_171]
+	at redis.clients.jedis.Connection.connect(Connection.java:158) ~[jedis-2.7.3.jar:na]
+	... 36 common frames omitted
+2019-03-11 16:50:30.030 [pool-1-thread-1] ERROR c.w.s.article.CollectActicleService - ------请求抓取内容出错：Read timed out
+2019-03-11 17:20:30.042 [pool-1-thread-1] ERROR c.w.s.article.CollectActicleService - ------请求抓取内容出错：Read timed out
+2019-03-16 22:00:40.906 [pool-1-thread-1] ERROR o.s.s.s.TaskUtils$LoggingErrorHandler - Unexpected error occurred in scheduled task.
+org.jsoup.UncheckedIOException: java.io.IOException: Underlying input stream returned zero bytes
+	at org.jsoup.parser.CharacterReader.bufferUp(CharacterReader.java:60) ~[jsoup-1.11.1.jar:na]
+	at org.jsoup.parser.CharacterReader.consume(CharacterReader.java:90) ~[jsoup-1.11.1.jar:na]
+	at org.jsoup.parser.TokeniserState$35.read(TokeniserState.java:598) ~[jsoup-1.11.1.jar:na]
+	at org.jsoup.parser.Tokeniser.read(Tokeniser.java:45) ~[jsoup-1.11.1.jar:na]
+	at org.jsoup.parser.TreeBuilder.runParser(TreeBuilder.java:51) ~[jsoup-1.11.1.jar:na]
+	at org.jsoup.parser.TreeBuilder.parse(TreeBuilder.java:45) ~[jsoup-1.11.1.jar:na]
+	at org.jsoup.parser.Parser.parseInput(Parser.java:39) ~[jsoup-1.11.1.jar:na]
+	at org.jsoup.helper.DataUtil.parseInputStream(DataUtil.java:151) ~[jsoup-1.11.1.jar:na]
+	at org.jsoup.helper.HttpConnection$Response.parse(HttpConnection.java:832) ~[jsoup-1.11.1.jar:na]
+	at org.jsoup.helper.HttpConnection.get(HttpConnection.java:289) ~[jsoup-1.11.1.jar:na]
+	at com.we.service.article.CollectActicleService.getRequireWebHtmlData(CollectActicleService.java:197) ~[candy-club-lib-0.1-SNAPSHOT.jar:na]
+	at com.we.core.myTask.CollectWebHtmlArticle.doTask(CollectWebHtmlArticle.java:19) ~[candy-club-lib-0.1-SNAPSHOT.jar:na]
+	at sun.reflect.GeneratedMethodAccessor33.invoke(Unknown Source) ~[na:na]
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43) ~[na:1.8.0_171]
+	at java.lang.reflect.Method.invoke(Method.java:498) ~[na:1.8.0_171]
+	at org.springframework.scheduling.support.ScheduledMethodRunnable.run(ScheduledMethodRunnable.java:65) ~[spring-context-4.1.9.RELEASE.jar:4.1.9.RELEASE]
+	at org.springframework.scheduling.support.DelegatingErrorHandlingRunnable.run(DelegatingErrorHandlingRunnable.java:54) ~[spring-context-4.1.9.RELEASE.jar:4.1.9.RELEASE]
+	at org.springframework.scheduling.concurrent.ReschedulingRunnable.run(ReschedulingRunnable.java:81) [spring-context-4.1.9.RELEASE.jar:4.1.9.RELEASE]
+	at java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:511) [na:1.8.0_171]
+	at java.util.concurrent.FutureTask.run(FutureTask.java:266) [na:1.8.0_171]
+	at java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.access$201(ScheduledThreadPoolExecutor.java:180) [na:1.8.0_171]
+	at java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.run(ScheduledThreadPoolExecutor.java:293) [na:1.8.0_171]
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1149) [na:1.8.0_171]
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624) [na:1.8.0_171]
+	at java.lang.Thread.run(Thread.java:748) [na:1.8.0_171]
+Caused by: java.io.IOException: Underlying input stream returned zero bytes
+	at sun.nio.cs.StreamDecoder.readBytes(StreamDecoder.java:288) ~[na:1.8.0_171]
+	at sun.nio.cs.StreamDecoder.implRead(StreamDecoder.java:326) ~[na:1.8.0_171]
+	at sun.nio.cs.StreamDecoder.read(StreamDecoder.java:178) ~[na:1.8.0_171]
+	at java.io.InputStreamReader.read(InputStreamReader.java:184) ~[na:1.8.0_171]
+	at java.io.BufferedReader.fill(BufferedReader.java:161) ~[na:1.8.0_171]
+	at java.io.BufferedReader.read1(BufferedReader.java:212) ~[na:1.8.0_171]
+	at java.io.BufferedReader.read(BufferedReader.java:289) ~[na:1.8.0_171]
+	at java.io.Reader.read(Reader.java:140) ~[na:1.8.0_171]
+	at org.jsoup.parser.CharacterReader.bufferUp(CharacterReader.java:54) ~[jsoup-1.11.1.jar:na]
+	... 24 common frames omitted

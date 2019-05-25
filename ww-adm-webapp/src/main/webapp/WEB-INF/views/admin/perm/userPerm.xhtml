@@ -1,0 +1,85 @@
+<#import "/spring.ftl" as spring /> <#import
+"/admin/layouts/common.xhtml" as layout>
+<@layout.title>用户权限设置</@layout.title> <@layout.metaKeywordsDescription>
+
+</@layout.metaKeywordsDescription> <@layout.cssLink>
+<link rel="stylesheet" type="text/css"
+	href="/webuploader/webuploader.css"></@layout.cssLink>
+	<@layout.pageHeader><SPAN>${nickname!}[${uid!}]</SPAN>&nbsp; 用户权限设置 </@layout.pageHeader> <@layout.mainContent>
+	<input type="hidden" id="nav_id" value="perm" />
+
+<div class="row">
+	<div class="col-lg-8">
+		<div>
+			<SPAN>选择角色快速设置</SPAN>
+			<#list roles as it>
+				<#if it.role==2 || it.role gt 5>
+				<input type="radio" id="roles" name="roles" value="${it.role}"  /> ${it} 
+				 </#if>
+			</#list>
+		</div>
+		<form role="form" id="form">
+			<input type="hidden" class="form-control" id="uid" name="uid" value="${uid!}" />
+			<#if obj??>
+			<#list obj?keys as key>
+			<div class="form-group form-inline">
+				<label>${key}：</label> 
+				<#list obj[key] as it>
+					<span><input type="checkbox" name="ids" id="rid${it._id}" value="${it._id}" <#if it.has??>checked="true"</#if> />${it.name}</span>
+				</#list>
+			</div>
+			</#list>
+			</#if>
+			
+
+			<button id="submit" class="btn btn-default">提交</button>
+			<button id="reset" class="btn btn-default">重置</button>
+		</form>
+	</div>
+
+</div>
+<!-- /.row (nested) -->
+
+</@layout.mainContent> <@layout.script>
+
+<script>
+	$(function() {
+		$('input[type=radio][name=roles]').change(function() {
+			var jsonData = {role:this.value}			
+			$.post("/admin/perms.xhtml", jsonData, function(ret) {
+				if (0 != ret.code) {
+					alert(ret.msg);
+				} else {
+					$("[name='ids']").removeAttr("checked");
+					var data = ret.data;
+					$("[name='ids']").each(function(idx,domE){
+						var check = false;
+						for(var i=0;i<data.length;i++){
+							if(data[i]._id==domE.value){
+								$(this).prop("checked",true);
+							}
+						}
+					});
+				}
+			});
+	    });
+		
+		$("#submit").click(function(e) {
+			e.preventDefault();
+			var t = this;
+			var jsonData = $("#form").serializeArray();
+			$.post("/admin/userPerm.xhtml", jsonData, function(ret) {
+				if (0 != ret.code) {
+					alert(ret.msg);
+				} else {
+					alert("Success");
+				}
+			});
+		});
+
+		$("#reset").click(function(e) {
+			window.history.go(-1);
+		});
+	});
+</script>
+</@layout.script>

@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>CandyClub캔디클럽 | 최다 암호화폐 에어드랍 플랫폼 수익을 창출하는 플랫폼</title>
+		<meta name="description" content="최다 암호화폐 에어드랍 플랫폼, 100여종의 토큰 에어드랍 무료 수령, 친구 초대하고 리워드 받고, 정기적으로 BTC，ETH，XRP，BCH，EOS 수령하기. 우수한 프로젝트 에어드랍 공유 플랫폼, 전국 최다 전문적인 에어드랍 플랫폼, 초고속으로 수익 창출하는 에어드랍 플랫폼"/>
+		<meta name="keywords" content="Candy Club, 캔디클럽, ICO에어드랍, 토큰 에어드랍, 에어드랍 무료, 암호화폐ICO시세, 가상화폐ICO시세, 암호화폐 뉴스, 가상화폐 뉴스, 암호화폐 거래소 순위, 가상화폐 거래소 순위, Coinpan，코인판, bitman，비트맨, cobak, 코박, moneynet，머니넷, airdrop gazua，에어드랍 가즈아, Upbit，업비트, Bithumb, 빗썸, 비트코인 에어드랍, 이더리움 에어드랍, 리플 에어드랍, 비트코인캐시 에어드랍." />
+		<meta property="og:title" content="CandyClub캔디클럽 | 최다 암호화폐 에어드랍 플랫폼 수익을 창출하는 플랫폼"/>
+		<meta property="og:description" content="최다 암호화폐 에어드랍 플랫폼, 100여종의 토큰 에어드랍 무료 수령, 친구 초대하고 리워드 받고, 정기적으로 BTC，ETH，XRP，BCH，EOS 수령하기. 우수한 프로젝트 에어드랍 공유 플랫폼, 전국 최다 전문적인 에어드랍 플랫폼, 초고속으로 수익 창출하는 에어드랍 플랫폼"/>
+		<meta property="og:url" content="https://www.candy.club"/>
+		
+		<#include "/common/head.xhtml"/>
+	</head>
+	<body>
+		
+		<#include "/common/header.xhtml"/>
+		<section id="banner" class="banner">
+			<div id="imgslider" class="flexslider">
+				<ul class="slides">
+					<li>
+						<div class="imgcon">
+							<div class="left-info">
+								<h2>에어드랍 이벤트</h2>
+								<p>수억 코인의 에어드랍이 당신을 기다리고 있습니다</p>
+								<a href="">지금 가입하러 가기</a>
+							</div>
+							<div class="right-info-img num1"></div>
+						</div>
+					</li>
+					<li>
+						<div class="imgcon">
+							<div class="left-info">
+								<h2>에어드랍 미션</h2>
+								<p>친구 초대하고! 게임도 하고!! 수익도 얻고!!!</p>
+								<a href="">미션 완성하러 가기</a>
+							</div>
+							<div class="right-info-img num2"></div>
+						</div>
+					</li>
+					<li>
+						<div class="imgcon">
+							<div class="left-info">
+								<h2>마이닝 리워드</h2>
+								<p>다양한 마이닝 프로모션으로 수익 상승!</p>
+								<a href="">마이닝으로 수익 얻기</a>
+							</div>
+							<div class="right-info-img num3"></div>
+						</div>
+					</li>
+					<li>
+						<div class="imgcon">
+							<div class="left-info">
+								<h2>거래소 거래가능</h2>
+								<p>캔디는 거래소에서 거래 가능!</p>
+								<a href="">거래소 바로가기</a>
+							</div>
+							<div class="right-info-img num4"></div>
+						</div>
+					</li>
+					
+				</ul>
+			</div>
+			
+		</section>
+		<section id="whatcandy" class="whatcandy">
+			<div class="container">
+				<div class="cimg">
+					<img src="/active/assets/image/img-091.png" width="554">
+				</div>
+				<div class="ctxt">
+					<h2>Candy club이란 ?</h2>
+					<p>전 세계 우수한 블록체인 프로젝트가 모인 최다 에어드랍 플랫폼Candy Club. </p>
+					<p>Candy Club은 다양한 블록체인 프로젝트의 미션과 에어드랍을 통하여 암호화폐에 대한 이해도를 높이고 더 많은 사용자들은 Candy Club을 통하여 안전하고, 간편하고, 편리하게 더욱더 많은 에어드랍에 참여할 수 있습니다.Candy Club에서는 ICO참여,자유거래, 기프트카드 교환등 다양한 서비스를 즐길수 있으며 Candy Club 브랜드의 확장과 더불어 Candy Tokend의 상업적 가치도 부단히 상승할 것입니다.</p>
+				</div>
+			</div>
+		</section>
+		<section id="candywhy" class="candywhy">
+			<div class="container">
+				<div class="ctxt">
+					<h2>Candy Club은 어떻게 사용하나요?</h2>
+					<p>Candy Club은 사용자들에게 우수한 블록체인 프로젝트를 추천해 드리며 Candy Token의 가치를 보장해 드립니다. 사용자는 Candy Club에 가입 후 계정 업그레이드, 미션등을 통하여 수익을 얻을 수 있으며 친구 초대, 마이닝 참여, 출석 체크 등 다양한 서비스를 즐기며 토큰을 지급 받을 수 있습니다. 앞으로 Candy Club에서의 모든 행동에서 Candy Token을 지급 받을수 있습니다. Candy Club은 블록체인 기반의 프로젝트이며 전파력으로 마이닝을 진행하고 Candy로 모든 사용자의 노력을 기록할 것입니다.</p>
+				</div>
+				<div class="cimg">
+					<img src="/active/assets/image/img-092.png" width="454">
+				</div>
+			</div>
+		</section>
+		<section id="task" class="task">
+			<div class="container">
+				<div class="title">특징</div>
+				<div class="intros"></div>
+				<ul>
+					<li>
+						<div class="imginfo"><div class="box"><img src="/active/assets/image/advantage-01.png" /></div></div>
+						<div class="txtinfo">
+							<h5>친구초대</h5>
+							<p>신규회원 가입시, 친구초대시 더 많은 리워드를 받을 수 있습니다</p>
+						</div>
+					</li>
+					<li>
+						<div class="imginfo"><div class="box"><img src="/active/assets/image/advantage-02.png" /></div></div>
+						<div class="txtinfo">
+							<h5>캔디 교환</h5>
+							<p>Candy Token을 사용하여 다른 코인을 교환할 수 있으며 교환된 코인은 거래소에서 거래 가능합니다</p>
+						</div>
+					</li>
+					<li>
+						<div class="imginfo"><div class="box"><img src="/active/assets/image/advantage-03.png" /></div></div>
+						<div class="txtinfo">
+							<h5>미션 보너스</h5>
+							<p>사용자는 에어드랍, 미션 등을 통하여 더욱더 많은 Candy Token과 코인을 받을 수 있습니다</p>
+						</div>
+					</li>
+					<li>
+						<div class="imginfo"><div class="box"><img src="/active/assets/image/advantage-04.png" /></div></div>
+						<div class="txtinfo">
+							<h5>수수료 무료</h5>
+							<p>수수료를 무료로 하여 사용자에게 개성화된 가치 있는 콘텐츠와 서비스를 제공합니다</p>
+						</div>
+					</li>
+					<li>
+						<div class="imginfo"><div class="box"><img src="/active/assets/image/advantage-05.png" /></div></div>
+						<div class="txtinfo">
+							<h5>개인정보 보호</h5>
+							<p>플랫폼은 다양한 인증 기술과 정태 익명의 기술을 채택하여 사용자의 권익을 충분히 보장합니다</p>
+						</div>
+					</li>
+					<li>
+						<div class="imginfo"><div class="box"><img src="/active/assets/image/advantage-06.png" /></div></div>
+						<div class="txtinfo">
+							<h5>간편하고 효율적</h5>
+							<p>에어드랍 진행중인 우수한 블록체인 프로젝트를 추천하여 다양한 에어드랍에 참여할 수 있도록 하며 원스톱으로 간편하고 편리한 서비스를 제공 합니다</p>
+						</div>
+					</li>
+					<li>
+						<div class="imginfo"><div class="box"><img src="/active/assets/image/advantage-07.png" /></div></div>
+						<div class="txtinfo">
+							<h5>투자 분석</h5>
+							<p>블록체인 프로젝트에 대하여 전문적으로 분석을 진행하며 투자의 위험을 줄이고 더 많은 수익을 발생 시킬 수 있습니다</p>
+						</div>
+					</li>
+					<li>
+						<div class="imginfo"><div class="box"><img src="/active/assets/image/advantage-08.png" /></div></div>
+						<div class="txtinfo">
+							<h5>슈퍼 클럽</h5>
+							<p>Candy Club의 회원들은 슈퍼노드에 참여하여 매달 고액의 리워드를 지급 받을 수 있습니다</p>
+						</div>
+					</li>
+				</ul>
+			</div>
+			
+		</section>
+		<section id="business" class="business">
+			<div class="container">
+				<div class="title">협력 파트너</div>
+				<div class="intros"></div>
+				<div class="Business-list">
+					<ul>
+						<li><img src="/active/assets/image/bitgo.png" height="40"/></li>
+						<li><img src="/active/assets/image/enterprise.png" height="40"/></li>
+						<li><img src="/active/assets/image/tokenbank.png" height="40"/></li>
+						<li><img src="/active/assets/image/cointelegraph.png" height="40"/></li>
+					</ul>
+				</div>
+			</div>
+			
+		</section>
+		
+		<div id="menutips" class="menutips">
+			<ul class="menuul">
+				<li class="active">1</li>
+				<li>2</li>
+				<li>3</li>
+				<li>4</li>
+				<li>5</li>
+			</ul>
+			<div class="img-message">
+				<img src="/active/assets/image/img-message.jpg" width="69" height="80"/>
+			</div>
+		</div>
+		<div class="iframebody">
+			<iframe id="messagecon" src="/chat.xhtml" name="chat"></iframe>
+			<div class="close"><img src="/active/assets/image/down-ico.png"/></div>
+			<#if uid??>
+			<#else>
+			<div class="Maskdiv">
+				<div class="box">
+					<p><a href="/login.xhtml" class="loginbtn">로그인</a> 등록을 해주세요</p>
+				</div>
+				
+			</div>
+			</#if>
+		</div>
+		
+		<#include "/common/footer.xhtml"/>
+		<script src="/active/assets/flexslider/jquery.flexslider-min.js"></script>
+		<script src="/active/assets/js/LiftEffect.min.js" type="text/javascript" charset="utf-8"></script>
+			<script type="text/javascript">
+								
+				$(".img-message img").click(function() {
+					$(".iframebody").show();
+					<#if uid??>
+						chat.window.initWebSocket();
+					</#if>
+				})
+				
+				$(".iframebody .close").click(function() {
+					$(".iframebody").hide();
+					chat.window.initWebSocket();
+					chat.window.closeWs();
+				})
+
+				$(window).load(function() {
+					LiftEffect({
+						"control1": ".menutips", 
+						"control2": ".menuul",
+						"target": [".header", ".banner", ".whatcandy", ".candywhy",".task"],
+						"current": "active" 
+					});
+					$('#imgslider').flexslider({
+						animation: "fade",
+						animationDuration:500,
+						slideshowSpeed:3000,
+						animationLoop: true,
+						pauseOnHover:true,
+						slideshow: false,
+						directionNav:false
+					});
+					function editbannerbg(){
+						var bgurl  = $(".flex-active-slide img").attr('src')
+						$(".flex-active-slide img").hide();
+						$(".flex-active-slide").css("background","url("+bgurl+") no-repeat")
+					}
+					var imgleng =  $(".banner .slides li");
+					
+					for(var i=0;i<imgleng.length;i++){
+					//alert(i)
+						$(".banner .slides li").eq(i).css("background","url(/active/assets/image/bnimg-0"+(i)+".jpg)")
+						
+					}
+					
+						
+				});
+		</script>
+	</body>
+</html>

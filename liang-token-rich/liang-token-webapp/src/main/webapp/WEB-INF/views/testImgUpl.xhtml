@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title>wetoken</title>
+		<!-- link rel="stylesheet" type="text/css" href="/webuploader/webuploader.css"> -->
+		<link  href="/active/cropper/cropper.css" rel="stylesheet">
+		<#include "/common/head.xhtml"/>
+		<style type="text/css">
+			._view{
+			    border: solid 1px red;
+			    height: 500px;
+			    width: 500px;
+			    margin-top: 20px;
+			}
+			._photo{
+			    border: solid 1px blue;
+			    height: 100px;
+			    width: 100px;
+			}
+
+		</style>
+	</head>
+
+	<body class="personalbody">
+		<#include "/common/header.xhtml"/>
+		<section class="bannerpage">
+			<img src="/active/image/presonal.jpg" />
+		</section>
+		<section class="personalpage nopadding">
+			<div class="container">
+				<div class="pagebody">
+					<#include "/personal/personal-left.xhtml"/>
+					<div class="floright rightcon">
+						!!!!!!!!
+					
+						<div  class="_photo" id="testPhoto" >
+							<img id="_pImg" src="" width="100px" height="100px">
+						</div>
+
+						<button id="fm_img" >上传</button> 
+						
+						<div class="_view">
+							<img id="image" src="" width="200px" height="200px">
+						</div>
+
+						<input  id="btn" style="display:none;"  type="file" accept="image/*,camera" capture="camera">
+
+					#########
+					</div>
+				</div>
+				<ul id="scene-personal" class="scene2">
+					<li class="layers layer1"><img src="/active/assets/image/ico-cro1.png" width="295"></li>
+					<li class="layers layer11"><img src="/active/assets/image/ico-cro1.png" width="99"></li>
+					<li class="layers layer2"><img src="/active/assets/image/ico-cro1.png" width="295"></li>
+					<li class="layers layer3"><img src="/active/assets/image/ico-cro2.png" width="202"></li>
+					<li class="layers layer4"><img src="/active/assets/image/ico-cro3.png" width="193"></li>
+					<li class="layers layer5"><img src="/active/assets/image/ico-cro4.png" width="183"></li>
+					<li class="layers layer6"><img src="/active/assets/image/ico-cro5.png" width="34"></li>
+				</ul>
+			</div>
+		</section>
+		<#include "/common/personal-footer.xhtml"/>
+		<script src="/active/assets/js/jquery-1.12.3.min.js" type="text/javascript" charset="utf-8"></script>
+		<!-- script src="/webuploader/webuploader.js"></script -->
+		<script src="/active/cropper/cropper.js"></script>
+		<script type="text/javascript">
+			$('#testPhoto').click(function(){
+				$('#btn').trigger('click');	
+			});
+
+			var $image=$('#image');
+			var fileName;
+			$('#btn').change(function(){
+				$image.cropper({
+					aspectRatio: 1/1,
+			        viewMode:2,
+			        aspectRatio: 1,
+			      	autoCropArea: 0.7,
+			      	minCropBoxWidth:10,
+			        crop: function (e) {
+			        }
+				});
+				var file = this.files[0];
+				fileName = file.name;
+			      var reader = new FileReader();
+			      reader.readAsDataURL(file);
+			      reader.onload = function(){
+			          var url = reader.result;
+			          $image.cropper('reset', true).cropper('replace', url);
+			          $('#_pImg').attr("src",url);
+			      };
+
+			})
+
+			$('#fm_img').click(function(){
+				var cas=$('#image').cropper('getCroppedCanvas');
+        		var baseUrl=cas.toDataURL();
+        		$('#_pImg').attr("src",baseUrl);
+        		$('#image').cropper('getCroppedCanvas').toBlob(function (blob) {
+					var formData = new FormData();
+					formData.append('file',blob,fileName);
+					$.ajax({
+						url: '/my/updatePersonalImg',
+					    method: "POST",
+					    data: formData,
+					    processData: false,
+					    contentType: false,
+					    success: function (resp) {
+					      console.log('respjson:', resp);
+
+					    },
+					    error: function () {
+					      console.log('Upload error');
+					    }
+				    });
+				});
+
+			});
+
+
+		</script>
+	</body>
+
+</html>

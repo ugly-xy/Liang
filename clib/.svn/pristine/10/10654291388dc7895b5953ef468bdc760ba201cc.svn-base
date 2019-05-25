@@ -1,0 +1,174 @@
+package com.we.models;
+
+/** 商务合作 */
+public class BusinessCooperation extends AbstractDocument {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 107970692358307292L;
+
+	private long uid;
+	private String name;
+	private String WeChat;
+	private String email;
+	private String selfIntroduction;// 自我介绍
+	private String cooperationIntention;// 合作意向
+	private long createTime;
+	private int status;// 状态 已处理 忽略 待处理
+	private Long adminId;
+
+	public long getUid() {
+		return uid;
+	}
+
+	public void setUid(long uid) {
+		this.uid = uid;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public String getWeChat() {
+		return WeChat;
+	}
+
+	public void setWeChat(String weChat) {
+		WeChat = weChat;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+	public String getSelfIntroduction() {
+		return selfIntroduction;
+	}
+
+	public void setSelfIntroduction(String selfIntroduction) {
+		this.selfIntroduction = selfIntroduction;
+	}
+
+	public String getCooperationIntention() {
+		return cooperationIntention;
+	}
+
+	public void setCooperationIntention(String cooperationIntention) {
+		this.cooperationIntention = cooperationIntention;
+	}
+
+	public int getStatus() {
+		return status;
+	}
+
+	public void setStatus(int status) {
+		this.status = status;
+	}
+
+	public long getCreateTime() {
+		return createTime;
+	}
+
+	public void setCreateTime(long createTime) {
+		this.createTime = createTime;
+	}
+
+	public Long getAdminId() {
+		return adminId;
+	}
+
+	public void setAdminId(Long adminId) {
+		this.adminId = adminId;
+	}
+
+	@Override
+	public String toString() {
+		return "BusinessCooperation [uid=" + uid + ", name=" + name + ", WeChat=" + WeChat + ", email=" + email
+				+ ", selfIntroduction=" + selfIntroduction + ", cooperationIntention=" + cooperationIntention
+				+ ", status=" + status + "]";
+	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = super.hashCode();
+		result = prime * result + ((WeChat == null) ? 0 : WeChat.hashCode());
+		result = prime * result + ((cooperationIntention == null) ? 0 : cooperationIntention.hashCode());
+		result = prime * result + ((email == null) ? 0 : email.hashCode());
+		result = prime * result + ((name == null) ? 0 : name.hashCode());
+		result = prime * result + ((selfIntroduction == null) ? 0 : selfIntroduction.hashCode());
+		result = prime * result + status;
+		result = prime * result + (int) (uid ^ (uid >>> 32));
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (!super.equals(obj))
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		BusinessCooperation other = (BusinessCooperation) obj;
+		if (WeChat == null) {
+			if (other.WeChat != null)
+				return false;
+		} else if (!WeChat.equals(other.WeChat))
+			return false;
+		if (cooperationIntention == null) {
+			if (other.cooperationIntention != null)
+				return false;
+		} else if (!cooperationIntention.equals(other.cooperationIntention))
+			return false;
+		if (email == null) {
+			if (other.email != null)
+				return false;
+		} else if (!email.equals(other.email))
+			return false;
+		if (name == null) {
+			if (other.name != null)
+				return false;
+		} else if (!name.equals(other.name))
+			return false;
+		if (selfIntroduction == null) {
+			if (other.selfIntroduction != null)
+				return false;
+		} else if (!selfIntroduction.equals(other.selfIntroduction))
+			return false;
+		if (status != other.status)
+			return false;
+		if (uid != other.uid)
+			return false;
+		return true;
+	}
+
+	public BusinessCooperation(long uid, String name, String weChat, String email, String selfIntroduction,
+			String cooperationIntention, int status) {
+		super();
+		this.uid = uid;
+		this.name = name;
+		WeChat = weChat;
+		this.email = email;
+		this.selfIntroduction = selfIntroduction;
+		this.cooperationIntention = cooperationIntention;
+		this.status = status;
+		this.createTime = System.currentTimeMillis();
+		this.updateTime = this.createTime;
+	}
+
+	public BusinessCooperation() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
+}

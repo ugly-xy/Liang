@@ -1,0 +1,31 @@
+package com.we.models;
+
+import java.util.HashMap;
+
+/** 用户第三方账号的id集合 */
+public class UserThirdId extends AbstractDocument {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 9164431888305972220L;
+	private HashMap<Integer, String> ids = new HashMap<Integer, String>();
+
+	public HashMap<Integer, String> getIds() {
+		return ids;
+	}
+
+	public void setIds(HashMap<Integer, String> ids) {
+		this.ids = ids;
+	}
+
+	public UserThirdId() {
+		super();
+	}
+
+	public UserThirdId(HashMap<Integer, String> ids) {
+		super();
+		this.ids = ids;
+	}
+
+}

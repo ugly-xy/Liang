@@ -1,0 +1,118 @@
+<#import "/spring.ftl" as spring /> <#import
+"/admin/layouts/common.xhtml" as layout>
+<@layout.title>历史库备份</@layout.title> <@layout.metaKeywordsDescription>
+
+</@layout.metaKeywordsDescription> <@layout.cssLink> </@layout.cssLink>
+<@layout.pageHeader> 历史库备份 </@layout.pageHeader> <@layout.mainContent>
+	<input type="hidden" id="nav_id" value="bak" />
+
+<div class="row">
+	<div class="col-lg-12">
+			<div class="form-group form-inline">
+				<label>金币日志表（CoinLog）:</label> <BUTTON id="btnCoinLog">备份</BUTTON><span id="coinStatus"></span>
+			</div>
+			<div class="form-group form-inline">
+				<label>经验日志表（PointLog）:</label> <BUTTON id="btnPointLog">备份</BUTTON><span id="pointStatus"></span>
+			</div>
+			
+			<div class="form-group form-inline">
+				<label>登录日志表（LoginLog）:</label> <BUTTON id="btnLoginLog">备份</BUTTON><span id="loginStatus"></span>
+			</div>
+			
+			<div class="form-group form-inline">
+				<label>任务日志表（Task）:</label> <BUTTON id="btnTask">备份</BUTTON><span id="taskStatus"></span>
+			</div>
+			<div class="form-group form-inline">
+				<label>统计（st）:</label> <BUTTON id="btnSt">备份</BUTTON><span id="stStatus"></span>
+			</div>
+			<div class="form-group form-inline">
+				<label>统计（Rtst）:</label> <BUTTON id="btnRtSt">备份</BUTTON><span id="stRtStatus"></span>
+			</div>
+	</div>
+
+	<!-- /.col-lg-12 -->
+</div>
+
+</@layout.mainContent> <@layout.script>
+<script>
+	$(function() {
+		$("#btnCoinLog").click(function() {
+			//e.preventDefault();
+			$("#coinStatus").html("备份进行中，请耐心等待");
+			var jsonData = {type:"coin"};
+			$.post("/admin/sys/bak", jsonData, function(ret) {
+				if (0 != ret.code) {
+					$("#coinStatus").html(ret.msg);
+				} else {
+					$("#coinStatus").html("耗时："+ret.data+"，备份成功！");
+				}
+			});
+		});
+		
+		$("#btnPointLog").click(function() {
+			//e.preventDefault();
+			$("#pointStatus").html("备份进行中，请耐心等待");
+			var jsonData = {type:"point"};
+			$.post("/admin/sys/bak", jsonData, function(ret) {
+				if (0 != ret.code) {
+					$("#pointStatus").html(ret.msg);
+				} else {
+					$("#pointStatus").html("耗时："+ret.data+"，备份成功！");
+				}
+			});
+		});
+		
+		$("#btnTask").click(function() {
+			//e.preventDefault();
+			$("#taskStatus").html("备份进行中，请耐心等待");
+			var jsonData = {type:"task"};
+			$.post("/admin/sys/bak", jsonData, function(ret) {
+				if (0 != ret.code) {
+					$("#taskStatus").html(ret.msg);
+				} else {
+					$("#taskStatus").html("耗时："+ret.data+"，备份成功！");
+				}
+			});
+		});
+		
+		$("#btnLoginLog").click(function() {
+			//e.preventDefault();
+			$("#loginStatus").html("备份进行中，请耐心等待");
+			var jsonData = {type:"login"};
+			$.post("/admin/sys/bak", jsonData, function(ret) {
+				if (0 != ret.code) {
+					$("#loginStatus").html(ret.msg);
+				} else {
+					$("#loginStatus").html("耗时："+ret.data+"，备份成功！");
+				}
+			});
+
+		});
+		
+		$("#btnSt").click(function() {
+			//e.preventDefault();
+			$("#stStatus").html("备份进行中，请耐心等待");
+			var jsonData = {type:"st"};
+			$.post("/admin/sys/bak", jsonData, function(ret) {
+				if (0 != ret.code) {
+					$("#stStatus").html(ret.msg);
+				} else {
+					$("#stStatus").html("耗时："+ret.data+"，备份成功！");
+				}
+			});
+		});
+		$("#btnRtSt").click(function() {
+			//e.preventDefault();
+			$("#stRtStatus").html("备份进行中，请耐心等待");
+			var jsonData = {type:"rst"};
+			$.post("/admin/sys/bak", jsonData, function(ret) {
+				if (0 != ret.code) {
+					$("#stRtStatus").html(ret.msg);
+				} else {
+					$("#stRtStatus").html("耗时："+ret.data+"，备份成功！");
+				}
+			});
+		});
+	});
+</script>
+</@layout.script>

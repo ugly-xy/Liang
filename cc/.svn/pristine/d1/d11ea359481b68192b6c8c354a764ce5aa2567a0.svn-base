@@ -1,0 +1,448 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title>이벤트</title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="css/mui.min.css" rel="stylesheet" />
+		<link rel="stylesheet" type="text/css" href="css/style.css"/>
+		<style type="text/css">
+			.activity-list img{
+				height: 100px;
+			}
+			.mui-content{
+				position: absolute;
+				width: 100%;
+			}
+		</style>
+		
+	</head>
+
+	<body>
+		<div class="barshadow"></div>
+		<div id="pullrefresh" class="mui-content mui-scroll-wrapper">
+			<div class="mui-scroll" >
+				<div v-if="isNews" class="news1 newslist" >
+					<ul class="mui-table-view mui-table-view">
+						<li class="mui-table-view-cell" v-for="item in news">
+							<div class="meta-info">
+								<div class="time">{{item.publishTime}}</div>
+							</div>
+							<div class="newscon" @tap="open_detail(1,item)">
+								<div class="mui-media-body newstitle">
+									{{item.title}}
+								</div>
+								<div class="mui-media-large">
+									<p v-html="item.content"></p>
+								</div>
+								<div class="imgboy"> 
+									<img v-if="''!=item.cover" :src="(item.cover)" style="width: 70%;">
+								</div>
+								<div><a class="linkbtn" >전체보기</a></div>
+								<a class="share-btn-news">공유</a>		
+							</div>
+						</li>
+					</ul>
+				</div>
+				<div v-if="!isNews" class="news2 newslist">
+					<ul class="mui-table-view mui-table-view-chevron">
+						<li class="mui-table-view-cell" v-for="item in notices" @tap="open_detail(2,item)" style="padding-left: 0;">
+							<div class="mui-media-body">
+								<div class="mui-ellipsis-2 news2title">&nbsp;{{item.title}}
+								<div class="time">{{item.publishTime}}</div></div>
+								
+								<div class="noticeimg">
+									<!--<img class="mui-media-object" :src="(item.cover)">-->
+								</div>
+							</div>
+							
+						</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+	 <script src="js/mui.min.js"></script>
+	 <script src="js/app.js" type="text/javascript" charset="utf-8"></script>
+	 <script src="js/vue.min.js" type="text/javascript" charset="utf-8"></script>
+	 <script type="text/javascript">
+	 	mui.init({
+	 	 	pullRefresh: {
+					container: '#pullrefresh',
+					down: {
+						height:50,//可选,默认50.触发下拉刷新拖动距离,
+					      auto: true,//可选,默认false.首次加载自动下拉刷新一次
+					      contentdown : "",//可选，在下拉可刷新状态时，下拉刷新控件上显示的标题内容
+					      contentover : "",//可选，在释放可刷新状态时，下拉刷新控件上显示的标题内容
+					      contentrefresh : "",//可选，正在刷新状态时，下拉刷新控件上显示的标题内容
+						  callback: function() {
+						 	initDown();
+						 }
+					},
+					up:{
+						contentdown:'',
+						contentnomore:'더 이상 없음',
+						contentrefresh: '',
+						callback: function(){
+							queryData(2);
+						}
+						
+					}
+				}
+	 	 })
+
+	 	 function initDown(){
+	 	 	if(window.plus && plus.networkinfo.getCurrentType() === plus.networkinfo.CONNECTION_NONE) {
+				plus.nativeUI.toast('network error..', {
+					verticalAlign: 'top'
+				});
+				 mui('#pullrefresh').pullRefresh().endPulldownToRefresh();
+				return;
+			}
+			queryNewsDown();
+			setTimeout(function() {
+			  newsAndnoticeData.notices=[];
+			  queryNoticeData();
+			}, 30);
+			 mui('#pullrefresh').pullRefresh().endPulldownToRefresh();
+	 	 }
+		
+	 	 window.addEventListener("fnews",function(){
+	 	 	if(watchInitEn()){
+	 	 		initDown();
+	 	 	}
+	 	 })
+		
+		var newsAndnoticeData = new Vue({
+				el: '.mui-content',
+				data: {
+					newsPageParam:{
+						page:0,
+						size:10,
+					},
+					news: [], 
+					banners:[],
+					notices: [],
+					imgDomain:'',
+					isNews:true,
+					scroll:0,
+				}
+		});	
+		
+		function watchInitEn(){
+			if((newsAndnoticeData.news)&&(newsAndnoticeData.news).length>0){
+				return false;
+			}
+			return true;
+		}
+		
+		function queryNewsDown(){
+			newsAndnoticeData.newsPageParam.page =0;
+			setTimeout(function() {
+				queryData(1);
+			}, 20);
+		}
+		
+		function queryData(val){
+			var cur =parseInt(newsAndnoticeData.newsPageParam.page);
+			var count=newsAndnoticeData.news.length;
+			if(val==1)count=1;
+			newsAndnoticeData.newsPageParam.page=parseInt(count/newsAndnoticeData.newsPageParam.size)+1;
+			var reqParam ={
+				page:newsAndnoticeData.newsPageParam.page,
+				size:newsAndnoticeData.newsPageParam.size
+			}
+			var list=[];
+			 mui.getJSON(app.serverApi(app.apiConstant.getNewsInfo),reqParam,function(res){
+			 	app.respondingTo(res.code,function(code){
+			 		if(0!=code){
+			 			plus.nativeUI.toast(res.msg);
+			 		}else{
+			 			var news =res.data.news;
+			 			var banners =res.data.banners;
+			 			var imgDomain = res.data.imgDomain;
+			 			newsAndnoticeData.total=news.total;
+			 			var curPage=news.curPage;
+			 			if(news&&news.list){
+			 				var newArr=news.list;
+			 				for(var i=0; i<newArr.length;i++){
+				 				var json={};
+				 				json.cover = "";
+				 				var x = newArr[i];
+				 				json.gid = x._id;
+				 				if(x.cover&&''!=x.cover){
+				 					json.cover=imgDomain+x.cover;
+				 				}
+				 				json.title ="";
+				 				if(x.title&&x.title!=''){
+				 					json.title = (x.title);
+				 				}
+				 				json.publishTime = app.longFymdhm(x.publishTime);
+				 				json.content = "";
+				 				if(x.content&&x.content!=null){
+				 					sText =getSimpleText(x.content);
+				 					if(sText.length>55){
+					 					json.content = sText.substr(0,55)+"..";
+					 				}else{
+					 					json.content =sText;
+					 				}
+				 				}
+				 				json.username ='--';
+				 				if(x.username&&null!=x.username){
+				 					json.username = x.username;
+				 				}
+			 					list.push(json);
+				 			}
+			 				if(val==1){
+			 					newsAndnoticeData.news=list;
+			 				}else if(newsAndnoticeData.news.length<newsAndnoticeData.total){
+			 					newsAndnoticeData.news=newsAndnoticeData.news.concat(list);
+			 				}
+			 				
+			 			}
+			 			if(banners&&banners!=null){
+			 				var bannersList=[];
+			 				newsAndnoticeData.banners=newsAndnoticeData.banners.concat(bannersList);
+			 			}
+			 			newsAndnoticeData.imgDomain =imgDomain;
+			 			
+			 		}
+			 		if(val==2){			 			
+			 			mui('#pullrefresh').pullRefresh().endPullupToRefresh(newsAndnoticeData.news.length>=newsAndnoticeData.total);
+			 		}else{
+			 			closePulldown();
+			 		}
+			 		
+			 	})
+			 })
+		}
+		
+		function queryNoticeData(){
+			var reqParam ={
+				page:1,
+				size:10,
+			}
+			var list=[];
+			 mui.getJSON(app.serverApi(app.apiConstant.getNoticesInfo),reqParam,function(res){
+			 	app.respondingTo(res.code,function(code){
+			 		if(0!=code){
+			 			plus.nativeUI.toast(res.msg);
+			 		}else{
+			 			var notices =res.data;
+			 			if(notices&&notices!=null){
+			 				for(var i=0;i<notices.length;i++){
+			 					var json={};
+			 					var x =notices[i];
+			 					json.gid = x._id;
+			 					json.title=x.title;
+			 					json.publishTime =app.longFymdhm(x.createTime);
+			 					list.push(json);
+			 				}
+			 				newsAndnoticeData.notices=newsAndnoticeData.notices.concat(list);
+			 			}
+			 			
+			 		}
+			 		//
+			 	})
+			 })
+		}
+		
+		function closePulldown(id){
+			 mui('#pullrefresh').pullRefresh().endPulldownToRefresh();
+ 			mui("#pullrefresh").pullRefresh().refresh(true);
+		}
+		var detailView=null;
+		mui.plusReady(function() {
+			detailView = mui.preload({
+                url: 'detail.html',
+                id: 'news_detail',
+                styles: {
+				  popGesture: 'hide'
+				},
+            });
+            if (mui.os.plus) {
+				mui(".mui-scroll-wrapper").scroll({
+					indicators:false,
+					deceleration:0.001,
+				});
+			} 
+			
+		});
+		
+		var subscroll =0;
+		var scrollTop=null;
+		
+		window.addEventListener('actId',function(e){
+			var actId =e.detail.actId;
+			if("1"==actId){
+				newsAndnoticeData.isNews=true;
+//				mui('.mui-scroll-wrapper').scroll().setTranslate(0,subscroll);
+			}else if("0"==actId){
+				subscroll =0;
+//				mui('.mui-scroll-wrapper').scroll().setTranslate(0,subscroll);
+			}else{
+				newsAndnoticeData.isNews=false;
+				if (mui.os.plus) {
+					mui('.mui-scroll-wrapper').scroll().reLayout();
+					mui('.mui-scroll-wrapper').scroll().setTranslate(0,0);
+				} else {
+					
+				}
+			}
+			
+		})
+		
+			/**
+			 * 打开新闻详情
+			 * 
+			 * @param {Object} item 当前点击的新闻对象
+			 */
+			function open_detail(i,item){
+				var gid =item.gid;
+				if(!gid) {
+					return;
+				}
+				var optJson={i:i,gid:gid,title:""+item.title,time:""+item.publishTime,cover:item.cover};
+				mui.fire(detailView,"subDetail",optJson);
+				open_subpage()
+			}
+			
+			function open_subpage(){
+				mui.openWindow({
+					id: detailView.id,
+					show: {
+						aniShow: 'pop-in'
+					},
+					styles: {
+						popGesture: 'close'
+					},
+					waiting: {
+						autoShow: true
+					}
+				});
+			}
+			
+			//bak
+			function open_detail_bk(i,item) {
+				var gid =item.gid;
+				if(!gid) {
+					return;
+				}
+				
+				setTimeout(function () {
+					if(i&&i!=""){
+					  initShareContent(i,gid);
+					}
+				},0);
+				
+			}
+			
+			function initShareContent(i,gid){
+				mui.openWindow({
+					url: "detail.html",
+					id: 'news_detail',
+					show: {
+						aniShow: 'pop-in'
+					},
+					styles: {
+						popGesture: 'close'
+					},
+					waiting: {
+						autoShow: true
+					},
+					extras:{
+						i:i,
+						gid:gid,
+				    },
+				});
+				
+			}
+			
+			/**
+			 * 
+			 * @param {Array} items 
+			 */
+			function convert(items) {
+				var newItems = [];
+				items.forEach(function(item) {
+					newItems.push({
+						guid: item.post_id,
+						title: item.title,
+						author: item.author_name,
+						cover: item.cover,
+						time:dateUtils.format(item.published_at)
+					});
+				});
+				return newItems;
+			}
+
+			/**
+			 * 格式化时间的辅助类，将一个时间转换成x小时前、y天前等
+			 */
+			var dateUtils = {
+				UNITS: {
+					'年': 31557600000,
+					'月': 2629800000,
+					'天': 86400000,
+					'小时': 3600000,
+					'分钟': 60000,
+					'秒': 1000
+				},
+				humanize: function(milliseconds) {
+					var humanize = '';
+					mui.each(this.UNITS, function(unit, value) {
+						if(milliseconds >= value) {
+							humanize = Math.floor(milliseconds / value) + unit + '前';
+							return false;
+						}
+						return true;
+					});
+					return humanize || '刚刚';
+				},
+				format: function(dateStr) {
+					var date = this.parse(dateStr)
+					var diff = Date.now() - date.getTime();
+					if(diff < this.UNITS['天']) {
+						return this.humanize(diff);
+					}
+					
+					var _format = function(number) {
+						return(number < 10 ? ('0' + number) : number);
+					};
+					return date.getFullYear() + '/' + _format(date.getMonth() + 1) + '/' + _format(date.getDay()) + '-' + _format(date.getHours()) + ':' + _format(date.getMinutes());
+				},
+				parse:function (str) {//将"yyyy-mm-dd HH:MM:ss"格式的字符串，转化为一个Date对象
+					var a = str.split(/[^0-9]/);
+					return new Date (a[0],a[1]-1,a[2],a[3],a[4],a[5] );
+				}
+			};
+			
+		  function getSimpleText(html){
+			 if(!html)return "";
+			 var re1 = new RegExp("<.+?>","g");
+			 var msg = html.replace(re1,'');
+			 return msg;
+		 }
+	 	 
+	 	 function pullupRefresh(){
+	 	 	setTimeout(function() {
+	 	 		mui('#pullrefresh').pullRefresh().endPullupToRefresh();
+			}, 0);
+	 	 }
+	 	 
+	 	 if (mui.os.plus) {
+			mui.plusReady(function() {
+				setTimeout(function() {
+					mui('#pullrefresh').pullRefresh().pullupLoading();
+				}, 10);
+
+			});
+		} else {
+			mui.ready(function() {
+				mui('#pullrefresh').pullRefresh().pullupLoading();
+			});
+		}
+		
+	 </script>
+	</body>
+</html>

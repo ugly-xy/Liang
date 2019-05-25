@@ -1,0 +1,54 @@
+<?xml version="1.0"?>
+<project xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd" xmlns="http://maven.apache.org/POM/4.0.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <modelVersion>4.0.0</modelVersion>
+  <parent>
+    <groupId>liang.token</groupId>
+    <artifactId>liang-token-rich</artifactId>
+    <version>0.0.1-SNAPSHOT</version>
+  </parent>
+  <artifactId>liang-token-webapp</artifactId>
+  <packaging>war</packaging>
+  <name>liang-token-webapp</name>
+  <url>http://maven.apache.org</url>
+  <dependencies>
+  
+  
+  
+  		<dependency>
+			<groupId>com.taobao</groupId>
+			<artifactId>taobao-sdk-java-auto</artifactId>
+			<version>1502463858297-20170817</version>
+			<scope>system</scope>
+			<systemPath>${project.basedir}/libs/taobao-sdk-java-auto_1502463858297-20170817.jar</systemPath>
+		</dependency>
+		<dependency>
+			<groupId>com.alipay.api</groupId>
+			<artifactId>alipay-sdk-java</artifactId>
+			<version>20170324180803</version>
+			<scope>system</scope>
+			<systemPath>${project.basedir}/libs/alipay-sdk-java20170324180803.jar</systemPath>
+		</dependency>
+  </dependencies>
+  
+  <build>
+		<finalName>liang-token-webapp</finalName>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<configuration>
+					<encoding>UTF-8</encoding>
+					<source>1.8</source>
+					<target>1.8</target>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.eclipse.jetty</groupId>
+				<artifactId>jetty-maven-plugin</artifactId>
+				<version>9.3.7.v20160115</version>
+			</plugin>
+		</plugins>
+	</build>
+  
+</project>

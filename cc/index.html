@@ -1,0 +1,210 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="css/mui.min.css" rel="stylesheet" />
+		<link rel="stylesheet" type="text/css" href="css/style.css" />
+		<link rel="stylesheet" type="text/css" href="css/iconfont.css" />
+	</head>
+
+	<body>
+		<nav class="mui-bar mui-bar-tab" id="nav">
+			<a class="mui-tab-item mui-active" id="task">
+				<span class="iconfont icon-home"></span>
+				<span class="mui-tab-label">미션</span>
+			</a>
+			<a class="mui-tab-item" id="news">
+				<span class="iconfont icon-news"></span>
+				<span class="mui-tab-label">뉴스</span>
+			</a>
+			<a class="mui-tab-item" id="activity">
+				<span class="iconfont icon-activity"></span>
+				<span class="mui-tab-label">이벤트</span>
+			</a>
+			<a class="mui-tab-item" id="personal">
+				<span class="iconfont icon-persent"></span>
+				<span class="mui-tab-label">마이 페이지</span>
+			</a>
+		</nav>
+
+		<script src="js/mui.min.js"></script>
+		<script src="js/app.js" type="text/javascript"></script>
+		<script>
+			mui.init({
+				subpages: [ //先加载首页
+					{
+						url: 'indexinfo.html',
+						id: 'task',
+						styles: {
+							top: '0px',
+							bottom: '70px'
+						}
+					},
+				],
+				preloadPages: [ //缓存其他子页面
+					{
+						url: 'news.html',
+						id: 'news',
+						styles: {
+							top: '0px',
+							bottom: '70px'
+						}
+					},
+					{
+						url: 'activity.html',
+						id: 'activity',
+						styles: { 
+							top: '0px',
+							bottom: '70px'
+						}
+					},
+					{
+						url: 'personal.html',
+						id: 'personal',
+						styles: {
+							top: '0px',
+							bottom: '70px'
+						}
+					}
+				]
+
+			});
+	
+			mui.plusReady(function() {
+				var winAll = plus.webview.all();
+				var taskBut =document.getElementById("task");
+				var actId ="task";
+				var task, news, activity, personal;
+				//判断加载
+//				var self = plus.webview.currentWebview();
+//				var loadedCount = 0;
+//				for(var i = 0; i < 4; i++) {
+//					var sub = plus.webview.create(subpages[i], subpages[i], {});
+//					if(i > 0) {
+//						sub.hide();
+//					} else {
+//						sub.addEventListener('loaded', function() {
+//							plus.navigator.closeSplashscreen();
+//						});
+//					}
+//					self.append(sub);
+//				}
+				task = plus.webview.getWebviewById("task");
+				news = plus.webview.getWebviewById("news");
+				activity = plus.webview.getWebviewById("activity");
+				personal = plus.webview.getWebviewById("personal");
+				mui("#nav").on("tap", "#task", function() {
+					var tid =this.getAttribute("id");
+					if(actId==tid)return;
+					plus.webview.getWebviewById(actId).hide();
+					tar =  plus.webview.getWebviewById(tid);
+					tar.show();
+					actId=tid;
+				})
+				mui("#nav").on("tap", "#news", function() {
+					var tid =this.getAttribute("id");
+					if(actId==tid)return;
+					plus.webview.getWebviewById(actId).hide();
+					tar =  plus.webview.getWebviewById(tid);
+					tar.show();
+					actId=tid;
+					goreview(tid);
+				})
+				mui("#nav").on("tap", "#activity", function() {
+					var tid =this.getAttribute("id");
+					if(actId==tid)return;
+					plus.webview.getWebviewById(actId).hide();
+					tar =  plus.webview.getWebviewById(tid);
+					tar.show();
+					actId=tid;
+					goreview(tid);
+				})
+				mui("#nav").on("tap", "#personal", function() {
+					if(!validLogin()){
+						return;
+					}
+					var tid =this.getAttribute("id");
+					if(actId==tid)return;
+					plus.webview.getWebviewById(actId).hide();
+					tar =  plus.webview.getWebviewById(tid);
+					tar.show();
+					actId=tid;
+				})
+				window.addEventListener('loading',function(){
+					initObj(task,"task");
+					initObj(personal,"personal");
+					initObj(activity,"activity");
+					showTask();
+				});
+				
+				function getOBj(id){
+					return plus.webview.getWebviewById(id+"");
+				}
+				
+				function goreview(id){
+					if("activity"==id){
+						mui.fire(plus.webview.getWebviewById(id+"_sub.html"),"facti",null);
+					}
+					if("news"==id){
+						mui.fire(plus.webview.getWebviewById(id+"_sub.html"),"fnews",null);
+					}
+				}
+				
+				function validLogin(){
+					if(app.getAuth()&&null!=app.getAuth()){
+						return true;
+					}
+					app.respondingTo(11000,function(code){
+						return false;
+					})
+					return false;
+				}
+				function initObj(obj,id){
+					var subObj=obj;
+					var subid=id;
+					if(!subObj){
+						setTimeout(function() {
+							subObj = plus.webview.getWebviewById(id+"");
+							initObj(subObj,subid);
+						}, 600);
+					}else{
+						subObj.reload(true);
+					}
+				}
+				
+				function showTask(){
+					mui(".mui-active")[0].classList.remove("mui-active");
+					taskBut.classList.add("mui-active");
+					actId="task";;
+					plus.webview.getWebviewById(actId).show();;
+				}
+				var flag = false;
+				//创建遮罩蒙板
+				var mask = mui.createMask(function() {
+					return flag;
+				});
+				window.addEventListener("resume",function(){
+					plus.webview.getWebviewById("task").reload(true);
+				},false)
+				//打开遮罩蒙板
+				window.addEventListener("openMask", function() {
+					flag = false;
+					mask.show(); //显示遮罩
+				});
+				window.addEventListener("closeMask", function() {
+					flag = true;
+					mask.close();
+				});
+				window.addEventListener("reback", function(e) {
+					showTask();
+				});
+			});
+			app.backQuit();
+			
+		</script>
+	</body>
+
+</html>

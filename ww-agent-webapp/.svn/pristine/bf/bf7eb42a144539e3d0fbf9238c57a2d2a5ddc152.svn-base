@@ -1,0 +1,110 @@
+<#import "/spring.ftl" as spring /> <#import
+"/admin/layouts/common.xhtml" as layout>
+<@layout.title>充值</@layout.title> <@layout.metaKeywordsDescription>
+
+</@layout.metaKeywordsDescription> <@layout.cssLink>
+</@layout.cssLink>
+    <@layout.pageHeader> 充值 </@layout.pageHeader> <@layout.mainContent>
+    <input type="hidden" id="nav_id" value="pack" />
+<div class="row">
+	<div class="col-lg-5">
+		<input type="hidden" id="rate" value="${(agent.rate)!}" />
+		<form role="form" id="form">
+			<input type="hidden" id="type" name="type" value="1" />
+			<div class="form-group  form-inline">
+				<label>用户id</label> <input class="form-control" id="recUid"
+					name="recUid" placeholder=""> <span id="nickname"></span>
+			</div>
+
+			<div class="form-group  form-inline">
+				<label>礼包</label> <br /> 
+				6&nbsp;<input type="radio" name="productId" value="6" /> <br /> 
+				18&nbsp;<input type="radio" name="productId" value="18" /> <br /> 
+				68&nbsp;<input type="radio" name="productId" value="68" /> <br /> 
+				168&nbsp;<input type="radio" name="productId" value="168" /> <br /> 
+				388&nbsp;<input type="radio" name="productId" value="388" /> 
+			</div>
+			<div class="form-group  form-inline">
+				<label>数量</label> <INPUT class="form-control" id="count" name="count" value="1" />
+			</div>
+			
+			<div  class="form-group  form-inline">
+				<LABEL>充值类型</LABEL>
+				<INPUT type="radio" id="payType" name="payType" value="wx" checked="true" /> 微信 
+				<INPUT type="radio" id="payType" name="payType" value="ali" /> 支付宝 
+			</div>
+			<div class="form-group  form-inline">
+				<label>全服喊话</label> 是&nbsp;<input type="radio" name="all" value="1" checked="true" /> 
+				否&nbsp;<input type="radio" name="all" value="2" /> 
+			</div>
+			<div class="form-group  form-inline">
+				<label>喊话内容</label> <TEXTAREA id="content" name="content" rows="3" cols="100"></TEXTAREA>
+			</div>
+			<div class="form-group  form-inline">
+                <label>是否可回复</label> 是&nbsp;<input type="radio" name="reply" value="1" checked="true" />  
+                否&nbsp;<input type="radio" name="reply" value="2" /> 
+            </div>
+			<div class="form-group  form-inline">
+				总金额：<span id="amount" ></span>
+			</div>
+			<button id="submit" class="btn btn-default">充值</button>
+		</form>
+	</div>
+	<div class="col-lg-5">
+		<div id="qrcode"></div>
+	</div>
+</div>
+
+</@layout.mainContent> <@layout.script>
+<script type="text/javascript" src="<@layout.static path="/js/jquery.qrcode.min.js" />">
+</script>
+<script>
+$(function() {
+    $("#submit").click(function(e) {
+        
+        var t = this;
+        var payT = $("input[name='payType']:checked").val();
+        var jsonData = $("#form").serializeArray();
+        if(payT=='wx'){
+        	e.preventDefault();
+        	$.post("/admin/createOrder.xhtml", jsonData, function(ret) {
+            	if (0 != ret.code) {
+                	alert(ret.msg);
+            	} else {
+           			$('#qrcode').qrcode(ret.data.code_url);
+            	}
+        	});
+        }else{
+			$("#form").attr('action','/admin/createOrderAli');    //通过jquery为action属性赋值
+			$("#form").submit();    //提交ID为myform的表单
+		}
+    });
+
+    $("#reset").click(function(e) {
+
+    });
+    
+    $("#recUid").blur(function(){
+		  $.get("/admin/user/get?uid="+$("#recUid").val(),function(ret){
+			  if(0==ret.code){
+				  $("#nickname").html(ret.data.nickname);
+			  }
+		  })
+	});
+    
+   	$('input[type=radio][name=productId]').change(function() {
+    	var p = $("input[name='productId']:checked").val();
+    	var rate = $("#rate").val();
+    	var count = $("#count").val();
+		$("#amount").html((p*count*rate).toFixed(2));
+	});
+    
+    $("#count").blur(function(){
+    	var p = $("input[name='productId']:checked").val();
+    	var rate = $("#rate").val();
+    	var count = $("#count").val();
+		$("#amount").html(((p*count*rate).toFixed(2)));
+	});
+});
+</script>
+</@layout.script>

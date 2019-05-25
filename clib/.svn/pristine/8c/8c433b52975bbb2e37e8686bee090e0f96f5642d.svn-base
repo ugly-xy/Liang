@@ -1,0 +1,58 @@
+package com.we.models.userTask;
+
+import com.we.models.AbstractDocument;
+
+/** 用户的任务 */
+public class UserTask extends AbstractDocument {
+	private static final long serialVersionUID = -2901429661726465378L;
+	// 主键自增长
+	private long uid;// 用户ID
+	private long taskId;// 任务ID
+	private int plan;// 当前进度
+	private int status;// 当前状态 未完成已完成
+
+	public long getUid() {
+		return uid;
+	}
+
+	public void setUid(long uid) {
+		this.uid = uid;
+	}
+
+	public long getTaskId() {
+		return taskId;
+	}
+
+	public void setTaskId(long taskId) {
+		this.taskId = taskId;
+	}
+
+	public int getPlan() {
+		return plan;
+	}
+
+	public void setPlan(int plan) {
+		this.plan = plan;
+	}
+
+	public int getStatus() {
+		return status;
+	}
+
+	public void setStatus(int status) {
+		this.status = status;
+	}
+
+	public UserTask() {
+		super();
+	}
+
+	public UserTask(long uid, long taskId, int plan, int status) {
+		super();
+		this.uid = uid;
+		this.taskId = taskId;
+		this.plan = plan;
+		this.status = status;
+	}
+
+}

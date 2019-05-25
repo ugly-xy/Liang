@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd"
+	>
+
+	<!--生产端连接配置 -->	
+	<bean id="kafkaProducerConnectionFactory" class="com.weibo.channel.kafka.KafkaProducerConnectionFactory">
+		<property name="producerConfig">
+			<bean class="com.weibo.channel.kafka.producer.KafkaProducerConfig">
+				<property name="brokers" value="172.16.150.16:9092,172.16.150.17:9092" />
+				<!-- <property name="brokers" value="101.251.200.26:9092,101.251.200.27:9092" /> -->
+				<property name="serializerClass" value="kafka.serializer.StringEncoder" />
+				<property name="ack" value="1" />
+				<property name="partitionClass" value="com.weibo.channel.kafka.producer.KafkaProducerPartition"/>
+			</bean>
+		</property>
+	</bean>
+	<!-- 发送模板 -->
+	<bean id="kafkaProducerTemplate" class="com.weibo.channel.kafka.producer.KafkaProducerTemplate">
+		<property name="producerConnectionFactory" ref="kafkaProducerConnectionFactory" />
+		<property name="processThreads" value="10" />
+		<!-- <property name="patternTopic">
+			<value>tasks_green_topic_.*|ROOMchannel:.*|USERchannel:.*|ROOMUSERchannel:.*:.*|${aureole_event_topic}</value>
+		</property> -->
+		<property name="topics">
+			<list>
+				<value>${aureole_event_topic}</value>
+			</list>
+		</property>
+	</bean>
+
+
+	<!--消费端连接配置 -->
+	<bean id="kafkaConsumerConnectionFactory" class="com.weibo.channel.kafka.KafkaConsumerConnectionFactory">
+		<property name="consumerConfig">
+			<bean class="com.weibo.channel.kafka.consumer.KafkaConsumerConfig">
+				<property name="zkConnect"
+					value="172.16.150.16:2181,172.16.150.17:2181,172.16.150.17:2182" />
+			<!-- 	<property name="zkConnect"
+					value="101.251.200.27:2181,101.251.200.26:2181,101.251.200.26:2182" /> -->
+				<property name="rebalanceMs" value="5000" />
+				<property name="zkSessionTimeoutMs" value="12000" />
+				<property name="zkSyncTimeMs" value="200" />
+				<property name="autoCommitIntervalMs" value="1000" />
+				<property name="autoOffsetReset" value="smallest" />
+			</bean>
+		</property>
+	</bean>
+
+	<!-- 光环监听 -->
+	<bean id="aureoleConsumerListener" class="com.weibo.channel.kafka.listener.KafkaConsumerListener">
+		<property name="processThreads" value="1" />
+		<property name="topic" value="${aureole_event_topic}"></property>
+	</bean>
+	
+	<bean id="kafkaConsumerListenerContainer"
+		class="com.weibo.channel.kafka.consumer.KafkaConsumerListenerContainer">
+		<property name="consumerConnectionFactory" ref="kafkaConsumerConnectionFactory" />
+		<property name="consumerListeners">
+			<list>
+				<ref bean="aureoleConsumerListener" />
+			</list>
+		</property>
+	</bean>
+</beans>

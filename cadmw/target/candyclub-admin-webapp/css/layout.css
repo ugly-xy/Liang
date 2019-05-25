@@ -1,0 +1,344 @@
+/* Basic  ---------------------------------------- */
+.clear {
+	clear: both;
+}
+
+body {
+	background: white;
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 12px;
+	color: #646464;
+	text-align: center;
+}
+
+
+/* Logo  ---------------------------------------- */
+h1 {
+	margin: 5px;
+	width: 230px;
+	height: 80px;
+	background: url(../img/logo.png) no-repeat left top;
+}
+
+h1 a {
+	display: block;
+	width: 230px;
+	height: 80px;
+}
+
+h1 span {
+	display: none;
+}
+
+/* Main Navigation ---------------------------------------- */
+#mainNav {
+	float:left;
+	width: 100%;
+	height: 81px;
+	border-bottom: 1px solid #5686AE;
+	background:url(../images/adm_back01.gif) repeat-x left top
+}
+#mainNav dl{float:left; height:81px; border-left:1px solid #000}
+#mainNav dl dt{float:left; width:232px; height:81px; background:url(../images/adm_back02.gif) repeat-y right top}
+#mainNav dl dt img{float:left; margin:20px 0 0 27px; display:inline}
+#mainNav dl dd{float:left; margin:24px 0 0 27px; display:inline}
+#mainNav ul{float:right; margin-right:12px}
+#mainNav ul li{float:left; margin-left:5px; display:inline}
+#mainNav ul li a{float:left; width:95px; height:26px; text-align:center; line-height:26px; font-family:"microsoft YaHei" cursor:pointer; background-image:url(../images/adm_back031.gif); background-repeat:no-repeat; text-decoration:none; color:#fff; font-weight:bold}
+#mainNav ul li a:hover{ text-decoration:underline}
+
+#mainNav ul li.t01 a{ background-position:left -26px}
+#mainNav ul li.t01 a:hover{ background-position:left top}
+#mainNav ul li.t01 a.current{ background-position:left top}
+
+#mainNav ul li.t02 a{ background-position:-100px -26px}
+#mainNav ul li.t02 a:hover{ background-position:-100px top}
+#mainNav ul li.t02 a.current{ background-position:-100px top}
+
+#mainNav ul li.t03 a{ background-position:-200px -26px}
+#mainNav ul li.t03 a:hover{ background-position:-200px top}
+#mainNav ul li.t03 a.current{ background-position:-200px top}
+
+#mainwelcome{float:left; width:100%; border:1px solid #41464A}
+#mainwelcome dl{float:left; width:100%; height:30px; border:1px solid #fff; background-color:#D5DCE2}
+#mainwelcome dl dt{float:left; line-height:30px; margin-left:15px; color:#1D6AA5}
+#mainwelcome dl dd{float:right; line-height:30px; margin-right:15px; color:#1D6AA5}
+
+
+/* Sidebar ---------------------------------------- */
+
+#sidebar {
+	border-left: 1px solid #41464A;
+	border-right:1px solid #2A6293;
+	width: 230px;
+	height:100%;
+	float: left;
+}
+
+#sidebar .sideNav {
+	float:left;
+	width: 100%;
+}
+
+#sidebar .sideNav li {
+	float:left; width:213px; height:35px; margin:1px 0 0 1px; display:inline; color:#1b1b1b; font-size:14px; font-weight:bold; line-height:35px;position:relative; text-align:left; padding-left:15px}
+#sidebar .sideNav li span{ position:absolute; right:10px; top:0px; height:35px; line-height:35px; font-size:12px; font-weight:normal}
+
+/* Breadcrumb ---------------------------------------- */
+h2 {
+	width: 100%;
+	color: #646464;
+	font-size: 20px;
+	line-height: 20px;
+	font-weight: bold;
+	padding:12px 0 3px 0;
+	border-bottom: 1px solid #ddd;
+	margin: 45px 0 0 0;
+	text-align:left;
+	height:48px;
+}
+h2 img{margin-left:10px; display:inline}
+
+h2 a {
+	color: #646464;
+	text-decoration: none;
+}
+
+h2 a.active {
+	color: #c66653;
+}
+
+h2 a:hover {
+	text-decoration: underline;
+}
+
+/* Content ---------------------------------------- */
+#main {
+	width: 98%;
+	padding: 5px;
+	min-height: 480px;
+	overflow: auto;
+}
+#main p{width:100%; text-align:center; margin-top:30px}
+
+h3 {
+	text-align:left;
+	font-size: 14px;
+	line-height: 14px;
+	font-weight: bold;
+	color: #5494af;
+	padding: 0 0 0 10px;
+	margin: 10px 0;
+}
+
+#main table {
+	border-top: 1px solid #ddd;
+	width: 100%;
+}
+
+#main table tr th {
+	text-align: center;
+	background: #eee;
+	height: 29px;
+	line-height: 29px;
+	border: 1px solid #ddd;
+}
+
+#main table tr td {
+	background: #f6f6f6;
+	padding: 0px 5px;
+	height: 22px;
+	line-height: 22px;
+	border: 1px solid #ddd;
+}
+
+#main table tr.odd td {
+	background: #fbfbfb;
+}
+
+#main table tr:hover td {
+	background: #97f4ee;
+}
+
+#main table .action {
+	text-align: center;
+	padding: 0 6px;
+}
+
+#main table tr .action a {
+	text-decoration: none;
+	color: #9b9b9b;
+}
+
+#main table tr:hover .action .edit {
+	color: #c5a059;
+}
+
+#main table tr:hover .action .delete {
+	color: #a02b2b;
+}
+
+#main table tr:hover .action .view {
+	color: #55a34a;
+}
+
+#main table tr:hover .action a:hover {
+	text-decoration: underline;
+}
+
+#main fieldset {
+	padding: 10px 0;
+	border: 1px solid #ddd;
+	background: #fbfbfb;
+}
+
+#main fieldset p {
+	margin: 0 0 8px 0;
+	float: left;
+	width: 100%;
+}
+
+#main fieldset label {
+	width: 120px;
+	margin: 8px 7px 0 0;
+	line-height: 14px;
+	text-align: right;
+	float: left;
+	font-size: 14px;
+}
+
+#main fieldset text {
+	border: 1px solid #ddd;
+	background: #fff url(../img/input-shaddow.gif) no-repeat left top;
+	font: 14px Arial, Helvetica, sans-serif;
+	color: #646464;
+	padding: 5px 7px;
+	width: 264px;
+	float: left;
+}
+
+#main fieldset .text-long {
+	border: 1px solid #ddd;
+	background: #fff url(../img/input-shaddow.gif) no-repeat left top;
+	font: 11px Arial, Helvetica, sans-serif;
+	color: #646464;
+	padding: 5px 7px;
+	width: 264px;
+	float: left;
+}
+
+#main fieldset .text-medium {
+	border: 1px solid #ddd;
+	background: #fff url(../img/input-shaddow.gif) no-repeat left top;
+	font: 11px Arial, Helvetica, sans-serif;
+	color: #646464;
+	padding: 5px 7px;
+	width: 124px;
+	float: left;
+	margin: 0 10px 0 0;
+}
+
+#main fieldset .text-small {
+	border: 1px solid #ddd;
+	background: #fff url(../img/input-shaddow.gif) no-repeat left top;
+	font: 11px Arial, Helvetica, sans-serif;
+	color: #646464;
+	padding: 5px 7px;
+	width: 44px;
+	float: left;
+	margin: 0 10px 0 0;
+}
+
+#main fieldset .text-long:focus,#main fieldset .text-medium:focus,#main fieldset .text-small:focus,#main fieldset textarea:focus
+	{
+	background: #fdfcf6 url(../img/input-shaddow-hover.gif) no-repeat left
+		top;
+}
+
+#main fieldset textarea {
+	border: 1px solid #ddd;
+	background: #fff url(../img/input-shaddow.gif) no-repeat left top;
+	font: 11px Arial, Helvetica, sans-serif;
+	color: #646464;
+	padding: 5px 7px;
+	width: 364px;
+	float: left;
+	margin: 0 10px 0 0;
+	height: 148px;
+	overflow: hidden;
+}
+
+.button-submit {
+	font: 11px Arial, Helvetica, sans-serif;
+	color: #646464;
+	width: 94px;
+	height: 29px;
+	cursor: pointer;
+	border: none;
+	background: url(../img/button-submit.gif) no-repeat left top;
+}
+/* page nav 1 2 4 .. */
+#pageNav {
+	letter-spacing: 1px;
+	text-align: right;
+	font-size: 16px;
+	line-height: 16px;
+	color: #9B9B9B;
+	padding: 10px;
+}
+
+#pageNav a {
+	padding: 2px;
+	color: #646464;
+	text-decoration: none;
+}
+
+#pageNav a.active {
+	color: #c66653;
+}
+
+#pageNav a:hover {
+	text-decoration: underline;
+}
+
+/* Footer ---------------------------------------- */
+#footer {
+	text-align: right;
+	font-size: 11px;
+	line-height: 11px;
+	color: #9B9B9B;
+	padding: 5px 20px;
+}
+
+#footer a {
+	color: #9B9B9B;
+}
+
+#footer a:hover {
+	text-decoration: none;
+}
+
+/* Other------------------------------------------*/
+.error {
+	margin: 10px 0 0 0;
+	padding: 10px 0 0 0;
+	width: 100%;
+	line-height: 14px;
+	color: #FF0000;
+	font: italic bold 12px/30px arial, sans-serif;
+}
+
+.btnleft {
+	text-align: left;
+	margin: 5px 0 0 125px;
+}
+
+ul.ztree {
+	padding:4px;
+	width:222px;
+	overflow: auto;
+}
+.leftbg{background:url(../images/adm_back07.gif) repeat-y left top}
+
+a.blue:link,a.blue:active,a.blue:visited{text-decoration: none; color: #0066cc;}
+a.blue:hover {color: #0066cc; text-decoration: underline;}

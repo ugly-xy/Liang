@@ -1,0 +1,90 @@
+
+
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title>이메일 연동</title>
+		<#include "/common/head.xhtml"/>
+		<style>
+			.certified {
+			    display: inline-block;
+			    font-size: 16px;
+			    margin: 0 10px;
+			    background: url(/active/assets/image/certified.png) no-repeat left center;
+			    padding-left: 24px;
+			    background-size: 20px;
+			    color: #39B54A;
+			}
+		</style>
+	</head>
+
+	<body class="personalbody">
+		<#include "/common/header.xhtml"/>
+		<section class="bannerpage">
+			<img src="/active/image/presonal.jpg" />
+		</section>
+		<section class="personalpage nopadding">
+			<div class="container">
+				<div class="pagebody">
+					<div class="floleft leftmenu">
+						<ul>
+							<li >
+								<a href="/my/personalMine">마이 페이지</a>
+							</li>
+							<li>
+								<a href="/my/wallet.xhtml">나의 지갑</a>
+							</li>
+							<li>
+								<a href="/share/invitingFriends">친구 초대</a>
+							</li>
+							<li>
+								<a href="/my/settingPersonal">개인 설정</a>
+							</li>						
+							<li class="active secAct">
+								<a href="/my/settingAccount">계정 보안</a>
+								<ol>
+									<li><a href="/my/settingAccount">기본 정보</a></li>
+									<li ><a href="/my/settingPassword">비밀번호 수정</a></li>
+									<li class="cur"><a href="/my/settingEmail">이메일 연동</a></li>
+									<li><a href="/my/settingkyc">KYC인증</a></li>
+								</ol>
+							</li>
+						</ul>
+					</div>
+					<div class="floright rightcon">
+						<div class="title">이메일 연동</div>
+						<!--<div class="datail"></div>-->
+						<div class="contable Settingcon newemail">
+							<div class="newmid">
+								인증번호가 이메일로 발송 되었습니다.이메일 인증을 완료 해주세요
+							</div>
+
+						</div>
+						
+					</div>
+				</div>
+				<ul id="scene-personal" class="scene2">
+					<li class="layers layer1"><img src="/active/assets/image/ico-cro1.png" width="295"></li>
+					<li class="layers layer11"><img src="/active/assets/image/ico-cro1.png" width="99"></li>
+					<li class="layers layer2"><img src="/active/assets/image/ico-cro1.png" width="295"></li>
+					<li class="layers layer3"><img src="/active/assets/image/ico-cro2.png" width="202"></li>
+					<li class="layers layer4"><img src="/active/assets/image/ico-cro3.png" width="193"></li>
+					<li class="layers layer5"><img src="/active/assets/image/ico-cro4.png" width="183"></li>
+					<li class="layers layer6"><img src="/active/assets/image/ico-cro5.png" width="34"></li>
+				</ul>
+			</div>
+		</section>
+		<#include "/common/personal-footer.xhtml"/>
+		<script src="/active/assets/js/jquery-1.12.3.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="/active/js/main.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript">
+			$(window).load(function() {
+				imganimate("layers",12);
+			});
+			
+		</script>
+	</body>
+
+</html>

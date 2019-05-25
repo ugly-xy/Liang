@@ -1,0 +1,577 @@
+<#import "/spring.ftl" as spring /> <#import "/layouts/common.xhtml" as
+layout> <@layout.title>${tool.name}</@layout.title>
+<@layout.metaKeywordsDescription> </@layout.metaKeywordsDescription>
+<@layout.cssLink>
+<link rel="stylesheet" type="text/css"
+	href="/webuploader/webuploader.css">
+ 
+
+	
+<link rel="stylesheet" type="text/css"
+	href="/webuploader/cropper.css"> 
+ 
+ </@layout.cssLink> <@layout.pageHeader> BiBi娱乐社区
+</@layout.pageHeader> <@layout.mainContent>
+
+<!--content-->
+<div class="content"  style="margin-bottom:50px;">
+	<div class="container">
+		<div class="about-us">
+			<h2 style="text-align: center;color: red;">预览图</h2>
+			<h2 >${tool.name}</h2>
+			<div class="about-top">
+				<div class="col-md-12 group">
+				<#if !(tool.type)?? || tool.type !=1>
+					<img style="margin:0 auto;"
+						src="<#if (tool.tmpBackPicIos)??>${tool.tmpBackPicIos}<#else>${tool.tmpBackPic}</#if>"
+						class="img-responsive" alt=""/>
+				<#else>
+					<video style="margin:0 auto;display: block;max-width: 100%;height: auto;" controls='controls'
+						src="<#if (tool.tmpBackPicIos)??>${tool.tmpBackPicIos}<#else>${tool.tmpBackPic}</#if>"
+						alt=""/>
+				</#if>		
+				</div>
+			<div class="col-md-12 book">
+		<div class="leave-comment">
+	 <!-- <h5 style="text-align: center;">请输入</h5> --> 
+				<div class="table-form" style="background: #F9F9F9;padding: 25px;margin: 5px 0;">
+					<form  action="/tool.xhtml?id=${tool._id}" method="post" name="form" id="form" onsubmit="return c();">
+						<div style="text-align: center;">
+							请输入内容
+						</div>
+					<input type="hidden" id="id" name="id" value="${tool._id}"/>
+					
+						<#list mark as prop>
+							<div>
+								<!-- <td><span style="font-size: 1em;">${prop.name}:</span></td> -->
+								
+							<#if prop.type=="select" && prop.custom==true >
+									<select id="select" style="width: 100%;height:30px;" onChange="chage()" name="${prop._id}" >
+											<#list prop.selects as op>
+												<option  value="${op}">${op}</option>
+											</#list>
+												<option id="ziding"  value ="">自定义
+												
+												</option>
+									</select>
+									</br>	
+									<input type="text"  value=" " maxlength="${prop.len}"  style="display: none;width: 100%;height:30px;" id="zidingyi" />
+							<#elseif prop.type=="select" && prop.custom==false >
+									<select id="${prop._id}" style="width: 100%;height:30px;" name="${prop._id}">
+											<#list prop.selects as op>
+												<option value="${op}">${op}</option>
+											</#list>
+									</select>
+							<#elseif prop.type=="img"  >
+							
+							<span style="font-size: 1em;">${prop.name}:</span>
+							<div class="" style="text-align: center;width: 100%;">
+								<img src=" " style="display: none;width:70%;height:auto;margin:0 auto;" id="zhanshitu${prop_index}">
+								
+							</div>
+							
+							
+							<input type="hidden" id="img${prop_index}" name="${prop._id}" value="" /> 
+							<input type="hidden" id="weight${prop_index}" name="weight"
+											value="${prop.weight}" />
+							<input type="hidden" id="height${prop_index}" name="height"
+											value="${prop.height}" />	
+											
+														
+								<div id="wrapper${prop_index}">
+							      <div class="uploader-container${prop_index}" style="text-align: center;">
+							          <div id="filePicker${prop_index}">上传图片</div>
+							          
+							      </div>
+									 <!-- Croper container -->
+							        <div class="cropper-wraper${prop_index} webuploader-element-invisible">
+							            <div class="img-container${prop_index}">
+							                <img id="img1${prop_index}" src="" alt="" width="98%" />
+							                <div id="upload-btn${prop_index}" class = "upload-btn">确定</div>
+							            </div>
+										<br/>
+							            
+							
+							             <div class="img-preview${prop_index}" style="display: none;">
+							             	
+							             </div> 
+							        </div>		
+								</div> 
+								
+								
+								
+							<#elseif prop.type=="sex" >
+							
+								<table>
+									<tr >
+										<td ><span style="font-size: 1em;">${prop.name}:</span></td>
+										<td>&nbsp; &nbsp;&nbsp; </td>
+										<td><input type="radio" name="${prop._id}" value="男" checked="checked"/>男 </td>
+										<td>&nbsp; &nbsp;&nbsp;</td>
+										<td><input type="radio" name="${prop._id}" value="女" />女</td>
+									</tr>
+								</table>
+							
+									
+							<#elseif prop.type=="date" >
+								<fieldset >
+									<input id="d121" placeholder="${prop.name}" type="text" style="width: 100%;height:30px;"  value=""  onfocus="WdatePicker({isShowWeek:true,readOnly:true})"/>
+									<input type="hidden" value = ""  id="d121h"  name="${prop._id}"/>
+								</fieldset>
+							<#else>
+								<fieldset >
+									<input type="text" placeholder="${prop.name}" style="width: 100%;height:30px;" value="" id="${prop._id}" maxlength="${prop.len}"  name="${prop._id}">
+								</fieldset>
+							</#if>
+						</#list>
+						<div style="height: 20px;"></div>
+					<div style="width: 100%;height:30px;background-color: #F3CD38;">
+						<input style="width: 100%;height:30px;background-color: #F3CD38;text-align: center;" type="submit" id="submit" value="立即生成装逼">	
+					</div>
+					
+					
+					</form>
+					
+				</div>
+				</div>
+			</div>
+		</div>
+	</div>
+			<DIV style="text-align: center;batext-align: center;width: 100%;height: 50px;margin-right: auto;margin-left: auto;overflow: hidden;margin: auto;text-align: center;position:fixed;bottom:0px;right:0px;bottom: 0px;margin-top: 30px;">
+				<ul  class="fancyNav" style="width: 100%;">
+					<a href="http://m.zhuangdianbi.com/downloads/app.xhtml" target="view_window" >
+						<li style="width: 50%;height: 100%;text-align: center;line-height: 50px;" >
+							下载BiBi娱乐社区
+						</li>
+					</a>
+					
+					<li id="" style="width: 50%;height: 100%;text-align: center;line-height: 50px;" onclick="show();">
+					关注BiBi娱乐微信
+					</li>
+				</ul>
+			</DIV>
+			
+			 <div id="follow" class="follow" style="display: none;">
+			    <span class="close" onclick="hide()"><span style="color: white;">×</span></span>
+			    <img src="/images/qrcode_for_gh_534835f97de1_860.jpg">
+			</div>
+	</div>
+	</div>
+			
+
+</@layout.mainContent> <@layout.script> 
+
+ <script type="text/javascript" src="<@layout.static path="/webuploader/webuploader.js" />">
+ </script>
+ <script type="text/javascript" src="<@layout.static path="/webuploader/WdatePicker.js" />">
+ </script>
+ <script type="text/javascript" src="<@layout.static path="/webuploader/cropper.js" />">
+ </script>
+ <!-- <script type="text/javascript" src="<@layout.static path="/webuploader/uploader.js" />">
+ </script> -->
+
+<script type="text/javascript">
+	
+
+    function show(){
+        document.getElementById("follow").style.display = "block";
+    }
+    function hide(){
+        document.getElementById("follow").style.display = "none";
+    }
+</script>
+ 
+<script>
+
+
+/* $(function() {
+	$("#submit").click(function(e) {
+		e.preventDefault();
+		var timestamp = Date.parse($("#d121").val()); 
+		//alert(timestamp);
+		//$("#d121").val(timestamp);
+		
+	});
+	
+});
+ */
+function c()
+{
+	
+	//e.preventDefault();
+	var timestamp = Date.parse(document.getElementById("d121").value);
+	//alert(timestamp);
+	if(timestamp != null){
+		$("#d121h").val(timestamp);
+	}else{
+		timestamp ==null;
+	}
+	
+	
+	var a=document.getElementsByTagName("input")
+	
+	for(var i=0;i<a.length-1;i++){
+		//alert(a[i].type);
+		if(a[i].type!='file' && a[i].value==""){
+			
+		  alert("您有空白未填写！");
+		  return false;
+		}
+	}
+	return true;
+}
+
+function chage(){
+	
+	var select = document.getElementById("select").value;
+	
+	var ziding =  document.getElementById("ziding").value;
+	
+	if(select==""){
+		//alert("hehe");
+		$("#zidingyi").css("display", "");
+		ziding =  document.getElementById("zidingyi").value;
+		//alert(ziding);
+		$("#zidingyi").keyup(function(){
+			ziding =  document.getElementById("zidingyi").value;
+			//alert(ziding);
+			$("#ziding").val(ziding);
+		});
+		
+		document.getElementById("ziding").value=ziding;
+	}else{
+		$("#zidingyi").css("display", "none");
+		$("#ziding").val("");
+		ziding = document.getElementById("select").value;
+		//alert(ziding);
+	}
+	
+	
+	
+};  
+
+<#list mark as prop>
+<#if prop.type=="img"  >
+var Uploader${prop_index} = (function() {
+		//
+		//
+		
+	    var FRAME_WIDTH = 1600;
+
+
+	    var _ = WebUploader;
+	    var Uploader = _.Uploader;
+	    var uploaderContainer = $('.uploader-container${prop_index}');
+	    var uploader${prop_index}, file;
+		
+		$("#reset").click(function(e) {
+
+		});
+		Uploader.register({
+	        'before-send-file': 'cropImage'
+	    }, {
+
+	        cropImage: function( file ) {
+	        	
+	        	
+	            var data = file._cropData,
+	                image, deferred;
+	            //alert("截取成功！");
+	            file = this.request( 'get-file', file );
+	            deferred = _.Deferred();
+
+	            image = new _.Lib.Image();
+
+	            deferred.always(function() {
+	                image.destroy();
+	                image = null;
+	            });
+	            image.once( 'error', deferred.reject );
+	            image.once( 'load', function() {
+	                image.crop( data.x, data.y, data.width, data.height, data.scale );
+	            });
+				
+	            image.once( 'complete', function() {
+	                var blob, size;
+
+	                // 移动端 UC / qq 浏览器的无图模式下
+	                // ctx.getImageData 处理大图的时候会报 Exception
+	                // INDEX_SIZE_ERR: DOM Exception 1
+	                try {
+	                    blob = image.getAsBlob();
+	                    size = file.size;
+	                    file.source = blob;
+	                    file.size = blob.size;
+
+	                    file.trigger( 'resize', blob.size, size );
+
+	                    deferred.resolve();
+	                } catch ( e ) {
+	                    console.log( e );
+	                    // 出错了直接继续，让其上传原始图片
+	                    deferred.resolve();
+	                }
+	            });
+	            file._info && image.info( file._info );
+	            file._meta && image.meta( file._meta );
+	            image.loadFromBlob( file.source );
+	            return deferred.promise();
+	        }
+	    });
+	return {
+	//init: function( selectCb ) {
+		
+	init: function( selectCb ) {
+            uploader${prop_index} = new Uploader({
+                pick: {
+                    id: '#filePicker${prop_index}',
+                    multiple: false
+                },
+                accept : {
+        			title : 'Images',
+        			extensions : 'gif,jpg,jpeg,bmp,png',
+        			mimeTypes : 'image/*'
+        		},
+                // 设置用什么方式去生成缩略图。
+                thumb: {
+                    quality: 70,
+
+                    // 不允许放大
+                    allowMagnify: false,
+
+                    // 是否采用裁剪模式。如果采用这样可以避免空白内容。
+                    crop: false
+                },
+
+                // 禁掉分块传输，默认是开起的。
+                chunked: false,
+
+                // 禁掉上传前压缩功能，因为会手动裁剪。
+                compress: false,
+                sendAsBinary :true,
+                // fileSingleSizeLimit: 2 * 1024 * 1024,
+
+                server: '<@layout.api path="/sys/uBinary" />',
+                swf: '/webuploader/Uploader.swf',
+                fileNumLimit: 1,
+                onError: function() {
+                    var args = [].slice.call(arguments, 0);
+                    alert("不支持的类型。");//args.join('\n')+
+                },
+                formData:{"token":'<@layout.token />'}
+            });
+
+	//进度	
+	uploader${prop_index}.on('uploadProgress', function(file, percentage) {
+		
+		//alert(file.id+percentage);
+		var $li = $('#' + file.id), $percent = $li.find('.progress span');
+		if (!$percent.length) {
+			$percent = $('<p class="progress"><span></span></p>').appendTo($li)
+					.find('span');
+		}
+		$percent.css('width', percentage * 100 + '%');
+	});
+
+	
+	// 文件上传成功，给item添加成功class, 用样式标记上传成功。
+	uploader${prop_index}.on('uploadSuccess', function(file, res) {
+		//alert("ss");
+		//alert(res.data);
+		$('#' + file.id).addClass('upload-state-done');
+		if (res.code == 0) {
+			
+			//alert(res.data);
+			var img2 =  document.getElementById("img${prop_index}").value;
+			//alert(img2+"22");
+			$("#img1${prop_index}").attr('src', res.data);
+			
+			
+			$("#img${prop_index}").val(res.data);
+			var img3 =  document.getElementById("img${prop_index}").value;
+			//alert(img3+"333");	
+			
+			$("#zhanshitu${prop_index}").attr('src', res.data);
+			$("#zhanshitu${prop_index}").css("display","block");
+			$("#wrapper${prop_index}").css("display","none");
+		}
+	});
+
+	// 文件上传失败，显示上传出错。
+	uploader${prop_index}.on('uploadError', function(file) {
+		//alert("error"+file.id);
+		
+		var $li = $('#' + file.id), $error = $li.find('div.error');
+		if (!$error.length) {
+			$error = $('<div class="error"></div>').appendTo($li);
+		}
+		$error.text('上传失败');
+	});
+
+	// 完成上传完了，成功或者失败，先删除进度条。
+	uploader${prop_index}.on('uploadComplete', function(file) {
+		$('#' + file.id).find('.progress').remove();
+	});
+	 
+	 uploader${prop_index}.on('fileQueued', function( _file ) {
+         file = _file;
+
+         uploader${prop_index}.makeThumb( file, function( error, src ) {
+
+             if ( error ) {
+                 alert('不能预览');
+                 return;
+             }
+
+             selectCb( src );
+
+         }, FRAME_WIDTH, 1 );   // 注意这里的 height 值是 1，被当成了 100% 使用。
+     });
+ },
+
+ crop: function( data ) {
+
+     var scale = Croper${prop_index}.getImageSize().width / file._info.width;
+     data.scale = scale;
+
+		     file._cropData = {
+		         x: data.x1,
+		         y: data.y1,
+		         width: data.width,
+		         height: data.height,
+		         scale: data.scale
+		     };
+ },
+
+		 upload: function() {
+		     uploader${prop_index}.upload();
+		 }
+}
+})();
+
+	
+	
+
+
+var Croper${prop_index} = (function() {
+    var container${prop_index} = $('.cropper-wraper${prop_index}');
+    var $image = container${prop_index}.find('.img-container${prop_index} img');
+    var btn = $('#upload-btn${prop_index}');
+    var isBase64Supported, callback;
+    var a = document.getElementById("weight${prop_index}").value;
+    var b = document.getElementById("height${prop_index}").value;
+    $image.cropper({
+        aspectRatio: a / b,
+        preview: ".img-preview${prop_index}",
+        done: function(data) {
+            // console.log(data);
+        }
+    });
+
+    function srcWrap( src, cb ) {
+
+        // we need to check this at the first time.
+        if (typeof isBase64Supported === 'undefined') {
+            (function() {
+                var data = new Image();
+                var support = true;
+                data.onload = data.onerror = function() {
+                    if( this.width != 1 || this.height != 1 ) {
+                        support = false;
+                    }
+                }
+                data.src = src;
+                isBase64Supported = support;
+            })();
+        }
+
+
+        if ( isBase64Supported ) {
+            cb( src );
+        } else {
+            // otherwise we need server support.
+            // convert base64 to a file.
+            $.ajax('<@layout.api path="/sys/admPic" />', {
+                method: 'POST',
+                data: src,
+                dataType:'json'
+            }).done(function( response ) {
+                if (response.result) {
+                    cb( response.result );
+                } else {
+                    alert("预览出错");
+                }
+            });
+        }
+    }
+
+    btn.on('click', function() {
+        callback && callback($image.cropper("getData"));
+        return false;
+    });
+
+    return {
+        setSource: function( src ) {
+
+            // 处理 base64 不支持的情况。
+            // 一般出现在 ie6-ie8
+            srcWrap( src, function( src ) {
+                $image.cropper("setImgSrc", src);
+            });
+
+            container${prop_index}.removeClass('webuploader-element-invisible');
+
+            return this;
+        },
+
+        getImageSize: function() {
+            var img = $image.get(0);
+            return {
+                width: img.naturalWidth,
+                height: img.naturalHeight
+            }
+        },
+
+        setCallback: function( cb ) {
+            callback = cb;
+            return this;
+        },
+
+        disable: function() {
+            $image.cropper("disable");
+            return this;
+        },
+
+        enable: function() {
+            $image.cropper("enable");
+            return this;
+        }
+    }
+
+})();
+
+
+// ------------------------------
+// -----------logic--------------
+// ------------------------------
+var container${prop_index} = $('.uploader-container${prop_index}');
+
+Uploader${prop_index}.init(function( src ) {
+
+    Croper${prop_index}.setSource( src );
+
+    // 隐藏选择按钮。
+    container${prop_index}.addClass('webuploader-element-invisible');
+
+    // 当用户选择上传的时候，开始上传。
+    Croper${prop_index}.setCallback(function( data ) {
+        Uploader${prop_index}.crop(data);
+        Uploader${prop_index}.upload();
+    });
+});
+</#if>
+</#list>
+</script> 
+
+</@layout.script>
+

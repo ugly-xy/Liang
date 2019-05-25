@@ -1,0 +1,37 @@
+Login:
+{
+	"id":1213,
+	"method":"login",
+	"data":{
+		"token":"0cd9cdae42b263ffc48a3ec174ba7af9e15d3a5c",
+		"frid":1000015
+	}
+}
+
+chatAll:
+{	
+	"id":1213,
+	"method":"chatAll",
+	"data":{
+		"txt":"牛逼",
+		"nickname":"牛逼",
+		"level":123,
+		"avatar":“”,
+		"toid":1000015,
+		"toNickname":"佩琦"
+	}
+}
+
+
+chatP2P:
+{	
+	"id":1213,
+	"method":"chatP2P",
+	"data":{
+		"txt":"牛逼",
+		"nickname":"牛逼",
+		"level":123,
+		"avatar":“”,
+		"toid":1000015
+	}
+}

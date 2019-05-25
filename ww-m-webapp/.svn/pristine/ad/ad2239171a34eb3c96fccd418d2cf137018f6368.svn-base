@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <title>千里情缘花似海，丰富豪礼换不停！</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="renderer" content="webkit">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimumcale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="screen-orientation" content="portrait">
+    <meta name="x5-orientation" content="portrait">
+    <meta name="Keywords" content="千里情缘花似海，丰富豪礼换不停！">
+    <meta name="Description" content="和最有趣的人一起边玩边聊！">
+    <link rel="stylesheet" href="/active/flower/css/css.css">
+    <script type="text/javascript" src="/active/flower/js/js.js"></script>
+    <script src="/active/js/jquery-1.11.1.min.js"></script>
+</head>
+
+<body>
+    <!-- 千里情缘花似海，丰富好礼送不停 -->
+    <div class="g-wrap">
+    <div class="thead">
+        <img src="/active/flower/img/head.png" alt="thead">
+        <div class="thead-fl">
+            <div class="thead-img">
+               <p class="num"><span id="resCount">0</span></p>
+                <!-- <img src="./img/head-num.png" alt="数值"> -->
+            </div>
+            <!-- <div class="thead-num">
+                182731
+            </div> -->
+        </div>
+    </div>
+    <!-- 朵数 -->
+    <div class="thead-1
+">
+        <img src="/active/flower/img/def-duo.png" alt="">
+    </div>
+    <!-- 活动奖品 -->
+    <div class="tbody">
+        <div class="jp-q">
+            <img class="table-title" src="/active/flower/img/title.png" alt="">
+            <div class="jp-jz">
+                <div class="jp-1 jp-jz-t">
+                    <a class="jp-dh" id="Show" href="javascript:redeem(1)">
+                    </a>
+                </div>
+                <div class="jp-2 jp-jz-t">
+                    <a class="jp-dh"  href="javascript:redeem(2)"></a>
+                </div>
+                <div class="jp-3 jp-jz-t">
+                    <a class="jp-dh" href="javascript:redeem(3)"></a>
+                </div>
+                <div class="jp-4 jp-jz-t">
+                    <a class="jp-dh" href="javascript:redeem(4)"></a>
+                </div>
+                <div class="jp-5 jp-jz-t">
+                    <a class="jp-dh" href="javascript:redeem(5)"></a>
+                </div>
+                <div class="jp-6 jp-jz-t">
+                    <a class="jp-dh" href="javascript:redeem(6)"></a>
+                </div>
+                <div class="jp-7 jp-jz-t">
+                    <a class="jp-dh" href="javascript:redeem(7)"></a>
+                </div>
+                <div class="jp-8 jp-jz-t">
+                    <a class="jp-dh" href="javascript:redeem(8)"></a>
+                </div>
+                <div class="jp-9 jp-jz-t">
+                    <a class="jp-dh" href="javascript:redeem(9)"></a>
+                </div>
+                <div class="jp-10 jp-jz-t">
+                    <a class="jp-dh" href="javascript:redeem(10)"></a>
+                </div>
+            </div>
+        </div>
+        <!-- 领奖方式 -->
+        <div class="lj">
+            <img src="/active/flower/img/title-way.png" alt="">
+            <div class="lj-jz">
+                <div class="lj-left lj-size">
+                    <p>1、领奖QQ：1260110110</p>
+                   <a target="_blank" href="mqq://im/chat?chat_type=wpa&uin=1260110110&version=1&src_type=web">
+                 <!-- 拉起qq群  mqqapi://card/show_pslcard?src_type=internal&version=1&uin=491870040&card_type=group&source=qrcode -->
+                    <img  src="/active/flower/img/talk.png" alt="QQ交谈">
+                    </a>
+                </div>
+                <div class="lj-right lj-size">
+                    <p>2、领奖微信公众号：</p>
+                    <img  src="/active/flower/img/BiBi-ewm.jpg" alt="BiBi领奖二维码">
+                </div>
+            </div>
+            <p class="note">
+                <span class="xing"><b>*友情提示:</b></span>
+                <br/>
+                <span class="xq">请认准官方指定联系方式进行领奖，其他途径小心上当受骗！</span>
+            </p>
+        </div>
+        <!-- 活动规则 -->
+        <div class="rule">
+            <img src="/active/flower/img/title-rule.png" alt="活动规则">
+            <div class="rule-jz">
+                <p class="rule-1">
+                    <span class="rule-title">1</span>
+                    <span class="rule-centent">玩家收到鲜花，使用鲜花兑换额度即可兑换相应实物奖品；</span>
+                </p>
+                <p class="rule-2">
+                    <span class="rule-title">2</span>
+                    <span class="rule-centent">兑换仅扣除兑换额度，不扣除累计获得数量；</span>
+                </p>
+                <p class="rule-3">
+                    <span class="rule-title">3</span>
+                    <span class="rule-centent">每名玩家每项奖品仅限兑换1次；</span>
+                </p>
+                <p class="rule-4">
+                    <span class="rule-title">4</span>
+                    <span class="rule-centent">玩家成功兑换奖品后，请联系官方指定QQ或微信进行领取，如7个工作日内未联系则视为弃奖；</span>
+                </p>
+                <p class="rule-5">
+                    <span class="rule-title">5</span>
+                    <span class="rule-centent">本活动与苹果公司无关；</span>
+                </p>
+                <p class="rule-6">
+                    <span class="rule-title">6</span>
+                    <span class="rule-centent">本活动最终解释权归BiBi娱乐社区官方所有。</span>
+                </p>
+            </div>
+        </div>
+    </div>
+    <!-- 弹框-系统消息 -->
+    <div class="pop" id="Hide" style="position: fixed;display:none; left: 59%;top: 50%;z-index: 9999;margin-left: -167.5px;margin-top: -75px;">
+        <div class="pop-con">
+            <div class="pop-tit">温馨提示</div>
+        </div>
+        
+        <div  class="pop-txt" >
+            <p id="sys_info1" style="display:none;">您确定要花费&nbsp;<span id="price" style="color: red">0</span>&nbsp;朵鲜花兑换此物吗？</p>
+            <p id="sys_info2" style="display:none;"></p>
+            <p id="sys_info3" style="display:none;">恭喜您成功兑换&nbsp;<span id="goodsName" style="color: red"></span>
+		           &nbsp;本次消耗鲜花数:&nbsp;<span id="goodsFlower" style="color: red"></span>&nbsp;
+		           兑换码:&nbsp;<span id="goodsKey" style="color: red"></span>&nbsp;
+		          请联系领奖QQ:1260110110&nbsp;或微信公众号:zhuangdianbi</p>
+        </div>
+       <br/><br/>
+        <div  id="btn1"  class="pop-del"  style="display:none;" >
+            <a href="javascript:no()" ><div style="float: left;margin-left: 20%;color: #999999" >取消</div></a>
+            <a href="javascript:yes()"><div style="float: right;margin-right: 20%; color: #333333">确定</div></a>
+        </div>
+        <div  id="btn2" class="pop-del" style="display:none;">
+         <a href="javascript:no()"><div style="float: right;margin-right: 45%; color: #333333">确定</div></a>
+        </div>
+        
+    </div>
+    <!-- 遮罩层 -->
+    <div id="dialog_mask" style="display: none;position: fixed;top: 0px;left: 0px;background: rgb(0,0,0);width: 100%;height: 100%;z-index: 9998;opacity: 0.7;">
+    </div>
+    </div>
+    
+<script type="text/javascript">
+var token="";
+var UA =  navigator.userAgent;
+    if(!!UA.match(/iOS|iPad|iPhone/i)){
+	    token=window.share();
+    } else {//安卓
+    	token=jsObject.getMessage();
+    }
+    document.cookie="token="+token+";expires=3600*1000";
+    //设置count
+    $.post("/activity/flowerCount", function(ret) {
+		$("#resCount").text(ret);
+	});
+    var a=0;
+    var num=0;
+    var goodsName="";
+    function redeem(type){
+    	a=type;
+        if(type===1){
+     	    num="179,800";
+     	  goodsName="iPhone7 Plus (128GB)";
+        }else if(type===2){
+        	num="150,000";
+        	goodsName="卡西欧CASIO EX-TR750";
+        }else if(type===3){
+        	num="129,800";
+        	goodsName="iPad Pro (9.7英寸)";
+        }else if(type===4){
+        	num="100,000";
+        	goodsName="Meitu 美图T8(4GB+128GB)";
+        }else if(type===5){
+        	num="88,000";
+        	goodsName="OPPO R9s Plus (4G+64G)";
+        }else if(type===6){
+        	num="72,800";
+        	goodsName="Apple Watch Series2 (38毫米)";
+        }else if(type===7){
+        	num="51,800";
+        	goodsName="小米5s (3G+64G)";
+        }else if(type===8){
+        	num="42,800";
+        	goodsName="小米 红米Note4 (4G+64G)";
+        }else if(type===9){
+        	num="38,800";
+        	goodsName="富士INSTAX MINI90";
+        }else if(type===10){
+        	num="26,800";
+        	goodsName="富士INSTAX MINI25 (Kitty白)";
+        }else{
+        	num=0;
+        	goodsName="";
+        }
+        $("#price").text(num);
+        //打开info1  关闭info2
+        $("#sys_info2").css("display","none");
+		$("#sys_info3").css("display","none");
+        $("#sys_info1").css("display","block");
+		//打开btn1 关闭btn2
+		$("#btn1").css("display","block");
+		$("#btn2").css("display","none");
+	    if($("#Hide").css("display")=='none'){
+           $("#Hide").css("display","block");
+        }
+    };
+
+    function no(){
+    	$("#sys_info3").css("display","none");
+    	if($("#Hide").css("display")=='block'){
+            $("#Hide").css("display","none");
+         }
+    };
+    
+    function yes(){
+    	var jsonData = {
+    			"type":a
+    		};
+    	$.post("/activity/flower/redeem", jsonData, function(ret) {
+    		//打开btn2 关闭btn1
+			$("#btn2").css("display","block");
+			$("#btn1").css("display","none");
+    		if (0 != ret.code) {
+    			$("#sys_info2").text(ret.data);
+    		    //打开info2  关闭info1
+    	        $("#sys_info2").css("display","block");
+    			$("#sys_info1").css("display","none");
+			} else {
+				$.post("/activity/flowerCount", function(ret) {
+				     $("#resCount").text(ret);
+				});
+				$("#goodsName").text(goodsName);
+				$("#goodsFlower").text(num);
+				$("#goodsKey").text(ret.data);
+				$("#sys_info1").css("display","none");
+    			$("#sys_info2").css("display","none");
+    			$("#sys_info3").css("display","block");
+			}
+		});
+    };
+</script>
+</body>
+</html>

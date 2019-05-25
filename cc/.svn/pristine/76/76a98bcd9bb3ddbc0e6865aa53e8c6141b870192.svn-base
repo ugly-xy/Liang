@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html class="ui-page-login">
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title></title>
+		<link href="css/mui.min.css" rel="stylesheet" />
+		<link rel="stylesheet" type="text/css" href="css/mui.picker.min.css"/>
+		<link href="css/style.css" rel="stylesheet" />
+		<style>
+			.area {
+				margin: 20px auto 0px auto;
+			}
+			.mui-input-group:first-child {
+				margin-top: 20px;
+			}
+			.mui-input-group label {
+				width: 30%;
+			}
+			.mui-input-row label~input,
+			.mui-input-row label~select,
+			.mui-input-row label~textarea {
+				width: 70%;
+			}
+			.mui-checkbox input[type=checkbox],
+			.mui-radio input[type=radio] {
+				top: 6px;
+			}
+			.mui-content-padded {
+				margin-top: 25px;
+			}
+			.mui-btn {
+				padding: 10px;
+			}
+		</style>
+	</head>
+
+	<body>
+		<header class="mui-bar mui-bar-nav">
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+			<h1 class="mui-title" id="ttname">비밀번호 수정</h1>
+		</header>
+		<div class="mui-content">
+		
+			<div class="mui-input-group">
+				<div class="mui-input-row">
+
+					<input id='oldpassword' type="password" class="mui-input-clear mui-input" placeholder="기존 비밀번호">
+				</div>
+				<div class="mui-input-row">
+
+					<input id='password' type="password" class="mui-input-clear mui-input" placeholder="새비밀번호">
+				</div>
+				<div class="mui-input-row">
+
+					<input id='password_confirm' type="password" class="mui-input-clear mui-input" placeholder="새비밀번호확인">
+				</div>
+			</div>
+			
+			<div class="mui-content-padded">
+				<button id="fm_pwd" class="mui-btn mui-btn-block mui-btn-primary"></button>
+			</div>
+			<div class="mui-content-padded" style="display: none;">
+				<p class="mui-text-center">登录或注册即表示同意本站的用户协议和隐私政策。</p>
+			</div>
+			
+		</div>
+		<script src="js/mui.min.js"></script>
+		<script src="js/app.js"></script>
+		<script>
+			(function($, doc) {
+				var oldpasswordBt =doc.getElementById("oldpassword");
+				var passwordBt =doc.getElementById("password");
+				var passwordConfirmBt = doc.getElementById("password_confirm");
+				var fmpwdBt =doc.getElementById("fm_pwd");
+				$.plusReady(function() {
+					
+					oldpasswordBt.addEventListener('blur',function(){
+							var oldPwd =oldpasswordBt.value+"";
+							if(!oldPwd||oldPwd==''){
+								mui.alert("정확한 기존 비밀번호를 입력해주세요");
+								return;
+						    }
+							mui.getJSON(app.serverApi(app.apiConstant.getOriginalPwd),{'oldPwd':oldPwd},function(res){
+								app.respondingTo(res.code,function(code){
+									if(0!=code){
+										plus.nativeUI.toast(res.msg);
+									}else{
+										plus.nativeUI.toast("原密码正确！");
+									}
+								})
+							})
+					})
+					
+					fmpwdBt.addEventListener('tap',function(){
+						var oldPwd =oldpasswordBt.value+"";
+						var newPwd =passwordBt.value+"";
+						var confirmPwd =passwordConfirmBt.value+'';
+						if(!newPwd||newPwd==""){
+							plus.nativeUI.toast("새 비밀번호를 입력해주세요");
+							return;
+						}
+						if(newPwd.length<6){
+							plus.nativeUI.toast("비밀번호 자리수가 부족합니다");
+							return;
+						}
+						if(confirmPwd!=newPwd){
+							plus.nativeUI.toast("새 비밀 번호 확인");
+							return;
+						}
+						var param= {					
+							"oldPwd":oldPwd,
+							"newPwd":newPwd
+						}
+						mui.post(app.serverApi(app.apiConstant.updateOriginalPwd),param,function(res){
+								app.respondingTo(res.code,function(code){
+									if(0!=code){
+										plus.nativeUI.toast(res.msg);
+									}else{
+										mui.back();
+										app.respondingTo(11000);
+									}
+								})
+							})
+					})
+					
+					
+				})
+				
+    				
+			}(mui, document));
+		</script>
+	</body>
+
+</html>

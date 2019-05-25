@@ -1,0 +1,116 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="css/mui.min.css" rel="stylesheet" />
+		<link rel="stylesheet" type="text/css" href="css/style.css"/>
+	</head>
+
+	<body>
+		<header class="mui-bar mui-bar-nav">
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+		    <h1 class="mui-title">我的下线</h1>
+		</header>
+		<div class="mui-content">
+		   <div class="referrals-list">
+		   		<dl>
+		   			<dt>{{downInfo.m1+downInfo.m2+downInfo.m3}} <p>我的下线</p></dt>
+		   			<dd>{{downInfo.m1}} <p>M1</p></dd>
+		   			<dd>{{downInfo.m2}} <p>M2</p></dd>
+		   			<dd>{{downInfo.m3}} <p>M3</p></dd>
+		   		</dl>
+		   		<div class="refrralstitle mui-text-center">M1下线列表</div>
+		   		<div class="userlist">
+			   		<ul class="mui-table-view">
+			   		    <li class="mui-table-view-cell" v-for="item in userM1">
+		   		            <div class="mui-pull-left nameid">
+		   		                {{item.phone}} <img src="images/level-01.png" width="30"/>
+		   		            </div>
+		   		            <div class="mui-text-right date">
+		   		            		<div class="userid">
+		   		            			{{item.uid}}
+		   		            		</div>
+		   		            		{{item.updateTime}}
+		   		            </div>
+			   		    </li>
+			   		</ul>
+		   		</div>
+		   		
+		   </div>
+		</div>
+		<script src="js/mui.min.js"></script>
+		<script src="js/app.js" type="text/javascript" charset="utf-8"></script>
+		<script src="js/vue.min.js" type="text/javascript"></script>
+		<script type="text/javascript">
+			mui.init({});
+			(function($,doc){
+			
+			function getDefaultData(){
+			return {
+					downInfo:{
+						m1:0,
+						m2:0,
+						m3:0
+					},
+					userM1:[]
+				}
+			}
+			
+			var downLine = new Vue({
+					el: '.mui-content',
+					data: getDefaultData(),
+					methods: {
+						resetData: function() {//重置数据
+							Object.assign(this.$data, getDefaultData());
+						}
+						
+					}
+			});
+			setTimeout(function() {
+				initMyFriendDownLineData();
+			}, 0);
+			
+			function initMyFriendDownLineData(){
+				var list=[];
+				 $.getJSON(app.serverApi(app.apiConstant.getMyFriendDownLine),{},function(res){
+				 	app.respondingTo(res.code,function(code){
+				 		if(0!=code){
+				 			plus.nativeUI.toast(res.msg);
+				 		}else{
+				 			var userShare =res.data.userShare;
+				 			if(userShare&&userShare.m1&&null!=userShare.m1&&''!=userShare.m1){
+				 				downLine.downInfo.m1 = parseInt(userShare.m1);
+				 			}
+				 			if(userShare&&userShare.m2&&null!=userShare.m2&&''!=userShare.m2){
+				 				downLine.downInfo.m2 = parseInt(userShare.m2);
+				 			}
+				 			if(userShare&&userShare.m2&&null!=userShare.m3&&''!=userShare.m3){
+				 				downLine.downInfo.m3 = parseInt(userShare.m3);
+				 			}
+				 			var userM1 = res.data.userM1;
+				 			if(userM1&&userM1!=null){
+				 				for(var i=0; i<userM1.length;i++){
+					 				var json={};
+					 				var x = userM1[i];
+					 				json.phone=x.phone;
+					 				json.uid =x._id;
+					 				json.updateTime = app.longFymdhms(x.updateTime);
+				 					list.push(json);
+					 			}
+				 			}
+				 			downLine.userM1=list;
+				 		}
+				 	})
+				 })
+			}
+				
+				
+			}(mui,document))
+		</script>
+		
+	</body>
+
+</html>

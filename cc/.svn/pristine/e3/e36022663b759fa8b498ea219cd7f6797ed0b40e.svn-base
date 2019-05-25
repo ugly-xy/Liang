@@ -1,0 +1,112 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="css/mui.min.css" rel="stylesheet" />
+		<link rel="stylesheet" type="text/css" href="css/style.css" />
+		<style type="text/css">
+			.chatbtn {
+				position: absolute;
+				right: 0px;
+				top: 22px;
+				z-index: 9;
+			}
+			
+			.chatbtn .icon-chat {
+				width: 46px;
+				height: 46px;
+			}
+		</style>
+	</head>
+
+	<body>
+		<div class="barshadow"></div>
+		<div class="newslist">
+			<div class="mui-slider ">
+				<div id="sliderH" class="mui-slider-indicator mui-segmented-control mui-segmented-control-inverted  mui-flex">
+					<div class="newh mui-control-item mui-active" data-id="1">뉴스</div>
+					<div class="newh mui-control-item" data-id="2">공지</div>
+				</div>
+				<div class="mui-slider-group">
+					<div id="news" class="mui-slider-item mui-control-content  mui-active">
+						<div class="mui-content"></div>
+					</div>
+				</div>
+			</div>
+			<div class="chatbtn">
+				<a class="mui-icon mui-pull-right icon-chat" id="chatbt"></a>
+			</div>
+		</div>
+		<script src="js/mui.min.js"></script>
+		<script src="js/app.js" type="text/javascript" charset="utf-8"></script>
+		<script src="js/vue.min.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript">
+			var viewId = "news_sub.html";
+			mui.init({
+				gestureConfig: {
+					doubletap: true
+				},
+				subpages: [{
+					url: 'news_sub.html',
+					id: viewId,
+					styles: {
+						top: '45px',
+						bottom: '0px',
+					}
+				}]
+			});
+			
+			mui(".mui-slider-indicator").on('tap','.newh',function(){
+				 actId= this.getAttribute('data-id');
+				 appoint(actId);
+			})
+			
+			function appoint(actId){
+				mui.fire(plus.webview.getWebviewById(viewId),"actId",{'actId':actId});
+			}
+			
+			var contentWebview = null;
+			document.getElementById("sliderH").addEventListener('doubletap',function () {
+			if(contentWebview==null){
+				contentWebview = plus.webview.currentWebview().children()[0];
+			}
+			appoint(0);
+		});
+		
+		document.getElementById("chatbt").addEventListener('tap', function() {
+				if(validLogin()) {
+					mui.openWindow({
+						url: 'chat.html',
+						id: 'chat',
+						show: {
+							aniShow: 'pop-in'
+						},
+						styles: {
+							popGesture: 'close'
+						},
+						waiting: {
+							autoShow: true
+						},
+					});
+				}
+
+				return;
+			})
+
+			function validLogin() {
+				if(app.getAuth() && null != app.getAuth()) {
+					return true;
+				}
+				app.respondingTo(11000, function(code) {
+					return false;
+				})
+				return false;
+			}
+			app.backQuit();
+		</script>
+	</body>
+
+</html>

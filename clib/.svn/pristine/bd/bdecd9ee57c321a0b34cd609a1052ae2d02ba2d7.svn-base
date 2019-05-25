@@ -1,0 +1,239 @@
+package com.we.models;
+
+import java.io.Serializable;
+
+/** 币种 */
+public class CoinType implements Serializable {
+
+	private static final long serialVersionUID = -3640846137182685437L;
+
+	private String _id;// 货币简写
+	private String fullname;// 全称
+	private String pic;// 图片
+	private String bigPic;
+	private int status;// 状态 上线 下线
+	private Long adminId;
+	private int sort;// 货币排序
+	private String intro;// 简介
+	private String detail;// 项目方介绍
+	private String url;// 项目方官网
+	private Long totalCnt;// 总量
+	private Long sendCnt;// 已送出的总量
+	private Double price_dollar;// 货币单价 美元
+	private Double price_rmb;// 货币单价 人民币
+	private long updateTime;
+	private String stage;// 融资阶段
+	private String name;
+	private String platform;
+	private String country;
+	private Boolean candy;
+	private Long circulation;
+
+	public String get_id() {
+		return _id;
+	}
+
+	public void set_id(String _id) {
+		this._id = _id;
+	}
+
+	public String getFullname() {
+		return fullname;
+	}
+
+	public void setFullname(String fullname) {
+		this.fullname = fullname;
+	}
+
+	public String getPic() {
+		return pic;
+	}
+
+	public void setPic(String pic) {
+		this.pic = pic;
+	}
+
+	public int getStatus() {
+		return status;
+	}
+
+	public void setStatus(int status) {
+		this.status = status;
+	}
+
+	public Long getAdminId() {
+		return adminId;
+	}
+
+	public void setAdminId(Long adminId) {
+		this.adminId = adminId;
+	}
+
+	public long getUpdateTime() {
+		return updateTime;
+	}
+
+	public void setUpdateTime(long updateTime) {
+		this.updateTime = updateTime;
+	}
+
+	public int getSort() {
+		return sort;
+	}
+
+	public void setSort(int sort) {
+		this.sort = sort;
+	}
+
+	public String getDetail() {
+		return detail;
+	}
+
+	public void setDetail(String detail) {
+		this.detail = detail;
+	}
+
+	public String getUrl() {
+		return url;
+	}
+
+	public void setUrl(String url) {
+		this.url = url;
+	}
+
+	public Long getTotalCnt() {
+		return totalCnt;
+	}
+
+	public void setTotalCnt(Long totalCnt) {
+		this.totalCnt = totalCnt;
+	}
+
+	public Long getSendCnt() {
+		return sendCnt;
+	}
+
+	public void setSendCnt(Long sendCnt) {
+		this.sendCnt = sendCnt;
+	}
+
+	public Double getPrice_dollar() {
+		return price_dollar;
+	}
+
+	public void setPrice_dollar(Double price_dollar) {
+		this.price_dollar = price_dollar;
+	}
+
+	public Double getPrice_rmb() {
+		return price_rmb;
+	}
+
+	public void setPrice_rmb(Double price_rmb) {
+		this.price_rmb = price_rmb;
+	}
+
+	public String getStage() {
+		return stage;
+	}
+
+	public void setStage(String stage) {
+		this.stage = stage;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public String getPlatform() {
+		return platform;
+	}
+
+	public void setPlatform(String platform) {
+		this.platform = platform;
+	}
+
+	public String getCountry() {
+		return country;
+	}
+
+	public void setCountry(String country) {
+		this.country = country;
+	}
+
+	public Boolean getCandy() {
+		return candy;
+	}
+
+	public void setCandy(Boolean candy) {
+		this.candy = candy;
+	}
+
+	public String getIntro() {
+		return intro;
+	}
+
+	public void setIntro(String intro) {
+		this.intro = intro;
+	}
+
+	public Long getCirculation() {
+		return circulation;
+	}
+
+	public void setCirculation(Long circulation) {
+		this.circulation = circulation;
+	}
+
+	public String getBigPic() {
+		return bigPic;
+	}
+
+	public void setBigPic(String bigPic) {
+		this.bigPic = bigPic;
+	}
+
+	public CoinType(String _id, String fullname, String pic, int status, int sort) {
+		super();
+		this._id = _id;
+		this.fullname = fullname;
+		this.pic = pic;
+		this.status = status;
+		this.sort = sort;
+	}
+
+	public CoinType(String _id, String fullname, String pic, int status, Long adminId, int sort, String detail,
+			String url, Long totalCnt, Long sendCnt, Double price_dollar, Double price_rmb, String stage, String name,
+			String platform, String country, Boolean candy, String intro, Long circulation, String bigPic) {
+		super();
+		this._id = _id;
+		this.fullname = fullname;
+		this.pic = pic;
+		this.status = status;
+		this.adminId = adminId;
+		this.sort = sort;
+		this.detail = detail;
+		this.url = url;
+		this.totalCnt = totalCnt;
+		this.sendCnt = sendCnt;
+		this.price_dollar = price_dollar;
+		this.price_rmb = price_rmb;
+		this.stage = stage;
+		this.name = name;
+		this.platform = platform;
+		this.country = country;
+		this.candy = candy;
+		this.intro = intro;
+		this.circulation = circulation;
+		this.bigPic = bigPic;
+	}
+
+	public CoinType() {
+		super();
+	}
+
+}
