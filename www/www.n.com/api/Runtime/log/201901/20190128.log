@@ -1,0 +1,18 @@
+ 2019-01-28 11:07:08|ERROR|Token.Transfer|PDOException: There is no active transaction in /data/wwwroot/lebo.com/api/PhalApi/NotORM/NotORM.php:88
+Stack trace:
+#0 /data/wwwroot/lebo.com/api/PhalApi/NotORM/NotORM.php(88): PDO->rollBack()
+#1 /data/wwwroot/lebo.com/api/PhalApi/PhalApi/DB/NotORM.php(127): NotORM->__set('transaction', 'ROLLBACK')
+#2 /data/wwwroot/lebo.com/api/Appapi/Api/Token.php(152): PhalApi_DB_NotORM->__set('transaction', 'ROLLBACK')
+#3 /data/wwwroot/lebo.com/api/PhalApi/PhalApi.php(57): Api_Token->Transfer()
+#4 /data/wwwroot/lebo.com/api/public/index.php(14): PhalApi->response()
+#5 {main}
+2019-01-28 12:30:06|DEBUG|succeed to upload file to qiniu|{"hash":"FvAESDVTJ_yFQIpdionHK0tX8t9Y","key":"20190128123006_ac7d90941aa327d0d25b9d73bc96d5f4"}
+2019-01-28 13:03:25|DEBUG|succeed to upload file to qiniu|{"hash":"FtsPVFh8-2rh7LV_OwjQnILNBWD3","key":"20190128130325_c60f20dab3c5f820a83db48513baf987"}
+2019-01-28 13:06:34|DEBUG|succeed to upload file to qiniu|{"hash":"FtsPVFh8-2rh7LV_OwjQnILNBWD3","key":"20190128130634_3cd81b9328d904215daf74a559dd5aee"}
+2019-01-28 13:09:53|DEBUG|succeed to upload file to qiniu|{"hash":"Flsn535KzfZ8eqwuI-X9y363WcF6","key":"20190128130952_f5fe1c6698953e794d520d90878ec4ed"}
+2019-01-28 13:30:35|DEBUG|succeed to upload file to qiniu|{"hash":"FtsPVFh8-2rh7LV_OwjQnILNBWD3","key":"20190128133035_44a4fa80e7516a90265df208ca5dc81a"}
+2019-01-28 15:03:17|DEBUG|succeed to upload file to qiniu|{"hash":"Foo7ODhLtGuit9rpvJo4sAboEMWD","key":"20190128150317_8f79b6c1365045797c236215a955b5b0"}
+2019-01-28 15:03:49|DEBUG|succeed to upload file to qiniu|{"hash":"FkcN5CFAK1b_iywy7PKeQEObm4Zn","key":"20190128150349_cfbb35ba71de7f6a63807d304bdc9421"}
+2019-01-28 15:09:13|DEBUG|succeed to upload file to qiniu|{"hash":"FtsPVFh8-2rh7LV_OwjQnILNBWD3","key":"20190128150913_7f6715cc9a4085ba34ed012a646e2567"}
+2019-01-28 17:05:35|DEBUG|succeed to upload file to qiniu|{"hash":"Fv8ornpX_4SORurnVGOuO-r_YCOK","key":"20190128170535_27944c2df9560ea808871a492bdc4952"}
+2019-01-28 17:05:58|DEBUG|succeed to upload file to qiniu|{"hash":"FkcN5CFAK1b_iywy7PKeQEObm4Zn","key":"20190128170558_a626974d8a0b0b7cc14d591a17800553"}

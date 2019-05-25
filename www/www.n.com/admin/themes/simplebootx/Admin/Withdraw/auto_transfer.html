@@ -1,0 +1,45 @@
+<admintpl file="header" />
+<style>
+ input[readonly]{
+	color:#95a5a6;
+ }
+</style>
+</head>
+<body>
+	<div class="wrap">
+		<ul class="nav nav-tabs">
+		    <li>自动汇总</li>
+		</ul>
+		<form   method="post" class="form-horizontal js-ajax-form" action="{:U('admin/withdraw/edit_post')}">
+			<div class="form-actions">
+				<button type="button"  id="btn_auto_transfer"  class="btn btn-primary">开始汇总</button>
+			</div>
+		</form>
+	</div>
+	
+	<script>
+		$(function(){
+		
+			$('#btn_auto_transfer').click(function(){
+			
+				$.ajax({
+					url:'{$host}'+'/api/public?service=Token.autoTransfer',
+					type:'GET',
+					success:function(data)
+					{
+					   alert('请求成功');
+					},
+					error:function(data)
+					{
+					   alert('请求失败');
+					}
+				});
+			});
+		     
+		});
+	</script>
+	
+	<script src="__PUBLIC__/js/common.js"></script>
+	 
+</body>
+</html>

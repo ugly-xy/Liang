@@ -1,0 +1,41 @@
+2019-01-02 10:14:17|ERROR|User.getBaseInfo|PDOException: Unknown column 'mobil' in 'field list' in /data/wwwroot/lebo.com/api/PhalApi/NotORM/NotORM/Result.php:247
+Stack trace:
+#0 /data/wwwroot/lebo.com/api/PhalApi/NotORM/NotORM/Result.php(784): NotORM_Result->query('SELECT id,user_...', Array)
+#1 /data/wwwroot/lebo.com/api/PhalApi/NotORM/NotORM/Result.php(852): NotORM_Result->execute()
+#2 /data/wwwroot/lebo.com/api/PhalApi/NotORM/NotORM/Result.php(844): NotORM_Result->fetchRow('')
+#3 /data/wwwroot/lebo.com/api/Appapi/Model/User.php(9): NotORM_Result->fetchOne()
+#4 /data/wwwroot/lebo.com/api/Appapi/Domain/User.php(9): Model_User->getBaseInfo(21770)
+#5 /data/wwwroot/lebo.com/api/Appapi/Api/User.php(239): Domain_User->getBaseInfo(21770)
+#6 /data/wwwroot/lebo.com/api/PhalApi/PhalApi.php(57): Api_User->getBaseInfo()
+#7 /data/wwwroot/lebo.com/api/public/index.php(14): PhalApi->response()
+#8 {main}
+2019-01-02 19:21:04|ERROR|Live.sendGift|PDOException: Column 'showid' cannot be null in /data/wwwroot/lebo.com/api/PhalApi/NotORM/NotORM/Result.php:247
+Stack trace:
+#0 /data/wwwroot/lebo.com/api/PhalApi/NotORM/NotORM/Result.php(324): NotORM_Result->query('INSERT INTO cmf...', Array)
+#1 /data/wwwroot/lebo.com/api/PhalApi/NotORM/NotORM/Result.php(341): NotORM_Result->insert_multi(Array)
+#2 /data/wwwroot/lebo.com/api/Appapi/Model/Live.php(414): NotORM_Result->insert(Array)
+#3 /data/wwwroot/lebo.com/api/Appapi/Domain/Live.php(114): Model_Live->sendGift(22764, 21832, '47', 79, 1, 1)
+#4 /data/wwwroot/lebo.com/api/Appapi/Api/Live.php(1456): Domain_Live->sendGift(22764, 21832, '47', 79, 1, 1)
+#5 /data/wwwroot/lebo.com/api/PhalApi/PhalApi.php(57): Api_Live->sendGift()
+#6 /data/wwwroot/lebo.com/api/public/index.php(14): PhalApi->response()
+#7 {main}
+2019-01-02 19:21:11|ERROR|Live.sendGift|PDOException: Column 'showid' cannot be null in /data/wwwroot/lebo.com/api/PhalApi/NotORM/NotORM/Result.php:247
+Stack trace:
+#0 /data/wwwroot/lebo.com/api/PhalApi/NotORM/NotORM/Result.php(324): NotORM_Result->query('INSERT INTO cmf...', Array)
+#1 /data/wwwroot/lebo.com/api/PhalApi/NotORM/NotORM/Result.php(341): NotORM_Result->insert_multi(Array)
+#2 /data/wwwroot/lebo.com/api/Appapi/Model/Live.php(414): NotORM_Result->insert(Array)
+#3 /data/wwwroot/lebo.com/api/Appapi/Domain/Live.php(114): Model_Live->sendGift(22764, 21832, '47', 79, 1, 1)
+#4 /data/wwwroot/lebo.com/api/Appapi/Api/Live.php(1456): Domain_Live->sendGift(22764, 21832, '47', 79, 1, 1)
+#5 /data/wwwroot/lebo.com/api/PhalApi/PhalApi.php(57): Api_Live->sendGift()
+#6 /data/wwwroot/lebo.com/api/public/index.php(14): PhalApi->response()
+#7 {main}
+2019-01-02 19:21:25|ERROR|Live.sendGift|PDOException: Column 'showid' cannot be null in /data/wwwroot/lebo.com/api/PhalApi/NotORM/NotORM/Result.php:247
+Stack trace:
+#0 /data/wwwroot/lebo.com/api/PhalApi/NotORM/NotORM/Result.php(324): NotORM_Result->query('INSERT INTO cmf...', Array)
+#1 /data/wwwroot/lebo.com/api/PhalApi/NotORM/NotORM/Result.php(341): NotORM_Result->insert_multi(Array)
+#2 /data/wwwroot/lebo.com/api/Appapi/Model/Live.php(414): NotORM_Result->insert(Array)
+#3 /data/wwwroot/lebo.com/api/Appapi/Domain/Live.php(114): Model_Live->sendGift(22764, 21832, '47', 79, 1, 1)
+#4 /data/wwwroot/lebo.com/api/Appapi/Api/Live.php(1456): Domain_Live->sendGift(22764, 21832, '47', 79, 1, 1)
+#5 /data/wwwroot/lebo.com/api/PhalApi/PhalApi.php(57): Api_Live->sendGift()
+#6 /data/wwwroot/lebo.com/api/public/index.php(14): PhalApi->response()
+#7 {main}

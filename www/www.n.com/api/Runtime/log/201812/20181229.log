@@ -1,0 +1,150 @@
+2018-12-29 16:12:03|ERROR|Home.search|PDOException: Unknown column 'age' in 'field list' in /data/wwwroot/lebo.com/api/PhalApi/NotORM/NotORM/Result.php:240
+Stack trace:
+#0 /data/wwwroot/lebo.com/api/PhalApi/NotORM/NotORM/Result.php(777): NotORM_Result->query('SELECT id,user_...', Array)
+#1 /data/wwwroot/lebo.com/api/PhalApi/NotORM/NotORM/Result.php(854): NotORM_Result->execute()
+#2 /data/wwwroot/lebo.com/api/Appapi/Model/Home.php(231): NotORM_Result->fetchAll()
+#3 /data/wwwroot/lebo.com/api/Appapi/Domain/Home.php(43): Model_Home->search('22764', '15', '1')
+#4 /data/wwwroot/lebo.com/api/Appapi/Api/Home.php(317): Domain_Home->search('22764', '15', '1')
+#5 /data/wwwroot/lebo.com/api/PhalApi/PhalApi.php(57): Api_Home->search()
+#6 /data/wwwroot/lebo.com/api/public/index.php(14): PhalApi->response()
+#7 {main}
+2018-12-29 16:12:15|ERROR|Home.search|PDOException: Unknown column 'age' in 'field list' in /data/wwwroot/lebo.com/api/PhalApi/NotORM/NotORM/Result.php:240
+Stack trace:
+#0 /data/wwwroot/lebo.com/api/PhalApi/NotORM/NotORM/Result.php(777): NotORM_Result->query('SELECT id,user_...', Array)
+#1 /data/wwwroot/lebo.com/api/PhalApi/NotORM/NotORM/Result.php(854): NotORM_Result->execute()
+#2 /data/wwwroot/lebo.com/api/Appapi/Model/Home.php(231): NotORM_Result->fetchAll()
+#3 /data/wwwroot/lebo.com/api/Appapi/Domain/Home.php(43): Model_Home->search('22764', '15', '1')
+#4 /data/wwwroot/lebo.com/api/Appapi/Api/Home.php(317): Domain_Home->search('22764', '15', '1')
+#5 /data/wwwroot/lebo.com/api/PhalApi/PhalApi.php(57): Api_Home->search()
+#6 /data/wwwroot/lebo.com/api/public/index.php(14): PhalApi->response()
+#7 {main}
+2018-12-29 16:12:34|ERROR|Home.search|PDOException: Unknown column 'age' in 'field list' in /data/wwwroot/lebo.com/api/PhalApi/NotORM/NotORM/Result.php:240
+Stack trace:
+#0 /data/wwwroot/lebo.com/api/PhalApi/NotORM/NotORM/Result.php(777): NotORM_Result->query('SELECT id,user_...', Array)
+#1 /data/wwwroot/lebo.com/api/PhalApi/NotORM/NotORM/Result.php(854): NotORM_Result->execute()
+#2 /data/wwwroot/lebo.com/api/Appapi/Model/Home.php(231): NotORM_Result->fetchAll()
+#3 /data/wwwroot/lebo.com/api/Appapi/Domain/Home.php(43): Model_Home->search('22764', '15', '1')
+#4 /data/wwwroot/lebo.com/api/Appapi/Api/Home.php(317): Domain_Home->search('22764', '15', '1')
+#5 /data/wwwroot/lebo.com/api/PhalApi/PhalApi.php(57): Api_Home->search()
+#6 /data/wwwroot/lebo.com/api/public/index.php(14): PhalApi->response()
+#7 {main}
+2018-12-29 16:13:09|ERROR|Home.search|PDOException: Unknown column 'age' in 'field list' in /data/wwwroot/lebo.com/api/PhalApi/NotORM/NotORM/Result.php:240
+Stack trace:
+#0 /data/wwwroot/lebo.com/api/PhalApi/NotORM/NotORM/Result.php(777): NotORM_Result->query('SELECT id,user_...', Array)
+#1 /data/wwwroot/lebo.com/api/PhalApi/NotORM/NotORM/Result.php(854): NotORM_Result->execute()
+#2 /data/wwwroot/lebo.com/api/Appapi/Model/Home.php(231): NotORM_Result->fetchAll()
+#3 /data/wwwroot/lebo.com/api/Appapi/Domain/Home.php(43): Model_Home->search('22764', '15', '1')
+#4 /data/wwwroot/lebo.com/api/Appapi/Api/Home.php(317): Domain_Home->search('22764', '15', '1')
+#5 /data/wwwroot/lebo.com/api/PhalApi/PhalApi.php(57): Api_Home->search()
+#6 /data/wwwroot/lebo.com/api/public/index.php(14): PhalApi->response()
+#7 {main}
+2018-12-29 16:18:02|ERROR|Home.search|PDOException: Unknown column 'age' in 'field list' in /data/wwwroot/lebo.com/api/PhalApi/NotORM/NotORM/Result.php:240
+Stack trace:
+#0 /data/wwwroot/lebo.com/api/PhalApi/NotORM/NotORM/Result.php(777): NotORM_Result->query('SELECT id,user_...', Array)
+#1 /data/wwwroot/lebo.com/api/PhalApi/NotORM/NotORM/Result.php(854): NotORM_Result->execute()
+#2 /data/wwwroot/lebo.com/api/Appapi/Model/Home.php(232): NotORM_Result->fetchAll()
+#3 /data/wwwroot/lebo.com/api/Appapi/Domain/Home.php(43): Model_Home->search('22764', '15', '1')
+#4 /data/wwwroot/lebo.com/api/Appapi/Api/Home.php(317): Domain_Home->search('22764', '15', '1')
+#5 /data/wwwroot/lebo.com/api/PhalApi/PhalApi.php(57): Api_Home->search()
+#6 /data/wwwroot/lebo.com/api/public/index.php(14): PhalApi->response()
+#7 {main}
+2018-12-29 16:18:07|ERROR|Home.search|PDOException: Unknown column 'age' in 'field list' in /data/wwwroot/lebo.com/api/PhalApi/NotORM/NotORM/Result.php:240
+Stack trace:
+#0 /data/wwwroot/lebo.com/api/PhalApi/NotORM/NotORM/Result.php(777): NotORM_Result->query('SELECT id,user_...', Array)
+#1 /data/wwwroot/lebo.com/api/PhalApi/NotORM/NotORM/Result.php(854): NotORM_Result->execute()
+#2 /data/wwwroot/lebo.com/api/Appapi/Model/Home.php(232): NotORM_Result->fetchAll()
+#3 /data/wwwroot/lebo.com/api/Appapi/Domain/Home.php(43): Model_Home->search('22764', '15', '1')
+#4 /data/wwwroot/lebo.com/api/Appapi/Api/Home.php(317): Domain_Home->search('22764', '15', '1')
+#5 /data/wwwroot/lebo.com/api/PhalApi/PhalApi.php(57): Api_Home->search()
+#6 /data/wwwroot/lebo.com/api/public/index.php(14): PhalApi->response()
+#7 {main}
+2018-12-29 16:18:39|ERROR|Home.search|PDOException: Unknown column 'age' in 'field list' in /data/wwwroot/lebo.com/api/PhalApi/NotORM/NotORM/Result.php:240
+Stack trace:
+#0 /data/wwwroot/lebo.com/api/PhalApi/NotORM/NotORM/Result.php(777): NotORM_Result->query('SELECT id,user_...', Array)
+#1 /data/wwwroot/lebo.com/api/PhalApi/NotORM/NotORM/Result.php(854): NotORM_Result->execute()
+#2 /data/wwwroot/lebo.com/api/Appapi/Model/Home.php(232): NotORM_Result->fetchAll()
+#3 /data/wwwroot/lebo.com/api/Appapi/Domain/Home.php(43): Model_Home->search('22764', '15', '1')
+#4 /data/wwwroot/lebo.com/api/Appapi/Api/Home.php(317): Domain_Home->search('22764', '15', '1')
+#5 /data/wwwroot/lebo.com/api/PhalApi/PhalApi.php(57): Api_Home->search()
+#6 /data/wwwroot/lebo.com/api/public/index.php(14): PhalApi->response()
+#7 {main}
+2018-12-29 16:18:41|ERROR|Home.search|PDOException: Unknown column 'age' in 'field list' in /data/wwwroot/lebo.com/api/PhalApi/NotORM/NotORM/Result.php:240
+Stack trace:
+#0 /data/wwwroot/lebo.com/api/PhalApi/NotORM/NotORM/Result.php(777): NotORM_Result->query('SELECT id,user_...', Array)
+#1 /data/wwwroot/lebo.com/api/PhalApi/NotORM/NotORM/Result.php(854): NotORM_Result->execute()
+#2 /data/wwwroot/lebo.com/api/Appapi/Model/Home.php(232): NotORM_Result->fetchAll()
+#3 /data/wwwroot/lebo.com/api/Appapi/Domain/Home.php(43): Model_Home->search('22764', '15', '1')
+#4 /data/wwwroot/lebo.com/api/Appapi/Api/Home.php(317): Domain_Home->search('22764', '15', '1')
+#5 /data/wwwroot/lebo.com/api/PhalApi/PhalApi.php(57): Api_Home->search()
+#6 /data/wwwroot/lebo.com/api/public/index.php(14): PhalApi->response()
+#7 {main}
+2018-12-29 16:19:46|ERROR|Home.search|PDOException: Unknown column 'age' in 'field list' in /data/wwwroot/lebo.com/api/PhalApi/NotORM/NotORM/Result.php:240
+Stack trace:
+#0 /data/wwwroot/lebo.com/api/PhalApi/NotORM/NotORM/Result.php(777): NotORM_Result->query('SELECT id,user_...', Array)
+#1 /data/wwwroot/lebo.com/api/PhalApi/NotORM/NotORM/Result.php(854): NotORM_Result->execute()
+#2 /data/wwwroot/lebo.com/api/Appapi/Model/Home.php(232): NotORM_Result->fetchAll()
+#3 /data/wwwroot/lebo.com/api/Appapi/Domain/Home.php(43): Model_Home->search('22764', '15', '1')
+#4 /data/wwwroot/lebo.com/api/Appapi/Api/Home.php(308): Domain_Home->search('22764', '15', '1')
+#5 /data/wwwroot/lebo.com/api/PhalApi/PhalApi.php(57): Api_Home->search()
+#6 /data/wwwroot/lebo.com/api/public/index.php(14): PhalApi->response()
+#7 {main}
+2018-12-29 17:18:17|ERROR|Login.codeLogin|PDOException: Unknown column 'code' in 'field list' in /data/wwwroot/lebo.com/api/PhalApi/NotORM/NotORM/Result.php:240
+Stack trace:
+#0 /data/wwwroot/lebo.com/api/PhalApi/NotORM/NotORM/Result.php(317): NotORM_Result->query('INSERT INTO cmf...', Array)
+#1 /data/wwwroot/lebo.com/api/PhalApi/NotORM/NotORM/Result.php(334): NotORM_Result->insert_multi(Array)
+#2 /data/wwwroot/lebo.com/api/Appapi/Model/Login.php(387): NotORM_Result->insert(Array)
+#3 /data/wwwroot/lebo.com/api/Appapi/Domain/Login.php(50): Model_Login->codeLogin('15094811158')
+#4 /data/wwwroot/lebo.com/api/Appapi/Api/Login.php(609): Domain_Login->codeLogin('15094811158')
+#5 /data/wwwroot/lebo.com/api/PhalApi/PhalApi.php(57): Api_Login->codeLogin()
+#6 /data/wwwroot/lebo.com/api/public/index.php(14): PhalApi->response()
+#7 {main}
+2018-12-29 17:20:47|ERROR|Login.codeLogin|PDOException: Unknown column 'code' in 'field list' in /data/wwwroot/lebo.com/api/PhalApi/NotORM/NotORM/Result.php:240
+Stack trace:
+#0 /data/wwwroot/lebo.com/api/PhalApi/NotORM/NotORM/Result.php(317): NotORM_Result->query('INSERT INTO cmf...', Array)
+#1 /data/wwwroot/lebo.com/api/PhalApi/NotORM/NotORM/Result.php(334): NotORM_Result->insert_multi(Array)
+#2 /data/wwwroot/lebo.com/api/Appapi/Model/Login.php(387): NotORM_Result->insert(Array)
+#3 /data/wwwroot/lebo.com/api/Appapi/Domain/Login.php(50): Model_Login->codeLogin('15094811158', 'pc')
+#4 /data/wwwroot/lebo.com/api/Appapi/Api/Login.php(611): Domain_Login->codeLogin('15094811158', 'pc')
+#5 /data/wwwroot/lebo.com/api/PhalApi/PhalApi.php(57): Api_Login->codeLogin()
+#6 /data/wwwroot/lebo.com/api/public/index.php(14): PhalApi->response()
+#7 {main}
+2018-12-29 17:21:16|ERROR|Login.codeLogin|PDOException: Unknown column 'code' in 'field list' in /data/wwwroot/lebo.com/api/PhalApi/NotORM/NotORM/Result.php:240
+Stack trace:
+#0 /data/wwwroot/lebo.com/api/PhalApi/NotORM/NotORM/Result.php(317): NotORM_Result->query('INSERT INTO cmf...', Array)
+#1 /data/wwwroot/lebo.com/api/PhalApi/NotORM/NotORM/Result.php(334): NotORM_Result->insert_multi(Array)
+#2 /data/wwwroot/lebo.com/api/Appapi/Model/Login.php(387): NotORM_Result->insert(Array)
+#3 /data/wwwroot/lebo.com/api/Appapi/Domain/Login.php(50): Model_Login->codeLogin('15094811158', 'pc')
+#4 /data/wwwroot/lebo.com/api/Appapi/Api/Login.php(611): Domain_Login->codeLogin('15094811158', 'pc')
+#5 /data/wwwroot/lebo.com/api/PhalApi/PhalApi.php(57): Api_Login->codeLogin()
+#6 /data/wwwroot/lebo.com/api/public/index.php(14): PhalApi->response()
+#7 {main}
+2018-12-29 17:21:56|ERROR|Login.codeLogin|PDOException: Unknown column 'code' in 'field list' in /data/wwwroot/lebo.com/api/PhalApi/NotORM/NotORM/Result.php:240
+Stack trace:
+#0 /data/wwwroot/lebo.com/api/PhalApi/NotORM/NotORM/Result.php(317): NotORM_Result->query('INSERT INTO cmf...', Array)
+#1 /data/wwwroot/lebo.com/api/PhalApi/NotORM/NotORM/Result.php(334): NotORM_Result->insert_multi(Array)
+#2 /data/wwwroot/lebo.com/api/Appapi/Model/Login.php(387): NotORM_Result->insert(Array)
+#3 /data/wwwroot/lebo.com/api/Appapi/Domain/Login.php(50): Model_Login->codeLogin('15094811158', 'pc')
+#4 /data/wwwroot/lebo.com/api/Appapi/Api/Login.php(611): Domain_Login->codeLogin('15094811158', 'pc')
+#5 /data/wwwroot/lebo.com/api/PhalApi/PhalApi.php(57): Api_Login->codeLogin()
+#6 /data/wwwroot/lebo.com/api/public/index.php(14): PhalApi->response()
+#7 {main}
+2018-12-29 17:25:03|ERROR|Login.codeLogin|PDOException: Unknown column 'code' in 'field list' in /data/wwwroot/lebo.com/api/PhalApi/NotORM/NotORM/Result.php:240
+Stack trace:
+#0 /data/wwwroot/lebo.com/api/PhalApi/NotORM/NotORM/Result.php(317): NotORM_Result->query('INSERT INTO cmf...', Array)
+#1 /data/wwwroot/lebo.com/api/PhalApi/NotORM/NotORM/Result.php(334): NotORM_Result->insert_multi(Array)
+#2 /data/wwwroot/lebo.com/api/Appapi/Model/Login.php(387): NotORM_Result->insert(Array)
+#3 /data/wwwroot/lebo.com/api/Appapi/Domain/Login.php(50): Model_Login->codeLogin('15094811158', 'pc')
+#4 /data/wwwroot/lebo.com/api/Appapi/Api/Login.php(611): Domain_Login->codeLogin('15094811158', 'pc')
+#5 /data/wwwroot/lebo.com/api/PhalApi/PhalApi.php(57): Api_Login->codeLogin()
+#6 /data/wwwroot/lebo.com/api/public/index.php(14): PhalApi->response()
+#7 {main}
+2018-12-29 17:25:05|ERROR|Login.codeLogin|PDOException: Unknown column 'code' in 'field list' in /data/wwwroot/lebo.com/api/PhalApi/NotORM/NotORM/Result.php:240
+Stack trace:
+#0 /data/wwwroot/lebo.com/api/PhalApi/NotORM/NotORM/Result.php(317): NotORM_Result->query('INSERT INTO cmf...', Array)
+#1 /data/wwwroot/lebo.com/api/PhalApi/NotORM/NotORM/Result.php(334): NotORM_Result->insert_multi(Array)
+#2 /data/wwwroot/lebo.com/api/Appapi/Model/Login.php(387): NotORM_Result->insert(Array)
+#3 /data/wwwroot/lebo.com/api/Appapi/Domain/Login.php(50): Model_Login->codeLogin('15094811158', 'pc')
+#4 /data/wwwroot/lebo.com/api/Appapi/Api/Login.php(611): Domain_Login->codeLogin('15094811158', 'pc')
+#5 /data/wwwroot/lebo.com/api/PhalApi/PhalApi.php(57): Api_Login->codeLogin()
+#6 /data/wwwroot/lebo.com/api/public/index.php(14): PhalApi->response()
+#7 {main}

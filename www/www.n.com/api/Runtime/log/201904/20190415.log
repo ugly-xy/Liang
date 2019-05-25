@@ -1,0 +1,3 @@
+2019-04-15 11:52:57|DEBUG|succeed to upload file to qiniu|{"hash":"FlvpqeqfZru_XdubJeaGvzAlWcqs","key":"20190415115256_2aa866c6b622368b21efeddf75a7241c"}
+2019-04-15 11:53:42|DEBUG|succeed to upload file to qiniu|{"hash":"FmEJ_GpjSqTjfAonPfZfGa9HAx1H","key":"20190415115341_9e7e2e49d28416526e260af0cadd15c9"}
+2019-04-15 12:11:54|DEBUG|succeed to upload file to qiniu|{"hash":"FtsPVFh8-2rh7LV_OwjQnILNBWD3","key":"20190415121153_329cff5511e2e6b63e6c4aee1f743f11"}

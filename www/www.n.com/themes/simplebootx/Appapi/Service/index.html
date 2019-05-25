@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <meta content="telephone=no" name="format-detection">
+    <title>{:LangT('联系客服')}</title>
+    <link rel="stylesheet" type="text/css" href="__PUBLIC__/appapi/css/service.css?t={$time}">
+
+</head>
+<body>
+<div class="shadow">{:LangT('如有问题，请及时联系客服')}</div> 
+<ul class="service_list">
+	<volist name="list" id="vo">
+		<li>
+			<div class="service_img"><img src="{$vo.icon}" /></div>
+			<div class="service_text">{$vo.number}</div>
+		</li>
+	</volist>
+</ul>
+<script type="text/javascript" src="__PUBLIC__/js/jquery.js"></script>
+<script type="text/javascript" src="__PUBLIC__/layer/layer.js"></script>
+<script type="text/javascript">
+	var lang="{$language}";
+	var language_type="{$language_type}";
+</script> 
+<script src="__PUBLIC__/js/function.js"></script>
+
+</body>
+</html>

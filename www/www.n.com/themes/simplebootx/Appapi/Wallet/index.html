@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+	<head>
+        <tc_include file="Appapi/Public/head" />
+		<title>{:LangT('充提币记录')}</title>
+		<link href='__PUBLIC__/appapi/css/wallet.css' rel="stylesheet" type="text/css" >
+
+	</head>
+<body>
+<div class="detail">{:LangT('明细')}</div>
+<ul class="bi-detail">
+	<volist name="touids" id="vo">
+	<li data-nums="detail{$vo.id}" onclick="getData('detail{$vo.id}')">
+		<div class="detail-icon"><img src="/public/appapi/images/wallet/<if condition="$vo['type'] eq 1">lu<else />lan</if>.png"/></div>
+		<div class="detail-text">
+			<div class="detail-account"><if condition="$vo['type'] eq 1">{$vo['txhash_jie']}<else />{$vo['address_jie']}</if></div>
+			<div class="detail-time">{$vo['uptime']}</div>
+		</div>
+		<div class="detail-money">
+			<div class="money-money <if condition="$vo['type'] eq 1">lu">+{$vo['amount']}<else />lan">-{$vo['withdraw']}</if> {$config['name_coin']}</div>
+			<div class="money-state">{$vo['status_text']}</div>
+		</div>
+	</li>
+	<div class="detail{$vo.id} detail-info">
+		<div class="detail">{:LangT('提币订单详情')}</div>
+		<div class="order-number">
+			<div class="number">{:LangT('订单号')}</div>
+			<div class="copy"><a href="copy://{$vo['txhash']}">{:LangT('复制')}</a></div>
+		</div>
+		<div class="dd-number">{$vo['txhash']}</div>
+		<div class="order-number">
+			<div class="number">{:LangT('到账账号')}</div>
+			<div class="copy"><a href="copy://{$vo['address']}">{:LangT('保存地址')}</a></div>
+		</div>
+		<div class="dd-number">{$vo['address']}</div>
+		
+		<if condition="$vo['type'] neq 1">
+		<div class="order-number">
+			<div class="number">{:LangT('提币金额')}</div>
+			<div class="variable">{$vo['withdraw']} {$config['name_coin']}</div>
+		</div>
+		<div class="order-number">
+			<div class="number">{:LangT('手续费')}</div>
+			<div class="variable">{$vo['withdraw_fee']} {$config['name_coin']}</div>
+		</div>
+		<div class="order-number">
+			<div class="number">{:LangT('加速费用')}</div>
+			<div class="variable">{$vo['fast_fee']} {$config['name_coin']}</div>
+		</div>
+		</if>
+		
+		<div class="order-number">
+			<div class="number">{:LangT('状态')}</div>
+			<div class="variable <if condition="$vo['type'] eq 1">lu<else />lan</if>">{$vo['status_text']}</div>
+		</div>
+		<div class="order-number">
+			<div class="number">{:LangT('到账金额')}</div>
+			<div class="variable">{$vo['amount']} {$config['name_coin']}</div>
+		</div>
+		<div class="order-number">
+			<div class="number">{:LangT('订单时间')}</div>
+			<div class="variable">{$vo['uptimes']}</div>
+		</div>
+		
+	</div>
+	<div class="every"></div>
+	</volist>
+</ul>
+<tc_include file="Appapi/Public/footer" />
+<script type="text/javascript">
+	var lang="{$language}";
+	var language_type="{$language_type}";
+</script> 
+<script src="__PUBLIC__/js/function.js"></script>
+<script>
+	function getData(data){	
+		$("."+data).fadeToggle("slow");
+	}
+</script>
+
+</body>
+</html>

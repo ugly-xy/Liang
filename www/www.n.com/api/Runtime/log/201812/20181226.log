@@ -1,0 +1,50 @@
+2018-12-26 04:57:12|DEBUG|succeed to upload file to qiniu|{"hash":"FkQYU9vzhJatEkTXDtSE-41arQaT","key":"20181226045712_ffd24ec0132430c5521c0bfb216662a0"}
+2018-12-26 18:28:17|ERROR|Trans.withdraw|PDOException: Out of range value for column 'votes' at row 1 in /data/wwwroot/lebo.com/api/PhalApi/NotORM/NotORM/Result.php:240
+Stack trace:
+#0 /data/wwwroot/lebo.com/api/PhalApi/NotORM/NotORM/Result.php(387): NotORM_Result->query('UPDATE cmf_user...', Array)
+#1 /data/wwwroot/lebo.com/api/Appapi/Api/Trans.php(80): NotORM_Result->update(Array)
+#2 /data/wwwroot/lebo.com/api/PhalApi/PhalApi.php(57): Api_Trans->withdraw()
+#3 /data/wwwroot/lebo.com/api/public/index.php(14): PhalApi->response()
+#4 {main}
+2018-12-26 18:30:35|ERROR|Trans.withdraw|PDOException: Out of range value for column 'votes' at row 1 in /data/wwwroot/lebo.com/api/PhalApi/NotORM/NotORM/Result.php:240
+Stack trace:
+#0 /data/wwwroot/lebo.com/api/PhalApi/NotORM/NotORM/Result.php(387): NotORM_Result->query('UPDATE cmf_user...', Array)
+#1 /data/wwwroot/lebo.com/api/Appapi/Api/Trans.php(80): NotORM_Result->update(Array)
+#2 /data/wwwroot/lebo.com/api/PhalApi/PhalApi.php(57): Api_Trans->withdraw()
+#3 /data/wwwroot/lebo.com/api/public/index.php(14): PhalApi->response()
+#4 {main}
+2018-12-26 18:32:51|ERROR|Trans.withdraw|PDOException: Out of range value for column 'votes' at row 1 in /data/wwwroot/lebo.com/api/PhalApi/NotORM/NotORM/Result.php:240
+Stack trace:
+#0 /data/wwwroot/lebo.com/api/PhalApi/NotORM/NotORM/Result.php(387): NotORM_Result->query('UPDATE cmf_user...', Array)
+#1 /data/wwwroot/lebo.com/api/Appapi/Api/Trans.php(82): NotORM_Result->update(Array)
+#2 /data/wwwroot/lebo.com/api/PhalApi/PhalApi.php(57): Api_Trans->withdraw()
+#3 /data/wwwroot/lebo.com/api/public/index.php(14): PhalApi->response()
+#4 {main}
+2018-12-26 18:34:00|ERROR|Trans.withdraw|PDOException: Out of range value for column 'votes' at row 1 in /data/wwwroot/lebo.com/api/PhalApi/NotORM/NotORM/Result.php:240
+Stack trace:
+#0 /data/wwwroot/lebo.com/api/PhalApi/NotORM/NotORM/Result.php(387): NotORM_Result->query('UPDATE cmf_user...', Array)
+#1 /data/wwwroot/lebo.com/api/Appapi/Api/Trans.php(82): NotORM_Result->update(Array)
+#2 /data/wwwroot/lebo.com/api/PhalApi/PhalApi.php(57): Api_Trans->withdraw()
+#3 /data/wwwroot/lebo.com/api/public/index.php(14): PhalApi->response()
+#4 {main}
+2018-12-26 18:36:08|ERROR|Trans.withdraw|PDOException: Out of range value for column 'votes' at row 1 in /data/wwwroot/lebo.com/api/PhalApi/NotORM/NotORM/Result.php:240
+Stack trace:
+#0 /data/wwwroot/lebo.com/api/PhalApi/NotORM/NotORM/Result.php(387): NotORM_Result->query('UPDATE cmf_user...', Array)
+#1 /data/wwwroot/lebo.com/api/Appapi/Api/Trans.php(84): NotORM_Result->update(Array)
+#2 /data/wwwroot/lebo.com/api/PhalApi/PhalApi.php(57): Api_Trans->withdraw()
+#3 /data/wwwroot/lebo.com/api/public/index.php(14): PhalApi->response()
+#4 {main}
+2018-12-26 18:36:54|ERROR|Trans.withdraw|PDOException: Out of range value for column 'votes' at row 1 in /data/wwwroot/lebo.com/api/PhalApi/NotORM/NotORM/Result.php:240
+Stack trace:
+#0 /data/wwwroot/lebo.com/api/PhalApi/NotORM/NotORM/Result.php(387): NotORM_Result->query('UPDATE cmf_user...', Array)
+#1 /data/wwwroot/lebo.com/api/Appapi/Api/Trans.php(81): NotORM_Result->update(Array)
+#2 /data/wwwroot/lebo.com/api/PhalApi/PhalApi.php(57): Api_Trans->withdraw()
+#3 /data/wwwroot/lebo.com/api/public/index.php(14): PhalApi->response()
+#4 {main}
+2018-12-26 18:37:30|ERROR|Trans.withdraw|PDOException: Out of range value for column 'votes' at row 1 in /data/wwwroot/lebo.com/api/PhalApi/NotORM/NotORM/Result.php:240
+Stack trace:
+#0 /data/wwwroot/lebo.com/api/PhalApi/NotORM/NotORM/Result.php(390): NotORM_Result->query('UPDATE cmf_user...', Array)
+#1 /data/wwwroot/lebo.com/api/Appapi/Api/Trans.php(81): NotORM_Result->update(Array)
+#2 /data/wwwroot/lebo.com/api/PhalApi/PhalApi.php(57): Api_Trans->withdraw()
+#3 /data/wwwroot/lebo.com/api/public/index.php(14): PhalApi->response()
+#4 {main}

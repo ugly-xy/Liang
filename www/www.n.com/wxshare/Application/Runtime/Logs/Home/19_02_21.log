@@ -1,0 +1,90 @@
+[ 2019-02-21T15:31:18+08:00 ] 183.3.239.164 /wxshare/index.php/Share/show?roomnum=22844
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000006s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000030s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000243s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000265s ]
+NOTIC: [2] Declaration of Home\Controller\ShareController::show() should be compatible with Think\Controller::show($content, $charset = '', $contentType = '', $prefix = '') /data/wwwroot/lebo.com/wxshare/Application/Home/Controller/ShareController.class.php 第 611 行.
+SQL: SHOW COLUMNS FROM `cmf_users` [ RunTime:0.0007s ]
+SQL: SHOW COLUMNS FROM `cmf_users_live` [ RunTime:0.0004s ]
+SQL: SHOW COLUMNS FROM `cmf_config_private` [ RunTime:0.0013s ]
+SQL: SELECT * FROM `cmf_config_private` WHERE ( id='1' ) LIMIT 1   [ RunTime:0.0006s ]
+SQL: SHOW COLUMNS FROM `cmf_config` [ RunTime:0.0007s ]
+SQL: SELECT * FROM `cmf_config` WHERE ( id='1' ) LIMIT 1   [ RunTime:0.0003s ]
+SQL: SELECT `uid`,`user_nicename`,`avatar`,`avatar_thumb`,`islive`,`stream`,`pull`,`isvideo`,`type`,`goodnum`,`wy_cid` FROM `cmf_users_live` WHERE ( uid='22844' and islive='1' ) LIMIT 1   [ RunTime:0.0002s ]
+NOTIC: [8] Undefined variable: userinfo /data/wwwroot/lebo.com/wxshare/Application/Home/Controller/ShareController.class.php 第 95 行.
+NOTIC: [8] Undefined variable: userinfo /data/wwwroot/lebo.com/wxshare/Application/Home/Controller/ShareController.class.php 第 96 行.
+INFO: [ view_parse ] --START--
+INFO: [ template_filter ] --START--
+INFO: Run Behavior\ContentReplaceBehavior [ RunTime:0.000130s ]
+INFO: [ template_filter ] --END-- [ RunTime:0.000151s ]
+INFO: Run Behavior\ParseTemplateBehavior [ RunTime:0.005418s ]
+INFO: [ view_parse ] --END-- [ RunTime:0.005445s ]
+INFO: [ view_filter ] --START--
+INFO: Run Behavior\WriteHtmlCacheBehavior [ RunTime:0.000079s ]
+INFO: [ view_filter ] --END-- [ RunTime:0.000095s ]
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTraceBehavior [ RunTime:0.000265s ]
+INFO: [ app_end ] --END-- [ RunTime:0.000284s ]
+
+[ 2019-02-21T15:31:44+08:00 ] 61.151.178.217 /wxshare/index.php/Share/show?roomnum=22844
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000006s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000031s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000234s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000255s ]
+NOTIC: [2] Declaration of Home\Controller\ShareController::show() should be compatible with Think\Controller::show($content, $charset = '', $contentType = '', $prefix = '') /data/wwwroot/lebo.com/wxshare/Application/Home/Controller/ShareController.class.php 第 611 行.
+SQL: SHOW COLUMNS FROM `cmf_users` [ RunTime:0.0007s ]
+SQL: SHOW COLUMNS FROM `cmf_users_live` [ RunTime:0.0004s ]
+SQL: SHOW COLUMNS FROM `cmf_config_private` [ RunTime:0.0013s ]
+SQL: SELECT * FROM `cmf_config_private` WHERE ( id='1' ) LIMIT 1   [ RunTime:0.0002s ]
+SQL: SHOW COLUMNS FROM `cmf_config` [ RunTime:0.0007s ]
+SQL: SELECT * FROM `cmf_config` WHERE ( id='1' ) LIMIT 1   [ RunTime:0.0001s ]
+SQL: SELECT `uid`,`user_nicename`,`avatar`,`avatar_thumb`,`islive`,`stream`,`pull`,`isvideo`,`type`,`goodnum`,`wy_cid` FROM `cmf_users_live` WHERE ( uid='22844' and islive='1' ) LIMIT 1   [ RunTime:0.0001s ]
+NOTIC: [8] Undefined variable: userinfo /data/wwwroot/lebo.com/wxshare/Application/Home/Controller/ShareController.class.php 第 95 行.
+NOTIC: [8] Undefined variable: userinfo /data/wwwroot/lebo.com/wxshare/Application/Home/Controller/ShareController.class.php 第 96 行.
+INFO: [ view_parse ] --START--
+INFO: [ template_filter ] --START--
+INFO: Run Behavior\ContentReplaceBehavior [ RunTime:0.000131s ]
+INFO: [ template_filter ] --END-- [ RunTime:0.000151s ]
+INFO: Run Behavior\ParseTemplateBehavior [ RunTime:0.005434s ]
+INFO: [ view_parse ] --END-- [ RunTime:0.005459s ]
+INFO: [ view_filter ] --START--
+INFO: Run Behavior\WriteHtmlCacheBehavior [ RunTime:0.000076s ]
+INFO: [ view_filter ] --END-- [ RunTime:0.000091s ]
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTraceBehavior [ RunTime:0.000261s ]
+INFO: [ app_end ] --END-- [ RunTime:0.000280s ]
+
+[ 2019-02-21T15:32:18+08:00 ] 61.129.6.251 /wxshare/index.php/Share/show?roomnum=22844
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000007s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000032s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000388s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000437s ]
+NOTIC: [2] Declaration of Home\Controller\ShareController::show() should be compatible with Think\Controller::show($content, $charset = '', $contentType = '', $prefix = '') /data/wwwroot/lebo.com/wxshare/Application/Home/Controller/ShareController.class.php 第 611 行.
+SQL: SHOW COLUMNS FROM `cmf_users` [ RunTime:0.0009s ]
+SQL: SHOW COLUMNS FROM `cmf_users_live` [ RunTime:0.0007s ]
+SQL: SHOW COLUMNS FROM `cmf_config_private` [ RunTime:0.0019s ]
+SQL: SELECT * FROM `cmf_config_private` WHERE ( id='1' ) LIMIT 1   [ RunTime:0.0003s ]
+SQL: SHOW COLUMNS FROM `cmf_config` [ RunTime:0.0007s ]
+SQL: SELECT * FROM `cmf_config` WHERE ( id='1' ) LIMIT 1   [ RunTime:0.0001s ]
+SQL: SELECT `uid`,`user_nicename`,`avatar`,`avatar_thumb`,`islive`,`stream`,`pull`,`isvideo`,`type`,`goodnum`,`wy_cid` FROM `cmf_users_live` WHERE ( uid='22844' and islive='1' ) LIMIT 1   [ RunTime:0.0001s ]
+NOTIC: [8] Undefined variable: userinfo /data/wwwroot/lebo.com/wxshare/Application/Home/Controller/ShareController.class.php 第 95 行.
+NOTIC: [8] Undefined variable: userinfo /data/wwwroot/lebo.com/wxshare/Application/Home/Controller/ShareController.class.php 第 96 行.
+INFO: [ view_parse ] --START--
+INFO: [ template_filter ] --START--
+INFO: Run Behavior\ContentReplaceBehavior [ RunTime:0.000142s ]
+INFO: [ template_filter ] --END-- [ RunTime:0.000166s ]
+INFO: Run Behavior\ParseTemplateBehavior [ RunTime:0.005837s ]
+INFO: [ view_parse ] --END-- [ RunTime:0.005864s ]
+INFO: [ view_filter ] --START--
+INFO: Run Behavior\WriteHtmlCacheBehavior [ RunTime:0.000081s ]
+INFO: [ view_filter ] --END-- [ RunTime:0.000097s ]
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTraceBehavior [ RunTime:0.000306s ]
+INFO: [ app_end ] --END-- [ RunTime:0.000344s ]
+

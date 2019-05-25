@@ -1,0 +1,84 @@
+<admintpl file="header" />
+<style>
+
+
+ input[readonly]{
+	color:#95a5a6;
+ }
+
+
+</style>
+</head>
+<body>
+	<div class="wrap">
+		<ul class="nav nav-tabs">
+		    <li ><a href="{:U('admin/recharge/index')}">充值记录</a></li>
+			<li class="active"><a >编辑</a></li>
+		</ul>
+		<form method="post" class="form-horizontal js-ajax-form" action="{:U('admin/recharge/edit_post')}">
+			<fieldset>
+				<input type="hidden" name="id" value="{$recharge['id']}">
+				<input type="hidden" name="uid" value="{$recharge['uid']}">
+				<input type="hidden" name="coin_type" value="{$recharge['coin_type']}">
+				<div class="control-group">
+					<label class="control-label">订单号</label>
+					<div class="controls">
+						<input type="text" name="name_cn" readonly  value="{$recharge['wallet_orderid']}">
+						<span class="form-required">*</span>
+					</div>
+				</div>
+				<div class="control-group">
+					<label class="control-label">用户ID</label>
+					<div class="controls">
+						
+						<input type="text" name="newname" readonly value="{$recharge['newname']}">
+						<span class="form-required">*</span>
+					</div>
+				</div>	
+				<div class="control-group">
+					<label class="control-label">充币地址</label>
+					<div class="controls"> 
+						<input type="text" name="wallet" readonly value="{$recharge['wallet']}">
+						<span class="form-required">*</span>
+					</div>
+				</div>		
+				<div class="control-group">
+					<label class="control-label">货币类型</label>
+					<div class="controls">
+						<input type="text" name="coin_name" readonly value="{$recharge['coin_type']}">
+						<span class="form-required">*</span>
+					</div>
+				</div>	
+				<div class="control-group">
+					<label class="control-label">金额</label>
+					<div class="controls">
+						<input type="text" name="coin"   value="{$recharge['coin']}" <if condition="$recharge['status'] neq '0'" > readonly </if>>
+						<span class="form-required">*</span>
+					</div>
+				</div>	
+				<div class="control-group">
+					<label class="control-label">申请时间</label>
+					<div class="controls">
+						<input type="text" name="realtime" readonly value="{$recharge['realtime']}">
+						<span class="form-required">*</span>
+					</div>
+				</div>	
+				<div class="control-group">
+					<label class="control-label">状态</label>
+					<div class="controls">
+					    <input type="radio" name="status" value="0"  <if condition="$recharge['status'] eq 0" > checked </if>> 待审核
+						<input type="radio" name="status" value="1"  <if condition="$recharge['status'] eq 1" > checked </if>> 通过
+						<input type="radio" name="status" value="2"  <if condition="$recharge['status'] eq 2" > checked </if>> 不通过
+					</div>
+				</div>				
+	
+			</fieldset>
+			<div class="form-actions">
+				<button type="submit" class="btn btn-primary js-ajax-submit">{:L('EDIT')}</button>
+				<a class="btn" href="{:U('admin/recharge/index')}">{:L('BACK')}</a>
+			</div>
+		</form>
+	</div>
+	<script src="__PUBLIC__/js/common.js"></script>
+</body>
+</html>

@@ -1,0 +1,385 @@
+
+dy, h1, h2, h3, h4, h5, p,a {
+	padding: 0;
+	margin: 0;
+	
+	font-family: Arial, '\5FAE\8F6F\96C5\9ED1';
+}
+body {
+	padding:0;
+	margin: 0;
+	font-family: Arial, '\5FAE\8F6F\96C5\9ED1';
+	background-color: #141419;
+	font-size: 14px;
+}
+h1 {
+	font-size: 16px;
+    color:#8ee2d3;
+	text-align: center;
+	padding-bottom:10px;
+}
+h2 {
+	font-size: 16px;
+    color:#8ee2d3;
+	text-align: left;
+	padding-bottom:10px;
+}
+h3, h5 {
+	color: #8ee2d3;
+}
+h4 {
+	color: #8ee2d3;
+    text-align:center;
+	padding:10px 0 5px;
+}
+p {
+	line-height: 18px;
+	color: #000000;
+	text-align: left;
+}
+img {
+	width: 100%;
+	height: 100%;
+}
+.detail{
+	width: 90%;
+	padding: 0 5%;
+	height: 40px;
+	line-height: 40px;
+	font-size: 12px;
+    color:#666666;
+}
+.bi-detail li{
+	width: 96%;
+    margin: 0 2%;
+	height: 60px;
+	line-height: 40px;
+	background-color:#202029;
+	position: relative;
+	border-radius: 10px;
+}
+.bi-detail li .detail-icon{
+	width: 24px;
+	height: 25px;
+	position: absolute;
+    top: 8px;
+	left: 16px;
+
+}
+.bi-detail li .detail-text{
+	position: absolute;
+    top: 0px;
+    left: 60px;
+
+}
+.bi-detail li .detail-text .detail-account{
+	font-size:17px;
+	color:#fff;
+	height: 30px;
+	line-height: 35px;
+
+}
+
+.bi-detail li .detail-text .detail-time{
+	font-size:12px;
+	color:#666;
+	height: 30px;
+	line-height: 25px;
+
+}
+.bi-detail li .detail-money{
+	position: absolute;
+    top: 0px;
+    right: 10px;
+}
+
+.bi-detail li .detail-money .money-money{
+	
+	height: 30px;
+    line-height: 35px;
+    font-size: 13px;
+}
+
+.bi-detail li .detail-money .money-state{
+	color: #666666;
+	height: 30px;
+    font-size: 13px;
+	line-height: 25px;
+	text-align: center;
+}
+
+.lan{
+	color: #4A90E2 !important;
+}
+.lu{
+	color: #1ABC9C !important;
+}
+
+.every{
+	width: 100%;
+	height: 15px;
+}
+.detail-info{
+	width: 96%;
+    margin: 0 2%;
+	border-top: 1px solid #666;
+}
+.detail-info{
+	width: 94%;
+    margin: 0 2%;
+	padding:0 1%;
+	background-color: #202029;
+    border-bottom-right-radius: 10px;
+    border-bottom-left-radius: 10px;
+	background-color:#202029;
+	display:none;
+}
+.order-number{
+	width: 100%;
+	height: 40px;
+    line-height: 40px;
+}
+.order-number .number{
+	width: 30%;
+	color:#FFFFFF;
+	font-size:15px;
+	height: 40px;
+    line-height: 40px;
+}
+.order-number .copy{
+	width: 70%;
+    height: 40px;
+    line-height: 40px;
+    text-align: right;
+	
+}
+.order-number .variable{
+	width: 70%;
+    height: 40px;
+    line-height: 40px;
+    text-align: right;
+	color:#666666;
+	font-size:13px;
+	
+}
+.order-number .copy a{
+	color:#FFD441;
+	font-size:13px;
+}
+.order-number div{
+	float:left;
+}
+.dd-number{
+	width:100%;
+	color:#666666;
+	font-size:13px;
+	overflow: hidden;
+}
+
+/*消费(收入)记录*/
+.tab_b{
+    position:relative;
+    width: 100%;
+	background:#202029;
+}
+.profit_ul_t{
+	width:96%;
+	height:40px;
+	padding:0 2%;
+	background:#2E2E36;
+	
+	margin-top:15px;
+
+}
+.profit_ul_t span{
+	color:#999999;
+	display:inline-block;
+	float:left;
+	width:24%;
+	height:40px;
+	line-height:40px;
+	text-align:center;
+	white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    font-size:1.5rem;
+}
+.profit_ul_t span:first-child{
+    border:none;
+}
+.profit_ul{
+	width:96%;
+	padding:0 2%;
+	height:100%;
+	overflow:auto;
+}
+.profit_ul ul li{
+	width: 100%;
+	height:50px;
+	line-height:50px;
+	border-bottom: 0.5pt  solid #FFFFFF1a;
+}
+.profit_ul ul li span{
+	display:inline-block;
+	float:left;
+	width:24%;
+	height:50px;
+	line-height:50px;
+	text-align:center;
+	white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+	color:#FFFFFF;
+	font-size:13px;
+    -moz-box-sizing: border-box;  /*Firefox3.5+*/
+	-webkit-box-sizing: border-box; /*Safari3.2+*/
+	-o-box-sizing: border-box; /*Opera9.6*/
+	-ms-box-sizing: border-box; /*IE8*/
+	box-sizing: border-box;
+}
+.profit_ul ul li span:first-child{
+    border:none;
+}
+.profit_ul ul li .time{
+   color:#999999;
+}
+/*关于资金池*/
+.wet{
+	width: 100%;
+	height: 150px;
+	background: url(../images/wallet/bg.png) no-repeat;
+	background-size:100%;
+	text-align: center;
+}
+.wet .wet-z{
+	height: 100px;
+	color:#FFFFFF;
+	font-size:34px;
+    line-height: 135px;
+}
+.wet .wet-text{
+
+	color:#999999;
+	font-size:12px;
+}
+.wet-in{
+	width:90%;
+	padding:0 5%;
+	height:33px;
+	line-height:33px;
+	background-color: #202029;
+}
+.wet-in div{
+	float: left;
+}
+.wet-in .in-time{
+	color:#999999;
+	font-size:13px;
+	width:50%;
+	text-align: left;
+}
+.wet-in .in-coin{
+	color:#999999;
+	font-size:13px;
+	width:50%;
+	text-align:right
+}
+.wet-ul{
+	width:90%;
+	padding:0 5%;
+}
+.wet-ul li{
+	width:100%;
+	height:39px;
+	line-height:39px;
+	border-bottom: 0.5pt solid #FFFFFF1a;
+}
+.wet-ul li div{
+	float: left;
+	width:50%;
+	font-size:13px;
+	color:#fff;
+}
+
+.wet-ul li .in-time{
+	text-align: left;
+}
+.wet-ul li .in-coin{
+	text-align:right
+}
+
+/*交易所*/
+.exchange{
+	width:90%;
+	padding:0 5%;
+	padding-top:5%;
+}
+.exchange ul li{
+	width:92%;
+	padding:0 4%;
+	min-height: 88px;
+    background-color: #202029;
+    border-radius: 10px;
+    position: relative;
+    padding-top: 20px;
+}
+
+.exchange ul li .exchange_img{
+	width:40px;
+	height:40px;
+	position: absolute;
+    
+}
+.exchange ul li .exchange_text{
+	width: calc(100% - 50px);
+    margin-left: 50px;
+    
+}
+.exchange ul li .exchange_text .exchange_title{
+	font-size:20px;
+	height:40px;
+	color:#CCCCCC;
+    line-height: 40px;
+}
+
+.exchange ul li .exchange_text .exchange_introduce{
+	font-size:12px;
+	color:#999999;
+}
+.exchange ul li .getinto{
+	width:100%;
+	text-align: right;
+	height: 30px;
+}
+.exchange ul li .getinto a{
+	color:#FA8231;
+	font-size:12px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,158 @@
+* {
+	margin: 0;
+	padding: 0;
+	font-family: Helvetica;
+}
+*{
+	-webkit-tap-highlight-color:rgba(0, 0, 0, 0);  
+	-moz-tap-highlight-color:rgba(0, 0, 0, 0);  
+	-ms-tap-highlight-color:rgba(0, 0, 0, 0);  
+	-o-tap-highlight-color:rgba(0, 0, 0, 0);  
+	tap-highlight-color:rgba(0, 0, 0, 0);  
+}
+body {
+	 background-color: #141419;
+	 font-size: 14px;
+}
+
+.woring_title{
+	height: 50px;
+	line-height: 50px;
+	color: #666666;
+	font-size: 0.9rem;
+	text-align:center
+}
+
+.auth_list{
+	background:#141419;
+}
+
+.auth_list li{
+	width: 90%;
+	height: 60px;
+    line-height: 60px;
+	border-bottom: 1px solid #666666;
+	list-style: none;
+	position: relative;
+	margin: 0 auto;
+
+}
+
+
+
+.auth_list_title{
+	width: 30%;
+	height: 60px;
+    line-height: 60px;
+	font-size: 1rem;
+	color: #EEEEEE;
+	position: absolute;
+	left: 0;
+
+}
+
+.auth_list_right{
+	width: 74%;
+	position: absolute;
+	right:0;
+
+}	
+
+.auth_list_right input{
+	width: 90%;
+	height: 60px;
+    line-height: 60px;
+	-webkit-appearance:none;
+	border: none;
+	color: #FFF;
+	background: none;
+	outline: none;
+	text-align: right;
+	font-size: 0.9rem;
+}
+.you {
+    position: absolute;
+    top: 5px;
+	right: 1%;
+}
+.you img{
+	width: 20px;
+}
+.auth_list li.border_none{
+	border: none;
+}
+
+.agreement{
+	/*height: 50px;
+    line-height: 50px;
+	padding-left: 15px;
+	color: #666666;
+	font-size: 0.8rem;*/
+	margin-top: 20px;
+}
+
+.agreement a{
+	text-decoration: none;
+	color:#666666;
+}
+
+.agreement .agree_area{
+	float: left;
+	width: 13px;
+	height: 13px;
+	line-height: 13px;
+	margin-top: 17px;
+	margin-right: 10px;
+	border-radius: 50%;
+	text-align: center;
+	border:1px solid #666666;
+	
+}
+
+.agreement .agree_area img{
+	width: 8px;
+	height: 8px;
+	margin-top: 0px;
+	display: none;
+	margin-left: -1px;
+}
+
+.autharea{
+	height: auto;
+	line-height: auto;
+	text-align: center;
+	
+}
+
+.autharea input{
+	height: 100%;
+	outline: none;
+	border: none;
+	-webkit-appearance:none;
+	font-size: 1.1rem;
+	color: #fff;
+    text-align: center;
+    width: 60%;
+    margin: 0 auto;
+    background: url(/public/appapi/userreport/images/submit.png) no-repeat left;
+    background-size: 100%;
+	height:40px;
+	line-height:40px;
+}
+
+.you{
+	
+}
+
+/*.fl{
+	float: left;
+}
+
+.fr{
+	float: right;
+}
+.clearboth{
+	clear: both;
+	
+}
+*/

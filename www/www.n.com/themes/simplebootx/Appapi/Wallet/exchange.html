@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+	<head>
+        <tc_include file="Appapi/Public/head" />
+		<title>{:LangT('交易所')}</title>
+		<link href='__PUBLIC__/appapi/css/wallet.css' rel="stylesheet" type="text/css" >
+	</head>
+<body id="body">
+	<div class="exchange">
+		<ul>
+		<volist name="list" id="vo">
+			<li onclick="jump('{$vo['url']}')">
+				<div class="exchange_img">
+					<img src="{$vo['avatar']}" />
+				</div>
+				<div class="exchange_text">
+					<div class="exchange_title">{$vo['title']}</div>
+					<div class="exchange_introduce">{$vo['introduce']}</div>
+				</div>
+				<div class="getinto"><a href="{$vo['url']}">{:LangT('进入交易所')}></a></div>
+			</li>
+			<div class="every"></div>
+		</volist>
+		</ul>
+	</div>
+<tc_include file="Appapi/Public/footer" />
+<script type="text/javascript">
+	var lang='{$language}';
+	var language_type="{$language_type}";
+</script> 
+
+<script>
+	function jump(url){
+		console.log(url);
+		location.href=url;
+	}
+</script>
+<script src="__PUBLIC__/js/function.js"></script>
+</body>
+</html>

@@ -1,0 +1,63 @@
+<admintpl file="header" />
+</head>
+<body>
+	<div class="wrap">
+		<ul class="nav nav-tabs">
+			<li class="active"><a  href="{:U('admin/withdraw/index')}">提现记录</a></li>
+			
+		</ul>
+
+		<form class="well form-search" method="post" action="/index.php?g=admin&m=Withdraw&a=index">
+			关键字： 
+			<input type="text" name="keyword" style="width: 200px;" value="{$keyword}" placeholder="请输入uid,用户地址或订单号">
+			<input type="submit" class="btn btn-primary" value="搜索">
+			<a class="btn btn-danger" href="/index.php?g=admin&m=Withdraw&a=index">清空</a>
+		</form>
+
+		<form method="post" class="js-ajax-form">
+			<table class="table table-hover table-bordered">
+				<thead>
+					<tr>
+						<th>id</th>
+						<th>订单号</th>
+						<th>用户(uid)</th>
+						<th>提币地址</th>
+						<th>提币数量</th>
+						<th>手续费({$token_name})</th>
+						<th>加速费用({$token_name})</th>
+						<th>到账数量</th>
+						<th>是否加速</th>
+						<th>提现方式</th>
+						<th>添加时间</th>
+						<th>状态</th>
+						<th align="center">操作</th>
+					</tr>
+				</thead>
+				<tbody>
+					<foreach name="list" item="vo">
+					<tr>
+						<td>{$vo.id}</td>
+						<td>{$vo.txhash}</td>
+						<td>{$vo.user_name}</td>
+						<td>{$vo.address}</td>
+						<td>{$vo.withdraw}</td>
+						<td>{$vo.withdraw_fee}</td>
+						<td>{$vo.fast_fee}</td>
+						<td>{$vo.amount}</td>
+						<td>{$vo.is_fast}</td>
+						<td>{$vo.is_auto}</td>
+						<td>{:date("Y-m-d H:i:s",$vo['addtime'])}</td>
+						<td>{$vo.status}</td>
+						<td align="center">
+							 <a href="{:U('Withdraw/edit',array('id'=>$vo['id']))}"'>编辑</a> 
+						</td> 
+					</tr>
+					</foreach>
+				</tbody>
+			</table>
+			<div class="pagination">{$page}</div>
+		</form>
+	</div>
+	<script src="__PUBLIC__/js/common.js"></script>
+</body>
+</html>

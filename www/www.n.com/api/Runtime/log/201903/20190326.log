@@ -1,0 +1,16 @@
+2019-03-26 09:28:26|DEBUG|failed to upload file to qiniu|{"Err":"incorrect region, please use up-as0.qiniup.com","Reqid":"vUwAAJfQZLT1XY8V","Details":"","Code":400}
+2019-03-26 09:29:42|DEBUG|failed to upload file to qiniu|{"Err":"incorrect region, please use up-as0.qiniup.com","Reqid":"IhkAAB3GRUgHXo8V","Details":"","Code":400}
+2019-03-26 09:29:43|DEBUG|failed to upload file to qiniu|{"Err":"incorrect region, please use up-as0.qiniup.com","Reqid":"IhkAAODZ_noHXo8V","Details":"","Code":400}
+2019-03-26 09:36:16|DEBUG|failed to upload file to qiniu|{"Err":"incorrect region, please use up-as0.qiniup.com","Reqid":"FSsAAFqX-wBjXo8V","Details":"","Code":400}
+2019-03-26 09:41:54|DEBUG|failed to upload file to qiniu|{"Err":"incorrect region, please use up-as0.qiniup.com","Reqid":"FSsAAJ7y67qxXo8V","Details":"","Code":400}
+2019-03-26 09:46:25|DEBUG|failed to upload file to qiniu|{"Err":"incorrect region, please use up-as0.qiniup.com","Reqid":"vUwAABNCqtzwXo8V","Details":"","Code":400}
+2019-03-26 11:10:15|DEBUG|failed to upload file to qiniu|{"Err":"incorrect region, please use up-as0.qiniup.com","Reqid":"IhkAAOyP4Q2EY48V","Details":"","Code":400}
+2019-03-26 14:41:51|DEBUG|succeed to upload file to qiniu|{"hash":"FlporiTK6r6306hND84kAzn1Gxfg","key":"20190326144150_9f9083689d5b04f1a1209df0e212791e"}
+2019-03-26 16:06:30|DEBUG|succeed to upload file to qiniu|{"hash":"FprzWIEJIjyWH45TDEesWCuAs3x5","key":"20190326160629_6bf77563d76012ebedf3ed7adb829d62"}
+2019-03-26 16:07:32|DEBUG|succeed to upload file to qiniu|{"hash":"FlgWN8iy7Oh1b4IAwBjsjAeeQOOT","key":"20190326160731_5eda694122232fb71ec51ac1ae4bc2a3"}
+2019-03-26 16:07:41|DEBUG|succeed to upload file to qiniu|{"hash":"FlgWN8iy7Oh1b4IAwBjsjAeeQOOT","key":"20190326160740_07f1b221e70ad844424850d9b2b4c593"}
+2019-03-26 16:08:09|DEBUG|succeed to upload file to qiniu|{"hash":"FlgWN8iy7Oh1b4IAwBjsjAeeQOOT","key":"20190326160808_90676639c82ee3517360863c06566c8f"}
+2019-03-26 16:08:48|DEBUG|succeed to upload file to qiniu|{"hash":"FlQ8d4FEyY3-768chjziuLHM8yiZ","key":"20190326160847_6ac2b9ada2c4174f30ea343e453a9cb6"}
+2019-03-26 16:09:19|DEBUG|succeed to upload file to qiniu|{"hash":"FhYIrK3t3nB9jx-GdkS53aBYDdMj","key":"20190326160918_f2614917593488355a9c19d68e71310c"}
+2019-03-26 21:22:10|DEBUG|succeed to upload file to qiniu|{"hash":"FhKfSD6WbcDFG-mubu_c5-j5wAGT","key":"20190326212209_5ca3b0bcde99fe6581fd008e0c792d48"}
+2019-03-26 22:49:55|DEBUG|succeed to upload file to qiniu|{"hash":"FhKfSD6WbcDFG-mubu_c5-j5wAGT","key":"20190326224954_4b089e3cf5d04c6bea7e4385752d4a72"}

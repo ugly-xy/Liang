@@ -1,0 +1,80 @@
+2019-01-11 14:12:51|ERROR|User.getsign|PDOException: Unknown column 'INF' in 'field list' in /data/wwwroot/lebo.com/api/PhalApi/NotORM/NotORM/Result.php:247
+Stack trace:
+#0 /data/wwwroot/lebo.com/api/PhalApi/NotORM/NotORM/Result.php(324): NotORM_Result->query('INSERT INTO cmf...', Array)
+#1 /data/wwwroot/lebo.com/api/PhalApi/NotORM/NotORM/Result.php(341): NotORM_Result->insert_multi(Array)
+#2 /data/wwwroot/lebo.com/api/Appapi/Model/User.php(931): NotORM_Result->insert(Array)
+#3 /data/wwwroot/lebo.com/api/Appapi/Domain/User.php(291): Model_User->getsign('22768')
+#4 /data/wwwroot/lebo.com/api/Appapi/Api/User.php(1821): Domain_User->getsign('22768')
+#5 /data/wwwroot/lebo.com/api/PhalApi/PhalApi.php(57): Api_User->getsign()
+#6 /data/wwwroot/lebo.com/api/public/index.php(14): PhalApi->response()
+#7 {main}
+2019-01-11 14:12:54|ERROR|User.getsign|PDOException: Unknown column 'INF' in 'field list' in /data/wwwroot/lebo.com/api/PhalApi/NotORM/NotORM/Result.php:247
+Stack trace:
+#0 /data/wwwroot/lebo.com/api/PhalApi/NotORM/NotORM/Result.php(324): NotORM_Result->query('INSERT INTO cmf...', Array)
+#1 /data/wwwroot/lebo.com/api/PhalApi/NotORM/NotORM/Result.php(341): NotORM_Result->insert_multi(Array)
+#2 /data/wwwroot/lebo.com/api/Appapi/Model/User.php(931): NotORM_Result->insert(Array)
+#3 /data/wwwroot/lebo.com/api/Appapi/Domain/User.php(291): Model_User->getsign('22768')
+#4 /data/wwwroot/lebo.com/api/Appapi/Api/User.php(1821): Domain_User->getsign('22768')
+#5 /data/wwwroot/lebo.com/api/PhalApi/PhalApi.php(57): Api_User->getsign()
+#6 /data/wwwroot/lebo.com/api/public/index.php(14): PhalApi->response()
+#7 {main}
+2019-01-11 14:13:30|ERROR|User.getsign|PDOException: Unknown column 'INF' in 'field list' in /data/wwwroot/lebo.com/api/PhalApi/NotORM/NotORM/Result.php:247
+Stack trace:
+#0 /data/wwwroot/lebo.com/api/PhalApi/NotORM/NotORM/Result.php(324): NotORM_Result->query('INSERT INTO cmf...', Array)
+#1 /data/wwwroot/lebo.com/api/PhalApi/NotORM/NotORM/Result.php(341): NotORM_Result->insert_multi(Array)
+#2 /data/wwwroot/lebo.com/api/Appapi/Model/User.php(931): NotORM_Result->insert(Array)
+#3 /data/wwwroot/lebo.com/api/Appapi/Domain/User.php(291): Model_User->getsign('22768')
+#4 /data/wwwroot/lebo.com/api/Appapi/Api/User.php(1821): Domain_User->getsign('22768')
+#5 /data/wwwroot/lebo.com/api/PhalApi/PhalApi.php(57): Api_User->getsign()
+#6 /data/wwwroot/lebo.com/api/public/index.php(14): PhalApi->response()
+#7 {main}
+2019-01-11 14:13:53|ERROR|User.getsign|PDOException: Unknown column 'INF' in 'field list' in /data/wwwroot/lebo.com/api/PhalApi/NotORM/NotORM/Result.php:247
+Stack trace:
+#0 /data/wwwroot/lebo.com/api/PhalApi/NotORM/NotORM/Result.php(324): NotORM_Result->query('INSERT INTO cmf...', Array)
+#1 /data/wwwroot/lebo.com/api/PhalApi/NotORM/NotORM/Result.php(341): NotORM_Result->insert_multi(Array)
+#2 /data/wwwroot/lebo.com/api/Appapi/Model/User.php(931): NotORM_Result->insert(Array)
+#3 /data/wwwroot/lebo.com/api/Appapi/Domain/User.php(291): Model_User->getsign('22768')
+#4 /data/wwwroot/lebo.com/api/Appapi/Api/User.php(1821): Domain_User->getsign('22768')
+#5 /data/wwwroot/lebo.com/api/PhalApi/PhalApi.php(57): Api_User->getsign()
+#6 /data/wwwroot/lebo.com/api/public/index.php(14): PhalApi->response()
+#7 {main}
+2019-01-11 14:34:11|ERROR|User.getsign|PDOException: Unknown column 'weight_id' in 'field list' in /data/wwwroot/lebo.com/api/PhalApi/NotORM/NotORM/Result.php:247
+Stack trace:
+#0 /data/wwwroot/lebo.com/api/PhalApi/NotORM/NotORM/Result.php(324): NotORM_Result->query('INSERT INTO cmf...', Array)
+#1 /data/wwwroot/lebo.com/api/PhalApi/NotORM/NotORM/Result.php(341): NotORM_Result->insert_multi(Array)
+#2 /data/wwwroot/lebo.com/api/Appapi/Model/User.php(950): NotORM_Result->insert(Array)
+#3 /data/wwwroot/lebo.com/api/Appapi/Domain/User.php(291): Model_User->getsign('22768')
+#4 /data/wwwroot/lebo.com/api/Appapi/Api/User.php(1821): Domain_User->getsign('22768')
+#5 /data/wwwroot/lebo.com/api/PhalApi/PhalApi.php(57): Api_User->getsign()
+#6 /data/wwwroot/lebo.com/api/public/index.php(14): PhalApi->response()
+#7 {main}
+2019-01-11 14:34:43|ERROR|User.getsign|PDOException: Unknown column 'weight_id' in 'field list' in /data/wwwroot/lebo.com/api/PhalApi/NotORM/NotORM/Result.php:247
+Stack trace:
+#0 /data/wwwroot/lebo.com/api/PhalApi/NotORM/NotORM/Result.php(324): NotORM_Result->query('INSERT INTO cmf...', Array)
+#1 /data/wwwroot/lebo.com/api/PhalApi/NotORM/NotORM/Result.php(341): NotORM_Result->insert_multi(Array)
+#2 /data/wwwroot/lebo.com/api/Appapi/Model/User.php(950): NotORM_Result->insert(Array)
+#3 /data/wwwroot/lebo.com/api/Appapi/Domain/User.php(291): Model_User->getsign('22768')
+#4 /data/wwwroot/lebo.com/api/Appapi/Api/User.php(1821): Domain_User->getsign('22768')
+#5 /data/wwwroot/lebo.com/api/PhalApi/PhalApi.php(57): Api_User->getsign()
+#6 /data/wwwroot/lebo.com/api/public/index.php(14): PhalApi->response()
+#7 {main}
+2019-01-11 14:36:52|ERROR|User.getsign|PDOException: Unknown column 'weight_id' in 'field list' in /data/wwwroot/lebo.com/api/PhalApi/NotORM/NotORM/Result.php:247
+Stack trace:
+#0 /data/wwwroot/lebo.com/api/PhalApi/NotORM/NotORM/Result.php(324): NotORM_Result->query('INSERT INTO cmf...', Array)
+#1 /data/wwwroot/lebo.com/api/PhalApi/NotORM/NotORM/Result.php(341): NotORM_Result->insert_multi(Array)
+#2 /data/wwwroot/lebo.com/api/Appapi/Model/User.php(951): NotORM_Result->insert(Array)
+#3 /data/wwwroot/lebo.com/api/Appapi/Domain/User.php(291): Model_User->getsign('22768')
+#4 /data/wwwroot/lebo.com/api/Appapi/Api/User.php(1821): Domain_User->getsign('22768')
+#5 /data/wwwroot/lebo.com/api/PhalApi/PhalApi.php(57): Api_User->getsign()
+#6 /data/wwwroot/lebo.com/api/public/index.php(14): PhalApi->response()
+#7 {main}
+2019-01-11 14:37:44|ERROR|User.getsign|PDOException: Unknown column 'weight_id' in 'field list' in /data/wwwroot/lebo.com/api/PhalApi/NotORM/NotORM/Result.php:247
+Stack trace:
+#0 /data/wwwroot/lebo.com/api/PhalApi/NotORM/NotORM/Result.php(324): NotORM_Result->query('INSERT INTO cmf...', Array)
+#1 /data/wwwroot/lebo.com/api/PhalApi/NotORM/NotORM/Result.php(341): NotORM_Result->insert_multi(Array)
+#2 /data/wwwroot/lebo.com/api/Appapi/Model/User.php(951): NotORM_Result->insert(Array)
+#3 /data/wwwroot/lebo.com/api/Appapi/Domain/User.php(291): Model_User->getsign('22768')
+#4 /data/wwwroot/lebo.com/api/Appapi/Api/User.php(1821): Domain_User->getsign('22768')
+#5 /data/wwwroot/lebo.com/api/PhalApi/PhalApi.php(57): Api_User->getsign()
+#6 /data/wwwroot/lebo.com/api/public/index.php(14): PhalApi->response()
+#7 {main}

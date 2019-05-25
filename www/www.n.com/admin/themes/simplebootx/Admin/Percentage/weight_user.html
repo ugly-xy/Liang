@@ -1,0 +1,59 @@
+<admintpl file="header" />
+</head>
+<body>
+	<div class="wrap">
+		<ul class="nav nav-tabs">
+			<li class="active"><a >用户权重详情</a></li>
+		</ul>
+		<form class="well form-search" method="post" action="{:U('Percentage/weight_user')}">
+			时间：
+			<input type="text" name="start_time" class="js-date date" value="{$formget.start_time}" style="width: 80px;" autocomplete="off">-
+			<input type="text" class="js-date date" name="end_time" value="{$formget.end_time}" style="width: 80px;" autocomplete="off"> &nbsp; &nbsp;
+			关键字： 
+			<input type="text" name="keyword" style="width: 200px;" value="{$formget.keyword}" placeholder="请输入id、用户id...">
+			<input type="submit" class="btn btn-primary" value="搜索">
+
+		</form>
+		<table class="table table-hover table-bordered">
+			<thead>
+				<tr>
+					<th align="center">ID</th>
+					<th>用户名称(ID)</th>
+					<th>总值</th>
+					<th>签到</th>
+					<th>用户点赞(视频)</th>
+					<th>用户评论(视频)</th>
+					<th>被用户点赞(视频)</th>
+					<th>被用户评论(视频)</th>
+					<th>上传视频</th>
+					<th>浏览视频</th>
+					<th>送礼物</th>
+					<th>收礼物</th>
+					<th>时间</th>
+				</tr>
+			</thead>
+			<tbody>
+				<foreach name="lists" item="vo">
+				<tr>
+					<td align="center">{$vo.id}</td>
+					<td>{$vo['userinfo']['user_nicename']}({$vo['uid']})</td>
+					<td>{$vo['weight']['weight']}</td>
+					<td>{$vo['signin']}</td>
+					<td>{$vo['praise']}</td>
+					<td>{$vo['comment']}</td>
+					<td>{$vo['collect_praise']}</td>
+					<td>{$vo['collect_comment']}</td>
+					<td>{$vo['upload_video']}</td>
+					<td>{$vo['browse_video']}</td>
+					<td>{$vo['send_gifts']}</td>
+					<td>{$vo['collect_gifts']}</td>
+					<td>{$vo.addtime|date="Y-m-d",###}</td>
+				</tr>
+				</foreach>
+			</tbody>
+		</table>
+		<div class="pagination">{$page}</div>
+	</div>
+	<script src="__PUBLIC__/js/common.js"></script>
+</body>
+</html>

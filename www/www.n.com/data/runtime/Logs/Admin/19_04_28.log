@@ -1,0 +1,52 @@
+[ 2019-04-28T19:25:46+08:00 ] 211.154.10.226 /asdfasdfwefizsd.php?g=Admin&m=Music&a=classify_edit_post
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000219s ]
+INFO: Run Behavior\CheckLangBehavior [ RunTime:0.000275s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000664s ]
+SQL: SHOW COLUMNS FROM `cmf_users` [ RunTime:0.0007s ]
+SQL: SELECT * FROM `cmf_users` WHERE ( id=1 ) LIMIT 1   [ RunTime:0.0001s ]
+SQL: SHOW COLUMNS FROM `cmf_users_music_classify` [ RunTime:0.0003s ]
+SQL: SELECT * FROM `cmf_users_music_classify` WHERE ( id!=16 and title='热歌' ) LIMIT 1   [ RunTime:0.0003s ]
+NOTIC: [8] Undefined index: validate /data/wwwroot/www.tencentcdn.com/simplewind/Core/Library/Think/Model.class.php 第 1185 行.
+NOTIC: [8] Undefined index: auto /data/wwwroot/www.tencentcdn.com/simplewind/Core/Library/Think/Model.class.php 第 1128 行.
+SQL: UPDATE `cmf_users_music_classify` SET `orderno`='1',`title`='热歌',`title_kr`='인기',`img_url`='http://qiniu2.tencentcdn.com/20190428/5cc58da7e9038.png' WHERE `id` = 16 [ RunTime:0.0052s ]
+
+[ 2019-04-28T19:25:59+08:00 ] 211.154.10.226 /asdfasdfwefizsd.php?g=Admin&m=Music&a=classify_edit_post
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000218s ]
+INFO: Run Behavior\CheckLangBehavior [ RunTime:0.000230s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000611s ]
+SQL: SHOW COLUMNS FROM `cmf_users` [ RunTime:0.0007s ]
+SQL: SELECT * FROM `cmf_users` WHERE ( id=1 ) LIMIT 1   [ RunTime:0.0001s ]
+SQL: SHOW COLUMNS FROM `cmf_users_music_classify` [ RunTime:0.0003s ]
+SQL: SELECT * FROM `cmf_users_music_classify` WHERE ( id!=17 and title='新歌' ) LIMIT 1   [ RunTime:0.0004s ]
+NOTIC: [8] Undefined index: validate /data/wwwroot/www.tencentcdn.com/simplewind/Core/Library/Think/Model.class.php 第 1185 行.
+NOTIC: [8] Undefined index: auto /data/wwwroot/www.tencentcdn.com/simplewind/Core/Library/Think/Model.class.php 第 1128 行.
+SQL: UPDATE `cmf_users_music_classify` SET `orderno`='2',`title`='新歌',`title_kr`='최신',`img_url`='http://qiniu2.tencentcdn.com/20190428/5cc58dc4f3ce5.png' WHERE `id` = 17 [ RunTime:0.0049s ]
+
+[ 2019-04-28T19:26:10+08:00 ] 211.154.10.226 /asdfasdfwefizsd.php?g=Admin&m=Music&a=classify_edit_post
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000244s ]
+INFO: Run Behavior\CheckLangBehavior [ RunTime:0.000214s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000611s ]
+SQL: SHOW COLUMNS FROM `cmf_users` [ RunTime:0.0006s ]
+SQL: SELECT * FROM `cmf_users` WHERE ( id=1 ) LIMIT 1   [ RunTime:0.0001s ]
+SQL: SHOW COLUMNS FROM `cmf_users_music_classify` [ RunTime:0.0003s ]
+SQL: SELECT * FROM `cmf_users_music_classify` WHERE ( id!=18 and title='搞笑' ) LIMIT 1   [ RunTime:0.0004s ]
+NOTIC: [8] Undefined index: validate /data/wwwroot/www.tencentcdn.com/simplewind/Core/Library/Think/Model.class.php 第 1185 行.
+NOTIC: [8] Undefined index: auto /data/wwwroot/www.tencentcdn.com/simplewind/Core/Library/Think/Model.class.php 第 1128 行.
+SQL: UPDATE `cmf_users_music_classify` SET `orderno`='3',`title`='搞笑',`title_kr`='코믹',`img_url`='http://qiniu2.tencentcdn.com/20190428/5cc58dd0f295c.png' WHERE `id` = 18 [ RunTime:0.0058s ]
+
+[ 2019-04-28T19:26:32+08:00 ] 211.154.10.226 /asdfasdfwefizsd.php?g=Admin&m=Music&a=classify_edit_post
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000209s ]
+INFO: Run Behavior\CheckLangBehavior [ RunTime:0.000235s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000607s ]
+SQL: SHOW COLUMNS FROM `cmf_users` [ RunTime:0.0010s ]
+SQL: SELECT * FROM `cmf_users` WHERE ( id=1 ) LIMIT 1   [ RunTime:0.0001s ]
+SQL: SHOW COLUMNS FROM `cmf_users_music_classify` [ RunTime:0.0003s ]
+SQL: SELECT * FROM `cmf_users_music_classify` WHERE ( id!=19 and title='其他' ) LIMIT 1   [ RunTime:0.0004s ]
+NOTIC: [8] Undefined index: validate /data/wwwroot/www.tencentcdn.com/simplewind/Core/Library/Think/Model.class.php 第 1185 行.
+NOTIC: [8] Undefined index: auto /data/wwwroot/www.tencentcdn.com/simplewind/Core/Library/Think/Model.class.php 第 1128 行.
+SQL: UPDATE `cmf_users_music_classify` SET `orderno`='4',`title`='其他',`title_kr`='기타',`img_url`='http://qiniu2.tencentcdn.com/20190428/5cc58de511adc.png' WHERE `id` = 19 [ RunTime:0.0043s ]
+

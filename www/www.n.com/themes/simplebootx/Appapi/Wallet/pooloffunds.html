@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+	<head>
+        <tc_include file="Appapi/Public/head" />
+		<title>{:LangT('关于资金池')}</title>
+		<link href='__PUBLIC__/appapi/css/wallet.css' rel="stylesheet" type="text/css" >
+	</head>
+<body id="body">
+	<div class="wet">
+		<div class="wet-z">{$user['coin']} {$getConfigName['name_coin']}</div>
+		<div class="wet-text">{:LangT('资金池总金额')}</div>
+	</div>
+	<div class="detail">{:LangT('销毁记录')}</div>
+	
+	<div class="wet-in">
+		<div class="in-time">{:LangT('时间')}</div>
+		<div class="in-coin">{:LangT('金额')}</div>
+	</div>
+	<ul class="wet-ul">
+		<volist name="list" id="vo">
+		<li>
+			<div class="in-time">{$vo['addtime']}</div>
+			<div class="in-coin">{$vo['money']} {$getConfigName['name_coin']}</div>
+		</li>
+		</volist>
+	</ul>
+<script>
+	var uid='{$uid}';
+	var token='{$token}';
+	var name_coin='{$getConfigName["name_coin"]}';
+</script>
+<tc_include file="Appapi/Public/footer" />
+<script type="text/javascript">
+	var lang="{$language}";
+	var language_type="{$language_type}";
+</script> 
+<script src="__PUBLIC__/js/function.js"></script>
+<script>
+	$(function(){
+		function getlistmore(){
+			$.ajax({
+				url:'/index.php?g=appapi&m=Wallet&a=pooloffunds_more',
+				data:{'page':page,'language':language_type},
+				type:'post',
+				dataType:'json',
+				success:function(data){
+					if(data.nums>0){
+							var nums=data.nums;
+							var list=data.data;
+							var html='';
+							for(var i=0;i<nums;i++){
+								html+='<li>\
+										<div class="in-time">'+list[i]['addtime']+'</div>\
+										<div class="in-coin">'+list[i]['money']+' '+name_coin+'</div>\
+									</li>';
+							}
+						
+						$(".wet-ul").append(html);
+					}
+					
+					if(data.isscroll==1){
+						page++;
+						isscroll=true;
+					}
+				}
+			})
+		}
+		var page=2; 
+		var isscroll=true; 
+		document.getElementById("body").onscroll=function(){
+			var srollPos = $("#body").scrollTop();    //滚动条距顶部距离(页面超出窗口的高度)  		
+			var totalheight = parseFloat($("#body").height()) + parseFloat(srollPos);  
+			if(($(document).height()-50) <= totalheight  && isscroll) {  
+					isscroll=false;
+					getlistmore()
+			}  
+		}; 
+	})
+	</script>	
+</body>
+</html>

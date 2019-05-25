@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <meta name="format-detection" content="telephone=no" >
+    <link rel="stylesheet" type="text/css" href="__PUBLIC__/appapi/regist/css/regist.css">
+    <link rel="stylesheet" type="text/css" href="__PUBLIC__/home/css/layer.css">
+    <title>{$configpub['app_name']}{:LangT('分享注册')}</title>
+</head>
+<body id="body">
+<div class="title">{:LangT('注册')}</div>
+<div class="regArea">
+	
+	<ul class="regList">
+
+		<li>
+			<div class="li-div2 color">
+				<select id="areacode">
+					<option value="82">+82</option>
+				</select>
+				<input class="msgINput" type="text" id="phone" placeholder="{:LangT('请输入手机号')}">
+			</div>
+		</li>
+		
+		<li>
+			<div class="li-div2">
+				<input class="msgINput color" id="phoneCode" type="text" placeholder="{:LangT('请输入验证码')}">
+				<div class="getcode color">
+					<input type="button" class="code" id="obtain" value="{:LangT('获取验证码')}">
+					<div class="code display-none" id="miao"></div>
+				</div>
+				
+			</div>
+		</li>
+		
+		<li>
+			<div class="li-div2 color">
+				<input class="msgINput" id="firstPass" type="password" placeholder="{:LangT('输入新密码')}">
+			</div>
+		</li>
+		
+		<li>
+			<div class="li-div2 color">
+				<input class="msgINput" id="secondPass" type="password" placeholder="{:LangT('输入新密码')}">
+			</div>
+		</li>
+		<div class="inform">{:LangT('密码必须由 8-20位字母、数字组成')}</div>
+		<input type="hidden" id="code" name="code" value="{$code}">
+	</ul>
+	
+	<div class="regBtn">
+		<img src="__PUBLIC__/appapi/regist/images/submit.png" onclick="notes()" />
+		<!-- <input type="button" value="确认注册" onclick="notes()" id="submitBtn"> -->
+	</div>
+	
+	
+</div>
+<script type="text/javascript" src="__PUBLIC__/home/js/jquery.js"></script>
+<script type="text/javascript" src="__PUBLIC__/home/js/layer.js"></script>
+<script type="text/javascript">
+	var lang='{$language}';
+	var language_type="{$language_type}";
+</script> 
+<script src="__PUBLIC__/js/function.js"></script>
+<script>
+var height=$(window).height();
+$('#body').css('height',height);
+
+function notes(){
+	var phone=$('#phone').val();
+	var phoneCode=$('#phoneCode').val();
+	var firstPass=$('#firstPass').val();
+	var secondPass=$('#secondPass').val();
+	var code=$('#code').val();
+	if (phone==""){
+		layer.msg(LangT('手机号不能为空!'));
+		return;
+	}else if(phoneCode==""){
+		layer.msg(LangT('验证码不能为空!'));
+		return;
+	}else if(firstPass==""){
+		layer.msg(LangT('密码不能为空!'));
+		return;
+	}else if(firstPass!=secondPass){
+		layer.msg(LangT('两次密码不能一致!'));
+		return;
+	}
+	$.ajax({
+		dataType:"json",
+		type:"post",
+		data:{
+			phone:phone,
+			phoneCode:phoneCode,
+			firstPass:firstPass,
+			code:code
+		},
+		url:"./index.php?g=Appapi&m=Regist&a=regist_post",  
+		success:function(data){ 
+			if(data['type']==1){
+				layer.msg(data['msg'],{time:2000},function(){
+					window.location.reload()
+				});
+			}else{
+				layer.msg(data['msg']);
+			}
+		}
+	});
+}
+$('#obtain').on('click',function(){
+	var areacode=$('#areacode').val();
+	var phone=$('#phone').val();
+	if (phone==""){
+		layer.msg(LangT('手机号不能为空!'));
+		return;
+		}
+	$.ajax({
+		dataType:"json",
+		type:"post",
+		data:{
+		  areacode:areacode,
+		  mobile:phone,
+		},
+		url:"./index.php?g=Appapi&m=Regist&a=getCode",  
+		success:function(data){
+			if (data['type']==1){
+				layer.msg(LangT("验证码已发送"));
+				starttime();
+			}else if (data['type']==2){
+				<!-- layer.msg(LangT('验证码')+":123456"); -->
+				layer.msg(LangT('验证码发送失败'));
+				starttime();
+			}else{
+				layer.msg(data['msg']);
+			}
+		}
+	});
+})
+
+var count=60;
+function starttime(){
+	$('#obtain').addClass('display-none');
+	$('#miao').removeClass('display-none');
+	$('#miao').text(count+'S');
+	if (count<=0){
+		//TODO
+		$('#obtain').removeClass('display-none');
+		$('#miao').addClass('display-none');
+		count = 60;
+	}else {
+		count--;
+		setTimeout(starttime,1000);
+	}
+}
+</script>
+</body>
+</html>
+

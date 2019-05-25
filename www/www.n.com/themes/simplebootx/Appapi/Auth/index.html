@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <meta content="telephone=no" name="format-detection">
+    <title>{:LangT('身份认证')}</title>
+    <link rel="stylesheet" type="text/css" href="__PUBLIC__/appapi/auth/css/auth.css?t={$time}">
+    
+</head>
+<body>
+    <div class="woring_title">
+        {:LangT('请认真填写实名信息，否则无法通过认证')}
+    </div>
+    <ul class="auth_list">
+        <li>
+            <p class="auth_list_title fl">{:LangT('真实姓名')}</p>
+            <p class="auth_list_right fr">
+                <input type="text" name="realname" id="realname" placeholder="{:LangT('请输入姓名')}"><span class="you"><img src="/public/appapi/images/you.png" /></span>
+            </p>
+            <p class="clearboth"></p>
+        </li>
+
+        <li>
+            <p class="auth_list_title fl">{:LangT('联系电话')}</p>
+            <p class="auth_list_right fr">
+                <input type="text" name="phone" id="phone" placeholder="{:LangT('请输入电话号码')}"><span class="you"><img src="/public/appapi/images/you.png" /></span>
+            </p>
+            <p class="clearboth"></p>
+        </li>
+
+        <li class="border_none">
+            <p class="auth_list_title fl">{:LangT('身份证号码')}</p>
+            <p class="auth_list_right fr">
+                <input type="text" name="cardno" id="cardno" placeholder="{:LangT('请输入身份证号码')}"><span class="you"><img src="/public/appapi/images/you.png" /></span>
+            </p>
+            <p class="clearboth"></p>
+        </li>
+    </ul>
+
+   <div class="agreement">
+        <!--<p class="agree_area "><img src="__PUBLIC__/appapi/auth/images/true.png"></p> {:LangT('同意')}<a href="./index.php?g=portal&m=page&a=index&id=28&language={$language_type}">{$appname}{:LangT('隐私协议')}</a>-->
+        <div class="clearboth"></div>
+    </div>
+
+    <div class="autharea">
+        <input type="button" value="{:LangT('开始认证')}">
+    </div>
+
+
+
+<script type="text/javascript" src="__PUBLIC__/js/jquery.js"></script>
+<script type="text/javascript">
+	var lang='{$language}';
+	var language_type="{$language_type}";
+</script> 
+<script type="text/javascript">
+    var uid={$uid};
+</script>
+<script src="__PUBLIC__/js/function.js"></script>
+<script type="text/javascript" src="__PUBLIC__/appapi/auth/js/auth.js?t={$time}"></script>
+<script type="text/javascript" src="__PUBLIC__/layer/layer.js"></script>
+</body>
+</html>

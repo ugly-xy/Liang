@@ -1,0 +1,101 @@
+2019-02-12 16:24:43|ERROR|Video.setComment|PDOException: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'WHERE (uid=NULL and addtime=1549900800)' at line 1 in /data/wwwroot/lebo.com/api/PhalApi/NotORM/NotORM/Result.php:247
+Stack trace:
+#0 /data/wwwroot/lebo.com/api/PhalApi/NotORM/NotORM/Result.php(396): NotORM_Result->query('UPDATE cmf_user...', Array)
+#1 /data/wwwroot/lebo.com/api/Appapi/Model/Video.php(80): NotORM_Result->update(Array)
+#2 /data/wwwroot/lebo.com/api/Appapi/Domain/Video.php(17): Model_Video->setComment(Array)
+#3 /data/wwwroot/lebo.com/api/Appapi/Api/Video.php(279): Domain_Video->setComment(Array)
+#4 /data/wwwroot/lebo.com/api/PhalApi/PhalApi.php(57): Api_Video->setComment()
+#5 /data/wwwroot/lebo.com/api/public/index.php(14): PhalApi->response()
+#6 {main}
+2019-02-12 16:24:44|ERROR|Video.setComment|PDOException: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'WHERE (uid=NULL and addtime=1549900800)' at line 1 in /data/wwwroot/lebo.com/api/PhalApi/NotORM/NotORM/Result.php:247
+Stack trace:
+#0 /data/wwwroot/lebo.com/api/PhalApi/NotORM/NotORM/Result.php(396): NotORM_Result->query('UPDATE cmf_user...', Array)
+#1 /data/wwwroot/lebo.com/api/Appapi/Model/Video.php(80): NotORM_Result->update(Array)
+#2 /data/wwwroot/lebo.com/api/Appapi/Domain/Video.php(17): Model_Video->setComment(Array)
+#3 /data/wwwroot/lebo.com/api/Appapi/Api/Video.php(279): Domain_Video->setComment(Array)
+#4 /data/wwwroot/lebo.com/api/PhalApi/PhalApi.php(57): Api_Video->setComment()
+#5 /data/wwwroot/lebo.com/api/public/index.php(14): PhalApi->response()
+#6 {main}
+2019-02-12 16:24:45|ERROR|Video.setComment|PDOException: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'WHERE (uid=NULL and addtime=1549900800)' at line 1 in /data/wwwroot/lebo.com/api/PhalApi/NotORM/NotORM/Result.php:247
+Stack trace:
+#0 /data/wwwroot/lebo.com/api/PhalApi/NotORM/NotORM/Result.php(396): NotORM_Result->query('UPDATE cmf_user...', Array)
+#1 /data/wwwroot/lebo.com/api/Appapi/Model/Video.php(80): NotORM_Result->update(Array)
+#2 /data/wwwroot/lebo.com/api/Appapi/Domain/Video.php(17): Model_Video->setComment(Array)
+#3 /data/wwwroot/lebo.com/api/Appapi/Api/Video.php(279): Domain_Video->setComment(Array)
+#4 /data/wwwroot/lebo.com/api/PhalApi/PhalApi.php(57): Api_Video->setComment()
+#5 /data/wwwroot/lebo.com/api/public/index.php(14): PhalApi->response()
+#6 {main}
+2019-02-12 16:24:46|ERROR|Video.setComment|PDOException: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'WHERE (uid=NULL and addtime=1549900800)' at line 1 in /data/wwwroot/lebo.com/api/PhalApi/NotORM/NotORM/Result.php:247
+Stack trace:
+#0 /data/wwwroot/lebo.com/api/PhalApi/NotORM/NotORM/Result.php(396): NotORM_Result->query('UPDATE cmf_user...', Array)
+#1 /data/wwwroot/lebo.com/api/Appapi/Model/Video.php(80): NotORM_Result->update(Array)
+#2 /data/wwwroot/lebo.com/api/Appapi/Domain/Video.php(17): Model_Video->setComment(Array)
+#3 /data/wwwroot/lebo.com/api/Appapi/Api/Video.php(279): Domain_Video->setComment(Array)
+#4 /data/wwwroot/lebo.com/api/PhalApi/PhalApi.php(57): Api_Video->setComment()
+#5 /data/wwwroot/lebo.com/api/public/index.php(14): PhalApi->response()
+#6 {main}
+2019-02-12 16:24:46|ERROR|Video.setComment|PDOException: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'WHERE (uid=NULL and addtime=1549900800)' at line 1 in /data/wwwroot/lebo.com/api/PhalApi/NotORM/NotORM/Result.php:247
+Stack trace:
+#0 /data/wwwroot/lebo.com/api/PhalApi/NotORM/NotORM/Result.php(396): NotORM_Result->query('UPDATE cmf_user...', Array)
+#1 /data/wwwroot/lebo.com/api/Appapi/Model/Video.php(80): NotORM_Result->update(Array)
+#2 /data/wwwroot/lebo.com/api/Appapi/Domain/Video.php(17): Model_Video->setComment(Array)
+#3 /data/wwwroot/lebo.com/api/Appapi/Api/Video.php(279): Domain_Video->setComment(Array)
+#4 /data/wwwroot/lebo.com/api/PhalApi/PhalApi.php(57): Api_Video->setComment()
+#5 /data/wwwroot/lebo.com/api/public/index.php(14): PhalApi->response()
+#6 {main}
+2019-02-12 16:24:46|ERROR|Video.setComment|PDOException: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'WHERE (uid=NULL and addtime=1549900800)' at line 1 in /data/wwwroot/lebo.com/api/PhalApi/NotORM/NotORM/Result.php:247
+Stack trace:
+#0 /data/wwwroot/lebo.com/api/PhalApi/NotORM/NotORM/Result.php(396): NotORM_Result->query('UPDATE cmf_user...', Array)
+#1 /data/wwwroot/lebo.com/api/Appapi/Model/Video.php(80): NotORM_Result->update(Array)
+#2 /data/wwwroot/lebo.com/api/Appapi/Domain/Video.php(17): Model_Video->setComment(Array)
+#3 /data/wwwroot/lebo.com/api/Appapi/Api/Video.php(279): Domain_Video->setComment(Array)
+#4 /data/wwwroot/lebo.com/api/PhalApi/PhalApi.php(57): Api_Video->setComment()
+#5 /data/wwwroot/lebo.com/api/public/index.php(14): PhalApi->response()
+#6 {main}
+2019-02-12 16:24:46|ERROR|Video.setComment|PDOException: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'WHERE (uid=NULL and addtime=1549900800)' at line 1 in /data/wwwroot/lebo.com/api/PhalApi/NotORM/NotORM/Result.php:247
+Stack trace:
+#0 /data/wwwroot/lebo.com/api/PhalApi/NotORM/NotORM/Result.php(396): NotORM_Result->query('UPDATE cmf_user...', Array)
+#1 /data/wwwroot/lebo.com/api/Appapi/Model/Video.php(80): NotORM_Result->update(Array)
+#2 /data/wwwroot/lebo.com/api/Appapi/Domain/Video.php(17): Model_Video->setComment(Array)
+#3 /data/wwwroot/lebo.com/api/Appapi/Api/Video.php(279): Domain_Video->setComment(Array)
+#4 /data/wwwroot/lebo.com/api/PhalApi/PhalApi.php(57): Api_Video->setComment()
+#5 /data/wwwroot/lebo.com/api/public/index.php(14): PhalApi->response()
+#6 {main}
+2019-02-12 16:24:50|ERROR|Video.setComment|PDOException: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'WHERE (uid=NULL and addtime=1549900800)' at line 1 in /data/wwwroot/lebo.com/api/PhalApi/NotORM/NotORM/Result.php:247
+Stack trace:
+#0 /data/wwwroot/lebo.com/api/PhalApi/NotORM/NotORM/Result.php(396): NotORM_Result->query('UPDATE cmf_user...', Array)
+#1 /data/wwwroot/lebo.com/api/Appapi/Model/Video.php(80): NotORM_Result->update(Array)
+#2 /data/wwwroot/lebo.com/api/Appapi/Domain/Video.php(17): Model_Video->setComment(Array)
+#3 /data/wwwroot/lebo.com/api/Appapi/Api/Video.php(279): Domain_Video->setComment(Array)
+#4 /data/wwwroot/lebo.com/api/PhalApi/PhalApi.php(57): Api_Video->setComment()
+#5 /data/wwwroot/lebo.com/api/public/index.php(14): PhalApi->response()
+#6 {main}
+2019-02-12 16:24:51|ERROR|Video.setComment|PDOException: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'WHERE (uid=NULL and addtime=1549900800)' at line 1 in /data/wwwroot/lebo.com/api/PhalApi/NotORM/NotORM/Result.php:247
+Stack trace:
+#0 /data/wwwroot/lebo.com/api/PhalApi/NotORM/NotORM/Result.php(396): NotORM_Result->query('UPDATE cmf_user...', Array)
+#1 /data/wwwroot/lebo.com/api/Appapi/Model/Video.php(80): NotORM_Result->update(Array)
+#2 /data/wwwroot/lebo.com/api/Appapi/Domain/Video.php(17): Model_Video->setComment(Array)
+#3 /data/wwwroot/lebo.com/api/Appapi/Api/Video.php(279): Domain_Video->setComment(Array)
+#4 /data/wwwroot/lebo.com/api/PhalApi/PhalApi.php(57): Api_Video->setComment()
+#5 /data/wwwroot/lebo.com/api/public/index.php(14): PhalApi->response()
+#6 {main}
+2019-02-12 16:24:51|ERROR|Video.setComment|PDOException: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'WHERE (uid=NULL and addtime=1549900800)' at line 1 in /data/wwwroot/lebo.com/api/PhalApi/NotORM/NotORM/Result.php:247
+Stack trace:
+#0 /data/wwwroot/lebo.com/api/PhalApi/NotORM/NotORM/Result.php(396): NotORM_Result->query('UPDATE cmf_user...', Array)
+#1 /data/wwwroot/lebo.com/api/Appapi/Model/Video.php(80): NotORM_Result->update(Array)
+#2 /data/wwwroot/lebo.com/api/Appapi/Domain/Video.php(17): Model_Video->setComment(Array)
+#3 /data/wwwroot/lebo.com/api/Appapi/Api/Video.php(279): Domain_Video->setComment(Array)
+#4 /data/wwwroot/lebo.com/api/PhalApi/PhalApi.php(57): Api_Video->setComment()
+#5 /data/wwwroot/lebo.com/api/public/index.php(14): PhalApi->response()
+#6 {main}
+2019-02-12 16:44:08|ERROR|User.getBaseInfo|PDOException: Unknown column 'user_nicename' in 'field list' in /data/wwwroot/lebo.com/api/PhalApi/NotORM/NotORM/Result.php:247
+Stack trace:
+#0 /data/wwwroot/lebo.com/api/PhalApi/NotORM/NotORM/Result.php(784): NotORM_Result->query('SELECT id,user_...', Array)
+#1 /data/wwwroot/lebo.com/api/PhalApi/NotORM/NotORM/Result.php(852): NotORM_Result->execute()
+#2 /data/wwwroot/lebo.com/api/PhalApi/NotORM/NotORM/Result.php(844): NotORM_Result->fetchRow('')
+#3 /data/wwwroot/lebo.com/api/Appapi/Model/User.php(49): NotORM_Result->fetchOne()
+#4 /data/wwwroot/lebo.com/api/Appapi/Domain/User.php(9): Model_User->getBaseInfo(22842)
+#5 /data/wwwroot/lebo.com/api/Appapi/Api/User.php(275): Domain_User->getBaseInfo(22842)
+#6 /data/wwwroot/lebo.com/api/PhalApi/PhalApi.php(57): Api_User->getBaseInfo()
+#7 /data/wwwroot/lebo.com/api/public/index.php(14): PhalApi->response()
+#8 {main}
