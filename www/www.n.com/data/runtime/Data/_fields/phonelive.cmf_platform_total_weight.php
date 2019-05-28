@@ -1,1 +1,0 @@
-a:5:{i:0;s:2:"id";i:1;s:11:"totalweight";i:2;s:7:"addtime";s:3:"_pk";s:2:"id";s:5:"_type";a:3:{s:2:"id";s:7:"int(11)";s:11:"totalweight";s:13:"decimal(65,4)";s:7:"addtime";s:7:"int(11)";}}

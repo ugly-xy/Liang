@@ -1,8 +1,0 @@
-2019-03-25 14:08:46|DEBUG|failed to upload file to qiniu|{"Err":"incorrect region, please use up-as0.qiniup.com","Reqid":"vUwAAEdtvWytHo8V","Details":"","Code":400}
-2019-03-25 16:52:53|DEBUG|failed to upload file to qiniu|{"Err":"incorrect region, please use up-as0.qiniup.com","Reqid":"vUwAAOVZVAyiJ48V","Details":"","Code":400}
-2019-03-25 16:52:56|DEBUG|failed to upload file to qiniu|{"Err":"incorrect region, please use up-as0.qiniup.com","Reqid":"FSsAALPsnIyiJ48V","Details":"","Code":400}
-2019-03-25 16:52:57|DEBUG|failed to upload file to qiniu|{"Err":"incorrect region, please use up-as0.qiniup.com","Reqid":"IhkAANmkguOiJ48V","Details":"","Code":400}
-2019-03-25 17:16:32|DEBUG|failed to upload file to qiniu|{"Err":"incorrect region, please use up-as0.qiniup.com","Reqid":"vUwAADGpVFrsKI8V","Details":"","Code":400}
-2019-03-25 17:17:05|DEBUG|failed to upload file to qiniu|{"Err":"incorrect region, please use up-as0.qiniup.com","Reqid":"vUwAAPCSWqzzKI8V","Details":"","Code":400}
-2019-03-25 17:17:07|DEBUG|failed to upload file to qiniu|{"Err":"incorrect region, please use up-as0.qiniup.com","Reqid":"FSsAABI1YUr0KI8V","Details":"","Code":400}
-2019-03-25 17:17:08|DEBUG|failed to upload file to qiniu|{"Err":"incorrect region, please use up-as0.qiniup.com","Reqid":"IhkAAGYYMaz0KI8V","Details":"","Code":400}
