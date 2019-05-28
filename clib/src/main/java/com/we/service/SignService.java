@@ -1,4 +1,4 @@
-package com.we.service;
+﻿package com.we.service;
 
 import java.util.List;
 
@@ -81,12 +81,7 @@ public class SignService extends BaseService {
 					}
 				}
 				super.getMongoTemplate().save(sign);
-				if(sign.getCycle()==7) {
-					userDivisionService.doDivisionTask(uid, DivisionTaskType.SIGN_WEEK, 1);
-				}
-				if(sign.getTotal()<31) {
-					userDivisionService.doDivisionTask(uid, DivisionTaskType.SIGN_30, 1);
-				}
+				
 				return new ReMsg(sendReward(uid, sign.getCycle()));
 			} finally {
 				super.unlock("sign:" + uid);
